@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://sitemaps.org">
+
+  <!-- Halaman Utama (Homepage) -->
+  <url>
+    <loc>https://angkastatistik.my.id</loc>
+    <changefreq>daily</changefreq>
+    <priority>1.00</priority>
+  </url>
+
+  <!-- JALUR PASARAN CAMBODIA -->
+  <url><loc>https://angkastatistik.my.idcambodia.html?hari=senin</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+  <url><loc>https://angkastatistik.my.idcambodia.html?hari=selasa</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+  <url><loc>https://angkastatistik.my.idcambodia.html?hari=rabu</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+  <url><loc>https://angkastatistik.my.idcambodia.html?hari=kamis</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+  <url><loc>https://angkastatistik.my.idcambodia.html?hari=jumat</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+  <url><loc>https://angkastatistik.my.idcambodia.html?hari=sabtu</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+  <url><loc>https://angkastatistik.my.idcambodia.html?hari=minggu</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+
+  <!-- JALUR PASARAN SDY (SYDNEY) -->
+  <url><loc>https://angkastatistik.my.idsdy.html?hari=senin</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+  <url><loc>https://angkastatistik.my.idsdy.html?hari=selasa</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+  <url><loc>https://angkastatistik.my.idsdy.html?hari=rabu</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+  <url><loc>https://angkastatistik.my.idsdy.html?hari=kamis</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+  <url><loc>https://angkastatistik.my.idsdy.html?hari=jumat</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+  <url><loc>https://angkastatistik.my.idsdy.html?hari=sabtu</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+  <url><loc>https://angkastatistik.my.idsdy.html?hari=minggu</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+
+  <!-- JALUR PASARAN SGP (SINGAPORE - Hanya Hari Aktif) -->
+  <url><loc>https://angkastatistik.my.idsgp.html?hari=senin</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+  <url><loc>https://angkastatistik.my.idsgp.html?hari=rabu</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+  <url><loc>https://angkastatistik.my.idsgp.html?hari=kamis</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+  <url><loc>https://angkastatistik.my.idsgp.html?hari=sabtu</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+  <url><loc>https://angkastatistik.my.idsgp.html?hari=minggu</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+
+  <!-- JALUR PASARAN HK (HONGKONG) -->
+  <url><loc>https://angkastatistik.my.idhk.html?hari=senin</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+  <url><loc>https://angkastatistik.my.idhk.html?hari=selasa</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+  <url><loc>https://angkastatistik.my.idhk.html?hari=rabu</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+  <url><loc>https://angkastatistik.my.idhk.html?hari=kamis</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+  <url><loc>https://angkastatistik.my.idhk.html?hari=jumat</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+  <url><loc>https://angkastatistik.my.idhk.html?hari=sabtu</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+  <url><loc>https://angkastatistik.my.idhk.html?hari=minggu</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+
+  <!-- JALUR PASARAN CHINA -->
+  <url><loc>https://angkastatistik.my.idchina.html?hari=senin</loc><changefreq>daily</changefreq><priority>0.70</priority></url>
+  <url><loc>https://angkastatistik.my.idchina.html?hari=selasa</loc><changefreq>daily</changefreq><priority>0.70</priority></url>
+  <url><loc>https://angkastatistik.my.idchina.html?hari=rabu</loc><changefreq>daily</changefreq><priority>0.70</priority></url>
+  <url><loc>https://angkastatistik.my.idchina.html?hari=kamis</loc><changefreq>daily</changefreq><priority>0.70</priority></url>
+  <url><loc>https://angkastatistik.my.idchina.html?hari=jumat</loc><changefreq>daily</changefreq><priority>0.70</priority></url>
+  <url><loc>https://angkastatistik.my.idchina.html?hari=sabtu</loc><changefreq>daily</changefreq><priority>0.70</priority></url>
+  <url><loc>https://angkastatistik.my.idchina.html?hari=minggu</loc><changefreq>daily</changefreq><priority>0.70</priority></url>
+
+  <!-- JALUR PASARAN JAPAN -->
+  <url><loc>https://angkastatistik.my.idjapan.html?hari=senin</loc><changefreq>daily</changefreq><priority>0.70</priority></url>
+  <url><loc>https://angkastatistik.my.idjapan.html?hari=selasa</loc><changefreq>daily</changefreq><priority>0.70</priority></url>
+  <url><loc>https://angkastatistik.my.idjapan.html?hari=rabu</loc><changefreq>daily</changefreq><priority>0.70</priority></url>
+  <url><loc>https://angkastatistik.my.idjapan.html?hari=kamis</loc><changefreq>daily</changefreq><priority>0.70</priority></url>
+  <url><loc>https://angkastatistik.my.idjapan.html?hari=jumat</loc><changefreq>daily</changefreq><priority>0.70</priority></url>
+  <url><loc>https://angkastatistik.my.idjapan.html?hari=sabtu</loc><changefreq>daily</changefreq><priority>0.70</priority></url>
+  <url><loc>https://angkastatistik.my.idjapan.html?hari=minggu</loc><changefreq>daily</changefreq><priority>0.70</priority></url>
+
+  <!-- JALUR PASARAN TAIWAN -->
+  <url><loc>https://angkastatistik.my.idtaiwan.html?hari=senin</loc><changefreq>daily</changefreq><priority>0.70</priority></url>
+  <url><loc>https://angkastatistik.my.idtaiwan.html?hari=selasa</loc><changefreq>daily</changefreq><priority>0.70</priority></url>
+  <url><loc>https://angkastatistik.my.idtaiwan.html?hari=rabu</loc><changefreq>daily</changefreq><priority>0.70</priority></url>
+  <url><loc>https://angkastatistik.my.idtaiwan.html?hari=kamis</loc><changefreq>daily</changefreq><priority>0.70</priority></url>
+  <url><loc>https://angkastatistik.my.idtaiwan.html?hari=jumat</loc><changefreq>daily</changefreq><priority>0.70</priority></url>
+  <url><loc>https://angkastatistik.my.idtaiwan.html?hari=sabtu</loc><changefreq>daily</changefreq><priority>0.70</priority></url>
+  <url><loc>https://angkastatistik.my.idtaiwan.html?hari=minggu</loc><changefreq>daily</changefreq><priority>0.70</priority></url>
+
+  <!-- JALUR PASARAN MACAU -->
+  <url><loc>https://angkastatistik.my.idmacau.html?hari=senin</loc><changefreq>daily</changefreq><priority>0.70</priority></url>
+  <url><loc>https://angkastatistik.my.idmacau.html?hari=selasa</loc><changefreq>daily</changefreq><priority>0.70</priority></url>
+  <url><loc>https://angkastatistik.my.idmacau.html?hari=rabu</loc><changefreq>daily</changefreq><priority>0.70</priority></url>
+  <url><loc>https://angkastatistik.my.idmacau.html?hari=kamis</loc><changefreq>daily</changefreq><priority>0.70</priority></url>
+  <url><loc>https://angkastatistik.my.idmacau.html?hari=jumat</loc><changefreq>daily</changefreq><priority>0.70</priority></url>
+  <url><loc>https://angkastatistik.my.idmacau.html?hari=sabtu</loc><changefreq>daily</changefreq><priority>0.70</priority></url>
+  <url><loc>https://angkastatistik.my.idmacau.html?hari=minggu</loc><changefreq>daily</changefreq><priority>0.70</priority></url>
+
+</urlset>

@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="seo-title">PREDIKSI HK - Angka Statistik Akurat &amp; Bocoran Hongkong Jitu</title>
+    <meta name="description" content="Halaman resmi bocoran prediksi toto HK Hongkong pools harian jitu akurat. Analisis data statistik angka keluar, rumus paito warna, dan live draw terupdate.">
+    <meta name="keywords" content="prediksi hk, angka jitu hk, bocoran hk hari ini, toto hongkong, live draw hk, paito warna hk, data pengeluaran hk">
+    <link id="seo-canonical" rel="canonical" href="https://angkastatistik.my.id">
+    <style>
+        :root {
+            --bg-dark: #0f111a;
+            --bg-card: #1a1d29;
+            --text-main: #f0f2f5;
+            --text-muted: #a0aec0;
+            --accent: #ffb703;
+            --ball-red: #e63946;
+            --ball-white: #ffffff;
+            --accent-glow: rgba(255, 183, 3, 0.4);
+            --red-glow: rgba(230, 57, 70, 0.6);
+            --gradient: linear-gradient(135deg, #1e2235, #121420);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding-bottom: 50px;
+        }
+
+        header {
+            background: var(--gradient);
+            padding: 25px 20px;
+            text-align: center;
+            border-bottom: 2px solid var(--accent);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        header h1 {
+            font-size: 1.6rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        header h1 span { color: var(--accent); }
+
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .result-container {
+            background-color: var(--bg-card);
+            border: 1px solid #2d3142;
+            border-radius: 16px;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            margin-bottom: 30px;
+        }
+
+        .result-title {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .track-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 450px;
+            margin: 0 auto 35px auto;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px dashed #2d3142;
+        }
+
+        .ball-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .ball {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.95rem;
+            font-weight: bold;
+            box-shadow: inset -2px -2px 6px rgba(0,0,0,0.4), 2px 3px 6px rgba(0,0,0,0.3);
+        }
+
+        .ball.red {
+            background: radial-gradient(circle at 30% 30%, #ff6b6b, var(--ball-red));
+            color: #ffffff;
+        }
+
+        .separator {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--accent);
+            margin: 0 8px;
+        }
+
+        .ball.white {
+            background: radial-gradient(circle at 30% 30%, #ffffff, #dcdde1);
+            color: #121420;
+        }
+
+        .strike-through {
+            text-decoration: line-through;
+            text-decoration-thickness: 2px;
+        }
+
+        .tunggal-box {
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px dashed #2d3142;
+        }
+
+        .tunggal-title {
+            font-size: 1rem;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+            color: var(--accent);
+        }
+
+        .ball-glow {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #ff4d6d, #c9184a);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            font-weight: bold;
+            margin: 0 auto 12px auto;
+            box-shadow: 0 0 20px var(--red-glow), inset -4px -4px 10px rgba(0,0,0,0.5);
+            animation: pulseGlow 1.8s infinite alternate;
+        }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 15px var(--red-glow); transform: scale(1); }
+            100% { box-shadow: 0 0 30px #ff4d6d, 0 0 10px var(--red-glow); transform: scale(1.05); }
+        }
+
+        .wish-text {
+            font-size: 1rem;
+            font-style: italic;
+            color: #4ade80;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .social-share-container {
+            display: flex;
+            gap: 12px;
+            margin: 25px auto;
+            max-width: 450px;
+            flex-wrap: wrap;
+        }
+
+        .btn-social {
+            flex: 1;
+            min-width: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            color: #ffffff;
+            transition: all 0.2s ease;
+        }
+
+        .btn-whatsapp {
+            background-color: #25d366;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.2);
+        }
+
+        .btn-whatsapp:hover {
+            transform: none !important;
+        }
+
+        .btn-facebook {
+            background-color: #1877f2;
+            box-shadow: 0 4px 12px rgba(24, 119, 242, 0.2);
+        }
+
+        .btn-facebook:hover {
+            background-color: #166fe5;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(24, 119, 242, 0.4);
+        }
+
+        .btn-social svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
+        .grid-nav-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 35px;
+        }
+
+        .nav-section {
+            background-color: var(--bg-card);
+            border: 1px solid #2d3142;
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .nav-section h3 {
+            font-size: 0.95rem;
+            color: var(--accent);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            border-left: 3px solid var(--accent);
+            padding-left: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .link-flex {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 8px;
+        }
+
+        .btn-nav-link {
+            padding: 8px 10px;
+            background-color: #222638;
+            color: var(--text-main);
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            text-align: center;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+            font-weight: 500;
+        }
+
+        .btn-nav-link:hover {
+            background-color: #2d3142;
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .system-controls {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .btn-control {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            border-radius: 8px;
+            font-weight: bold;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+        }
+
+        .btn-back { background-color: #222638; color: #ffffff; border: 1px solid #3d425a; }
+        .btn-back:hover { background-color: #2d3142; border-color: var(--text-muted); }
+        .btn-top { background-color: var(--accent); color: #000000; border: 1px solid var(--accent); }
+        .btn-top:hover { box-shadow: 0 0 15px var(--accent-glow); transform: translateY(-2px); }
+
+        .seo-footer-text { font-size: 0.85rem; color: var(--text-muted); text-align: justify; margin-top: 20px; line-height: 1.6; }
+        footer { text-align: center; padding: 20px 0; margin-top: 40px; border-top: 1px solid #2d3142; color: var(--text-muted); font-size: 0.85rem; }
+        footer span { color: var(--accent); }
+    </style>
+</head>
+<body id="top-page">
+
+    <header>
+        <h1>PREDIKSI HK <span id="nama-hari-header">HARI INI</span></h1>
+    </header>
+
+    <main class="container">
+
+        <section class="result-container">
+            <div class="result-title">Trek Riwayat Statistik Angka <span id="nama-hari-title"></span></div>
+            
+            <div id="hk-track" class="track-list"></div>
+
+            <div class="tunggal-box">
+                <div class="tunggal-title">ANGKA TUNGGAL HARI INI</div>
+                <div id="angka-tunggal-box" class="ball-glow">-</div>
+                <div class="wish-text">SEMOGA BERUNTUNG</div>
+            </div>
+        </section>
+
+        <div class="social-share-container">
+            <div class="btn-social btn-whatsapp" style="cursor: default;">
+                <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.713-1.457L0 24zm6.59-4.846c1.66.986 3.288 1.48 4.861 1.481 5.405 0 9.803-4.383 9.806-9.768.001-2.61-1.006-5.064-2.836-6.896-1.83-1.83-4.287-2.837-6.897-2.838-5.408 0-9.807 4.384-9.81 9.771-.001 1.64.449 3.235 1.302 4.646L1.898 21.9l4.749-1.246zm12.3-5.597c-.334-.167-1.977-.975-2.28-1.086-.304-.11-.525-.167-.745.167-.221.334-.855 1.086-1.048 1.309-.193.222-.386.25-.72.083-1.573-.787-2.61-1.391-3.655-3.184-.275-.473.275-.44.787-1.465.084-.167.042-.314-.021-.447-.063-.133-.525-1.264-.72-1.73-.19-.457-.4-.395-.548-.403-.142-.007-.304-.009-.467-.009-.163 0-.429.061-.653.304-.224.244-.855.836-.855 2.036 0 1.2 1.472 2.316 1.472 2.316 0 0 1.94 2.96 4.701 4.154.656.284 1.168.453 1.569.58.66.21 1.261.18 1.736.11.529-.078 1.977-.808 2.253-1.59.276-.782.276-1.45.193-1.59-.083-.14-.304-.223-.638-.39z"/></svg>
+                088970383950
+            </div>
+            <a id="fb-share-btn" href="#" target="_blank" rel="noopener noreferrer" class="btn-social btn-facebook">
+                <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                Bagikan Halaman
+            </a>
+        </div>
+
+        <div class="grid-nav-container">
+            <section class="nav-section">
+                <h3>Pilihan Hari HK</h3>
+                <div class="link-flex">
+                    <a href="hk.html?hari=senin" class="btn-nav-link">Senin</a>
+                    <a href="hk.html?hari=selasa" class="btn-nav-link">Selasa</a>
+                    <a href="hk.html?hari=rabu" class="btn-nav-link">Rabu</a>
+                    <a href="hk.html?hari=kamis" class="btn-nav-link">Kamis</a>
+                    <a href="hk.html?hari=jumat" class="btn-nav-link">Jumat</a>
+                    <a href="hk.html?hari=sabtu" class="btn-nav-link">Sabtu</a>
+                    <a href="hk.html?hari=minggu" class="btn-nav-link">Minggu</a>
+                </div>
+            </section>
+
+            <section class="nav-section">
+                <h3>Pasaran Lain Hari Ini</h3>
+                <div class="link-flex">
+                    <a href="macau.html" class="btn-nav-link">Macau</a>
+                    <a href="cambodia.html" class="btn-nav-link">Cambodia</a>
+                    <a href="sdy.html" class="btn-nav-link">SDY</a>
+                    <a href="china.html" class="btn-nav-link">China</a>
+                    <a href="japan.html" class="btn-nav-link">Japan</a>
+                    <a href="sgp.html" class="btn-nav-link">SGP</a>
+                    <a href="taiwan.html" class="btn-nav-link">Taiwan</a>
+                </div>
+            </section>
+        </div>
+
+        <div class="system-controls">
+            <a href="index.html" class="btn-control btn-back">Menu Utama</a>
+            <a href="#top-page" class="btn-control btn-top">Kembali ke Atas ↑</a>
+        </div>
+
+        <!-- Teks Kluster Artikel SEO Otomatis Pasaran HK Hongkong -->
+        <p class="seo-footer-text">
+            Halaman resmi <strong id="seo-strong-tag">PREDIKSI HK</strong> harian menyajikan bocoran angka jitu hk terupdate langsung dari rangkuman data pengeluaran togel hongkong pools harian. Menggunakan sistem rumus statistik jitu, kami meracik live draw angka main hk, colok bebas, colok macau, bbfs, kepala, dan ekor harian secara akurat. Manfaatkan informasi grafik paito warna hk hongkong di situs judi online <em>angkastatistik.my.id</em> sebagai referensi utama Anda untuk menemukan nomor toto hk paling berpeluang tembus hari ini.
+        </p>
+
+        <p class="seo-footer-text" style="font-size: 0.8rem; opacity: 0.6; margin-top: 10px; border-top: 1px dashed #2d3142; padding-top: 10px;">
+            Pencarian terkait: <span id="seo-keywords-list">bocoran hk, angka jitu hk harian, toto hongkong pools, paito warna hk, data pengeluaran hk terbaru.</span>
+        </p>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 <span>ANGKA STATISTIK</span>. All Rights Reserved.</p>
+    </footer>
+
+    <!-- Pemanggilan Berkas Data Eksternal dari Folder data/ -->
+    <script src="data/hk.js"></script>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        let hari = urlParams.get('hari') || 'senin'; 
+        hari = hari.toLowerCase();
+
+        document.getElementById('nama-hari-header').innerText = hari.toUpperCase();
+        document.getElementById('nama-hari-title').innerText = '- Hari ' + hari.charAt(0).toUpperCase() + hari.slice(1);
+        document.getElementById('seo-title').innerText = `PREDIKSI HK ${hari.toUpperCase()}: Bocoran Angka Jitu & Paito Warna Terakurat`;
+        document.getElementById('seo-strong-tag').innerText = `PREDIKSI HK ${hari.toUpperCase()}`;
+        document.getElementById('seo-canonical').href = `https://angkastatistik.my.id{hari}`;
+        document.getElementById('fb-share-btn').href = `https://facebook.com{encodeURIComponent(window.location.href)}`;
+
+        document.getElementById('seo-keywords-list').innerText = `bocoran hk ${hari}, prediksi hongkong pools hari ${hari}, paito warna hk harian, angka jitu hk hongkong terupdate, data toto hongkong keluar hari ${hari}.`;
+
+        const containerTrek = document.getElementById('hk-track');
+        const teksData = DATA_HK[hari] || '';
+        const barisData = teksData.split('\n');
+        
+        barisData.forEach(item => {
+            if (!item.trim() || !item.includes(':')) return;
+            const bagian = item.split(':');
+            const angkaKiri = bagian.trim();
+            const angkaKanan = bagian.trim();
+
+            let barisHTML = `<div class="ball-row">`;
+            for (let ch of angkaKiri) { if (ch !== ' ') barisHTML += `<div class="ball red">${ch}</div>`; }
+            barisHTML += `<div class="separator">:</div>`;
+            
+            let isCoret = false;
+            for (let ch of angkaKanan) {
+                if (ch === '-') { isCoret = true; continue; }
+                if (ch !== ' ') {
+                    const classCoret = isCoret ? 'strike-through' : '';
+                    barisHTML += `<div class="ball white ${classCoret}">${ch}</div>`;
+                }
+            }
+            boxHTML = barisHTML + `</div>`;
+            containerTrek.innerHTML += boxHTML;
+        });
+
+        document.getElementById('angka-tunggal-box').innerText = TUNGGAL_HK[hari] || '-';
+    </script>
+</body>
+</html>
