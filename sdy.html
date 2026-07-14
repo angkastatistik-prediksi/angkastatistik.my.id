@@ -431,6 +431,7 @@
         let hari = urlParams.get('hari') || 'senin'; 
         hari = hari.toLowerCase();
 
+        // Mengatur teks judul harian otomatis
         document.getElementById('nama-hari-header').innerText = hari.toUpperCase();
         document.getElementById('nama-hari-title').innerText = '- Hari ' + hari.charAt(0).toUpperCase() + hari.slice(1);
         document.getElementById('seo-title').innerText = `PREDIKSI SDY ${hari.toUpperCase()}: Bocoran Angka Jitu & Paito Warna Terakurat`;
@@ -442,6 +443,7 @@
         const containerTrek = document.getElementById('sdy-track');
         containerTrek.innerHTML = ''; 
 
+        // SINKRONISASI BARU: Membaca objek format memanjang ke bawah Anda
         const hariObj = DATA_SDY[hari] || { angka: '', tunggal: '-' };
         const teksData = hariObj.angka || '';
         const barisData = teksData.split('\n');
@@ -468,6 +470,7 @@
             containerTrek.innerHTML += barisHTML;
         });
 
+        // SINKRONISASI BARU: Menampilkan angka tunggal dari sdy.js format kecil Anda
         document.getElementById('angka-tunggal-box').innerText = hariObj.tunggal || '-';
 
         // PENGATURAN JAM DIMURNIKAN SANGAT RINGKAS
