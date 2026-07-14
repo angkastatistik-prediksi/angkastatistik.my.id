@@ -7,6 +7,10 @@
     <meta name="description" content="Halaman resmi bocoran prediksi toto SDY Sydney pools harian jitu akurat. Analisis data statistik angka keluar, rumus paito warna, dan live draw terupdate.">
     <meta name="keywords" content="prediksi sdy, angka jitu sdy, bocoran sdy hari ini, toto sydney, live draw sdy, paito warna sdy, data pengeluaran sdy">
     <link id="seo-canonical" rel="canonical" href="https://angkastatistik.my.id">
+    
+    <!-- KODE IKLAN LAMA 1 (POP-UNDER / DIRECT LINK) -->
+    <script src='https://crypotential.com'></script>
+    
     <style>
         :root {
             --bg-dark: #0f111a;
@@ -70,9 +74,18 @@
         .result-title {
             font-size: 1.1rem;
             color: var(--text-muted);
-            margin-bottom: 25px;
+            margin-bottom: 5px;
             text-transform: uppercase;
             letter-spacing: 2px;
+        }
+
+        .update-time-box {
+            font-size: 0.85rem;
+            color: #4ade80;
+            font-weight: 600;
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
         }
 
         .track-list {
@@ -199,9 +212,7 @@
             box-shadow: 0 4px 12px rgba(37, 211, 102, 0.2);
         }
 
-        .btn-whatsapp:hover {
-            transform: none !important;
-        }
+        .btn-whatsapp:hover { transform: none !important; }
 
         .btn-facebook {
             background-color: #1877f2;
@@ -303,13 +314,26 @@
 <body id="top-page">
 
     <header>
-        <h1>PREDIKSI SDY <span id="nama-hari-header">HARI INI</span></h1>
+        <!-- MASTER FOTO SAMPUL & LOGO KELAS TOP -->
+        <div class="sampul-banner" style="position: relative; width: 100%; height: 220px; background-color: #0c0c28; margin-bottom: 20px;">
+            <img src="sampul.jpg" alt="Sampul Angka Statistik" style="width: 100%; height: 100%; object-fit: cover; border-bottom: 1px solid rgba(0, 240, 255, 0.3);">
+            <div class="logo-container" style="position: absolute; bottom: -40px; left: 50%; transform: translateX(-50%); z-index: 10;">
+                <img src="logo.png" alt="Logo Angka Statistik" style="width: 85px; height: 85px; object-fit: cover; border: 3px solid #ffb703; border-radius: 50%; box-shadow: 0 0 15px rgba(255, 183, 3, 0.6); background-color: #1a1d29;">
+            </div>
+        </div>
+        <h1 style="margin-top: 45px;">PREDIKSI SDY <span id="nama-hari-header">HARI INI</span></h1>
     </header>
 
-    <main class="container">
+        <div style="text-align:center; margin:10px auto 25px auto;">
+            <script async="async" data-cfasync="false" src="https://effectivecpmnetwork.com"></script>
+            <div id="container-285abe3dfa3645b0c5001d78494f7ebb"></div>
+        </div>
 
         <section class="result-container">
             <div class="result-title">Trek Riwayat Statistik Angka <span id="nama-hari-title"></span></div>
+            
+            <!-- FITUR LIVE JAM UPDATE DIMURNIKAN -->
+            <div id="live-update-time" class="update-time-box">Memuat Waktu Update...</div>
             
             <div id="sdy-track" class="track-list"></div>
 
@@ -375,39 +399,58 @@
 
     </main>
 
+    <!-- HISTATS DIV WITH COUNTER -->
+    <div id="histats_counter" style="text-align:center; margin-top:15px;"></div>
+
     <footer>
         <p>&copy; 2026 <span>ANGKA STATISTIK</span>. All Rights Reserved.</p>
     </footer>
 
-    <!-- Pemanggilan Berkas Data Eksternal dari Folder data/ -->
-    <script src="data/sdy.js"></script>
+    <!-- KODE IKLAN LAMA 3 (POP-UNDER BAWAH / REDIRECT PL) -->
+    <script src="https://effectivecpmnetwork.com"></script>
+
+    <!-- HISTATS CODE START (ASYNC) -->
+    <script type="text/javascript">var _Hasync= _Hasync|| [];
+    _Hasync.push(['Histats.startgif', '1,5037448,4,10036,"div#histatsC {position: absolute;top:0px;left:0px;}body>div#histatsC {position: fixed;}"']);
+    _Hasync.push(['Histats.fasi', '1']);
+    _Hasync.push(['Histats.track_hits', '']);
+    (function() {
+    var hs = document.createElement('script'); hs.type = 'text/javascript'; hs.async = true;
+    hs.src = ('//://histats.com');
+    (document.getElementsByTagName('head') || document.getElementsByTagName('body')).appendChild(hs);
+    })();</script>
+    <noscript><style type="text/css">div#histatsC {position: absolute;top:0px;left:0px;}body>div#histatsC {position: fixed;}</style>
+    <a href="/" alt="" target="_blank" ><div id="histatsC"><img border="0" src="//://histats.com"></div></a>
+    </noscript>
+    <!-- HISTATS CODE END -->
+
+    <!-- Pemanggilan berkas data eksternal harian sdy -->
+    <script src="sdy.js"></script>
     <script>
-        // Pembacaan Parameter Perintah Hari (?hari=) di URL Browser
         const urlParams = new URLSearchParams(window.location.search);
         let hari = urlParams.get('hari') || 'senin'; 
         hari = hari.toLowerCase();
 
-        // Pengisian Judul, Tag Canonical, dan Facebook Share Secara Dinamis Sesuai Hari
         document.getElementById('nama-hari-header').innerText = hari.toUpperCase();
         document.getElementById('nama-hari-title').innerText = '- Hari ' + hari.charAt(0).toUpperCase() + hari.slice(1);
         document.getElementById('seo-title').innerText = `PREDIKSI SDY ${hari.toUpperCase()}: Bocoran Angka Jitu & Paito Warna Terakurat`;
         document.getElementById('seo-strong-tag').innerText = `PREDIKSI SDY ${hari.toUpperCase()}`;
         document.getElementById('seo-canonical').href = `https://angkastatistik.my.id{hari}`;
         document.getElementById('fb-share-btn').href = `https://facebook.com{encodeURIComponent(window.location.href)}`;
-
-        // Variasi Suntikan Teks Kata Kunci Kluster Shadows untuk Mengelabui Bot Google Search
         document.getElementById('seo-keywords-list').innerText = `bocoran sdy ${hari}, prediksi sydney pools hari ${hari}, paito warna sdy harian, angka jitu sdy sydney terupdate, data toto sydney keluar hari ${hari}.`;
 
-        // Pengolahan Injeksi Teks Polos Menjadi Lingkaran Bola HTML Berwarna
         const containerTrek = document.getElementById('sdy-track');
-        const teksData = DATA_SDY[hari] || '';
+        containerTrek.innerHTML = ''; 
+
+        const hariObj = DATA_SDY[hari] || { angka: '', tunggal: '-' };
+        const teksData = hariObj.angka || '';
         const barisData = teksData.split('\n');
         
         barisData.forEach(item => {
             if (!item.trim() || !item.includes(':')) return;
             const bagian = item.split(':');
-            const angkaKiri = bagian.trim();
-            const angkaKanan = bagian.trim();
+            const angkaKiri = bagian[0].trim();
+            const angkaKanan = bagian[1].trim();
 
             let barisHTML = `<div class="ball-row">`;
             for (let ch of angkaKiri) { if (ch !== ' ') barisHTML += `<div class="ball red">${ch}</div>`; }
@@ -425,8 +468,15 @@
             containerTrek.innerHTML += barisHTML;
         });
 
-        // Memasukkan Data Angka Tunggal Hari Terkait
-        document.getElementById('angka-tunggal-box').innerText = TUNGGAL_SDY[hari] || '-';
+        document.getElementById('angka-tunggal-box').innerText = hariObj.tunggal || '-';
+
+        // PENGATURAN JAM DIMURNIKAN SANGAT RINGKAS
+        const sekarang = new Date();
+        const jam = String(sekarang.getHours()).padStart(2, '0');
+        const menit = String(sekarang.getMinutes()).padStart(2, '0');
+        
+        document.getElementById('live-update-time').innerHTML = `Jam ${jam}:${menit} WIB`;
     </script>
+    <script src="/visitor.js"></script>
 </body>
 </html>
