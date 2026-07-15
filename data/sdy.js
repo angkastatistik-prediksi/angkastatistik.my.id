@@ -90,5 +90,6 @@ tunggal: ""
 //9408 : 7659 759 59
 //4205 : 4390 490 90
 //5694 : 3205 305 30
-//3402 : 1056 156 56//
+//3402 : 1056 156 56
+//2380 : //
 //Rumus JUMLAH 2D TURUN 2 . sama ekor maju langsung sama gpp
