@@ -410,14 +410,17 @@
         document.getElementById('seo-keywords-list').innerText = `bocoran hk ${hari}, prediksi hongkong pools hari ${hari}, paito warna hk harian, angka jitu hk hongkong terupdate, data toto hongkong keluar hari ${hari}.`;
 
         const containerTrek = document.getElementById('hk-track');
-        const teksData = DATA_HK[hari] || '';
+        containerTrek.innerHTML = ''; 
+
+        const hariObj = DATA_HK[hari] || { angka: '', tunggal: '-' };
+        const teksData = hariObj.angka || '';
         const barisData = teksData.split('\n');
         
         barisData.forEach(item => {
             if (!item.trim() || !item.includes(':')) return;
             const bagian = item.split(':');
-            const angkaKiri = bagian.trim();
-            const angkaKanan = bagian.trim();
+            const angkaKiri = bagian[0].trim();
+            const angkaKanan = bagian[1].trim();
 
             let barisHTML = `<div class="ball-row">`;
             for (let ch of angkaKiri) { if (ch !== ' ') barisHTML += `<div class="ball red">${ch}</div>`; }
@@ -431,38 +434,18 @@
                     barisHTML += `<div class="ball white ${classCoret}">${ch}</div>`;
                 }
             }
-            boxHTML = barisHTML + `</div>`;
-            containerTrek.innerHTML += boxHTML;
+            barisHTML += `</div>`;
+            containerTrek.innerHTML += barisHTML;
         });
 
-        document.getElementById('angka-tunggal-box').innerText = TUNGGAL_HK[hari] || '-';
-    </script>
+        document.getElementById('angka-tunggal-box').innerText = hariObj.tunggal || '-';
 
-    <!-- Histats.com  (div with counter) -->
-<div id="histats_counter"></div>
-<!-- Histats.com  START  (aync)-->
-<script type="text/javascript">var _Hasync= _Hasync|| [];
-_Hasync.push(['Histats.startgif', '1,5037448,4,10036,"div#histatsC {position: absolute;top:0px;left:0px;}body>div#histatsC {position: fixed;}"']);
-_Hasync.push(['Histats.fasi', '1']);
-_Hasync.push(['Histats.track_hits', '']);
-(function() {
-var hs = document.createElement('script'); hs.type = 'text/javascript'; hs.async = true;
-hs.src = ('//s10.histats.com/js15_giftop_as.js');
-(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(hs);
-})();</script>
-
-<noscript><style type="text/css">div#histatsC {position: absolute;top:0px;left:0px;}body>div#histatsC {position: fixed;}</style>
-<a href="/" alt="" target="_blank" ><div id="histatsC"><img border="0" src="//s4is.histats.com/stats/i/5037448.gif?5037448&103"></div></a>
-</noscript>
-        <!-- Histats.com  END  -->
-    
         // PENGATURAN JAM DIMURNIKAN SANGAT RINGKAS
         const sekarang = new Date();
         const jam = String(sekarang.getHours()).padStart(2, '0');
         const menit = String(sekarang.getMinutes()).padStart(2, '0');
+        
         document.getElementById('live-update-time').innerHTML = `Jam ${jam}:${menit} WIB`;
-</script>
-    
-    <script src="https://crypotential.com/aau2deh1y8?key=28127d0dedbc5859c5a05ec19fed2ae4"></script>
+    </script>
+<script src="https://crypotential.com/aau2deh1y8?key=28127d0dedbc5859c5a05ec19fed2ae4"></script>
 </body>
-</html>
