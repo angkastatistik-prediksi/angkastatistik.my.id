@@ -51,7 +51,7 @@ minggu: {
 angka: `
 
 `,
-tunggal: "0"
+tunggal: ""
 
 }
 };
