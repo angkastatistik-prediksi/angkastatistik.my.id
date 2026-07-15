@@ -306,7 +306,66 @@
         .seo-footer-text { font-size: 0.85rem; color: var(--text-muted); text-align: justify; margin-top: 20px; line-height: 1.6; }
         footer { text-align: center; padding: 20px 0; margin-top: 40px; border-top: 1px solid #2d3142; color: var(--text-muted); font-size: 0.85rem; }
         footer span { color: var(--accent); }
+    /* ==========================================
+       1. STYLE DASAR TOMBOL NAVIGASI PASARAN & HARI
+       ========================================== */
+    .btn-nav-link {
+        display: inline-block;
+        padding: 8px 14px;
+        background-color: #34495e; /* Warna dasar tombol (abu-abu gelap elegan) */
+        color: #ffffff;            /* Warna teks putih */
+        text-decoration: none;     /* Menghilangkan garis bawah link */
+        border-radius: 4px;        /* Membuat sudut tombol agak melengkung */
+        font-weight: bold;
+        font-size: 14px;
+        border: 1px solid #2c3e50;
+        transition: all 0.2s ease; /* Efek transisi halus saat ditekan/diarahkan kursor */
+        text-align: center;
+    }
+
+    /* Efek ketika kursor diarahkan ke tombol (Hover) */
+    .btn-nav-link:hover {
+        background-color: #415b76;
+        color: #ffffff;
+    }
+
+
+    /* ==========================================
+       2. STYLE KETIKA TOMBOL AKTIF (WARNA KUNING)
+       ========================================== */
+    .btn-nav-link.active {
+        background-color: #ffc107 !important; /* Warna Kuning Khas Paito */
+        color: #000000 !important;            /* Warna teks menjadi hitam agar kontras */
+        border: 1px solid #ff9800 !important; /* Garis tepi orange tipis */
+        box-shadow: 0 0 8px rgba(255, 193, 7, 0.6); /* Efek bercahaya/neon halus */
+        transform: translateY(-1px);          /* Tombol agak sedikit terangkat */
+    }
+
+
+    /* ==========================================
+       3. STYLE UNTUK BOLA ANGKA MINUS (CORET TENGAH)
+       ========================================== */
+    .ball.strike-through {
+        position: relative;
+        text-decoration: line-through; /* Coretan standar pada teks angka */
+        color: #95a5a6 !important;     /* Mengubah warna angka menjadi abu-abu pudar */
+        opacity: 0.65;                 /* Membuat tampilan bola menjadi agak samar */
+        border-color: #bdc3c7 !important; /* Mengubah warna border bola menjadi pudar */
+    }
+
+    /* Opsional: Menambahkan garis coret tambahan yang lebih tebal melintasi bola */
+    .ball.strike-through::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 5%;
+        width: 90%;
+        height: 2px;
+        background-color: #e74c3c; /* Garis coret merah melintang di tengah bola */
+        transform: rotate(-15deg); /* Membuat garis coret agak miring agar terlihat jelas */
+    }
     </style>
+    
 </head>
 <body id="top-page">
 
@@ -353,32 +412,37 @@
         </div>
 
         <div class="grid-nav-container">
-            <section class="nav-section">
-                <h3>Pilihan Hari Macau</h3>
-                <div class="link-flex">
-                    <a href="macau.html?hari=senin" class="btn-nav-link">Senin</a>
-                    <a href="macau.html?hari=selasa" class="btn-nav-link">Selasa</a>
-                    <a href="macau.html?hari=rabu" class="btn-nav-link">Rabu</a>
-                    <a href="macau.html?hari=kamis" class="btn-nav-link">Kamis</a>
-                    <a href="macau.html?hari=jumat" class="btn-nav-link">Jumat</a>
-                    <a href="macau.html?hari=sabtu" class="btn-nav-link">Sabtu</a>
-                    <a href="macau.html?hari=minggu" class="btn-nav-link">Minggu</a>
-                </div>
-            </section>
+    <!-- 1. BAGIAN PILIHAN HARI -->
+    <section class="nav-section">
+        <h3>Pilihan Hari HK</h3>
+        <div class="link-flex">
+            <a href="hk.html?hari=senin" class="btn-nav-link" id="btn-senin">Senin</a>
+            <a href="hk.html?hari=selasa" class="btn-nav-link" id="btn-selasa">Selasa</a>
+            <a href="hk.html?hari=rabu" class="btn-nav-link" id="btn-rabu">Rabu</a>
+            <a href="hk.html?hari=kamis" class="btn-nav-link" id="btn-kamis">Kamis</a>
+            <a href="hk.html?hari=jumat" class="btn-nav-link" id="btn-jumat">Jumat</a>
+            <a href="hk.html?hari=sabtu" class="btn-nav-link" id="btn-sabtu">Sabtu</a>
+            <a href="hk.html?hari=minggu" class="btn-nav-link" id="btn-minggu">Minggu</a>
+        </div> 
+    </section>
 
-            <section class="nav-section">
-                <h3>Pasaran Lain Hari Ini</h3>
-                <div class="link-flex">
-                    <a href="cambodia.html" class="btn-nav-link">Cambodia</a>
-                    <a href="sdy.html" class="btn-nav-link">SDY</a>
-                    <a href="china.html" class="btn-nav-link">China</a>
-                    <a href="japan.html" class="btn-nav-link">Japan</a>
-                    <a href="sgp.html" class="btn-nav-link">SGP</a>
-                    <a href="taiwan.html" class="btn-nav-link">Taiwan</a>
-                    <a href="hk.html" class="btn-nav-link">HK</a>
-                </div>
-            </section>
+    <!-- 2. BAGIAN PASARAN LAIN (SUDAH DIPERBAIKI DENGAN ID) -->
+    <section class="nav-section">
+        <h3>Pasaran Lain Hari Ini</h3>
+        <div class="link-flex">
+            <!-- Tambahkan id="pasaran-nama" di setiap tombol pasaran -->
+            <a href="macau.html" class="btn-nav-link" id="pasaran-macau">Macau</a>
+            <a href="cambodia.html" class="btn-nav-link" id="pasaran-cambodia">Cambodia</a>
+            <a href="sdy.html" class="btn-nav-link" id="pasaran-sdy">SDY</a>
+            <a href="china.html" class="btn-nav-link" id="pasaran-china">China</a>
+            <a href="japan.html" class="btn-nav-link" id="pasaran-japan">Japan</a>
+            <a href="sgp.html" class="btn-nav-link" id="pasaran-sgp">SGP</a>
+            <a href="taiwan.html" class="btn-nav-link" id="pasaran-taiwan">Taiwan</a>
+            <a href="hk.html" class="btn-nav-link" id="pasaran-hk">HK</a> <!-- Tambahan tombol HK jika pengunjung ingin kembali ke HK awal -->
         </div>
+    </section>
+</div>
+
 
         <div class="system-controls">
             <a href="index.html" class="btn-control btn-back">Menu Utama</a>
@@ -415,23 +479,30 @@ hs.src = ('//s10.histats.com/js15_giftop_as.js');
 <a href="/" alt="" target="_blank" ><div id="histatsC"><img border="0" src="//s4is.histats.com/stats/i/5037448.gif?5037448&103"></div></a>
 </noscript>
         <!-- Histats.com  END  -->
+
     <script src="data/macau.js"></script>
-    <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        let hari = urlParams.get('hari') || 'senin'; 
-        hari = hari.toLowerCase();
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    let hari = urlParams.get('hari') || 'senin'; 
+    hari = hari.toLowerCase();
 
-        document.getElementById('nama-hari-header').innerText = hari.toUpperCase();
-        document.getElementById('nama-hari-title').innerText = '- Hari ' + hari.charAt(0).toUpperCase() + hari.slice(1);
-        document.getElementById('seo-title').innerText = `PREDIKSI MACAU ${hari.toUpperCase()}: Bocoran Angka Jitu & Paito Warna Terakurat`;
-        document.getElementById('seo-strong-tag').innerText = `PREDIKSI MACAU ${hari.toUpperCase()}`;
-        document.getElementById('seo-canonical').href = `https://angkastatistik.my.id{hari}`;
-        document.getElementById('fb-share-btn').href = `https://facebook.com{encodeURIComponent(window.location.href)}`;
-        document.getElementById('seo-keywords-list').innerText = `bocoran macau ${hari}, prediksi macau pools hari ${hari}, paito warna macau harian, angka jitu macau terupdate, data toto macau keluar hari ${hari}.`;
+    // Validasi elemen dasar agar aman dari error null-pointer
+    if(document.getElementById('nama-hari-header')) document.getElementById('nama-hari-header').innerText = hari.toUpperCase();
+    if(document.getElementById('nama-hari-title')) document.getElementById('nama-hari-title').innerText = '- Hari ' + hari.charAt(0).toUpperCase() + hari.slice(1);
+    if(document.getElementById('seo-title')) document.getElementById('seo-title').innerText = `PREDIKSI MACAU ${hari.toUpperCase()}: Bocoran Angka Jitu & Paito Warna Terakurat`;
+    if(document.getElementById('seo-strong-tag')) document.getElementById('seo-strong-tag').innerText = `PREDIKSI MACAU ${hari.toUpperCase()}`;
+    
+    // PERBAIKAN: Menambahkan simbol $ pada template literal URL
+    if(document.getElementById('seo-canonical')) document.getElementById('seo-canonical').href = `https://angkastatistik.my.id{hari}`;
+    if(document.getElementById('fb-share-btn')) document.getElementById('fb-share-btn').href = `https://facebook.com{encodeURIComponent(window.location.href)}`;
+    
+    if(document.getElementById('seo-keywords-list')) document.getElementById('seo-keywords-list').innerText = `bocoran macau ${hari}, prediksi macau pools hari ${hari}, paito warna macau harian, angka jitu macau terupdate, data toto macau keluar hari ${hari}.`;
 
-        const containerTrek = document.getElementById('macau-track');
+    const containerTrek = document.getElementById('macau-track');
+    if (containerTrek) {
         containerTrek.innerHTML = ''; 
 
+        // Mengambil data dari objek DATA_MACAU di dalam macau.js
         const hariObj = DATA_MACAU[hari] || { angka: '', tunggal: '-' };
         const teksData = hariObj.angka || '';
         const barisData = teksData.split('\n');
@@ -443,7 +514,9 @@ hs.src = ('//s10.histats.com/js15_giftop_as.js');
             const angkaKanan = bagian[1].trim();
 
             let barisHTML = `<div class="ball-row">`;
-            for (let ch of angkaKiri) { if (ch !== ' ') barisHTML += `<div class="ball red">${ch}</div>`; }
+            for (let ch of angkaKiri) { 
+                if (ch !== ' ') barisHTML += `<div class="ball red">${ch}</div>`; 
+            }
             barisHTML += `<div class="separator">:</div>`;
             
             let isCoret = false;
@@ -458,14 +531,36 @@ hs.src = ('//s10.histats.com/js15_giftop_as.js');
             containerTrek.innerHTML += barisHTML;
         });
 
-        document.getElementById('angka-tunggal-box').innerText = hariObj.tunggal || '-';
+        if(document.getElementById('angka-tunggal-box')) {
+            document.getElementById('angka-tunggal-box').innerText = hariObj.tunggal || '-';
+        }
+    }
 
-        const sekarang = new Date();
-        const jam = String(sekarang.getHours()).padStart(2, '0');
-        const menit = String(sekarang.getMinutes()).padStart(2, '0');
-        
-        document.getElementById('live-update-time').innerHTML = `Jam ${jam}:${menit} WIB`;
-    </script>
+    // PENGATURAN JAM LIVE UPDATE
+    const sekarang = new Date();
+    const jam = String(sekarang.getHours()).padStart(2, '0');
+    const menit = String(sekarang.getMinutes()).padStart(2, '0');
+    if(document.getElementById('live-update-time')) {
+        document.getElementById('live-update-time').innerHTML = `Jam ${jam}:${menit} WIB`; 
+    }
+
+    // PERBAIKAN: MENYALAKAN TOMBOL HARI YANG AKTIF
+    const tombolHariIni = document.getElementById(`btn-${hari}`);
+    if (tombolHariIni) {
+        tombolHariIni.classList.add('active');
+    }
+
+    // PERBAIKAN: MENYALAKAN TOMBOL PASARAN MACAU YANG AKTIF
+    const pathHalaman = window.location.pathname;
+    const namaFile = pathHalaman.substring(pathHalaman.lastIndexOf('/') + 1).replace('.html', '').toLowerCase();
+    const pasaranAktif = namaFile || 'macau'; 
+    
+    const tombolPasaran = document.getElementById(`pasaran-${pasaranAktif}`);
+    if (tombolPasaran) {
+        tombolPasaran.classList.add('active');
+    }
+</script>
+
     <script src="https://crypotential.com/aau2deh1y8?key=28127d0dedbc5859c5a05ec19fed2ae4"></script>
 </body>
 </html>
