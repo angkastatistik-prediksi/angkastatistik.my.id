@@ -65,23 +65,8 @@
         0 0 40px rgba(255,183,3,.25);
 
     background: #000;
-}
-
-@media (max-width:768px){
-    .logo-img{
-        width:85px;
-        height:85px;
-    }
-
-    .logo-container{
-        bottom:-42px;
-    }
-
-    header{
-        padding-bottom:65px;
-    }
         }
-
+        
         .logo-container::before{
     content:'';
     position:absolute;
@@ -235,10 +220,80 @@
             font-size: 0.85rem;
         }
         footer span { color: var(--accent); }
+
+        header {
+    position: sticky;
+    top: 0;
+    z-index: 9999;
+
+    background: var(--gradient);
+
+    padding: 20px;
+    text-align: center;
+
+    border-bottom: 2px solid var(--accent);
+}
+
+.logo-container {
+    position: fixed;
+    top: 10px;
+    left: 15px;
+    z-index: 10000;
+}
+
+.logo-img {
+    width: 90px;
+    height: 90px;
+
+    border-radius: 50%;
+    object-fit: cover;
+
+    border: 3px solid #ffb703;
+
+    box-shadow:
+        0 0 10px rgba(255,183,3,.6),
+        0 0 25px rgba(255,183,3,.4);
+
+    transition: all .3s ease;
+}
+
+.logo-img.shrink {
+    width: 60px;
+    height: 60px;
+}
+
+.logo-container::before {
+    content: '';
+    position: absolute;
+    inset: -6px;
+
+    border-radius: 50%;
+    border: 2px solid lime;
+
+    animation: pulseRing 2s infinite;
+}
+
+@keyframes pulseRing {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.08);
+        opacity: .7;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
     </style>
 </head>
 <body>
 
+<header>
 <header>
     <div class="logo-container">
         <img src="logo.png"
@@ -384,6 +439,19 @@
     <footer>
         <p>&copy; 2026 <span>ANGKA STATISTIK</span>. All Rights Reserved.</p>
     </footer>
+<script>
+window.addEventListener('scroll', function () {
+    const logo = document.querySelector('.logo-img');
 
+    if (window.scrollY > 100) {
+        logo.classList.add('shrink');
+    } else {
+        logo.classList.remove('shrink');
+    }
+});
+</script>
+
+</body>
+</html>
 </body>
 </html>
