@@ -9,43 +9,54 @@
     <link rel="canonical" href="https://angkastatistik.my.id">
     <style>
         :root {
-            --bg-dark: #0f111a;
-            --bg-card: #1a1d29;
-            --text-main: #f0f2f5;
-            --text-muted: #a0aec0;
-            --accent: #ffb703; 
-            --accent-glow: rgba(255, 183, 3, 0.3);
-            --gradient: linear-gradient(135deg, #1e2235, #121420);
-        }
+    --bg-dark: #0f111a;
+    --bg-card: #1a1d29;
+    --text-main: #f0f2f5;
+    --text-muted: #a0aec0;
+    --accent: #ffb703; 
+    --accent-glow: rgba(255, 183, 3, 0.3);
+    --gradient: linear-gradient(135deg, #1e2235, #121420);
+}
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
-        body {
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            line-height: 1.6;
-            padding-bottom: 40px;
-        }
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    line-height: 1.6;
+    padding-bottom: 40px;
+}
 
-        header {
-    position: relative;
+header {
+    position: relative; /* Menjadi acuan posisi logo di tengah */
     background: var(--gradient);
-    padding: 30px 20px 80px; /* ruang untuk logo */
+    padding: 30px 20px 80px; /* Ruang bawah untuk logo */
     text-align: center;
     border-bottom: 2px solid var(--accent);
     box-shadow: 0 4px 20px rgba(0,0,0,.5);
 }
 
+header h1 {
+    font-size: 1.8rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+header h1 span {
+    color: var(--accent);
+    text-shadow: 0 0 10px var(--accent-glow);
+}
+
 .logo-container {
     position: absolute;
     left: 50%;
-    bottom: -55px;
-    transform: translateX(-50%);
+    bottom: -55px; /* Menurunkan logo memotong garis border header */
+    transform: translateX(-50%); /* Memastikan logo pas di tengah */
     z-index: 100;
 }
 
@@ -54,222 +65,20 @@
     height: 110px;
     border-radius: 50%;
     object-fit: cover;
-
-    /* Ring emas */
-    border: 4px solid #ffb703;
-
-    /* Glow */
+    border: 4px solid #ffb703; /* Ring emas */
+    background: #000;
     box-shadow:
         0 0 10px rgba(255,183,3,.6),
         0 0 20px rgba(255,183,3,.4),
-        0 0 40px rgba(255,183,3,.25);
-
-    background: #000;
-        }
-        
-        .logo-container::before{
-    content:'';
-    position:absolute;
-    inset:-8px;
-    border-radius:50%;
-    border:3px solid #d9ff00;
-    animation: pulseRing 2s infinite;
-}
-
-@keyframes pulseRing{
-    0%{
-        transform:scale(1);
-        opacity:1;
-        box-shadow:0 0 10px #d9ff00;
-    }
-
-    50%{
-        transform:scale(1.08);
-        opacity:.7;
-        box-shadow:
-            0 0 20px #d9ff00,
-            0 0 40px #d9ff00;
-    }
-
-    100%{
-        transform:scale(1);
-        opacity:1;
-        box-shadow:0 0 10px #d9ff00;
-    }
-}
-
-        header h1 {
-            font-size: 1.8rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        header h1 span {
-            color: var(--accent);
-            text-shadow: 0 0 10px var(--accent-glow);
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 30px auto;
-            padding: 0 20px;
-        }
-
-        .section-title {
-            font-size: 1.4rem;
-            margin-bottom: 25px;
-            text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--accent);
-        }
-
-        .list-pasaran {
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-            margin-bottom: 40px;
-        }
-
-        .group-pasaran {
-            background-color: var(--bg-card);
-            border: 1px solid #2d3142;
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        }
-
-        .group-title {
-            font-size: 1.2rem;
-            color: #ffffff;
-            border-bottom: 2px solid #2d3142;
-            padding-bottom: 8px;
-            margin-bottom: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .group-title span {
-            font-size: 0.75rem;
-            background-color: var(--accent);
-            color: #000;
-            padding: 3px 8px;
-            border-radius: 20px;
-            font-weight: bold;
-        }
-
-        .grid-hari {
-            display: grid;
-            gap: 10px;
-        }
-
-        @media (min-width: 480px) { .grid-hari { grid-template-columns: repeat(7, 1fr); } }
-        @media (max-width: 479px) { .grid-hari { grid-template-columns: repeat(4, 1fr); } }
-
-        .btn-hari {
-            display: block;
-            text-align: center;
-            background-color: #222638;
-            color: var(--text-main);
-            text-decoration: none;
-            padding: 10px 5px;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            border: 1px solid transparent;
-            transition: all 0.2s ease;
-        }
-
-        .btn-hari:hover {
-            background-color: var(--accent);
-            color: #000;
-            border-color: var(--accent);
-            transform: translateY(-2px);
-        }
-
-        .btn-libur {
-            display: block;
-            text-align: center;
-            background-color: #2a1b1b;
-            color: #ef4444;
-            padding: 10px 5px;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            border: 1px solid #442323;
-            cursor: not-allowed;
-        }
-
-        .seo-article {
-            background-color: var(--bg-card);
-            border-radius: 12px;
-            padding: 30px;
-            border: 1px solid #2d3142;
-            margin-top: 40px;
-        }
-
-        .seo-article h2 { color: var(--accent); margin-bottom: 15px; font-size: 1.5rem; }
-        .seo-article p { color: var(--text-muted); margin-bottom: 15px; text-align: justify; font-size: 0.95rem; }
-
-        footer {
-            text-align: center;
-            padding: 20px;
-            margin-top: 40px;
-            border-top: 1px solid #2d3142;
-            color: var(--text-muted);
-            font-size: 0.85rem;
-        }
-        footer span { color: var(--accent); }
-
-        header {
-    position: sticky;
-    top: 0;
-    z-index: 9999;
-
-    background: var(--gradient);
-
-    padding: 20px;
-    text-align: center;
-
-    border-bottom: 2px solid var(--accent);
-}
-
-.logo-container {
-    position: fixed;
-    top: 10px;
-    left: 15px;
-    z-index: 10000;
-}
-
-.logo-img {
-    width: 90px;
-    height: 90px;
-
-    border-radius: 50%;
-    object-fit: cover;
-
-    border: 3px solid #ffb703;
-
-    box-shadow:
-        0 0 10px rgba(255,183,3,.6),
-        0 0 25px rgba(255,183,3,.4);
-
-    transition: all .3s ease;
-}
-
-.logo-img.shrink {
-    width: 60px;
-    height: 60px;
+        0 0 40px rgba(255,183,3,.25); /* Glow emas */
 }
 
 .logo-container::before {
     content: '';
     position: absolute;
-    inset: -6px;
-
+    inset: -8px;
     border-radius: 50%;
-    border: 2px solid lime;
-
+    border: 3px solid #d9ff00;
     animation: pulseRing 2s infinite;
 }
 
@@ -277,23 +86,155 @@
     0% {
         transform: scale(1);
         opacity: 1;
+        box-shadow: 0 0 10px #d9ff00;
     }
-
     50% {
         transform: scale(1.08);
         opacity: .7;
+        box-shadow:
+            0 0 20px #d9ff00,
+            0 0 40px #d9ff00;
     }
-
     100% {
         transform: scale(1);
         opacity: 1;
+        box-shadow: 0 0 10px #d9ff00;
     }
 }
+
+.container {
+    max-width: 800px;
+    margin: 60px auto 30px; /* Margin atas ditambah agar konten tidak tertutup logo */
+    padding: 0 20px;
+}
+
+.section-title {
+    font-size: 1.4rem;
+    margin-bottom: 25px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--accent);
+}
+
+.list-pasaran {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.group-pasaran {
+    background-color: var(--bg-card);
+    border: 1px solid #2d3142;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.group-title {
+    font-size: 1.2rem;
+    color: #ffffff;
+    border-bottom: 2px solid #2d3142;
+    padding-bottom: 8px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.group-title span {
+    font-size: 0.75rem;
+    background-color: var(--accent);
+    color: #000;
+    padding: 3px 8px;
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+.grid-hari {
+    display: grid;
+    gap: 10px;
+}
+
+@media (min-width: 480px) { 
+    .grid-hari { grid-template-columns: repeat(7, 1fr); } 
+}
+@media (max-width: 479px) { 
+    .grid-hari { grid-template-columns: repeat(4, 1fr); } 
+}
+
+.btn-hari {
+    display: block;
+    text-align: center;
+    background-color: #222638;
+    color: var(--text-main);
+    text-decoration: none;
+    padding: 10px 5px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.btn-hari:hover {
+    background-color: var(--accent);
+    color: #000;
+    border-color: var(--accent);
+    transform: translateY(-2px);
+}
+
+.btn-libur {
+    display: block;
+    text-align: center;
+    background-color: #2a1b1b;
+    color: #ef4444;
+    padding: 10px 5px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    border: 1px solid #442323;
+    cursor: not-allowed;
+}
+
+.seo-article {
+    background-color: var(--bg-card);
+    border-radius: 12px;
+    padding: 30px;
+    border: 1px solid #2d3142;
+    margin-top: 40px;
+}
+
+.seo-article h2 { 
+    color: var(--accent); 
+    margin-bottom: 15px; 
+    font-size: 1.5rem; 
+}
+
+.seo-article p { 
+    color: var(--text-muted); 
+    margin-bottom: 15px; 
+    text-align: justify; 
+    font-size: 0.95rem; 
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+    border-top: 1px solid #2d3142;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+footer span { 
+    color: var(--accent); 
+}
+
     </style>
 </head>
 <body>
 
-<header>
 <header>
     <div class="logo-container">
         <img src="logo.png"
