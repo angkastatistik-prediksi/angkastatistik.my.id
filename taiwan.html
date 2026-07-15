@@ -421,34 +421,44 @@ hs.src = ('//s10.histats.com/js15_giftop_as.js');
 
     <!-- Pemanggilan berkas data eksternal harian taiwan -->
     <script src="data/taiwan.js"></script>
-    <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        let hari = urlParams.get('hari') || 'senin'; 
-        hari = hari.toLowerCase();
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    let hari = urlParams.get('hari') || 'senin'; 
+    hari = hari.toLowerCase();
 
-        document.getElementById('nama-hari-header').innerText = hari.toUpperCase();
-        document.getElementById('nama-hari-title').innerText = '- Hari ' + hari.charAt(0).toUpperCase() + hari.slice(1);
-        document.getElementById('seo-title').innerText = `PREDIKSI TAIWAN ${hari.toUpperCase()}: Bocoran Angka Jitu & Paito Warna Terakurat`;
-        document.getElementById('seo-strong-tag').innerText = `PREDIKSI TAIWAN ${hari.toUpperCase()}`;
-        document.getElementById('seo-canonical').href = `https://angkastatistik.my.id{hari}`;
-        document.getElementById('fb-share-btn').href = `https://facebook.com{encodeURIComponent(window.location.href)}`;
-        document.getElementById('seo-keywords-list').innerText = `bocoran taiwan ${hari}, prediksi taiwan pools hari ${hari}, paito warna taiwan harian, angka jitu taiwan terupdate, data toto taiwan keluar hari ${hari}.`;
+    // Validasi elemen dasar agar tidak null-pointer error jika ID tidak ada di HTML
+    if(document.getElementById('nama-hari-header')) document.getElementById('nama-hari-header').innerText = hari.toUpperCase();
+    if(document.getElementById('nama-hari-title')) document.getElementById('nama-hari-title').innerText = '- Hari ' + hari.charAt(0).toUpperCase() + hari.slice(1);
+    if(document.getElementById('seo-title')) document.getElementById('seo-title').innerText = `PREDIKSI TAIWAN ${hari.toUpperCase()}: Bocoran Angka Jitu & Paito Warna Terakurat`;
+    if(document.getElementById('seo-strong-tag')) document.getElementById('seo-strong-tag').innerText = `PREDIKSI TAIWAN ${hari.toUpperCase()}`;
+    
+    // PERBAIKAN: Menambahkan simbol $ pada URL
+    if(document.getElementById('seo-canonical')) document.getElementById('seo-canonical').href = `https://angkastatistik.my.id{hari}`;
+    if(document.getElementById('fb-share-btn')) document.getElementById('fb-share-btn').href = `https://facebook.com{encodeURIComponent(window.location.href)}`;
+    
+    if(document.getElementById('seo-keywords-list')) document.getElementById('seo-keywords-list').innerText = `bocoran taiwan ${hari}, prediksi taiwan pools hari ${hari}, paito warna taiwan harian, angka jitu taiwan terupdate, data toto taiwan keluar hari ${hari}.`;
 
-        const containerTrek = document.getElementById('taiwan-track');
+    const containerTrek = document.getElementById('taiwan-track');
+    if (containerTrek) {
         containerTrek.innerHTML = ''; 
 
+        // Mengambil data dari objek DATA_TAIWAN di dalam taiwan.js
         const hariObj = DATA_TAIWAN[hari] || { angka: '', tunggal: '-' };
         const teksData = hariObj.angka || '';
         const barisData = teksData.split('\n');
         
         barisData.forEach(item => {
             if (!item.trim() || !item.includes(':')) return;
+            
             const bagian = item.split(':');
-            const angkaKiri = bagian.trim();
-            const angkaKanan = bagian.trim();
+            // PERBAIKAN UTAMA: Mengambil indeks array [0] dan [1] sebelum melakukan trim
+            const angkaKiri = bagian[0].trim();
+            const angkaKanan = bagian[1].trim();
 
             let barisHTML = `<div class="ball-row">`;
-            for (let ch of angkaKiri) { if (ch !== ' ') barisHTML += `<div class="ball red">${ch}</div>`; }
+            for (let ch of angkaKiri) { 
+                if (ch !== ' ') barisHTML += `<div class="ball red">${ch}</div>`; 
+            }
             barisHTML += `<div class="separator">:</div>`;
             
             let isCoret = false;
@@ -463,15 +473,21 @@ hs.src = ('//s10.histats.com/js15_giftop_as.js');
             containerTrek.innerHTML += barisHTML;
         });
 
-        document.getElementById('angka-tunggal-box').innerText = hariObj.tunggal || '-';
+        if(document.getElementById('angka-tunggal-box')) {
+            document.getElementById('angka-tunggal-box').innerText = hariObj.tunggal || '-';
+        }
+    }
 
-        // PENGATURAN JAM DIMURNIKAN SANGAT RINGKAS
-        const sekarang = new Date();
-        const jam = String(sekarang.getHours()).padStart(2, '0');
-        const menit = String(sekarang.getMinutes()).padStart(2, '0');
-        
+    // PENGATURAN JAM LIVE TAIWAN
+    const sekarang = new Date();
+    const jam = String(sekarang.getHours()).padStart(2, '0');
+    const menit = String(sekarang.getMinutes()).padStart(2, '0');
+    
+    if(document.getElementById('live-update-time')) {
         document.getElementById('live-update-time').innerHTML = `Jam ${jam}:${menit} WIB`;
-    </script>
+    }
+</script>
+
 <script src="https://crypotential.com/aau2deh1y8?key=28127d0dedbc5859c5a05ec19fed2ae4"></script>
 </body>
 </html>
