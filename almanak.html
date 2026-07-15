@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ANGKA STATISTIK - Almanak Harian</title>
+<style>
+*{box-sizing:border-box}
+body{
+margin:0;
+font-family:Segoe UI,sans-serif;
+background:#020617;
+padding:15px;
+color:#fff;
+}
+.poster{
+max-width:500px;
+margin:auto;
+background:linear-gradient(180deg,#071226,#0f172a);
+border:2px solid #38bdf8;
+border-radius:25px;
+overflow:hidden;
+box-shadow:0 0 20px #38bdf8,0 0 50px rgba(56,189,248,.4);
+}
+.header{
+background:linear-gradient(135deg,#00c6ff,#0072ff);
+padding:10px 12px;
+text-align:center;
+color:#fff;
+}
+.header h1{
+margin:0;
+font-size:28px;
+line-height:1.1;
+text-shadow:0 0 15px #fff;
+}
+.month{
+background:#0f172a;
+color:#7dd3fc;
+padding:12px;
+text-align:center;
+font-weight:bold;
+border-top:1px solid #38bdf8;
+border-bottom:1px solid #38bdf8;
+}
+.hero{text-align:center;padding:15px}
+.bigDate{
+font-size:90px;
+font-weight:900;
+color:#38bdf8;
+text-shadow:0 0 15px #38bdf8,0 0 35px #38bdf8;
+}
+.day{font-size:24px;font-weight:700;color:#fff}
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+padding:12px;
+}
+.card{
+background:rgba(255,255,255,.05);
+border:1px solid #38bdf8;
+border-radius:14px;
+padding:10px;
+box-shadow:0 0 10px rgba(56,189,248,.4);
+}
+.full{grid-column:1/3}
+.title{
+text-align:center;
+font-size:11px;
+font-weight:900;
+color:#ffd54a;
+text-transform:uppercase;
+}
+.value{margin-top:5px;font-weight:600;text-align:center}
+.btn{
+display:block;
+width:90%;
+margin:15px auto 20px;
+padding:12px;
+border:none;
+border-radius:12px;
+background:linear-gradient(135deg,#00c6ff,#0072ff);
+color:#fff;
+font-weight:bold;
+font-size:16px;
+cursor:pointer;
+}
+.copyright{
+text-align:center;
+padding:12px;
+color:#7dd3fc;
+font-weight:bold;
+}
+</style>
+</head>
+<body>
+<div id="capture" class="poster">
+<div class="header">
+<h1>𝐂𝐀𝐇𝐀𝐘𝐀 𝐇𝐀𝐑𝐈 𝐈𝐍𝐈</h1>
+</div>
+
+<div class="month" id="bulan"></div>
+
+<div class="hero">
+<div class="bigDate" id="tanggal"></div>
+<div class="day" id="hari"></div>
+</div>
+
+<div class="grid">
+<div class="card full"><div class="title">Sugesti Fositif • Panduan Harian • Keberuntungan</div><div class="value" id="tanggalLengkap"></div></div>
+<div class="card"><div class="title">Sugesti Bangun Tidur</div><div class="value" id="skor"></div></div>
+<div class="card"><div class="title">Sugesti Jelang Tidur</div><div class="value" id="energi"></div></div>
+<div class="card"><div class="title">Warna Hoki</div><div class="value" id="warna"></div></div>
+<div class="card"><div class="title">Arah Baik</div><div class="value" id="arahBaik"></div></div>
+<div class="card full"><div class="title">Fokus Hari Ini</div><div class="value" id="fokus"></div></div>
+<div class="card full"><div class="title">Inspirasi</div><div class="value" id="quote"></div></div>
+</div>
+<center>
+<a href="index.html" class="btn btn-secondary w-100">
+KEMBALI MENU UTAMA
+</a></center>
+<div class="copyright">© ANGKA STATISTIK</div>
+</div>
+
+<button class="btn" onclick="downloadGambar()">📥 Download Gambar</button>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+const now=new Date();
+const bulan=["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
+const hari=["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
+
+document.getElementById("bulan").innerText=bulan[now.getMonth()]+" "+now.getFullYear();
+document.getElementById("tanggal").innerText=now.getDate();
+document.getElementById("hari").innerText=hari[now.getDay()];
+
+const arah=["Utara","Timur Laut","Timur","Tenggara","Selatan","Barat Daya","Barat","Barat Laut"];
+
+const doa=[
+"", "Ya Tuhan, mudahkan segala urusan hari ini.","Berikan rezeki yang halal dan berkah.","Lindungi kami dari segala keburukan.",
+"Jadikan hari ini penuh manfaat.","Bimbing langkah menuju keberhasilan.","Lancarkan usaha dan pekerjaan kami.",
+"Berikan kesehatan dan ketenangan.","Tambahkan rasa syukur dalam hati.","Bukakan pintu rezeki dari arah tak terduga.",
+"Jauhkan dari kesalahan dan kerugian.","Berikan keberanian mengambil keputusan."
+];
+
+const warna=["Biru Neon","Emas","Hijau Zamrud","Ungu","Putih","Turkis"];
+const sugestiTidur=[
+"Saya tidur dengan damai dan bangun dengan keberuntungan baru.",
+"Setiap tarikan napas membawa ketenangan dan kenyamanan.",
+"Saya melepaskan semua beban hari ini dan beristirahat sempurna.",
+"Alam bawah sadar saya menarik keberuntungan dan peluang baik.",
+"Saya layak mendapatkan hidup yang bahagia dan berlimpah.",
+"Saat tidur, tubuh dan pikiran saya pulih sepenuhnya.",
+"Besok adalah hari yang lebih baik, lebih mudah dan lebih beruntung."
+];
+const fokus=["Keuangan","Bisnis","Karier","Keluarga","Kesehatan","Relasi","Investasi"];
+const quote=[
+"Kesuksesan besar dimulai dari langkah kecil.",
+"Tetap konsisten walau hasil belum terlihat.",
+"Kesempatan terbaik datang pada yang siap.",
+"Jangan berhenti sebelum tujuan tercapai."
+];
+
+const tgl=now.getDate();
+const angkaArah=((tgl*7)+(now.getMonth()+1)+now.getFullYear())%8;
+document.getElementById("arahBaik").innerText=arah[angkaArah];
+const bangunTidur=[
+"Saya bangun dengan tenang, pikiran jernih dan penuh semangat.",
+"Hari ini membawa ketenangan, kemudahan dan keberuntungan.",
+"Saya siap menerima hal-hal baik yang datang kepada saya.",
+"Saya merasa lega, nyaman dan percaya diri menjalani hari.",
+"Rezeki, kesehatan dan kebahagiaan mengalir kepada saya.",
+"Saya menarik energi positif dan peluang yang baik.",
+"Saya bersyukur atas kehidupan yang semakin baik setiap hari."
+];
+document.getElementById("skor").innerText=bangunTidur[tgl%bangunTidur.length];
+const warnaHari=warna[tgl%warna.length];
+const warnaEl=document.getElementById("warna");
+warnaEl.innerText=warnaHari;
+const warnaMap={
+"Biru Neon":"#38bdf8",
+"Emas":"#ffd700",
+"Hijau Zamrud":"#10b981",
+"Ungu":"#c084fc",
+"Putih":"#ffffff",
+"Turkis":"#2dd4bf"
+};
+warnaEl.style.color=warnaMap[warnaHari]||"#ffffff";
+warnaEl.style.fontWeight="900";
+document.getElementById("energi").innerText=sugestiTidur[tgl%sugestiTidur.length];
+document.getElementById("fokus").innerText=fokus[tgl%fokus.length];
+document.getElementById("quote").innerText=quote[tgl%quote.length];
+
+function downloadGambar(){
+html2canvas(document.getElementById("capture")).then(canvas=>{
+const a=document.createElement("a");
+a.download="Angka-Statistik-Almanak.png";
+a.href=canvas.toDataURL();
+a.click();
+});
+}
+</script>
+</body>
+</html>
