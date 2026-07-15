@@ -315,10 +315,8 @@
     <main class="container">
 
         <section class="result-container">
-            <div class="result-title">Trek Riwayat Statistik Angka <span id="nama-hari-title"></span>
-                        <!-- FITUR LIVE JAM UPDATE DIMURNIKAN -->
+            <div class="result-title">Trek Riwayat Statistik Angka <span id="nama-hari-title"></span></div>
             <div id="live-update-time" class="update-time-box">Memuat Waktu Update...</div>
-            </div>
             
             <div id="hk-track" class="track-list"></div>
 
@@ -462,7 +460,6 @@ hs.src = ('//s10.histats.com/js15_giftop_as.js');
         const sekarang = new Date();
         const jam = String(sekarang.getHours()).padStart(2, '0');
         const menit = String(sekarang.getMinutes()).padStart(2, '0');
-        
         document.getElementById('live-update-time').innerHTML = `Jam ${jam}:${menit} WIB`;
 </script>
     
