@@ -41,12 +41,18 @@
         }
 
         .logo-container { margin-bottom: 10px; }
-        .logo-img {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            border: 2px solid var(--accent);
-            box-shadow: 0 0 15px var(--accent-glow);
+.logo-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+@media (max-width: 768px) {
+    .logo-img {
+        width: 70px;
+        height: 70px;
+              }
         }
 
         header h1 {
@@ -175,13 +181,13 @@
 </head>
 <body>
 
-    <header>
-        <div class="logo-container">
-            <img src="https://placeholder.com" alt="Logo Angka Statistik" class="logo-img">
-        </div>
-        <h1>PREDIKSI <span>ANGKA STATISTIK</span></h1>
-    </header>
+    <header class="header">
+    <div class="logo-container">
+        <img src="https://placeholder.com" alt="Logo Angka Statistik" class="logo-img">
+    </div>
 
+    <h1>PREDIKSI <span>ANGKA STATISTIK</span></h1>
+    </header>
     <main class="container">
         <h2 class="section-title">Jadwal &amp; Link Prediksi Harian</h2>
         
