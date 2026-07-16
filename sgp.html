@@ -433,11 +433,10 @@
         </div>
 
         <div class="grid-nav-container">
-    <!-- 1. BAGIAN PILIHAN HARI SGP (SUDAH DITAMBAH ID) -->
+    <!-- 1. PILIHAN HARI SGP -->
     <section class="nav-section">
         <h3>Pilihan Hari SGP</h3>
         <div class="link-flex">
-            <!-- Menambahkan id="btn-namahari" pada setiap tombol -->
             <a href="sgp.html?hari=senin" class="btn-nav-link" id="btn-senin">Senin</a>
             <a href="sgp.html?hari=selasa" class="btn-nav-link" id="btn-selasa" style="opacity: 0.5; background: #2a1b1b; color: #ef4444;">Selasa (Libur)</a>
             <a href="sgp.html?hari=rabu" class="btn-nav-link" id="btn-rabu">Rabu</a>
@@ -449,11 +448,10 @@
         </div>
     </section>
 
-    <!-- 2. BAGIAN PASARAN LAIN (SUDAH DITAMBAH ID) -->
+    <!-- 2. PASARAN LAIN HARI INI -->
     <section class="nav-section">
         <h3>Pasaran Lain Hari Ini</h3>
         <div class="link-flex">
-            <!-- Menambahkan id="pasaran-namapasaran" pada setiap tombol pasaran -->
             <a href="macau.html" class="btn-nav-link" id="pasaran-macau">Macau</a>
             <a href="cambodia.html" class="btn-nav-link" id="pasaran-cambodia">Cambodia</a>
             <a href="sdy.html" class="btn-nav-link" id="pasaran-sdy">SDY</a>
@@ -504,37 +502,39 @@ hs.src = ('//s10.histats.com/js15_giftop_as.js');
 </noscript>
         <!-- Histats.com  END  -->
 
-
+<!-- WAJIB ADA: Memanggil file database angka SGP Anda -->
 <script src="data/sgp.js"></script>
 
 <script>
     // 1. DETEKSI HARI OTOMATIS BERDASARKAN HARI ASLI DI HP/KOMPUTER PENGUNJUNG
     const daftarHariIndo = ['minggu', 'senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu'];
-    const hariIniAsli = daftarHariIndo[new Date().getDay()]; // Mengambil hari asli saat ini
+    const hariIniAsli = daftarHariIndo[new Date().getDay()]; 
 
     const urlParams = new URLSearchParams(window.location.search);
     // Jika di URL tidak ada pilihan hari (?hari=), otomatis pakai hari asli saat ini!
     let hari = urlParams.get('hari') || hariIniAsli; 
     hari = hari.toLowerCase();
 
-    // 2. UPDATE TEXT SEO & TEXT HEADER
+    // 2. UPDATE TEXT SEO & TEXT HEADER (STRATEGI KUNCI CANONICAL)
     if(document.getElementById('nama-hari-header')) document.getElementById('nama-hari-header').innerText = hari.toUpperCase();
     if(document.getElementById('nama-hari-title')) document.getElementById('nama-hari-title').innerText = '- Hari ' + hari.charAt(0).toUpperCase() + hari.slice(1);
-    if(document.getElementById('seo-title')) document.getElementById('seo-title').innerText = `PREDIKSI SGP ${hari.toUpperCase()}: Bocoran Angka Jitu & Paito Warna Terakurat`;
+    if(document.getElementById('seo-title')) document.getElementById('seo-title').innerText = `PREDIKSI SGP HARI INI ${hari.toUpperCase()}: Bocoran Angka Jitu Terakurat`;
     if(document.getElementById('seo-strong-tag')) document.getElementById('seo-strong-tag').innerText = `PREDIKSI SGP ${hari.toUpperCase()}`;
     
-    // PERBAIKAN: Menambahkan simbol $ pada template literal URL agar tidak eror
-    if(document.getElementById('seo-canonical')) document.getElementById('seo-canonical').href = `https://angkastatistik.my.id{hari}`;
+    // KUNCI MATI CANONICAL KE URL UTAMA UNTUK TEMBUS 5 BESAR GOOGLE (Tanpa parameter hari)
+    if(document.getElementById('seo-canonical')) document.getElementById('seo-canonical').href = `https://angkastatistik.my.id`;
+    
+    // PERBAIKAN LOGIKA DOLAR LINK SHARE FACEBOOK OFFICIAL
     if(document.getElementById('fb-share-btn')) document.getElementById('fb-share-btn').href = `https://facebook.com{encodeURIComponent(window.location.href)}`;
     
-    if(document.getElementById('seo-keywords-list')) document.getElementById('seo-keywords-list').innerText = `bocoran sgp ${hari}, prediksi singapore pools hari ${hari}, paito warna sgp harian, angka jitu sgp terupdate, data toto sgp keluar hari ${hari}.`;
+    if(document.getElementById('seo-keywords-list')) document.getElementById('seo-keywords-list').innerText = `bocoran sgp ${hari}, prediksi singapore pools hari ${hari}, paito warna sgp harian, angka jitu sgp terupdate, data toto singapore keluar hari ${hari}.`;
 
     const containerTrek = document.getElementById('sgp-track');
     const holidayNotice = document.getElementById('sgp-holiday');
     const tunggalArea = document.getElementById('sgp-tunggal-area');
     const updateTimeBox = document.getElementById('live-update-time');
 
-    // 3. LOGIKA DETEKSI LIBUR OTOMATIS SELASA & JUMAT (SUDAH DIPERBAIKI)
+    // 3. LOGIKA DETEKSI LIBUR OTOMATIS SELASA & JUMAT (STRUKTUR SUDAH DIPERBAIKI)
     if (hari === 'selasa' || hari === 'jumat') {
         if(containerTrek) containerTrek.style.display = 'none';
         if(tunggalArea) tunggalArea.style.display = 'none';
@@ -544,7 +544,7 @@ hs.src = ('//s10.histats.com/js15_giftop_as.js');
             holidayNotice.innerText = `PASARAN TOTO SGP SINGAPORE LIBUR SETIAP HARI ${hari.toUpperCase()}`;
         }
     } else {
-        // JIKA BUKAN HARI LIBUR, TAMPILKAN DATA SEPERTI BIASA
+        // JIKA BUKAN HARI LIBUR, TAMPILKAN PREDIKSI SEPERTI BIASA
         if(containerTrek) containerTrek.style.display = 'flex';
         if(tunggalArea) tunggalArea.style.display = 'block';
         if(updateTimeBox) updateTimeBox.style.display = 'block';
@@ -587,14 +587,14 @@ hs.src = ('//s10.histats.com/js15_giftop_as.js');
             }
         }
 
-        // 4. LOGIKA JAM LIVE UPDATE (Hanya jalan saat tidak libur)
+        // 4. LOGIKA JAM LIVE UPDATE
         const sekarang = new Date();
         const jam = String(sekarang.getHours()).padStart(2, '0');
         const menit = String(sekarang.getMinutes()).padStart(2, '0');
         if(updateTimeBox) {
             updateTimeBox.innerHTML = `Jam ${jam}:${menit} WIB`; 
         }
-    } // <--- Penutup blok "else" pasaran normal di posisi yang benar
+    }
 
     // 5. MENYALAKAN TOMBOL HARI YANG AKTIF (WARNA KUNING)
     const tombolHariIni = document.getElementById(`btn-${hari}`);
