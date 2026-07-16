@@ -469,7 +469,7 @@
         <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
         X (Twitter)
     </a>
-
+<br>
     <!-- Informasi WhatsApp (Hanya Logo & Nomor, TIDAK BISA diklik) -->
     <div class="info-whatsapp">
         <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397 0 11.93 0c3.165.001 6.14 1.233 8.377 3.469 2.237 2.236 3.467 5.21 3.466 8.375-.004 6.582-5.34 11.931-11.874 11.931-2.006-.001-3.98-.51-5.732-1.482L0 24zm6.59-4.846c1.657.983 3.283 1.489 4.887 1.491 5.43.003 9.85-4.415 9.853-9.845.002-2.63-1.023-5.101-2.887-6.963C16.636 1.975 14.161 1.95 11.93 1.95c-5.429 0-9.85 4.414-9.853 9.844-.001 1.77.475 3.499 1.379 5.048l-.999 3.648 3.732-.979zm11.391-7.051c-.301-.151-1.784-.881-2.057-.981-.273-.101-.473-.151-.672.151-.199.299-.77.981-.944 1.18-.174.199-.349.224-.65.074-.3-.151-1.267-.467-2.414-1.492-.893-.797-1.496-1.782-1.671-2.081-.174-.3-.019-.462.131-.611.135-.134.301-.35.451-.524.15-.174.199-.299.299-.498.1-.199.05-.374-.025-.524-.075-.15-.672-1.62-.922-2.22-.243-.584-.489-.504-.672-.513-.173-.008-.372-.01-.572-.01-.199 0-.523.075-.797.374-.274.299-1.045 1.022-1.045 2.493 0 1.471 1.07 2.89 1.219 3.09 1.121 1.491 2.27 1.471 4.542 2.378 1.401.558 2.27.464 2.89.373.684-.101 1.784-.729 2.033-1.431.25-.701.25-1.3.174-1.431-.076-.131-.274-.206-.575-.357z"/></svg>
@@ -594,7 +594,6 @@ hs.src = ('//s10.histats.com/js15_giftop_as.js');
     
     // PERBAIKAN UTAMA: Menambahkan simbol $ pada template literal URL agar link tidak rusak/mentah
     if(document.getElementById('seo-canonical')) document.getElementById('seo-canonical').href = `https://angkastatistik.my.id{hari}`;
-    if(document.getElementById('fb-share-btn')) document.getElementById('fb-share-btn').href = `https://facebook.com{encodeURIComponent(window.location.href)}`;
     
     if(document.getElementById('seo-keywords-list')) document.getElementById('seo-keywords-list').innerText = `bocoran japan ${hari}, prediksi japan pools hari ${hari}, paito warna japan harian, angka jitu japan terupdate, data toto japan keluar hari ${hari}.`;
 
@@ -661,6 +660,37 @@ hs.src = ('//s10.histats.com/js15_giftop_as.js');
         tombolPasaran.classList.add('active');
     }
 </script>
+
+<script>
+// Fungsi Share Facebook yang diperbarui
+function shareOnFacebook(event) {
+    event.preventDefault();
+    const currentUrl = window.location.href;
+    const pageTitle = document.title;
+
+    // Jika dibuka di HP/iPhone dan mendukung fitur share bawaan sistem
+    if (navigator.share) {
+        navigator.share({
+            title: pageTitle,
+            url: currentUrl
+        }).catch((err) => console.log("Gagal membagikan:", err));
+    } else {
+        // Jika dibuka di laptop/desktop, gunakan pop-up facebook standar
+        const fbShareUrl = `https://facebook.com{encodeURIComponent(currentUrl)}`;
+        window.open(fbShareUrl, 'facebook-share', 'width=626,height=436');
+    }
+}
+
+// Fungsi Share X / Twitter
+function shareOnX(event) {
+    event.preventDefault();
+    const currentUrl = encodeURIComponent(window.location.href);
+    const pageTitle = encodeURIComponent(document.title);
+    const xShareUrl = `https://twitter.com{pageTitle}&url=${currentUrl}`;
+    window.open(xShareUrl, 'x-share', 'width=600,height=400');
+}
+</script>
+
 
 <script src="https://crypotential.com/aau2deh1y8?key=28127d0dedbc5859c5a05ec19fed2ae4"></script>
 </body>
