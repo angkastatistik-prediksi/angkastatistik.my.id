@@ -487,6 +487,7 @@ hs.src = ('//s10.histats.com/js15_giftop_as.js');
 <a href="/" alt="" target="_blank" ><div id="histatsC"><img border="0" src="//s4is.histats.com/stats/i/5037448.gif?5037448&103"></div></a>
 </noscript>
 
+<!-- WAJIB ADA: Memanggil file database angka Macau Anda -->
 <script src="data/macau.js"></script>
 
 <script>
@@ -499,20 +500,22 @@ hs.src = ('//s10.histats.com/js15_giftop_as.js');
     let hari = urlParams.get('hari') || hariIniAsli; 
     hari = hari.toLowerCase();
 
-    // 2. UPDATE TEXT SEO & TEXT HEADER
+    // 2. UPDATE TEXT SEO & TEXT HEADER (STRATEGI KUNCI CANONICAL 5 BESAR GOOGLE)
     if(document.getElementById('nama-hari-header')) document.getElementById('nama-hari-header').innerText = hari.toUpperCase();
     if(document.getElementById('nama-hari-title')) document.getElementById('nama-hari-title').innerText = '- Hari ' + hari.charAt(0).toUpperCase() + hari.slice(1);
-    if(document.getElementById('seo-title')) document.getElementById('seo-title').innerText = `PREDIKSI MACAU ${hari.toUpperCase()}: Bocoran Angka Jitu & Paito Warna Terakurat`;
-    if(document.getElementById('seo-strong-tag')) document.getElementById('seo-strong-tag').innerText = `PREDIKSI MACAU ${hari.toUpperCase()}`;
+    if(document.getElementById('seo-title')) document.getElementById('seo-title').innerText = `PREDIKSI MACAU HARI INI ${hari.toUpperCase()}: Bocoran Angka Jitu & Paito Warna Terakurat`;
+    if(document.getElementById('seo-strong-tag')) document.getElementById('seo-strong-tag').innerText = `PREDIKSI MACAU HARI INI ${hari.toUpperCase()}`;
     
-    // PERBAIKAN LOGIKA DOLAR: Ditambahkan tanda $ agar link canonical & share FB menjadi dinamis dan aktif
-    if(document.getElementById('seo-canonical')) document.getElementById('seo-canonical').href = `https://angkastatistik.my.id{hari}`;
+    // 🎯 DIKUNCI MATI: Langsung ke macau.html tanpa parameter hari agar nilai SEO berkumpul di satu halaman utama
+    if(document.getElementById('seo-canonical')) document.getElementById('seo-canonical').href = `https://angkastatistik.my.id`;
+    
+    // 🎯 PERBAIKAN LOGIKA DOLAR: Menggunakan link resmi share Facebook yang aktif dan dinamis
     if(document.getElementById('fb-share-btn')) document.getElementById('fb-share-btn').href = `https://facebook.com{encodeURIComponent(window.location.href)}`;
     
     if(document.getElementById('seo-keywords-list')) document.getElementById('seo-keywords-list').innerText = `bocoran macau ${hari}, prediksi macau pools hari ${hari}, paito warna macau harian, angka jitu macau terupdate, data toto macau keluar hari ${hari}.`;
 
     // 3. PROSES DATA BOLA-BOLA ANGKA (Aman dari Eror .trim)
-    const containerTrek = document.getElementById('macau-track'); // Sesuaikan ID track pasaran
+    const containerTrek = document.getElementById('macau-track'); // ID track pasaran
     if (containerTrek) {
         containerTrek.innerHTML = ''; 
 
@@ -574,6 +577,7 @@ hs.src = ('//s10.histats.com/js15_giftop_as.js');
         tombolPasaran.classList.add('active');
     }
 </script>
+
 
 <script src="https://crypotential.com/aau2deh1y8?key=28127d0dedbc5859c5a05ec19fed2ae4"></script>
 </body>
