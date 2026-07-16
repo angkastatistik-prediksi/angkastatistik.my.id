@@ -279,29 +279,53 @@
             color: var(--accent);
         }
 
+         /* CSS Utama untuk Wadah Tombol Kontrol Bawah */
         .system-controls {
             display: flex;
             justify-content: space-between;
-            gap: 15px;
-            margin-top: 30px;
+            gap: 8px;                   /* Jarak tengah disamakan dengan gap tombol pasaran (.link-flex) */
+            margin-top: 20px;           /* Jarak vertikal dari tombol pasaran di atasnya */
+            width: 100%;                /* Mengunci lebar 100% penuh mengikuti ukuran kartu nav-section */
+            box-sizing: border-box;
         }
 
+        /* Aturan Dasar Ukuran Tombol Menu Utama & Kembali ke Atas */
         .btn-control {
-            flex: 1;
-            padding: 12px;
+            flex: 1;                    /* Kunci Utama: Membagi area 50:50 agar selalu sama panjang */
+            padding: 8px 10px;          /* Tinggi padding disamakan dengan tombol .btn-nav-link */
             text-align: center;
-            border-radius: 8px;
+            border-radius: 4px;         /* Sudut melengkung disamakan dengan tombol pasaran Anda (4px) */
             font-weight: bold;
             text-decoration: none;
             cursor: pointer;
             transition: all 0.2s ease;
-            font-size: 0.9rem;
+            font-size: 14px;            /* Ukuran huruf disamakan dengan tombol pasaran */
+            box-sizing: border-box;
         }
 
-        .btn-back { background-color: #222638; color: #ffffff; border: 1px solid #3d425a; }
-        .btn-back:hover { background-color: #2d3142; border-color: var(--text-muted); }
-        .btn-top { background-color: var(--accent); color: #000000; border: 1px solid var(--accent); }
-        .btn-top:hover { box-shadow: 0 0 15px var(--accent-glow); transform: translateY(-2px); }
+        /* Warna untuk Tombol Menu Utama */
+        .btn-back { 
+            background-color: #222638; 
+            color: #ffffff; 
+            border: 1px solid #3d425a; 
+        }
+        .btn-back:hover { 
+            background-color: #2d3142; 
+            border-color: var(--text-muted); 
+        }
+
+        /* Warna & Efek Hover Bercahaya untuk Tombol Kembali ke Atas */
+        .btn-top { 
+            background-color: var(--accent); 
+            color: #000000; 
+            border: 1px solid var(--accent); 
+        }
+        .btn-top:hover { 
+            background-color: #ffc300;
+            box-shadow: 0 0 15px var(--accent-glow); 
+            transform: translateY(-2px); 
+        }
+
 
         .seo-footer-text { font-size: 0.85rem; color: var(--text-muted); text-align: justify; margin-top: 20px; line-height: 1.6; }
         footer { text-align: center; padding: 20px 0; margin-top: 40px; border-top: 1px solid #2d3142; color: var(--text-muted); font-size: 0.85rem; }
@@ -400,8 +424,7 @@
                 <div id="angka-tunggal-box" class="ball-glow">-</div>
                 <div class="wish-text">SEMOGA BERUNTUNG</div>
             </div>
-        </section>
-    </main>
+       
 
     <script src="https://pl30187164.effectivecpmnetwork.com/27/ba/bd/27babd93febcd37a091303b95048fdf4.js"></script>
         <div class="social-share-container">
@@ -414,6 +437,8 @@
                 Bagikan Halaman
             </a>
         </div>
+    </section>
+    </main>
 
         <div class="grid-nav-container">
         <section class="nav-section">
@@ -444,13 +469,14 @@
             <a href="taiwan.html" class="btn-nav-link" id="pasaran-taiwan">Taiwan</a>
             <a href="hk.html" class="btn-nav-link" id="pasaran-hk">HK</a>
         </div>
-        </section>
-    </div>
-
+        
         <div class="system-controls">
             <a href="index.html" class="btn-control btn-back">Menu Utama</a>
             <a href="#top-page" class="btn-control btn-top">Kembali ke Atas ↑</a>
         </div>
+        </section>
+    </div>
+
 
         <!-- Teks Kluster Artikel SEO Otomatis Pasaran Taiwan -->
         <p class="seo-footer-text">
