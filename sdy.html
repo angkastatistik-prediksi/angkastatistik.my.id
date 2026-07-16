@@ -487,35 +487,39 @@ hs.src = ('//s10.histats.com/js15_giftop_as.js');
 <a href="/" alt="" target="_blank" ><div id="histatsC"><img border="0" src="//s4is.histats.com/stats/i/5037448.gif?5037448&103"></div></a>
 </noscript>
 
+<!-- WAJIB ADA: Memanggil file database angka SDY Anda -->
 <script src="data/sdy.js"></script>
 
 <script>
     // 1. DETEKSI HARI OTOMATIS BERDASARKAN HARI ASLI DI HP/KOMPUTER PENGUNJUNG
     const daftarHariIndo = ['minggu', 'senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu'];
-    const hariIniAsli = daftarHariIndo[new Date().getDay()]; // Mengambil hari asli saat ini
+    const hariIniAsli = daftarHariIndo[new Date().getDay()]; 
 
     const urlParams = new URLSearchParams(window.location.search);
     // Jika di URL tidak ada pilihan hari (?hari=), otomatis pakai hari asli saat ini!
     let hari = urlParams.get('hari') || hariIniAsli; 
     hari = hari.toLowerCase();
 
-    // 2. UPDATE TEXT SEO & TEXT HEADER
+    // 2. UPDATE TEXT SEO & TEXT HEADER (STRATEGI KUNCI CANONICAL 5 BESAR GOOGLE)
     if(document.getElementById('nama-hari-header')) document.getElementById('nama-hari-header').innerText = hari.toUpperCase();
     if(document.getElementById('nama-hari-title')) document.getElementById('nama-hari-title').innerText = '- Hari ' + hari.charAt(0).toUpperCase() + hari.slice(1);
-    if(document.getElementById('seo-title')) document.getElementById('seo-title').innerText = `PREDIKSI SDY ${hari.toUpperCase()}: Bocoran Angka Jitu & Paito Warna Terakurat`;
+    if(document.getElementById('seo-title')) document.getElementById('seo-title').innerText = `PREDIKSI SDY HARI INI ${hari.toUpperCase()}: Bocoran Angka Jitu Terakurat`;
     if(document.getElementById('seo-strong-tag')) document.getElementById('seo-strong-tag').innerText = `PREDIKSI SDY ${hari.toUpperCase()}`;
     
-    // PERBAIKAN LOGIKA DOLAR: Ditambahkan tanda $ agar link canonical & share FB menjadi dinamis dan aktif
-    if(document.getElementById('seo-canonical')) document.getElementById('seo-canonical').href = `https://angkastatistik.my.id{hari}`;
+    // KUNCI MATI CANONICAL KE URL UTAMA (Tanpa parameter hari)
+    if(document.getElementById('seo-canonical')) document.getElementById('seo-canonical').href = `https://angkastatistik.my.id`;
+    
+    // LOGIKA DOLAR LINK SHARE FACEBOOK OFFICIAL FIX
     if(document.getElementById('fb-share-btn')) document.getElementById('fb-share-btn').href = `https://facebook.com{encodeURIComponent(window.location.href)}`;
     
     if(document.getElementById('seo-keywords-list')) document.getElementById('seo-keywords-list').innerText = `bocoran sdy ${hari}, prediksi sydney pools hari ${hari}, paito warna sdy harian, angka jitu sdy terupdate, data toto sdy keluar hari ${hari}.`;
 
     // 3. PROSES DATA BOLA-BOLA ANGKA (Aman dari Eror .trim)
-    const containerTrek = document.getElementById('sdy-track'); // Sesuaikan ID track pasaran
+    const containerTrek = document.getElementById('sdy-track'); 
     if (containerTrek) {
         containerTrek.innerHTML = ''; 
 
+        // Mengambil data dari objek DATA_SDY di dalam sdy.js
         const hariObj = DATA_SDY[hari] || { angka: '', tunggal: '-' }; 
         const teksData = hariObj.angka || '';
         const barisData = teksData.split('\n');
@@ -567,7 +571,7 @@ hs.src = ('//s10.histats.com/js15_giftop_as.js');
     // 6. MENYALAKAN TOMBOL PASARAN YANG AKTIF (WARNA KUNING)
     const pathHalaman = window.location.pathname;
     const namaFile = pathHalaman.substring(pathHalaman.lastIndexOf('/') + 1).replace('.html', '').toLowerCase();
-    const pasaranAktif = namaFile || 'sdy'; // default jika root folder
+    const pasaranAktif = namaFile || 'sdy'; 
     
     const tombolPasaran = document.getElementById(`pasaran-${pasaranAktif}`);
     if (tombolPasaran) {
