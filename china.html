@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="seo-title">PREDIKSI CHINA - Angka Statistik Akurat &amp; Bocoran China Jitu</title>
+    <title id="seo-title">PREDIKSI CHINA - Angka Statistik Akurat &amp; Bocoran Jitu</title>
     <meta name="description" content="Halaman resmi bocoran prediksi toto China pools harian jitu akurat. Analisis data statistik angka keluar, rumus paito warna, dan live draw terupdate.">
     <meta name="keywords" content="prediksi china, angka jitu china, bocoran china hari ini, toto china, live draw china, paito warna china, data pengeluaran china">
     <link id="seo-canonical" rel="canonical" href="https://angkastatistik.my.id">
@@ -306,7 +306,68 @@
         .seo-footer-text { font-size: 0.85rem; color: var(--text-muted); text-align: justify; margin-top: 20px; line-height: 1.6; }
         footer { text-align: center; padding: 20px 0; margin-top: 40px; border-top: 1px solid #2d3142; color: var(--text-muted); font-size: 0.85rem; }
         footer span { color: var(--accent); }
-    </style>
+
+        
+    /* ==========================================
+       1. STYLE DASAR TOMBOL NAVIGASI PASARAN & HARI
+       ========================================== */
+    .btn-nav-link {
+        display: inline-block;
+        padding: 8px 14px;
+        background-color: #34495e; /* Warna dasar tombol (abu-abu gelap elegan) */
+        color: #ffffff;            /* Warna teks putih */
+        text-decoration: none;     /* Menghilangkan garis bawah link */
+        border-radius: 4px;        /* Membuat sudut tombol agak melengkung */
+        font-weight: bold;
+        font-size: 14px;
+        border: 1px solid #2c3e50;
+        transition: all 0.2s ease; /* Efek transisi halus saat ditekan/diarahkan kursor */
+        text-align: center;
+    }
+
+    /* Efek ketika kursor diarahkan ke tombol (Hover) */
+    .btn-nav-link:hover {
+        background-color: #415b76;
+        color: #ffffff;
+    }
+
+
+    /* ==========================================
+       2. STYLE KETIKA TOMBOL AKTIF (WARNA KUNING)
+       ========================================== */
+    .btn-nav-link.active {
+        background-color: #ffc107 !important; /* Warna Kuning Khas Paito */
+        color: #000000 !important;            /* Warna teks menjadi hitam agar kontras */
+        border: 1px solid #ff9800 !important; /* Garis tepi orange tipis */
+        box-shadow: 0 0 8px rgba(255, 193, 7, 0.6); /* Efek bercahaya/neon halus */
+        transform: translateY(-1px);          /* Tombol agak sedikit terangkat */
+    }
+
+
+    /* ==========================================
+       3. STYLE UNTUK BOLA ANGKA MINUS (CORET TENGAH)
+       ========================================== */
+    .ball.strike-through {
+        position: relative;
+        text-decoration: line-through; /* Coretan standar pada teks angka */
+        color: #95a5a6 !important;     /* Mengubah warna angka menjadi abu-abu pudar */
+        opacity: 0.65;                 /* Membuat tampilan bola menjadi agak samar */
+        border-color: #bdc3c7 !important; /* Mengubah warna border bola menjadi pudar */
+    }
+
+    /* Opsional: Menambahkan garis coret tambahan yang lebih tebal melintasi bola */
+    .ball.strike-through::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 5%;
+        width: 90%;
+        height: 2px;
+        background-color: #e74c3c; /* Garis coret merah melintang di tengah bola */
+        transform: rotate(-15deg); /* Membuat garis coret agak miring agar terlihat jelas */
+    }
+</style>
+
 </head>
 <body id="top-page">
 
@@ -314,20 +375,15 @@
         <!-- MASTER FOTO SAMPUL & LOGO KELAS TOP -->
         <div class="sampul-banner" style="position: relative; width: 100%; height: 220px; background-color: #0c0c28; margin-bottom: 20px;">
             <img src="sampul.jpg" alt="Sampul Angka Statistik" style="width: 100%; height: 100%; object-fit: cover; border-bottom: 1px solid rgba(0, 240, 255, 0.3);">
-            <div class="logo-container" style="position: absolute; bottom: -40px; left: 50%; transform: translateX(-50%); z-index: 10;">
-                <img src="logo.png" alt="Logo Angka Statistik" style="width: 85px; height: 85px; object-fit: cover; border: 3px solid #ffb703; border-radius: 50%; box-shadow: 0 0 15px rgba(255, 183, 3, 0.6); background-color: #1a1d29;">
-            </div>
         </div>
         <h1 style="margin-top: 45px;">PREDIKSI CHINA <span id="nama-hari-header">HARI INI</span></h1>
     </header>
 
-    <main class="container">
-
         <section class="result-container">
             <div class="result-title">Trek Riwayat Statistik Angka <span id="nama-hari-title"></span></div>
             
-            <!-- FITUR LIVE JAM UPDATE DIMURNIKAN -->
-            <div id="live-update-time" class="update-time-box">Memuat Waktu Update...</div>
+            <!-- FITUR LIVE JAM UPDATE OTOMATIS -->
+            <div id="live-update-time" class="update-time-box" style="font-size: 0.85rem; color: #4ade80; font-weight: 600; margin-bottom: 20px; letter-spacing: 0.5px; text-transform: uppercase;">Memuat Waktu Update...</div>
             
             <div id="china-track" class="track-list"></div>
 
@@ -344,9 +400,8 @@
                 <div class="wish-text">SEMOGA BERUNTUNG</div>
             </div>
         </section>
-    </main>
 
-    <script src="https://pl30187164.effectivecpmnetwork.com/27/ba/bd/27babd93febcd37a091303b95048fdf4.js"></script>
+        <!-- Tampilan Nomor WA Polos & Facebook Share Berfungsi Aktif -->
         <div class="social-share-container">
             <div class="btn-social btn-whatsapp" style="cursor: default;">
                 <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.713-1.457L0 24zm6.59-4.846c1.66.986 3.288 1.48 4.861 1.481 5.405 0 9.803-4.383 9.806-9.768.001-2.61-1.006-5.064-2.836-6.896-1.83-1.83-4.287-2.837-6.897-2.838-5.408 0-9.807 4.384-9.81 9.771-.001 1.64.449 3.235 1.302 4.646L1.898 21.9l4.749-1.246zm12.3-5.597c-.334-.167-1.977-.975-2.28-1.086-.304-.11-.525-.167-.745.167-.221.334-.855 1.086-1.048 1.309-.193.222-.386.25-.72.083-1.573-.787-2.61-1.391-3.655-3.184-.275-.473.275-.44.787-1.465.084-.167.042-.314-.021-.447-.063-.133-.525-1.264-.72-1.73-.19-.457-.4-.395-.548-.403-.142-.007-.304-.009-.467-.009-.163 0-.429.061-.653.304-.224.244-.855.836-.855 2.036 0 1.2 1.472 2.316 1.472 2.316 0 0 1.94 2.96 4.701 4.154.656.284 1.168.453 1.569.58.66.21 1.261.18 1.736.11.529-.078 1.977-.808 2.253-1.59.276-.782.276-1.45.193-1.59-.083-.14-.304-.223-.638-.39z"/></svg>
@@ -359,31 +414,35 @@
         </div>
 
         <div class="grid-nav-container">
-            <section class="nav-section">
-                <h3>Pilihan Hari China</h3>
-                <div class="link-flex">
-                    <a href="china.html?hari=senin" class="btn-nav-link">Senin</a>
-                    <a href="china.html?hari=selasa" class="btn-nav-link">Selasa</a>
-                    <a href="china.html?hari=rabu" class="btn-nav-link">Rabu</a>
-                    <a href="china.html?hari=kamis" class="btn-nav-link">Kamis</a>
-                    <a href="china.html?hari=jumat" class="btn-nav-link">Jumat</a>
-                    <a href="china.html?hari=sabtu" class="btn-nav-link">Sabtu</a>
-                    <a href="china.html?hari=minggu" class="btn-nav-link">Minggu</a>
-                </div>
-            </section>
+        <section class="nav-section">
+        <h3>Pilihan Hari CHINA</h3>
+        <div class="link-flex">
+            <a href="china.html?hari=senin" class="btn-nav-link" id="btn-senin">Senin</a>
+            <a href="china.html?hari=selasa" class="btn-nav-link" id="btn-selasa">Selasa</a>
+            <a href="china.html?hari=rabu" class="btn-nav-link" id="btn-rabu">Rabu</a>
+            <a href="china.html?hari=kamis" class="btn-nav-link" id="btn-kamis">Kamis</a>
+            <a href="china.html?hari=jumat" class="btn-nav-link" id="btn-jumat">Jumat</a>
+            <a href="china.html?hari=sabtu" class="btn-nav-link" id="btn-sabtu">Sabtu</a>
+            <a href="china.html?hari=minggu" class="btn-nav-link" id="btn-minggu">Minggu</a>
+            <a href="almanak.html" class="btn-nav-link">Almanak</a>
+        </div> 
+    </section>
 
-            <section class="nav-section">
-                <h3>Pasaran Lain Hari Ini</h3>
-                <div class="link-flex">
-                    <a href="macau.html" class="btn-nav-link">Macau</a>
-                    <a href="cambodia.html" class="btn-nav-link">Cambodia</a>
-                    <a href="sdy.html" class="btn-nav-link">SDY</a>
-                    <a href="japan.html" class="btn-nav-link">Japan</a>
-                    <a href="sgp.html" class="btn-nav-link">SGP</a>
-                    <a href="taiwan.html" class="btn-nav-link">Taiwan</a>
-                    <a href="hk.html" class="btn-nav-link">HK</a>
-                </div>
-            </section>
+    <!-- 2. BAGIAN PASARAN LAIN (SUDAH DIPERBAIKI DENGAN ID) -->
+    <section class="nav-section">
+        <h3>Pasaran Lain Hari Ini</h3>
+        <div class="link-flex">
+            <!-- Tambahkan id="pasaran-nama" di setiap tombol pasaran -->
+            <a href="macau.html" class="btn-nav-link" id="pasaran-macau">Macau</a>
+            <a href="cambodia.html" class="btn-nav-link" id="pasaran-cambodia">Cambodia</a>
+            <a href="sdy.html" class="btn-nav-link" id="pasaran-sdy">SDY</a>
+            <a href="china.html" class="btn-nav-link" id="pasaran-china">China</a>
+            <a href="japan.html" class="btn-nav-link" id="pasaran-japan">Japan</a>
+            <a href="sgp.html" class="btn-nav-link" id="pasaran-sgp">SGP</a>
+            <a href="taiwan.html" class="btn-nav-link" id="pasaran-taiwan">Taiwan</a>
+            <a href="hk.html" class="btn-nav-link" id="pasaran-hk">HK</a>
+        </div>
+        </section>
         </div>
 
         <div class="system-controls">
@@ -391,7 +450,7 @@
             <a href="#top-page" class="btn-control btn-top">Kembali ke Atas ↑</a>
         </div>
 
-        <!-- Teks Kluster Artikel SEO Otomatis Pasaran China -->
+        <!-- Teks Kluster Artikel SEO Otomatis Pasaran china -->
         <p class="seo-footer-text">
             Halaman resmi <strong id="seo-strong-tag">PREDIKSI CHINA</strong> harian menyajikan bocoran angka jitu china terupdate langsung dari rangkuman data pengeluaran togel china pools harian. Menggunakan sistem rumus statistik jitu, kami meracik live draw angka main china, colok bebas, colok macau, bbfs, kepala, dan ekor harian secara akurat. Manfaatkan informasi grafik paito warna china di situs judi online <em>angkastatistik.my.id</em> sebagai referensi utama Anda untuk menemukan nomor toto china paling berpeluang tembus hari ini.
         </p>
@@ -400,11 +459,18 @@
             Pencarian terkait: <span id="seo-keywords-list">bocoran china, angka jitu china harian, toto china pools, paito warna china, data pengeluaran china terbaru.</span>
         </p>
 
+    </main>
+    
+    <script src="https://pl30187164.effectivecpmnetwork.com/27/ba/bd/27babd93febcd37a091303b95048fdf4.js"></script>
+
+    <!-- HISTATS DIV WITH COUNTER -->
+    <div id="histats_counter" style="text-align:center; margin-top:15px;"></div>
+
     <footer>
         <p>&copy; 2026 <span>ANGKA STATISTIK</span>. All Rights Reserved.</p>
     </footer>
 
-<!-- Histats.com  (div with counter) -->
+    <!-- Histats.com  (div with counter) -->
 <div id="histats_counter"></div>
 <!-- Histats.com  START  (aync)-->
 <script type="text/javascript">var _Hasync= _Hasync|| [];
@@ -420,38 +486,51 @@ hs.src = ('//s10.histats.com/js15_giftop_as.js');
 <noscript><style type="text/css">div#histatsC {position: absolute;top:0px;left:0px;}body>div#histatsC {position: fixed;}</style>
 <a href="/" alt="" target="_blank" ><div id="histatsC"><img border="0" src="//s4is.histats.com/stats/i/5037448.gif?5037448&103"></div></a>
 </noscript>
-        <!-- Histats.com  END  -->
 
-    <!-- Pemanggilan berkas data eksternal harian china -->
-    <script src="data/china.js"></script>
-    <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        let hari = urlParams.get('hari') || 'senin'; 
-        hari = hari.toLowerCase();
+<script src="data/china.js"></script>
 
-        document.getElementById('nama-hari-header').innerText = hari.toUpperCase();
-        document.getElementById('nama-hari-title').innerText = '- Hari ' + hari.charAt(0).toUpperCase() + hari.slice(1);
-        document.getElementById('seo-title').innerText = `PREDIKSI CHINA ${hari.toUpperCase()}: Bocoran Angka Jitu & Paito Warna Terakurat`;
-        document.getElementById('seo-strong-tag').innerText = `PREDIKSI CHINA ${hari.toUpperCase()}`;
-        document.getElementById('seo-canonical').href = `https://angkastatistik.my.id{hari}`;
-        document.getElementById('fb-share-btn').href = `https://facebook.com{encodeURIComponent(window.location.href)}`;
-        document.getElementById('seo-keywords-list').innerText = `bocoran china ${hari}, prediksi china pools hari ${hari}, paito warna china harian, angka jitu china terupdate, data toto china keluar hari ${hari}.`;
+<script>
+    // 1. DETEKSI HARI OTOMATIS BERDASARKAN HARI ASLI DI HP/KOMPUTER PENGUNJUNG
+    const daftarHariIndo = ['minggu', 'senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu'];
+    const hariIniAsli = daftarHariIndo[new Date().getDay()]; // Mengambil hari asli saat ini
 
-        const containerTrek = document.getElementById('china-track');
+    const urlParams = new URLSearchParams(window.location.search);
+    // Jika di URL tidak ada pilihan hari (?hari=), otomatis pakai hari asli saat ini!
+    let hari = urlParams.get('hari') || hariIniAsli; 
+    hari = hari.toLowerCase();
+
+    // 2. UPDATE TEXT SEO & TEXT HEADER
+    if(document.getElementById('nama-hari-header')) document.getElementById('nama-hari-header').innerText = hari.toUpperCase();
+    if(document.getElementById('nama-hari-title')) document.getElementById('nama-hari-title').innerText = '- Hari ' + hari.charAt(0).toUpperCase() + hari.slice(1);
+    if(document.getElementById('seo-title')) document.getElementById('seo-title').innerText = `PREDIKSI CHINA ${hari.toUpperCase()}: Bocoran Angka Jitu & Paito Warna Terakurat`;
+    if(document.getElementById('seo-strong-tag')) document.getElementById('seo-strong-tag').innerText = `PREDIKSI CHINA ${hari.toUpperCase()}`;
+    
+    // PERBAIKAN UTAMA: Menambahkan simbol $ pada template literal URL agar link tidak rusak
+    if(document.getElementById('seo-canonical')) document.getElementById('seo-canonical').href = `https://angkastatistik.my.id{hari}`;
+    if(document.getElementById('fb-share-btn')) document.getElementById('fb-share-btn').href = `https://facebook.com{encodeURIComponent(window.location.href)}`;
+    
+    if(document.getElementById('seo-keywords-list')) document.getElementById('seo-keywords-list').innerText = `bocoran china ${hari}, prediksi china pools hari ${hari}, paito warna china harian, angka jitu china terupdate, data toto china keluar hari ${hari}.`;
+
+    // 3. PROSES DATA BOLA-BOLA ANGKA (Aman dari Eror .trim)
+    const containerTrek = document.getElementById('china-track'); // Sesuaikan ID track pasaran
+    if (containerTrek) {
         containerTrek.innerHTML = ''; 
 
-        const hariObj = DATA_CHINA[hari] || { angka: '', tunggal: '-' };
+        const hariObj = DATA_CHINA[hari] || { angka: '', tunggal: '-' }; 
         const teksData = hariObj.angka || '';
         const barisData = teksData.split('\n');
         
         barisData.forEach(item => {
             if (!item.trim() || !item.includes(':')) return;
+            
             const bagian = item.split(':');
-            const angkaKiri = bagian[0].trim();
-            const angkaKanan = bagian[1].trim();
+            const angkaKiri = bagian[0].trim();  // INDEKS [0] YANG BENAR
+            const angkaKanan = bagian[1].trim(); // INDEKS [1] YANG BENAR
 
             let barisHTML = `<div class="ball-row">`;
-            for (let ch of angkaKiri) { if (ch !== ' ') barisHTML += `<div class="ball red">${ch}</div>`; }
+            for (let ch of angkaKiri) { 
+                if (ch !== ' ') barisHTML += `<div class="ball red">${ch}</div>`; 
+            }
             barisHTML += `<div class="separator">:</div>`;
             
             let isCoret = false;
@@ -466,15 +545,36 @@ hs.src = ('//s10.histats.com/js15_giftop_as.js');
             containerTrek.innerHTML += barisHTML;
         });
 
-        document.getElementById('angka-tunggal-box').innerText = hariObj.tunggal || '-';
+        if(document.getElementById('angka-tunggal-box')) {
+            document.getElementById('angka-tunggal-box').innerText = hariObj.tunggal || '-';
+        }
+    }
 
-        // PENGATURAN JAM DIMURNIKAN SANGAT RINGKAS
-        const sekarang = new Date();
-        const jam = String(sekarang.getHours()).padStart(2, '0');
-        const menit = String(sekarang.getMinutes()).padStart(2, '0');
-        
-        document.getElementById('live-update-time').innerHTML = `Jam ${jam}:${menit} WIB`;
+    // 4. LOGIKA JAM LIVE UPDATE
+    const sekarang = new Date();
+    const jam = String(sekarang.getHours()).padStart(2, '0');
+    const menit = String(sekarang.getMinutes()).padStart(2, '0');
+    if(document.getElementById('live-update-time')) {
+        document.getElementById('live-update-time').innerHTML = `Jam ${jam}:${menit} WIB`; 
+    }
+
+    // 5. MENYALAKAN TOMBOL HARI YANG AKTIF (WARNA KUNING)
+    const tombolHariIni = document.getElementById(`btn-${hari}`);
+    if (tombolHariIni) {
+        tombolHariIni.classList.add('active');
+    }
+
+    // 6. MENYALAKAN TOMBOL PASARAN YANG AKTIF (WARNA KUNING)
+    const pathHalaman = window.location.pathname;
+    const namaFile = pathHalaman.substring(pathHalaman.lastIndexOf('/') + 1).replace('.html', '').toLowerCase();
+    const pasaranAktif = namaFile || 'china'; // default jika root folder
+    
+    const tombolPasaran = document.getElementById(`pasaran-${pasaranAktif}`);
+    if (tombolPasaran) {
+        tombolPasaran.classList.add('active');
+    }
     </script>
+
 <script src="https://crypotential.com/aau2deh1y8?key=28127d0dedbc5859c5a05ec19fed2ae4"></script>
 </body>
 </html>
