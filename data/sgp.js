@@ -10,6 +10,7 @@
   //2329 : 654 64
   //4948 : 109 90
   //4087 : 765 65
+  //5447 : 
   //Rumus C E .  bawah mundur
 
 const DATA_SGP = {
