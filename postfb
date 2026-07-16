@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Generator Angka Statistik</title>
+
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+
+
+<style>
+
+body{
+
+background:#111;
+
+font-family:Arial;
+
+color:white;
+
+padding:20px;
+
+}
+
+
+.card{
+
+background:#18182f;
+
+border:2px solid #00d9ff;
+
+border-radius:15px;
+
+}
+
+
+
+.title{
+
+color:#00e5ff;
+
+font-size:35px;
+
+font-weight:bold;
+
+text-align:center;
+
+text-shadow:0 0 15px cyan;
+
+}
+
+
+
+.subtitle{
+
+text-align:center;
+
+font-size:18px;
+
+}
+
+
+
+.ball-red{
+
+width:45px;
+
+height:45px;
+
+border-radius:50%;
+
+background:linear-gradient(#ff4d7d,#b50034);
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+font-size:22px;
+
+font-weight:bold;
+
+}
+
+
+
+.ball-white{
+
+width:45px;
+
+height:45px;
+
+border-radius:50%;
+
+background:white;
+
+color:#111;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+font-size:22px;
+
+font-weight:bold;
+
+}
+
+
+
+.rowhasil{
+
+display:flex;
+
+justify-content:center;
+
+gap:8px;
+
+margin:10px;
+
+}
+
+
+
+.footer{
+
+text-align:center;
+
+color:#aaa;
+
+margin-top:20px;
+
+}
+
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<select id="pasaran" class="form-select">
+
+<option>Cambodia Pools</option>
+
+<option>Sydney Pools</option>
+
+<option>China Pools</option>
+
+<option>Japan Pools</option>
+
+<option>SGP Pools</option>
+
+<option>Taiwan Pools</option>
+
+<option>Hongkong Pools</option>
+
+</select>
+
+
+
+<br>
+
+
+<textarea id="data" class="form-control" rows="12"
+placeholder="6689 : 06
+6164 : -91"></textarea>
+
+
+
+<button class="btn btn-success w-100 mt-3"
+onclick="proses()">
+
+PROSES DATA
+
+</button>
+
+
+
+<br><br>
+
+
+
+<div class="card p-4" id="capture">
+
+
+<div class="subtitle">
+
+Terakhir Diperbarui
+
+<br>
+
+<span id="waktu"></span>
+
+</div>
+
+
+
+<div class="title" id="judul">
+
+Cambodia Pools
+
+</div>
+
+
+<hr>
+
+
+<div id="hasil"></div>
+
+
+<div class="footer">
+
+© angkastatistik.my.id
+
+</div>
+
+
+</div>
+
+
+
+
+<button class="btn btn-primary mt-3"
+onclick="downloadGambar()">
+
+DOWNLOAD GAMBAR
+
+</button>
+
+
+
+<button class="btn btn-danger mt-3"
+onclick="hapus()">
+
+HAPUS
+
+</button>
+
+
+
+<br><br>
+
+
+<a href="index.html" class="btn btn-secondary w-100">
+
+KEMBALI MENU
+
+</a>
+
+
+</div>
+
+
+
+
+
+<script>
+
+
+function proses(){
+
+
+let nama =
+document.getElementById("pasaran").value;
+
+
+
+document.getElementById("judul").innerHTML=nama;
+
+
+
+let text =
+document.getElementById("data").value.trim();
+
+
+
+let baris=text.split("\n");
+
+
+let hasil="";
+
+
+
+baris.forEach(function(x){
+
+
+x=x.replace(":"," ");
+
+
+let data=x.trim().split(/\s+/);
+
+
+
+if(data.length<2)return;
+
+
+
+let angka=data[0];
+
+let putih=data[1];
+
+
+
+hasil+=`<div class="rowhasil">`;
+
+
+
+for(let i=0;i<4;i++){
+
+
+hasil+=`
+
+<div class="ball-red">
+
+${angka[i] || ""}
+
+</div>
+
+`;
+
+}
+
+
+
+
+hasil+=`<div style="width:20px"></div>`;
+
+
+
+
+if(putih.indexOf("-")==0){
+
+
+let p=putih.substring(1);
+
+
+
+hasil+=`
+
+<div class="ball-white">
+<span style="text-decoration:line-through">
+${p[0]||""}
+</span>
+</div>
+
+
+
+<div class="ball-white">
+<span style="text-decoration:line-through">
+${p[1]||""}
+</span>
+</div>
+
+`;
+
+
+
+}else{
+
+
+hasil+=`
+
+<div class="ball-white">
+${putih[0]||""}
+</div>
+
+
+<div class="ball-white">
+${putih[1]||""}
+</div>
+
+`;
+
+}
+
+
+hasil+="</div>";
+
+
+
+});
+
+
+
+document.getElementById("hasil").innerHTML=hasil;
+
+
+updateWaktu();
+
+
+}
+
+
+
+
+function updateWaktu(){
+
+
+let d=new Date();
+
+
+let hari=[
+"Minggu",
+"Senin",
+"Selasa",
+"Rabu",
+"Kamis",
+"Jumat",
+"Sabtu"
+];
+
+
+let bulan=[
+"Januari",
+"Februari",
+"Maret",
+"April",
+"Mei",
+"Juni",
+"Juli",
+"Agustus",
+"September",
+"Oktober",
+"November",
+"Desember"
+];
+
+
+
+let t=
+hari[d.getDay()]+", "+
+d.getDate()+" "+
+bulan[d.getMonth()]+" "+
+d.getFullYear();
+
+
+
+let jam=
+String(d.getHours()).padStart(2,"0")+":"+
+String(d.getMinutes()).padStart(2,"0")+":"+
+String(d.getSeconds()).padStart(2,"0");
+
+
+
+document.getElementById("waktu").innerHTML=
+t+"<br>"+jam+" WIB";
+
+
+}
+
+
+
+
+function downloadGambar(){
+
+
+updateWaktu();
+
+
+
+let area=document.getElementById("capture");
+
+
+
+html2canvas(area,{
+
+scale:3,
+
+backgroundColor:"#18182f"
+
+})
+
+.then(function(canvas){
+
+
+
+canvas.toBlob(function(blob){
+
+
+
+let url=URL.createObjectURL(blob);
+
+
+
+let a=document.createElement("a");
+
+
+a.href=url;
+
+
+a.download="angkastatistik.png";
+
+
+a.click();
+
+
+URL.revokeObjectURL(url);
+
+
+
+},"image/png");
+
+
+
+});
+
+
+
+}
+
+
+
+
+function hapus(){
+
+
+document.getElementById("data").value="";
+
+
+document.getElementById("hasil").innerHTML="";
+
+
+}
+
+
+updateWaktu();
+
+
+</script>
+
+
+
+</body>
+</html>
