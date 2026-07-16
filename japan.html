@@ -386,6 +386,43 @@
         background-color: #e74c3c; /* Garis coret merah melintang di tengah bola */
         transform: rotate(-15deg); /* Membuat garis coret agak miring agar terlihat jelas */
     }
+        /* Kontainer pembungkus utama */
+.share-buttons-container {
+    display: flex;
+    flex-wrap: wrap; /* Tombol otomatis turun jika layar HP terlalu kecil */
+    gap: 10px;
+    margin-top: 20px;
+}
+
+/* Pengaturan dasar untuk Tombol Share & Teks WhatsApp */
+.btn-social, .info-whatsapp {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    color: white;
+    border-radius: 5px;
+    font-family: sans-serif;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+/* Ukuran Ikon SVG di dalam kotak */
+.btn-social svg, .info-whatsapp svg {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+}
+
+/* Warna Latar Belakang Masing-masing Aplikasi */
+.btn-facebook { background-color: #1877F2; }
+.btn-x { background-color: #000000; }
+.info-whatsapp { 
+    background-color: #25D366; 
+    cursor: default; /* Kursor tidak berubah jadi lambang tangan klik */
+    user-select: all; /* Pengguna bisa memblokir/menyalin nomor dengan mudah */
+}
+
 </style>
 
 </head>
@@ -420,18 +457,46 @@
                 <div class="wish-text">SEMOGA BERUNTUNG</div>
            
 
-        <!-- Tampilan Nomor WA Polos & Facebook Share Berfungsi Aktif -->
-        <div class="social-share-container">
-            <div class="btn-social btn-whatsapp" style="cursor: default;">
-                <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.713-1.457L0 24zm6.59-4.846c1.66.986 3.288 1.48 4.861 1.481 5.405 0 9.803-4.383 9.806-9.768.001-2.61-1.006-5.064-2.836-6.896-1.83-1.83-4.287-2.837-6.897-2.838-5.408 0-9.807 4.384-9.81 9.771-.001 1.64.449 3.235 1.302 4.646L1.898 21.9l4.749-1.246zm12.3-5.597c-.334-.167-1.977-.975-2.28-1.086-.304-.11-.525-.167-.745.167-.221.334-.855 1.086-1.048 1.309-.193.222-.386.25-.72.083-1.573-.787-2.61-1.391-3.655-3.184-.275-.473.275-.44.787-1.465.084-.167.042-.314-.021-.447-.063-.133-.525-1.264-.72-1.73-.19-.457-.4-.395-.548-.403-.142-.007-.304-.009-.467-.009-.163 0-.429.061-.653.304-.224.244-.855.836-.855 2.036 0 1.2 1.472 2.316 1.472 2.316 0 0 1.94 2.96 4.701 4.154.656.284 1.168.453 1.569.58.66.21 1.261.18 1.736.11.529-.078 1.977-.808 2.253-1.59.276-.782.276-1.45.193-1.59-.083-.14-.304-.223-.638-.39z"/></svg>
-                088970383950
+        <div class="share-buttons-container">
+    <!-- Tombol Facebook (Bisa diklik untuk Share) -->
+    <a id="fb-share-btn" href="#" onclick="shareOnFacebook(event)" class="btn-social btn-facebook">
+        <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        Bagikan Halaman
+    </a>
+
+    <!-- Tombol X / Twitter (Bisa diklik untuk Share) -->
+    <a id="x-share-btn" href="#" onclick="shareOnX(event)" class="btn-social btn-x">
+        <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        X (Twitter)
+    </a>
+
+    <!-- Informasi WhatsApp (Hanya Logo & Nomor, TIDAK BISA diklik) -->
+    <div class="info-whatsapp">
+        <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397 0 11.93 0c3.165.001 6.14 1.233 8.377 3.469 2.237 2.236 3.467 5.21 3.466 8.375-.004 6.582-5.34 11.931-11.874 11.931-2.006-.001-3.98-.51-5.732-1.482L0 24zm6.59-4.846c1.657.983 3.283 1.489 4.887 1.491 5.43.003 9.85-4.415 9.853-9.845.002-2.63-1.023-5.101-2.887-6.963C16.636 1.975 14.161 1.95 11.93 1.95c-5.429 0-9.85 4.414-9.853 9.844-.001 1.77.475 3.499 1.379 5.048l-.999 3.648 3.732-.979zm11.391-7.051c-.301-.151-1.784-.881-2.057-.981-.273-.101-.473-.151-.672.151-.199.299-.77.981-.944 1.18-.174.199-.349.224-.65.074-.3-.151-1.267-.467-2.414-1.492-.893-.797-1.496-1.782-1.671-2.081-.174-.3-.019-.462.131-.611.135-.134.301-.35.451-.524.15-.174.199-.299.299-.498.1-.199.05-.374-.025-.524-.075-.15-.672-1.62-.922-2.22-.243-.584-.489-.504-.672-.513-.173-.008-.372-.01-.572-.01-.199 0-.523.075-.797.374-.274.299-1.045 1.022-1.045 2.493 0 1.471 1.07 2.89 1.219 3.09 1.121 1.491 2.27 1.471 4.542 2.378 1.401.558 2.27.464 2.89.373.684-.101 1.784-.729 2.033-1.431.25-.701.25-1.3.174-1.431-.076-.131-.274-.206-.575-.357z"/></svg>
+        088970383950
+    </div>
+</div>
+
+<script>
+// Fungsi Share Facebook
+function shareOnFacebook(event) {
+    event.preventDefault();
+    const currentUrl = encodeURIComponent(window.location.href);
+    const fbShareUrl = `https://facebook.com{currentUrl}`;
+    window.open(fbShareUrl, 'facebook-share', 'width=626,height=436');
+}
+
+// Fungsi Share X / Twitter
+function shareOnX(event) {
+    event.preventDefault();
+    const currentUrl = encodeURIComponent(window.location.href);
+    const pageTitle = encodeURIComponent(document.title);
+    const xShareUrl = `https://twitter.com{pageTitle}&url=${currentUrl}`;
+    window.open(xShareUrl, 'x-share', 'width=600,height=400');
+}
+</script>
+
             </div>
-            <a id="fb-share-btn" href="#" target="_blank" rel="noopener noreferrer" class="btn-social btn-facebook">
-                <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-                Bagikan Halaman
-            </a>
-        </div>
-        </div>
         </section>
 
         <div class="grid-nav-container">
