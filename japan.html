@@ -155,7 +155,7 @@
             width: 60px;
             height: 60px;
             border-radius: 50%;
-            background: radial-gradient(circle at 30% 30%, #black, #black);
+            background: radial-gradient(circle at 30% 30%, #000, #000);
             color: #fff;
             display: flex;
             align-items: center;
@@ -180,18 +180,21 @@
             letter-spacing: 1px;
         }
 
-        .social-share-container {
+        /* PERBAIKAN UTAMA: Wadah Media Share Flexbox agar Panjang Selalu Sama & Sejajar */
+        .share-buttons-container {
             display: flex;
+            flex-wrap: wrap;
             gap: 12px;
             margin: 25px auto;
-            max-width: 450px;
-            flex-wrap: wrap;
+            max-width: 550px;
+            width: 100%;
         }
 
-        .btn-social {
+        /* Ukuran Seragam Diatur Lewat flex: 1 */
+        .btn-social, .info-whatsapp {
             flex: 1;
-            min-width: 140px;
-            display: flex;
+            min-width: 150px;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
@@ -202,14 +205,18 @@
             font-size: 0.9rem;
             color: #ffffff;
             transition: all 0.2s ease;
+            box-sizing: border-box;
         }
 
-        .btn-whatsapp {
+        .btn-whatsapp, .info-whatsapp {
             background-color: #25d366;
             box-shadow: 0 4px 12px rgba(37, 211, 102, 0.2);
         }
 
-        .btn-whatsapp:hover { transform: none !important; }
+        .info-whatsapp {
+            cursor: default;
+            user-select: all;
+        }
 
         .btn-facebook {
             background-color: #1877f2;
@@ -222,7 +229,18 @@
             box-shadow: 0 6px 15px rgba(24, 119, 242, 0.4);
         }
 
-        .btn-social svg {
+        .btn-x {
+            background-color: #000000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-x:hover {
+            background-color: #14171a;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .btn-social svg, .info-whatsapp svg {
             width: 18px;
             height: 18px;
             fill: currentColor;
@@ -260,283 +278,168 @@
             gap: 8px;
         }
 
-        .btn-nav-link {
-            padding: 8px 10px;
-            background-color: #222638;
-            color: var(--text-main);
-            text-decoration: none;
-            border-radius: 6px;
-            font-size: 0.8rem;
-            text-align: center;
-            transition: all 0.2s ease;
-            border: 1px solid transparent;
-            font-weight: 500;
-        }
-
-        .btn-nav-link:hover {
-            background-color: #2d3142;
-            border-color: var(--accent);
-            color: var(--accent);
-        }
-
-        /* ==========================================
-           CSS UTAMA WADAH TOMBOL KONTROL BAWAH
-           ========================================== */
         .system-controls {
             display: flex;
             justify-content: space-between;
-            gap: 8px;                   /* Disamakan dengan gap tombol pasaran (.link-flex) */
-            margin-top: 20px;           /* Jarak vertikal dari tombol pasaran di atasnya */
-            width: 100%;                /* Mengunci lebar 100% mengikuti ukuran kartu nav-section */
+            gap: 8px;
+            margin-top: 20px;
+            width: 100%;
             box-sizing: border-box;
         }
 
-        /* Aturan Dasar Ukuran Tombol Menu Utama & Kembali ke Atas */
         .btn-control {
-            flex: 1;                    /* Kunci Utama: Membagi area 50:50 agar selalu sama panjang */
-            padding: 8px 14px;          /* Disamakan persis dengan padding .btn-nav-link Anda */
+            flex: 1;
+            padding: 8px 14px;
             text-align: center;
-            border-radius: 4px;         /* Sudut melengkung disamakan dengan .btn-nav-link Anda */
+            border-radius: 4px;
             font-weight: bold;
-            font-size: 14px;            /* Ukuran huruf disamakan dengan tombol pasaran */
-            text-decoration: none;      /* Menghilangkan garis bawah tautan */
+            font-size: 14px;
+            text-decoration: none;
             cursor: pointer;
             transition: all 0.2s ease;
             box-sizing: border-box;
-            
-            /* BAHAN RUBAHAN UTAMA: Langsung pakai warna Kuning Aktif bawaan Anda */
-            background-color: #ffc107;  /* Warna Kuning Khas Paito */
-            color: #000000;             /* Teks hitam agar kontras tinggi */
-            border: 1px solid #ff9800;  /* Garis tepi orange tipis */
-            box-shadow: 0 0 8px rgba(255, 193, 7, 0.6); /* Efek bercahaya/neon halus */
+            background-color: #ffc107;
+            color: #000000;
+            border: 1px solid #ff9800;
+            box-shadow: 0 0 8px rgba(255, 193, 7, 0.6);
         }
-
-        /* ==========================================
-           EFEK HOVER (SAAT DISENTUH KURSOR)
-           ========================================== */
         
-        /* Efek Hover untuk Tombol Menu Utama & Kembali ke Atas */
-        .btn-back:hover, .btn-top:hover { 
-            background-color: #ffc300;                    /* Warna kuning menjadi sedikit lebih terang */
-            box-shadow: 0 0 15px var(--accent-glow);       /* Cahaya neon menjadi lebih kuat menyala */
-            transform: translateY(-2px);                  /* Efek tombol sedikit terangkat naik */
+        .btn-control:hover { 
+            background-color: #ffc300;
+            box-shadow: 0 0 15px var(--accent-glow);
+            transform: translateY(-2px);
         }
-
 
         .seo-footer-text { font-size: 0.85rem; color: var(--text-muted); text-align: justify; margin-top: 20px; line-height: 1.6; }
         footer { text-align: center; padding: 20px 0; margin-top: 40px; border-top: 1px solid #2d3142; color: var(--text-muted); font-size: 0.85rem; }
         footer span { color: var(--accent); }
 
-        
-    /* ==========================================
-       1. STYLE DASAR TOMBOL NAVIGASI PASARAN & HARI
-       ========================================== */
-    .btn-nav-link {
-        display: inline-block;
-        padding: 8px 14px;
-        background-color: #34495e; /* Warna dasar tombol (abu-abu gelap elegan) */
-        color: #ffffff;            /* Warna teks putih */
-        text-decoration: none;     /* Menghilangkan garis bawah link */
-        border-radius: 4px;        /* Membuat sudut tombol agak melengkung */
-        font-weight: bold;
-        font-size: 14px;
-        border: 1px solid #2c3e50;
-        transition: all 0.2s ease; /* Efek transisi halus saat ditekan/diarahkan kursor */
-        text-align: center;
-    }
+        .btn-nav-link {
+            display: inline-block;
+            padding: 8px 14px;
+            background-color: #34495e;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 14px;
+            border: 1px solid #2c3e50;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
 
-    /* Efek ketika kursor diarahkan ke tombol (Hover) */
-    .btn-nav-link:hover {
-        background-color: #415b76;
-        color: #ffffff;
-    }
+        .btn-nav-link:hover {
+            background-color: #415b76;
+            color: #ffffff;
+        }
 
+        .btn-nav-link.active {
+            background-color: #ffc107 !important;
+            color: #000000 !important;
+            border: 1px solid #ff9800 !important;
+            box-shadow: 0 0 8px rgba(255, 193, 7, 0.6);
+            transform: translateY(-1px);
+        }
 
-    /* ==========================================
-       2. STYLE KETIKA TOMBOL AKTIF (WARNA KUNING)
-       ========================================== */
-    .btn-nav-link.active {
-        background-color: #ffc107 !important; /* Warna Kuning Khas Paito */
-        color: #000000 !important;            /* Warna teks menjadi hitam agar kontras */
-        border: 1px solid #ff9800 !important; /* Garis tepi orange tipis */
-        box-shadow: 0 0 8px rgba(255, 193, 7, 0.6); /* Efek bercahaya/neon halus */
-        transform: translateY(-1px);          /* Tombol agak sedikit terangkat */
-    }
+        .ball.strike-through {
+            position: relative;
+            text-decoration: line-through;
+            color: #95a5a6 !important;
+            opacity: 0.65;
+            border-color: #bdc3c7 !important;
+        }
 
-
-    /* ==========================================
-       3. STYLE UNTUK BOLA ANGKA MINUS (CORET TENGAH)
-       ========================================== */
-    .ball.strike-through {
-        position: relative;
-        text-decoration: line-through; /* Coretan standar pada teks angka */
-        color: #95a5a6 !important;     /* Mengubah warna angka menjadi abu-abu pudar */
-        opacity: 0.65;                 /* Membuat tampilan bola menjadi agak samar */
-        border-color: #bdc3c7 !important; /* Mengubah warna border bola menjadi pudar */
-    }
-
-    /* Opsional: Menambahkan garis coret tambahan yang lebih tebal melintasi bola */
-    .ball.strike-through::after {
-        content: "";
-        position: absolute;
-        top: 50%;
-        left: 5%;
-        width: 90%;
-        height: 2px;
-        background-color: #e74c3c; /* Garis coret merah melintang di tengah bola */
-        transform: rotate(-15deg); /* Membuat garis coret agak miring agar terlihat jelas */
-    }
-        /* Kontainer pembungkus utama */
-.share-buttons-container {
-    display: flex;
-    flex-wrap: wrap; /* Tombol otomatis turun jika layar HP terlalu kecil */
-    gap: 10px;
-    margin-top: 20px;
-}
-
-/* Pengaturan dasar untuk Tombol Share & Teks WhatsApp */
-.btn-social, .info-whatsapp {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 16px;
-    color: white;
-    border-radius: 5px;
-    font-family: sans-serif;
-    font-size: 14px;
-    text-decoration: none;
-}
-
-/* Ukuran Ikon SVG di dalam kotak */
-.btn-social svg, .info-whatsapp svg {
-    width: 18px;
-    height: 18px;
-    fill: currentColor;
-}
-
-/* Warna Latar Belakang Masing-masing Aplikasi */
-.btn-facebook { background-color: #1877F2; }
-.btn-x { background-color: #000000; }
-.info-whatsapp { 
-    background-color: #25D366; 
-    cursor: default; /* Kursor tidak berubah jadi lambang tangan klik */
-    user-select: all; /* Pengguna bisa memblokir/menyalin nomor dengan mudah */
-}
-
-</style>
-
+        .ball.strike-through::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 5%;
+            width: 90%;
+            height: 2px;
+            background-color: #e74c3c;
+            transform: rotate(-15deg);
+        }
+    </style>
 </head>
 <body id="top-page">
 
     <header>
-        <!-- MASTER FOTO SAMPUL & LOGO KELAS TOP -->
         <div class="sampul-banner" style="position: relative; width: 100%; height: 220px; background-color: #0c0c28; margin-bottom: 20px;">
             <img src="sampul.jpg" alt="Sampul Angka Statistik" style="width: 100%; height: 100%; object-fit: cover; border-bottom: 1px solid rgba(0, 240, 255, 0.3);">
         </div>
         <h1 style="margin-top: 45px;">PREDIKSI JAPAN <span id="nama-hari-header">HARI INI</span></h1>
     </header>
+
     <main class="container">
         <section class="result-container">
             <div class="result-title">Trek Riwayat Statistik Angka <span id="nama-hari-title"></span></div>
             
-            <!-- FITUR LIVE JAM UPDATE OTOMATIS -->
-            <div id="live-update-time" class="update-time-box" style="font-size: 0.85rem; color: #4ade80; font-weight: 600; margin-bottom: 20px; letter-spacing: 0.5px; text-transform: uppercase;">Memuat Waktu Update...</div>
+            <div id="live-update-time" class="update-time-box">Memuat Waktu Update...</div>
             
             <div id="japan-track" class="track-list"></div>
 
             <div style="text-align:center; margin:20px 0;">
-            <script async="async" data-cfasync="false"
-            src="https://pl30187165.effectivecpmnetwork.com/285abe3dfa3645b0c5001d78494f7ebb/invoke.js"></script>
-
-            <div id="container-285abe3dfa3645b0c5001d78494f7ebb"></div>
+                <script async="async" data-cfasync="false" src="https://effectivecpmnetwork.com"></script>
+                <div id="container-285abe3dfa3645b0c5001d78494f7ebb"></div>
             </div>
-
             <div class="tunggal-box">
                 <div class="tunggal-title">ANGKA TUNGGAL HARI INI</div>
                 <div id="angka-tunggal-box" class="ball-glow">-</div>
                 <div class="wish-text">SEMOGA BERUNTUNG</div>
-           
+            </div>
 
-        <div class="share-buttons-container">
-    <!-- Tombol Facebook (Bisa diklik untuk Share) -->
-    <a id="fb-share-btn" href="#" onclick="shareOnFacebook(event)" class="btn-social btn-facebook">
-        <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-        Bagikan Halaman
-    </a>
+            <!-- BLOK TOMBOL SOSIAL MEDIA YANG PANJANGNYA SERAGAM & PARALEL -->
+            <div class="share-buttons-container">
+                <a id="fb-share-btn" href="#" onclick="shareOnFacebook(event)" class="btn-social btn-facebook">
+                    <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                    Bagikan Halaman
+                </a>
 
-    <!-- Tombol X / Twitter (Bisa diklik untuk Share) -->
-    <a id="x-share-btn" href="#" onclick="shareOnX(event)" class="btn-social btn-x">
-        <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-        X (Twitter)
-    </a>
-<br>
-    <!-- Informasi WhatsApp (Hanya Logo & Nomor, TIDAK BISA diklik) -->
-    <div class="info-whatsapp">
-        <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397 0 11.93 0c3.165.001 6.14 1.233 8.377 3.469 2.237 2.236 3.467 5.21 3.466 8.375-.004 6.582-5.34 11.931-11.874 11.931-2.006-.001-3.98-.51-5.732-1.482L0 24zm6.59-4.846c1.657.983 3.283 1.489 4.887 1.491 5.43.003 9.85-4.415 9.853-9.845.002-2.63-1.023-5.101-2.887-6.963C16.636 1.975 14.161 1.95 11.93 1.95c-5.429 0-9.85 4.414-9.853 9.844-.001 1.77.475 3.499 1.379 5.048l-.999 3.648 3.732-.979zm11.391-7.051c-.301-.151-1.784-.881-2.057-.981-.273-.101-.473-.151-.672.151-.199.299-.77.981-.944 1.18-.174.199-.349.224-.65.074-.3-.151-1.267-.467-2.414-1.492-.893-.797-1.496-1.782-1.671-2.081-.174-.3-.019-.462.131-.611.135-.134.301-.35.451-.524.15-.174.199-.299.299-.498.1-.199.05-.374-.025-.524-.075-.15-.672-1.62-.922-2.22-.243-.584-.489-.504-.672-.513-.173-.008-.372-.01-.572-.01-.199 0-.523.075-.797.374-.274.299-1.045 1.022-1.045 2.493 0 1.471 1.07 2.89 1.219 3.09 1.121 1.491 2.27 1.471 4.542 2.378 1.401.558 2.27.464 2.89.373.684-.101 1.784-.729 2.033-1.431.25-.701.25-1.3.174-1.431-.076-.131-.274-.206-.575-.357z"/></svg>
-        088970383950
-    </div>
-</div>
+                <a id="x-share-btn" href="#" onclick="shareOnX(event)" class="btn-social btn-x">
+                    <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    X (Twitter)
+                </a>
 
-<script>
-// Fungsi Share Facebook
-function shareOnFacebook(event) {
-    event.preventDefault();
-    const currentUrl = encodeURIComponent(window.location.href);
-    const fbShareUrl = `https://facebook.com{currentUrl}`;
-    window.open(fbShareUrl, 'facebook-share', 'width=626,height=436');
-}
-
-// Fungsi Share X / Twitter
-function shareOnX(event) {
-    event.preventDefault();
-    const currentUrl = encodeURIComponent(window.location.href);
-    const pageTitle = encodeURIComponent(document.title);
-    const xShareUrl = `https://twitter.com{pageTitle}&url=${currentUrl}`;
-    window.open(xShareUrl, 'x-share', 'width=600,height=400');
-}
-</script>
-
+                <div class="info-whatsapp">
+                    <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397 0 11.93 0c3.165.001 6.14 1.233 8.377 3.469 2.237 2.236 3.467 5.21 3.466 8.375-.004 6.582-5.34 11.931-11.874 11.931-2.006-.001-3.98-.51-5.732-1.482L0 24zm6.59-4.846c1.657.983 3.283 1.489 4.887 1.491 5.43.003 9.85-4.415 9.853-9.845.002-2.63-1.023-5.101-2.887-6.963C16.636 1.975 14.161 1.95 11.93 1.95c-5.429 0-9.85 4.414-9.853 9.844-.001 1.77.475 3.499 1.379 5.048l-.999 3.648 3.732-.979zm11.391-7.051c-.301-.151-1.784-.881-2.057-.981-.273-.101-.473-.151-.672.151-.199.299-.77.981-.944 1.18-.174.199-.349.224-.65.074-.3-.151-1.267-.467-2.414-1.492-.893-.797-1.496-1.782-1.671-2.081-.174-.3-.019-.462.131-.611.135-.134.301-.35.451-.524.15-.174.199-.299.299-.498.1-.199.05-.374-.025-.524-.075-.15-.672-1.62-.922-2.22-.243-.584-.489-.504-.672-.513-.173-.008-.372-.01-.572-.01-.199 0-.523.075-.797.374-.274.299-1.045 1.022-1.045 2.493 0 1.471 1.07 2.89 1.219 3.09 1.121 1.491 2.27 1.471 4.542 2.378 1.401.558 2.27.464 2.89.373.684-.101 1.784-.729 2.033-1.431.25-.701.25-1.3.174-1.431-.076-.131-.274-.206-.575-.357z"/></svg>
+                    088970383950
+                </div>
             </div>
         </section>
-
         <div class="grid-nav-container">
-        <section class="nav-section">
-        <h3>Pilihan Hari JAPAN</h3>
-        <div class="link-flex">
-            <a href="japan.html?hari=senin" class="btn-nav-link" id="btn-senin">Senin</a>
-            <a href="japan.html?hari=selasa" class="btn-nav-link" id="btn-selasa">Selasa</a>
-            <a href="japan.html?hari=rabu" class="btn-nav-link" id="btn-rabu">Rabu</a>
-            <a href="japan.html?hari=kamis" class="btn-nav-link" id="btn-kamis">Kamis</a>
-            <a href="japan.html?hari=jumat" class="btn-nav-link" id="btn-jumat">Jumat</a>
-            <a href="japan.html?hari=sabtu" class="btn-nav-link" id="btn-sabtu">Sabtu</a>
-            <a href="japan.html?hari=minggu" class="btn-nav-link" id="btn-minggu">Minggu</a>
-            <a href="almanak.html" class="btn-nav-link">Almanak</a>
-        </div> 
-    </section>
+            <section class="nav-section">
+                <h3>Pilihan Hari JAPAN</h3>
+                <div class="link-flex">
+                    <a href="japan.html?hari=senin" class="btn-nav-link" id="btn-senin">Senin</a>
+                    <a href="japan.html?hari=selasa" class="btn-nav-link" id="btn-selasa">Selasa</a>
+                    <a href="japan.html?hari=rabu" class="btn-nav-link" id="btn-rabu">Rabu</a>
+                    <a href="japan.html?hari=kamis" class="btn-nav-link" id="btn-kamis">Kamis</a>
+                    <a href="japan.html?hari=jumat" class="btn-nav-link" id="btn-jumat">Jumat</a>
+                    <a href="japan.html?hari=sabtu" class="btn-nav-link" id="btn-sabtu">Sabtu</a>
+                    <a href="japan.html?hari=minggu" class="btn-nav-link" id="btn-minggu">Minggu</a>
+                    <a href="almanak.html" class="btn-nav-link">Almanak</a>
+                </div> 
+            </section>
 
-    <!-- 2. BAGIAN PASARAN LAIN (SUDAH DIPERBAIKI DENGAN ID) -->
-    <section class="nav-section">
-        <h3>Pasaran Lain Hari Ini</h3>
-        <div class="link-flex">
-            <!-- Tambahkan id="pasaran-nama" di setiap tombol pasaran -->
-            <a href="macau.html" class="btn-nav-link" id="pasaran-macau">Macau</a>
-            <a href="cambodia.html" class="btn-nav-link" id="pasaran-cambodia">Cambodia</a>
-            <a href="sdy.html" class="btn-nav-link" id="pasaran-sdy">SDY</a>
-            <a href="china.html" class="btn-nav-link" id="pasaran-china">China</a>
-            <a href="japan.html" class="btn-nav-link" id="pasaran-japan">Japan</a>
-            <a href="sgp.html" class="btn-nav-link" id="pasaran-sgp">SGP</a>
-            <a href="taiwan.html" class="btn-nav-link" id="pasaran-taiwan">Taiwan</a>
-            <a href="hk.html" class="btn-nav-link" id="pasaran-hk">HK</a>
+            <section class="nav-section">
+                <h3>Pasaran Lain Hari Ini</h3>
+                <div class="link-flex">
+                    <a href="macau.html" class="btn-nav-link" id="pasaran-macau">Macau</a>
+                    <a href="cambodia.html" class="btn-nav-link" id="pasaran-cambodia">Cambodia</a>
+                    <a href="sdy.html" class="btn-nav-link" id="pasaran-sdy">SDY</a>
+                    <a href="china.html" class="btn-nav-link" id="pasaran-china">China</a>
+                    <a href="japan.html" class="btn-nav-link" id="pasaran-japan">Japan</a>
+                    <a href="sgp.html" class="btn-nav-link" id="pasaran-sgp">SGP</a>
+                    <a href="taiwan.html" class="btn-nav-link" id="pasaran-taiwan">Taiwan</a>
+                    <a href="hk.html" class="btn-nav-link" id="pasaran-hk">HK</a>
+                </div>
+                
+                <div class="system-controls">
+                    <a href="index.html" class="btn-control btn-back">Menu Utama</a>
+                    <a href="#top-page" class="btn-control btn-top">Kembali ke Atas ↑</a>
+                </div>
+            </section>
         </div>
-        
-
-        <div class="system-controls">
-            <a href="index.html" class="btn-control btn-back">Menu Utama</a>
-            <a href="#top-page" class="btn-control btn-top">Kembali ke Atas ↑</a>
-        </div>
-        </section>
-        </div>
-
         <!-- Teks Kluster Artikel SEO Otomatis Pasaran japan -->
         <p class="seo-footer-text">
             Halaman resmi <strong id="seo-strong-tag">PREDIKSI JAPAN</strong> harian menyajikan bocoran angka jitu japan terupdate langsung dari rangkuman data pengeluaran togel japan pools harian. Menggunakan sistem rumus statistik jitu, kami meracik live draw angka main japan, colok bebas, colok macau, bbfs, kepala, dan ekor harian secara akurat. Manfaatkan informasi grafik paito warna japan di situs judi online <em>angkastatistik.my.id</em> sebagai referensi utama Anda untuk menemukan nomor toto japan paling berpeluang tembus hari ini.
@@ -545,153 +448,133 @@ function shareOnX(event) {
         <p class="seo-footer-text" style="font-size: 0.8rem; opacity: 0.6; margin-top: 10px; border-top: 1px dashed #2d3142; padding-top: 10px;">
             Pencarian terkait: <span id="seo-keywords-list">bocoran japan, angka jitu japan harian, toto Japan pools, paito warna japan, data pengeluaran japan terbaru.</span>
         </p>
-
     </main>
     
-    <script src="https://pl30187164.effectivecpmnetwork.com/27/ba/bd/27babd93febcd37a091303b95048fdf4.js"></script>
-
-    <!-- HISTATS DIV WITH COUNTER -->
-    <div id="histats_counter" style="text-align:center; margin-top:15px;"></div>
-
     <footer>
         <p>&copy; 2026 <span>ANGKA STATISTIK</span>. All Rights Reserved.</p>
     </footer>
 
-    <!-- Histats.com  (div with counter) -->
-<div id="histats_counter"></div>
-<!-- Histats.com  START  (aync)-->
-<script type="text/javascript">var _Hasync= _Hasync|| [];
-_Hasync.push(['Histats.startgif', '1,5037448,4,10036,"div#histatsC {position: absolute;top:0px;left:0px;}body>div#histatsC {position: fixed;}"']);
-_Hasync.push(['Histats.fasi', '1']);
-_Hasync.push(['Histats.track_hits', '']);
-(function() {
-var hs = document.createElement('script'); hs.type = 'text/javascript'; hs.async = true;
-hs.src = ('//s10.histats.com/js15_giftop_as.js');
-(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(hs);
-})();</script>
+    <script type="text/javascript">
+        var _Hasync= _Hasync|| [];
+        _Hasync.push(['Histats.startgif', '1,5037448,4,10036,"div#histatsC {position: absolute;top:0px;left:0px;}body>div#histatsC {position: fixed;}"']);
+        _Hasync.push(['Histats.fasi', '1']);
+        _Hasync.push(['Histats.track_hits', '']);
+        (function() {
+            var hs = document.createElement('script'); hs.type = 'text/javascript'; hs.async = true;
+            hs.src = ('//://histats.com');
+            (document.getElementsByTagName('head') || document.getElementsByTagName('body')).appendChild(hs);
+        })();
+    </script>
+    <noscript>
+        <style type="text/css">div#histatsC {position: absolute;top:0px;left:0px;}body>div#histatsC {position: fixed;}</style>
+        <a href="/" target="_blank"><div id="histatsC"><img border="0" src="//://histats.com" alt="histats"></div></a>
+    </noscript>
 
-<noscript><style type="text/css">div#histatsC {position: absolute;top:0px;left:0px;}body>div#histatsC {position: fixed;}</style>
-<a href="/" alt="" target="_blank" ><div id="histatsC"><img border="0" src="//s4is.histats.com/stats/i/5037448.gif?5037448&103"></div></a>
-</noscript>
+    <script src="data/japan.js"></script>
 
-<script src="data/japan.js"></script>
+    <script>
+        const daftarHariIndo = ['minggu', 'senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu'];
+        const hariIniAsli = daftarHariIndo[new Date().getDay()];
 
-<script>
-    // 1. DETEKSI HARI OTOMATIS BERDASARKAN HARI ASLI DI HP/KOMPUTER PENGUNJUNG
-    const daftarHariIndo = ['minggu', 'senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu'];
-    const hariIniAsli = daftarHariIndo[new Date().getDay()]; // Mengambil hari asli saat ini
+        const urlParams = new URLSearchParams(window.location.search);
+        let hari = urlParams.get('hari') || hariIniAsli; 
+        hari = hari.toLowerCase();
 
-    const urlParams = new URLSearchParams(window.location.search);
-    // Jika di URL tidak ada pilihan hari (?hari=), otomatis pakai hari asli saat ini!
-    let hari = urlParams.get('hari') || hariIniAsli; 
-    hari = hari.toLowerCase();
-
-    // 2. UPDATE TEXT SEO & TEXT HEADER
-    if(document.getElementById('nama-hari-header')) document.getElementById('nama-hari-header').innerText = hari.toUpperCase();
-    if(document.getElementById('nama-hari-title')) document.getElementById('nama-hari-title').innerText = '- Hari ' + hari.charAt(0).toUpperCase() + hari.slice(1);
-    if(document.getElementById('seo-title')) document.getElementById('seo-title').innerText = `PREDIKSI JAPAN ${hari.toUpperCase()}: Bocoran Angka Jitu & Paito Warna Terakurat`;
-    if(document.getElementById('seo-strong-tag')) document.getElementById('seo-strong-tag').innerText = `PREDIKSI JAPAN ${hari.toUpperCase()}`;
-    
-    // PERBAIKAN UTAMA: Menambahkan simbol $ pada template literal URL agar link tidak rusak/mentah
-    if(document.getElementById('seo-canonical')) document.getElementById('seo-canonical').href = `https://angkastatistik.my.id{hari}`;
-    
-    if(document.getElementById('seo-keywords-list')) document.getElementById('seo-keywords-list').innerText = `bocoran japan ${hari}, prediksi japan pools hari ${hari}, paito warna japan harian, angka jitu japan terupdate, data toto japan keluar hari ${hari}.`;
-
-    // 3. PROSES DATA BOLA-BOLA ANGKA (Aman dari Eror .trim)
-    const containerTrek = document.getElementById('japan-track'); // Sesuaikan ID track pasaran
-    if (containerTrek) {
-        containerTrek.innerHTML = ''; 
-
-        const hariObj = DATA_JAPAN[hari] || { angka: '', tunggal: '-' }; 
-        const teksData = hariObj.angka || '';
-        const barisData = teksData.split('\n');
+        if(document.getElementById('nama-hari-header')) document.getElementById('nama-hari-header').innerText = hari.toUpperCase();
+        if(document.getElementById('nama-hari-title')) document.getElementById('nama-hari-title').innerText = '- Hari ' + hari.charAt(0).toUpperCase() + hari.slice(1);
+        if(document.getElementById('seo-title')) document.getElementById('seo-title').innerText = `PREDIKSI JAPAN ${hari.toUpperCase()}: Bocoran Angka Jitu & Paito Warna Terakurat`;
+        if(document.getElementById('seo-strong-tag')) document.getElementById('seo-strong-tag').innerText = `PREDIKSI JAPAN ${hari.toUpperCase()}`;
         
-        barisData.forEach(item => {
-            if (!item.trim() || !item.includes(':')) return;
-            
-            const bagian = item.split(':');
-            const angkaKiri = bagian[0].trim();  // INDEKS [0] YANG BENAR
-            const angkaKanan = bagian[1].trim(); // INDEKS [1] YANG BENAR
+        if(document.getElementById('seo-canonical')) document.getElementById('seo-canonical').href = `https://angkastatistik.my.id{hari}`;
+        
+        if(document.getElementById('seo-keywords-list')) document.getElementById('seo-keywords-list').innerText = `bocoran japan ${hari}, prediksi japan pools hari ${hari}, paito warna japan harian, angka jitu japan terupdate, data toto japan keluar hari ${hari}.`;
 
-            let barisHTML = `<div class="ball-row">`;
-            for (let ch of angkaKiri) { 
-                if (ch !== ' ') barisHTML += `<div class="ball red">${ch}</div>`; 
-            }
-            barisHTML += `<div class="separator">:</div>`;
+        const containerTrek = document.getElementById('japan-track');
+        if (containerTrek) {
+            containerTrek.innerHTML = ''; 
+
+            const hariObj = DATA_JAPAN[hari] || { angka: '', tunggal: '-' }; 
+            const teksData = hariObj.angka || '';
+            const barisData = teksData.split('\n');
             
-            let isCoret = false;
-            for (let ch of angkaKanan) {
-                if (ch === '-') { isCoret = true; continue; }
-                if (ch !== ' ') {
-                    const classCoret = isCoret ? 'strike-through' : '';
-                    barisHTML += `<div class="ball white ${classCoret}">${ch}</div>`;
+            barisData.forEach(item => {
+                if (!item.trim() || !item.includes(':')) return;
+                
+                const bagian = item.split(':');
+                const angkaKiri = bagian[0].trim();
+                const angkaKanan = bagian[1].trim();
+
+                let barisHTML = `<div class="ball-row">`;
+                for (let ch of angkaKiri) { 
+                    if (ch !== ' ') barisHTML += `<div class="ball red">${ch}</div>`; 
                 }
-            }
-            barisHTML += `</div>`;
-            containerTrek.innerHTML += barisHTML;
-        });
+                barisHTML += `<div class="separator">:</div>`;
+                
+                let isCoret = false;
+                for (let ch of angkaKanan) {
+                    if (ch === '-') { isCoret = true; continue; }
+                    if (ch !== ' ') {
+                        const classCoret = isCoret ? 'strike-through' : '';
+                        barisHTML += `<div class="ball white ${classCoret}">${ch}</div>`;
+                    }
+                }
+                barisHTML += `</div>`;
+                containerTrek.innerHTML += barisHTML;
+            });
 
-        if(document.getElementById('angka-tunggal-box')) {
-            document.getElementById('angka-tunggal-box').innerText = hariObj.tunggal || '-';
+            if(document.getElementById('angka-tunggal-box')) {
+                document.getElementById('angka-tunggal-box').innerText = hariObj.tunggal || '-';
+            }
+        }
+
+        const sekarang = new Date();
+        const jam = String(sekarang.getHours()).padStart(2, '0');
+        const menit = String(sekarang.getMinutes()).padStart(2, '0');
+        if(document.getElementById('live-update-time')) {
+            document.getElementById('live-update-time').innerHTML = `Jam ${jam}:${menit} WIB`; 
+        }
+
+        const tombolHariIni = document.getElementById(`btn-${hari}`);
+        if (tombolHariIni) {
+            tombolHariIni.classList.add('active');
+        }
+
+        const pathHalaman = window.location.pathname;
+        const namaFile = pathHalaman.substring(pathHalaman.lastIndexOf('/') + 1).replace('.html', '').toLowerCase();
+        const pasaranAktif = namaFile || 'japan';
+        
+        const tombolPasaran = document.getElementById(`pasaran-${pasaranAktif}`);
+        if (tombolPasaran) {
+            tombolPasaran.classList.add('active');
+        }
+    </script>
+
+    <script>
+    function shareOnFacebook(event) {
+        event.preventDefault();
+        const currentUrl = window.location.href;
+        const pageTitle = document.title;
+
+        if (navigator.share) {
+            navigator.share({
+                title: pageTitle,
+                url: currentUrl
+            }).catch((err) => console.log("Gagal membagikan:", err));
+        } else {
+            const fbShareUrl = `https://facebook.com{encodeURIComponent(currentUrl)}`;
+            window.open(fbShareUrl, 'facebook-share', 'width=626,height=436');
         }
     }
 
-    // 4. LOGIKA JAM LIVE UPDATE
-    const sekarang = new Date();
-    const jam = String(sekarang.getHours()).padStart(2, '0');
-    const menit = String(sekarang.getMinutes()).padStart(2, '0');
-    if(document.getElementById('live-update-time')) {
-        document.getElementById('live-update-time').innerHTML = `Jam ${jam}:${menit} WIB`; 
+    function shareOnX(event) {
+        event.preventDefault();
+        const currentUrl = encodeURIComponent(window.location.href);
+        const pageTitle = encodeURIComponent(document.title);
+        const xShareUrl = `https://twitter.com{pageTitle}&url=${currentUrl}`;
+        window.open(xShareUrl, 'x-share', 'width=600,height=400');
     }
+    </script>
 
-    // 5. MENYALAKAN TOMBOL HARI YANG AKTIF (WARNA KUNING)
-    const tombolHariIni = document.getElementById(`btn-${hari}`);
-    if (tombolHariIni) {
-        tombolHariIni.classList.add('active');
-    }
-
-    // 6. MENYALAKAN TOMBOL PASARAN YANG AKTIF (WARNA KUNING)
-    const pathHalaman = window.location.pathname;
-    const namaFile = pathHalaman.substring(pathHalaman.lastIndexOf('/') + 1).replace('.html', '').toLowerCase();
-    const pasaranAktif = namaFile || 'japan'; // default jika root folder
-    
-    const tombolPasaran = document.getElementById(`pasaran-${pasaranAktif}`);
-    if (tombolPasaran) {
-        tombolPasaran.classList.add('active');
-    }
-</script>
-
-<script>
-// Fungsi Share Facebook yang diperbarui
-function shareOnFacebook(event) {
-    event.preventDefault();
-    const currentUrl = window.location.href;
-    const pageTitle = document.title;
-
-    // Jika dibuka di HP/iPhone dan mendukung fitur share bawaan sistem
-    if (navigator.share) {
-        navigator.share({
-            title: pageTitle,
-            url: currentUrl
-        }).catch((err) => console.log("Gagal membagikan:", err));
-    } else {
-        // Jika dibuka di laptop/desktop, gunakan pop-up facebook standar
-        const fbShareUrl = `https://facebook.com{encodeURIComponent(currentUrl)}`;
-        window.open(fbShareUrl, 'facebook-share', 'width=626,height=436');
-    }
-}
-
-// Fungsi Share X / Twitter
-function shareOnX(event) {
-    event.preventDefault();
-    const currentUrl = encodeURIComponent(window.location.href);
-    const pageTitle = encodeURIComponent(document.title);
-    const xShareUrl = `https://twitter.com{pageTitle}&url=${currentUrl}`;
-    window.open(xShareUrl, 'x-share', 'width=600,height=400');
-}
-</script>
-
-
-<script src="https://crypotential.com/aau2deh1y8?key=28127d0dedbc5859c5a05ec19fed2ae4"></script>
+    <script src="https://crypotential.com"></script>
 </body>
 </html>
