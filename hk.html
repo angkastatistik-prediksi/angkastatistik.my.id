@@ -279,51 +279,47 @@
             color: var(--accent);
         }
 
-                /* CSS Utama untuk Wadah Tombol Kontrol Bawah */
+        /* ==========================================
+           CSS UTAMA WADAH TOMBOL KONTROL BAWAH
+           ========================================== */
         .system-controls {
             display: flex;
             justify-content: space-between;
-            gap: 8px;                   /* Jarak tengah disamakan dengan gap tombol pasaran (.link-flex) */
+            gap: 8px;                   /* Disamakan dengan gap tombol pasaran (.link-flex) */
             margin-top: 20px;           /* Jarak vertikal dari tombol pasaran di atasnya */
-            width: 100%;                /* Mengunci lebar 100% penuh mengikuti ukuran kartu nav-section */
+            width: 100%;                /* Mengunci lebar 100% mengikuti ukuran kartu nav-section */
             box-sizing: border-box;
         }
 
         /* Aturan Dasar Ukuran Tombol Menu Utama & Kembali ke Atas */
         .btn-control {
             flex: 1;                    /* Kunci Utama: Membagi area 50:50 agar selalu sama panjang */
-            padding: 8px 10px;          /* Tinggi padding disamakan dengan tombol .btn-nav-link */
+            padding: 8px 14px;          /* Disamakan persis dengan padding .btn-nav-link Anda */
             text-align: center;
-            border-radius: 4px;         /* Sudut melengkung disamakan dengan tombol pasaran Anda (4px) */
+            border-radius: 4px;         /* Sudut melengkung disamakan dengan .btn-nav-link Anda */
             font-weight: bold;
-            text-decoration: none;
+            font-size: 14px;            /* Ukuran huruf disamakan dengan tombol pasaran */
+            text-decoration: none;      /* Menghilangkan garis bawah tautan */
             cursor: pointer;
             transition: all 0.2s ease;
-            font-size: 14px;            /* Ukuran huruf disamakan dengan tombol pasaran */
             box-sizing: border-box;
+            
+            /* BAHAN RUBAHAN UTAMA: Langsung pakai warna Kuning Aktif bawaan Anda */
+            background-color: #ffc107;  /* Warna Kuning Khas Paito */
+            color: #000000;             /* Teks hitam agar kontras tinggi */
+            border: 1px solid #ff9800;  /* Garis tepi orange tipis */
+            box-shadow: 0 0 8px rgba(255, 193, 7, 0.6); /* Efek bercahaya/neon halus */
         }
 
-        /* Warna untuk Tombol Menu Utama */
-        .btn-back { 
-            background-color: #222638; 
-            color: #ffffff; 
-            border: 1px solid #3d425a; 
-        }
-        .btn-back:hover { 
-            background-color: #2d3142; 
-            border-color: var(--text-muted); 
-        }
-
-        /* Warna & Efek Hover Bercahaya untuk Tombol Kembali ke Atas */
-        .btn-top { 
-            background-color: var(--accent); 
-            color: #000000; 
-            border: 1px solid var(--accent); 
-        }
-        .btn-top:hover { 
-            background-color: #ffc300;
-            box-shadow: 0 0 15px var(--accent-glow); 
-            transform: translateY(-2px); 
+        /* ==========================================
+           EFEK HOVER (SAAT DISENTUH KURSOR)
+           ========================================== */
+        
+        /* Efek Hover untuk Tombol Menu Utama & Kembali ke Atas */
+        .btn-back:hover, .btn-top:hover { 
+            background-color: #ffc300;                    /* Warna kuning menjadi sedikit lebih terang */
+            box-shadow: 0 0 15px var(--accent-glow);       /* Cahaya neon menjadi lebih kuat menyala */
+            transform: translateY(-2px);                  /* Efek tombol sedikit terangkat naik */
         }
 
 
