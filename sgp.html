@@ -380,6 +380,29 @@
         background-color: #e74c3c; /* Garis coret merah melintang di tengah bola */
         transform: rotate(-15deg); /* Membuat garis coret agak miring agar terlihat jelas */
     }
+        .nav-bawah-container {
+    display: flex;          /* Mengaktifkan mode flexbox */
+    just/* 1. Mengatur wadah pembungkus agar melebar penuh dan rata samping */
+.system-controls {
+    display: flex;          /* Mengaktifkan flexbox horizontal */
+    width: 100%;            /* Memaksa wadah selebar elemen di atasnya */
+    gap: 8px;               /* Jarak renggang di tengah antara kedua tombol */
+    box-sizing: border-box;
+    margin-top: 10px;       /* Jarak vertikal dari barisan tombol pasaran atas */
+}
+
+/* 2. Mengatur tombol kiri dan kanan agar sama panjang */
+.system-controls .btn-control {
+    flex: 1;                /* Kunci Utama: Membagi lebar sama rata (50:50) */
+    text-align: center;     /* Membuat teks "Menu Utama" & "Kembali ke Atas" berada di tengah */
+    padding: 10px 0;        /* Mengatur tinggi tombol agar nyaman ditekan di HP */
+    text-decoration: none;  /* Menghilangkan garis bawah khas link <a> */
+    font-weight: bold;
+    font-size: 14px;
+    border-radius: 5px;     /* Menyamakan kelengkungan sudut tombol */
+    box-sizing: border-box;
+ }
+
 </style>
 </head>
 <body id="top-page">
@@ -462,8 +485,7 @@
             <a href="hk.html" class="btn-nav-link" id="pasaran-hk">HK</a>
         </div>
     </section>
-</div>
-
+        </div>
 
         <div class="system-controls">
             <a href="index.html" class="btn-control btn-back">Menu Utama</a>
