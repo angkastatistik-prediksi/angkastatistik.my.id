@@ -433,34 +433,39 @@
         </div>
 
         <div class="grid-nav-container">
-            <section class="nav-section">
-                <h3>Pilihan Hari SGP</h3>
-                <div class="link-flex">
-                    <a href="sgp.html?hari=senin" class="btn-nav-link">Senin</a>
-                    <a href="sgp.html?hari=selasa" class="btn-nav-link" style="opacity: 0.5; background: #2a1b1b; color: #ef4444;">Selasa (Libur)</a>
-                    <a href="sgp.html?hari=rabu" class="btn-nav-link">Rabu</a>
-                    <a href="sgp.html?hari=kamis" class="btn-nav-link">Kamis</a>
-                    <a href="sgp.html?hari=jumat" class="btn-nav-link" style="opacity: 0.5; background: #2a1b1b; color: #ef4444;">Jumat (Libur)</a>
-                    <a href="sgp.html?hari=sabtu" class="btn-nav-link">Sabtu</a>
-                    <a href="sgp.html?hari=minggu" class="btn-nav-link">Minggu</a>
-                    <a href="almanak.html" class="btn-nav-link">Almanak</a>
-                </div>
-            </section>
-
-            <section class="nav-section">
-                <h3>Pasaran Lain Hari Ini</h3>
-                <div class="link-flex">
-                    <a href="macau.html" class="btn-nav-link">Macau</a>
-                    <a href="cambodia.html" class="btn-nav-link">Cambodia</a>
-                    <a href="sdy.html" class="btn-nav-link">SDY</a>
-                    <a href="china.html" class="btn-nav-link">China</a>
-                    <a href="japan.html" class="btn-nav-link">Japan</a>
-                    <a href="sgp.html" class="btn-nav-link">SGP</a>
-                    <a href="taiwan.html" class="btn-nav-link">Taiwan</a>
-                    <a href="hk.html" class="btn-nav-link">HK</a>
-                </div>
-            </section>
+    <!-- 1. BAGIAN PILIHAN HARI SGP (SUDAH DITAMBAH ID) -->
+    <section class="nav-section">
+        <h3>Pilihan Hari SGP</h3>
+        <div class="link-flex">
+            <!-- Menambahkan id="btn-namahari" pada setiap tombol -->
+            <a href="sgp.html?hari=senin" class="btn-nav-link" id="btn-senin">Senin</a>
+            <a href="sgp.html?hari=selasa" class="btn-nav-link" id="btn-selasa" style="opacity: 0.5; background: #2a1b1b; color: #ef4444;">Selasa (Libur)</a>
+            <a href="sgp.html?hari=rabu" class="btn-nav-link" id="btn-rabu">Rabu</a>
+            <a href="sgp.html?hari=kamis" class="btn-nav-link" id="btn-kamis">Kamis</a>
+            <a href="sgp.html?hari=jumat" class="btn-nav-link" id="btn-jumat" style="opacity: 0.5; background: #2a1b1b; color: #ef4444;">Jumat (Libur)</a>
+            <a href="sgp.html?hari=sabtu" class="btn-nav-link" id="btn-sabtu">Sabtu</a>
+            <a href="sgp.html?hari=minggu" class="btn-nav-link" id="btn-minggu">Minggu</a>
+            <a href="almanak.html" class="btn-nav-link" id="btn-almanak">Almanak</a>
         </div>
+    </section>
+
+    <!-- 2. BAGIAN PASARAN LAIN (SUDAH DITAMBAH ID) -->
+    <section class="nav-section">
+        <h3>Pasaran Lain Hari Ini</h3>
+        <div class="link-flex">
+            <!-- Menambahkan id="pasaran-namapasaran" pada setiap tombol pasaran -->
+            <a href="macau.html" class="btn-nav-link" id="pasaran-macau">Macau</a>
+            <a href="cambodia.html" class="btn-nav-link" id="pasaran-cambodia">Cambodia</a>
+            <a href="sdy.html" class="btn-nav-link" id="pasaran-sdy">SDY</a>
+            <a href="china.html" class="btn-nav-link" id="pasaran-china">China</a>
+            <a href="japan.html" class="btn-nav-link" id="pasaran-japan">Japan</a>
+            <a href="sgp.html" class="btn-nav-link" id="pasaran-sgp">SGP</a>
+            <a href="taiwan.html" class="btn-nav-link" id="pasaran-taiwan">Taiwan</a>
+            <a href="hk.html" class="btn-nav-link" id="pasaran-hk">HK</a>
+        </div>
+    </section>
+</div>
+
 
         <div class="system-controls">
             <a href="index.html" class="btn-control btn-back">Menu Utama</a>
