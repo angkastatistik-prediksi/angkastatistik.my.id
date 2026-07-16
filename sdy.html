@@ -306,7 +306,67 @@
         .seo-footer-text { font-size: 0.85rem; color: var(--text-muted); text-align: justify; margin-top: 20px; line-height: 1.6; }
         footer { text-align: center; padding: 20px 0; margin-top: 40px; border-top: 1px solid #2d3142; color: var(--text-muted); font-size: 0.85rem; }
         footer span { color: var(--accent); }
-    </style>
+
+        
+    /* ==========================================
+       1. STYLE DASAR TOMBOL NAVIGASI PASARAN & HARI
+       ========================================== */
+    .btn-nav-link {
+        display: inline-block;
+        padding: 8px 14px;
+        background-color: #34495e; /* Warna dasar tombol (abu-abu gelap elegan) */
+        color: #ffffff;            /* Warna teks putih */
+        text-decoration: none;     /* Menghilangkan garis bawah link */
+        border-radius: 4px;        /* Membuat sudut tombol agak melengkung */
+        font-weight: bold;
+        font-size: 14px;
+        border: 1px solid #2c3e50;
+        transition: all 0.2s ease; /* Efek transisi halus saat ditekan/diarahkan kursor */
+        text-align: center;
+    }
+
+    /* Efek ketika kursor diarahkan ke tombol (Hover) */
+    .btn-nav-link:hover {
+        background-color: #415b76;
+        color: #ffffff;
+    }
+
+
+    /* ==========================================
+       2. STYLE KETIKA TOMBOL AKTIF (WARNA KUNING)
+       ========================================== */
+    .btn-nav-link.active {
+        background-color: #ffc107 !important; /* Warna Kuning Khas Paito */
+        color: #000000 !important;            /* Warna teks menjadi hitam agar kontras */
+        border: 1px solid #ff9800 !important; /* Garis tepi orange tipis */
+        box-shadow: 0 0 8px rgba(255, 193, 7, 0.6); /* Efek bercahaya/neon halus */
+        transform: translateY(-1px);          /* Tombol agak sedikit terangkat */
+    }
+
+
+    /* ==========================================
+       3. STYLE UNTUK BOLA ANGKA MINUS (CORET TENGAH)
+       ========================================== */
+    .ball.strike-through {
+        position: relative;
+        text-decoration: line-through; /* Coretan standar pada teks angka */
+        color: #95a5a6 !important;     /* Mengubah warna angka menjadi abu-abu pudar */
+        opacity: 0.65;                 /* Membuat tampilan bola menjadi agak samar */
+        border-color: #bdc3c7 !important; /* Mengubah warna border bola menjadi pudar */
+    }
+
+    /* Opsional: Menambahkan garis coret tambahan yang lebih tebal melintasi bola */
+    .ball.strike-through::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 5%;
+        width: 90%;
+        height: 2px;
+        background-color: #e74c3c; /* Garis coret merah melintang di tengah bola */
+        transform: rotate(-15deg); /* Membuat garis coret agak miring agar terlihat jelas */
+    }
+</style>
 </head>
 <body id="top-page">
 
