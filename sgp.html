@@ -296,31 +296,51 @@
         .system-controls {
             display: flex;
             justify-content: space-between;
-            gap: 15px;
-            margin-top: 30px;
+            gap: 8px;                   /* Disamakan dengan gap milik .link-flex */
+            margin-top: 20px;           /* Jarak vertikal dari tombol pasaran atasnya */
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .btn-control {
-            flex: 1;
-            padding: 12px;
+            flex: 1;                    /* Kunci Utama: Membagi area 50:50 agar sama panjang */
+            padding: 8px 10px;          /* Mengikuti tinggi padding dari .btn-nav-link */
             text-align: center;
-            border-radius: 8px;
+            border-radius: 4px;         /* Mengikuti kelengkungan sudut .btn-nav-link Anda (4px) */
             font-weight: bold;
             text-decoration: none;
             cursor: pointer;
             transition: all 0.2s ease;
-            font-size: 0.9rem;
+            font-size: 14px;            /* Menyamakan ukuran teks dengan tombol pasaran */
+            box-sizing: border-box;
         }
 
-        .btn-back { background-color: #222638; color: #ffffff; border: 1px solid #3d425a; }
-        .btn-back:hover { background-color: #2d3142; border-color: var(--text-muted); }
-        .btn-top { background-color: var(--accent); color: #000000; border: 1px solid var(--accent); }
-        .btn-top:hover { box-shadow: 0 0 15px var(--accent-glow); transform: translateY(-2px); }
+        /* Warna Tombol Menu Utama */
+        .btn-back { 
+            background-color: #222638; 
+            color: #ffffff; 
+            border: 1px solid #3d425a; 
+        }
+        .btn-back:hover { 
+            background-color: #2d3142; 
+            border-color: var(--text-muted); 
+        }
+
+        /* Warna Tombol Kembali ke Atas */
+        .btn-top { 
+            background-color: var(--accent); 
+            color: #000000; 
+            border: 1px solid var(--accent); 
+        }
+        .btn-top:hover { 
+            background-color: #ffc300;
+            box-shadow: 0 0 15px var(--accent-glow); 
+            transform: translateY(-2px); 
+        }
 
         .seo-footer-text { font-size: 0.85rem; color: var(--text-muted); text-align: justify; margin-top: 20px; line-height: 1.6; }
         footer { text-align: center; padding: 20px 0; margin-top: 40px; border-top: 1px solid #2d3142; color: var(--text-muted); font-size: 0.85rem; }
         footer span { color: var(--accent); }
-
         
     /* ==========================================
        1. STYLE DASAR TOMBOL NAVIGASI PASARAN & HARI
@@ -484,13 +504,17 @@
             <a href="taiwan.html" class="btn-nav-link" id="pasaran-taiwan">Taiwan</a>
             <a href="hk.html" class="btn-nav-link" id="pasaran-hk">HK</a>
         </div>
-    </section>
-        </div>
 
+        <!-- PERBAIKAN: Tombol kontrol diletakkan di sini (di dalam kolom pasaran kanan) -->
+        <!-- Dengan ini, ujung kiri "Menu Utama" akan lurus dengan tombol "Japan" -->
+        <!-- Dan ujung kanan "Kembali ke Atas" akan lurus sempurna dengan tombol "HK" -->
         <div class="system-controls">
             <a href="index.html" class="btn-control btn-back">Menu Utama</a>
             <a href="#top-page" class="btn-control btn-top">Kembali ke Atas ↑</a>
         </div>
+    </section>
+</div>
+
 
         <!-- Teks Kluster Artikel SEO Otomatis Pasaran SGP Singapore -->
         <p class="seo-footer-text">
