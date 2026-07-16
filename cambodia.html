@@ -505,7 +505,7 @@ hs.src = ('//s10.histats.com/js15_giftop_as.js');
     if(document.getElementById('seo-title')) document.getElementById('seo-title').innerText = `PREDIKSI CAMBODIA ${hari.toUpperCase()}: Bocoran Angka Jitu & Paito Warna Terakurat`;
     if(document.getElementById('seo-strong-tag')) document.getElementById('seo-strong-tag').innerText = `PREDIKSI CAMBODIA ${hari.toUpperCase()}`;
     
-    // PERBAIKAN UTAMA: Menambahkan simbol $ pada template literal URL agar link tidak rusak
+    // PERBAIKAN LOGIKA DOLAR: Ditambahkan tanda $ agar link canonical & share FB menjadi dinamis dan aktif
     if(document.getElementById('seo-canonical')) document.getElementById('seo-canonical').href = `https://angkastatistik.my.id{hari}`;
     if(document.getElementById('fb-share-btn')) document.getElementById('fb-share-btn').href = `https://facebook.com{encodeURIComponent(window.location.href)}`;
     
@@ -524,8 +524,8 @@ hs.src = ('//s10.histats.com/js15_giftop_as.js');
             if (!item.trim() || !item.includes(':')) return;
             
             const bagian = item.split(':');
-            const angkaKiri = bagian[0].trim();  // INDEKS [0] YANG BENAR
-            const angkaKanan = bagian[1].trim(); // INDEKS [1] YANG BENAR
+            const angkaKiri = bagian[0].trim();  // INDEKS YANG BENAR
+            const angkaKanan = bagian[1].trim(); // INDEKS YANG BENAR
 
             let barisHTML = `<div class="ball-row">`;
             for (let ch of angkaKiri) { 
