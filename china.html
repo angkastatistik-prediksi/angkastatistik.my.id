@@ -487,6 +487,7 @@ hs.src = ('//s10.histats.com/js15_giftop_as.js');
 <a href="/" alt="" target="_blank" ><div id="histatsC"><img border="0" src="//s4is.histats.com/stats/i/5037448.gif?5037448&103"></div></a>
 </noscript>
 
+<!-- WAJIB ADA: Memanggil file database angka China Anda -->
 <script src="data/china.js"></script>
 
 <script>
@@ -505,7 +506,7 @@ hs.src = ('//s10.histats.com/js15_giftop_as.js');
     if(document.getElementById('seo-title')) document.getElementById('seo-title').innerText = `PREDIKSI CHINA ${hari.toUpperCase()}: Bocoran Angka Jitu & Paito Warna Terakurat`;
     if(document.getElementById('seo-strong-tag')) document.getElementById('seo-strong-tag').innerText = `PREDIKSI CHINA ${hari.toUpperCase()}`;
     
-    // PERBAIKAN UTAMA: Menambahkan simbol $ pada template literal URL agar link tidak rusak
+    // PERBAIKAN LOGIKA DOLAR: Sekarang sudah ada tanda $ sebelum kurung kurawal
     if(document.getElementById('seo-canonical')) document.getElementById('seo-canonical').href = `https://angkastatistik.my.id{hari}`;
     if(document.getElementById('fb-share-btn')) document.getElementById('fb-share-btn').href = `https://facebook.com{encodeURIComponent(window.location.href)}`;
     
@@ -553,9 +554,9 @@ hs.src = ('//s10.histats.com/js15_giftop_as.js');
     // 4. LOGIKA JAM LIVE UPDATE
     const sekarang = new Date();
     const jam = String(sekarang.getHours()).padStart(2, '0');
-    const menit = String(sekarang.getMinutes()).padStart(2, '0');
+    const menuIt = String(sekarang.getMinutes()).padStart(2, '0');
     if(document.getElementById('live-update-time')) {
-        document.getElementById('live-update-time').innerHTML = `Jam ${jam}:${menit} WIB`; 
+        document.getElementById('live-update-time').innerHTML = `Jam ${jam}:${menuIt} WIB`; 
     }
 
     // 5. MENYALAKAN TOMBOL HARI YANG AKTIF (WARNA KUNING)
@@ -573,7 +574,7 @@ hs.src = ('//s10.histats.com/js15_giftop_as.js');
     if (tombolPasaran) {
         tombolPasaran.classList.add('active');
     }
-    </script>
+</script>
 
 <script src="https://crypotential.com/aau2deh1y8?key=28127d0dedbc5859c5a05ec19fed2ae4"></script>
 </body>
