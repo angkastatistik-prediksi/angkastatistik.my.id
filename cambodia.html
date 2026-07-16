@@ -414,7 +414,8 @@
         </div>
 
         <div class="grid-nav-container">
-        <section class="nav-section">
+    <!-- Pilihan Hari Cambodia -->
+    <section class="nav-section">
         <h3>Pilihan Hari CAMBODIA</h3>
         <div class="link-flex">
             <a href="cambodia.html?hari=senin" class="btn-nav-link" id="btn-senin">Senin</a>
@@ -424,15 +425,14 @@
             <a href="cambodia.html?hari=jumat" class="btn-nav-link" id="btn-jumat">Jumat</a>
             <a href="cambodia.html?hari=sabtu" class="btn-nav-link" id="btn-sabtu">Sabtu</a>
             <a href="cambodia.html?hari=minggu" class="btn-nav-link" id="btn-minggu">Minggu</a>
-            <a href="almanak.html" class="btn-nav-link">Almanak</a>
-        </div> 
+            <a href="almanak.html" class="btn-nav-link" id="btn-almanak">Almanak</a>
+        </div>
     </section>
 
-    <!-- 2. BAGIAN PASARAN LAIN (SUDAH DIPERBAIKI DENGAN ID) -->
+    <!-- Pilihan Pasaran Lain -->
     <section class="nav-section">
         <h3>Pasaran Lain Hari Ini</h3>
         <div class="link-flex">
-            <!-- Tambahkan id="pasaran-nama" di setiap tombol pasaran -->
             <a href="macau.html" class="btn-nav-link" id="pasaran-macau">Macau</a>
             <a href="cambodia.html" class="btn-nav-link" id="pasaran-cambodia">Cambodia</a>
             <a href="sdy.html" class="btn-nav-link" id="pasaran-sdy">SDY</a>
@@ -442,8 +442,9 @@
             <a href="taiwan.html" class="btn-nav-link" id="pasaran-taiwan">Taiwan</a>
             <a href="hk.html" class="btn-nav-link" id="pasaran-hk">HK</a>
         </div>
-        </section>
-        </div>
+    </section>
+</div>
+
 
         <div class="system-controls">
             <a href="index.html" class="btn-control btn-back">Menu Utama</a>
@@ -487,32 +488,35 @@ hs.src = ('//s10.histats.com/js15_giftop_as.js');
 <a href="/" alt="" target="_blank" ><div id="histatsC"><img border="0" src="//s4is.histats.com/stats/i/5037448.gif?5037448&103"></div></a>
 </noscript>
 
+<!-- WAJIB ADA: Memanggil file database angka Cambodia Anda -->
 <script src="data/cambodia.js"></script>
 
 <script>
     // 1. DETEKSI HARI OTOMATIS BERDASARKAN HARI ASLI DI HP/KOMPUTER PENGUNJUNG
     const daftarHariIndo = ['minggu', 'senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu'];
-    const hariIniAsli = daftarHariIndo[new Date().getDay()]; // Mengambil hari asli saat ini
+    const hariIniAsli = daftarHariIndo[new Date().getDay()]; 
 
     const urlParams = new URLSearchParams(window.location.search);
     // Jika di URL tidak ada pilihan hari (?hari=), otomatis pakai hari asli saat ini!
     let hari = urlParams.get('hari') || hariIniAsli; 
     hari = hari.toLowerCase();
 
-    // 2. UPDATE TEXT SEO & TEXT HEADER
+    // 2. UPDATE TEXT SEO & TEXT HEADER (STRATEGI KUNCI CANONICAL)
     if(document.getElementById('nama-hari-header')) document.getElementById('nama-hari-header').innerText = hari.toUpperCase();
     if(document.getElementById('nama-hari-title')) document.getElementById('nama-hari-title').innerText = '- Hari ' + hari.charAt(0).toUpperCase() + hari.slice(1);
-    if(document.getElementById('seo-title')) document.getElementById('seo-title').innerText = `PREDIKSI CAMBODIA ${hari.toUpperCase()}: Bocoran Angka Jitu & Paito Warna Terakurat`;
+    if(document.getElementById('seo-title')) document.getElementById('seo-title').innerText = `PREDIKSI CAMBODIA HARI INI ${hari.toUpperCase()}: Bocoran Angka Jitu Terakurat`;
     if(document.getElementById('seo-strong-tag')) document.getElementById('seo-strong-tag').innerText = `PREDIKSI CAMBODIA ${hari.toUpperCase()}`;
     
-    // PERBAIKAN LOGIKA DOLAR: Ditambahkan tanda $ agar link canonical & share FB menjadi dinamis dan aktif
-    if(document.getElementById('seo-canonical')) document.getElementById('seo-canonical').href = `https://angkastatistik.my.id{hari}`;
+    // KUNCI MATI CANONICAL KE URL UTAMA UNTUK TEMBUS 5 BESAR GOOGLE (Tanpa parameter hari)
+    if(document.getElementById('seo-canonical')) document.getElementById('seo-canonical').href = `https://angkastatistik.my.id`;
+    
+    // PERBAIKAN LOGIKA DOLAR LINK SHARE FACEBOOK OFFICIAL
     if(document.getElementById('fb-share-btn')) document.getElementById('fb-share-btn').href = `https://facebook.com{encodeURIComponent(window.location.href)}`;
     
     if(document.getElementById('seo-keywords-list')) document.getElementById('seo-keywords-list').innerText = `bocoran cambodia ${hari}, prediksi cambodia pools hari ${hari}, paito warna cambodia harian, angka jitu cambodia terupdate, data toto cambodia keluar hari ${hari}.`;
 
     // 3. PROSES DATA BOLA-BOLA ANGKA (Aman dari Eror .trim)
-    const containerTrek = document.getElementById('cambodia-track'); // Sesuaikan ID track pasaran
+    const containerTrek = document.getElementById('cambodia-track'); 
     if (containerTrek) {
         containerTrek.innerHTML = ''; 
 
@@ -524,8 +528,8 @@ hs.src = ('//s10.histats.com/js15_giftop_as.js');
             if (!item.trim() || !item.includes(':')) return;
             
             const bagian = item.split(':');
-            const angkaKiri = bagian[0].trim();  // INDEKS YANG BENAR
-            const angkaKanan = bagian[1].trim(); // INDEKS YANG BENAR
+            const angkaKiri = bagian[0].trim();  
+            const angkaKanan = bagian[1].trim(); 
 
             let barisHTML = `<div class="ball-row">`;
             for (let ch of angkaKiri) { 
@@ -567,13 +571,13 @@ hs.src = ('//s10.histats.com/js15_giftop_as.js');
     // 6. MENYALAKAN TOMBOL PASARAN YANG AKTIF (WARNA KUNING)
     const pathHalaman = window.location.pathname;
     const namaFile = pathHalaman.substring(pathHalaman.lastIndexOf('/') + 1).replace('.html', '').toLowerCase();
-    const pasaranAktif = namaFile || 'cambodia'; // default jika root folder
+    const pasaranAktif = namaFile || 'cambodia'; 
     
     const tombolPasaran = document.getElementById(`pasaran-${pasaranAktif}`);
     if (tombolPasaran) {
         tombolPasaran.classList.add('active');
     }
-    </script>
+</script>
 
 <script src="https://crypotential.com/aau2deh1y8?key=28127d0dedbc5859c5a05ec19fed2ae4"></script>
 </body>
