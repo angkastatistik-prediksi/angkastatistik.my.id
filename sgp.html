@@ -320,7 +320,67 @@
         .seo-footer-text { font-size: 0.85rem; color: var(--text-muted); text-align: justify; margin-top: 20px; line-height: 1.6; }
         footer { text-align: center; padding: 20px 0; margin-top: 40px; border-top: 1px solid #2d3142; color: var(--text-muted); font-size: 0.85rem; }
         footer span { color: var(--accent); }
-    </style>
+
+        
+    /* ==========================================
+       1. STYLE DASAR TOMBOL NAVIGASI PASARAN & HARI
+       ========================================== */
+    .btn-nav-link {
+        display: inline-block;
+        padding: 8px 14px;
+        background-color: #34495e; /* Warna dasar tombol (abu-abu gelap elegan) */
+        color: #ffffff;            /* Warna teks putih */
+        text-decoration: none;     /* Menghilangkan garis bawah link */
+        border-radius: 4px;        /* Membuat sudut tombol agak melengkung */
+        font-weight: bold;
+        font-size: 14px;
+        border: 1px solid #2c3e50;
+        transition: all 0.2s ease; /* Efek transisi halus saat ditekan/diarahkan kursor */
+        text-align: center;
+    }
+
+    /* Efek ketika kursor diarahkan ke tombol (Hover) */
+    .btn-nav-link:hover {
+        background-color: #415b76;
+        color: #ffffff;
+    }
+
+
+    /* ==========================================
+       2. STYLE KETIKA TOMBOL AKTIF (WARNA KUNING)
+       ========================================== */
+    .btn-nav-link.active {
+        background-color: #ffc107 !important; /* Warna Kuning Khas Paito */
+        color: #000000 !important;            /* Warna teks menjadi hitam agar kontras */
+        border: 1px solid #ff9800 !important; /* Garis tepi orange tipis */
+        box-shadow: 0 0 8px rgba(255, 193, 7, 0.6); /* Efek bercahaya/neon halus */
+        transform: translateY(-1px);          /* Tombol agak sedikit terangkat */
+    }
+
+
+    /* ==========================================
+       3. STYLE UNTUK BOLA ANGKA MINUS (CORET TENGAH)
+       ========================================== */
+    .ball.strike-through {
+        position: relative;
+        text-decoration: line-through; /* Coretan standar pada teks angka */
+        color: #95a5a6 !important;     /* Mengubah warna angka menjadi abu-abu pudar */
+        opacity: 0.65;                 /* Membuat tampilan bola menjadi agak samar */
+        border-color: #bdc3c7 !important; /* Mengubah warna border bola menjadi pudar */
+    }
+
+    /* Opsional: Menambahkan garis coret tambahan yang lebih tebal melintasi bola */
+    .ball.strike-through::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 5%;
+        width: 90%;
+        height: 2px;
+        background-color: #e74c3c; /* Garis coret merah melintang di tengah bola */
+        transform: rotate(-15deg); /* Membuat garis coret agak miring agar terlihat jelas */
+    }
+</style>
 </head>
 <body id="top-page">
 
@@ -383,6 +443,7 @@
                     <a href="sgp.html?hari=jumat" class="btn-nav-link" style="opacity: 0.5; background: #2a1b1b; color: #ef4444;">Jumat (Libur)</a>
                     <a href="sgp.html?hari=sabtu" class="btn-nav-link">Sabtu</a>
                     <a href="sgp.html?hari=minggu" class="btn-nav-link">Minggu</a>
+                    <a href="almanak.html" class="btn-nav-link">Almanak</a>
                 </div>
             </section>
 
@@ -394,6 +455,7 @@
                     <a href="sdy.html" class="btn-nav-link">SDY</a>
                     <a href="china.html" class="btn-nav-link">China</a>
                     <a href="japan.html" class="btn-nav-link">Japan</a>
+                    <a href="sgp.html" class="btn-nav-link">SGP</a>
                     <a href="taiwan.html" class="btn-nav-link">Taiwan</a>
                     <a href="hk.html" class="btn-nav-link">HK</a>
                 </div>
@@ -437,26 +499,31 @@ hs.src = ('//s10.histats.com/js15_giftop_as.js');
 </noscript>
         <!-- Histats.com  END  -->
 
-    <!-- Pemanggilan berkas data eksternal harian sgp -->
-    <script src="data/sgp.js"></script>
+<script src="data/sgp.js"></script>
+
 <script>
+    // 1. DETEKSI HARI OTOMATIS BERDASARKAN HARI ASLI DI HP/KOMPUTER PENGUNJUNG
+    const daftarHariIndo = ['minggu', 'senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu'];
+    const hariIniAsli = daftarHariIndo[new Date().getDay()]; // Mengambil hari asli saat ini
+
     const urlParams = new URLSearchParams(window.location.search);
-    let hari = urlParams.get('hari') || 'senin'; 
+    // Jika di URL tidak ada pilihan hari (?hari=), otomatis pakai hari asli saat ini!
+    let hari = urlParams.get('hari') || hariIniAsli; 
     hari = hari.toLowerCase();
 
-    // Validasi elemen dasar agar tidak null-pointer error
+    // 2. UPDATE TEXT SEO & TEXT HEADER
     if(document.getElementById('nama-hari-header')) document.getElementById('nama-hari-header').innerText = hari.toUpperCase();
     if(document.getElementById('nama-hari-title')) document.getElementById('nama-hari-title').innerText = '- Hari ' + hari.charAt(0).toUpperCase() + hari.slice(1);
     if(document.getElementById('seo-title')) document.getElementById('seo-title').innerText = `PREDIKSI SGP ${hari.toUpperCase()}: Bocoran Angka Jitu & Paito Warna Terakurat`;
     if(document.getElementById('seo-strong-tag')) document.getElementById('seo-strong-tag').innerText = `PREDIKSI SGP ${hari.toUpperCase()}`;
     
-    // PERBAIKAN: Menambahkan simbol $ pada URL
+    // PERBAIKAN UTAMA: Menambahkan simbol $ pada template literal URL agar link tidak rusak
     if(document.getElementById('seo-canonical')) document.getElementById('seo-canonical').href = `https://angkastatistik.my.id{hari}`;
     if(document.getElementById('fb-share-btn')) document.getElementById('fb-share-btn').href = `https://facebook.com{encodeURIComponent(window.location.href)}`;
     
-    if(document.getElementById('seo-keywords-list')) document.getElementById('seo-keywords-list').innerText = `bocoran sgp ${hari}, prediksi singapore pools hari ${hari}, paito warna sgp harian, angka jitu sgp singapore terupdate, data toto singapore keluar hari ${hari}.`;
+    if(document.getElementById('seo-keywords-list')) document.getElementById('seo-keywords-list').innerText = `bocoran sgp ${hari}, prediksi singapore pools hari ${hari}, paito warna sgp harian, angka jitu sgp terupdate, data toto sgp keluar hari ${hari}.`;
 
-    const containerTrek = document.getElementById('sgp-track');
+ const containerTrek = document.getElementById('sgp-track');
     const holidayNotice = document.getElementById('sgp-holiday');
     const tunggalArea = document.getElementById('sgp-tunggal-area');
     const updateTimeBox = document.getElementById('live-update-time');
@@ -474,54 +541,68 @@ hs.src = ('//s10.histats.com/js15_giftop_as.js');
         if(containerTrek) containerTrek.style.display = 'flex';
         if(tunggalArea) tunggalArea.style.display = 'block';
         if(updateTimeBox) updateTimeBox.style.display = 'block';
-        if(holidayNotice) holidayNotice.style.display = 'none';
+        if(holidayNotice) holidayNotice.style.display = 'none'; Sesuaikan ID track pasaran
+    if (containerTrek) {
+        containerTrek.innerHTML = ''; 
 
-        if (containerTrek) {
-            containerTrek.innerHTML = ''; 
+        const hariObj = DATA_SGP[hari] || { angka: '', tunggal: '-' }; 
+        const teksData = hariObj.angka || '';
+        const barisData = teksData.split('\n');
+        
+        barisData.forEach(item => {
+            if (!item.trim() || !item.includes(':')) return;
             
-            // PERBAIKAN: Memanggil nama objek yang sesuai (DATA_SGP)
-            const hariObj = DATA_SGP[hari] || { angka: '', tunggal: '-' };
-            const teksData = hariObj.angka || '';
-            const barisData = teksData.split('\n');
-            
-            barisData.forEach(item => {
-                if (!item.trim() || !item.includes(':')) return;
-                
-                const bagian = item.split(':');
-                // PERBAIKAN: Mengambil indeks array [0] dan [1] sebelum di-trim
-                const angkaKiri = bagian[0].trim();
-                const angkaKanan = bagian[1].trim();
+            const bagian = item.split(':');
+            const angkaKiri = bagian[0].trim();  // INDEKS [0] YANG BENAR
+            const angkaKanan = bagian[1].trim(); // INDEKS [1] YANG BENAR
 
-                let barisHTML = `<div class="ball-row">`;
-                for (let ch of angkaKiri) { 
-                    if (ch !== ' ') barisHTML += `<div class="ball red">${ch}</div>`; 
-                }
-                barisHTML += `<div class="separator">:</div>`;
-                
-                let isCoret = false;
-                for (let ch of angkaKanan) {
-                    if (ch === '-') { isCoret = true; continue; }
-                    if (ch !== ' ') {
-                        const classCoret = isCoret ? 'strike-through' : '';
-                        barisHTML += `<div class="ball white ${classCoret}">${ch}</div>`;
-                    }
-                }
-                barisHTML += `</div>`;
-                containerTrek.innerHTML += barisHTML;
-            });
-
-            if(document.getElementById('angka-tunggal-box')) {
-                document.getElementById('angka-tunggal-box').innerText = hariObj.tunggal || '-';
+            let barisHTML = `<div class="ball-row">`;
+            for (let ch of angkaKiri) { 
+                if (ch !== ' ') barisHTML += `<div class="ball red">${ch}</div>`; 
             }
-        }
+            barisHTML += `<div class="separator">:</div>`;
+            
+            let isCoret = false;
+            for (let ch of angkaKanan) {
+                if (ch === '-') { isCoret = true; continue; }
+                if (ch !== ' ') {
+                    const classCoret = isCoret ? 'strike-through' : '';
+                    barisHTML += `<div class="ball white ${classCoret}">${ch}</div>`;
+                }
+            }
+            barisHTML += `</div>`;
+            containerTrek.innerHTML += barisHTML;
+        });
 
-        // PENGATURAN JAM LIVE SGP
-        const sekarang = new Date();
-        const jam = String(sekarang.getHours()).padStart(2, '0');
-        const menit = String(sekarang.getMinutes()).padStart(2, '0');
-        if(updateTimeBox) updateTimeBox.innerHTML = `Jam ${jam}:${menit} WIB`;
+        if(document.getElementById('angka-tunggal-box')) {
+            document.getElementById('angka-tunggal-box').innerText = hariObj.tunggal || '-';
+        }
     }
-</script>
+
+    // 4. LOGIKA JAM LIVE UPDATE
+    const sekarang = new Date();
+    const jam = String(sekarang.getHours()).padStart(2, '0');
+    const menit = String(sekarang.getMinutes()).padStart(2, '0');
+    if(document.getElementById('live-update-time')) {
+        document.getElementById('live-update-time').innerHTML = `Jam ${jam}:${menit} WIB`; 
+    }
+
+    // 5. MENYALAKAN TOMBOL HARI YANG AKTIF (WARNA KUNING)
+    const tombolHariIni = document.getElementById(`btn-${hari}`);
+    if (tombolHariIni) {
+        tombolHariIni.classList.add('active');
+    }
+
+    // 6. MENYALAKAN TOMBOL PASARAN YANG AKTIF (WARNA KUNING)
+    const pathHalaman = window.location.pathname;
+    const namaFile = pathHalaman.substring(pathHalaman.lastIndexOf('/') + 1).replace('.html', '').toLowerCase();
+    const pasaranAktif = namaFile || 'sgp'; // default jika root folder
+    
+    const tombolPasaran = document.getElementById(`pasaran-${pasaranAktif}`);
+    if (tombolPasaran) {
+        tombolPasaran.classList.add('active');
+    }
+    </script>
 
 <script src="https://crypotential.com/aau2deh1y8?key=28127d0dedbc5859c5a05ec19fed2ae4"></script>
 </body>
