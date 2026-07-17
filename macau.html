@@ -293,51 +293,60 @@ putaran = putaran.toLowerCase();
             const databaseMacau = (typeof DATA_MACAU !== 'undefined') ? DATA_MACAU : {};
             const hariObj = databaseMacau[hari] || {};
             
-            // Membaca dinamis sesuai key input format Anda (angka_p1, tunggal_p1, dst)
-            const namaKeyAngka = `angka_${putaran}`;
-            const namaKeyTunggal = `tunggal_${putaran}`;
-            
-            const teksData = hariObj[namaKeyAngka] || '';
-            const barisData = teksData.split('\n');
-            
-            barisData.forEach(item => {
-                if (!item.trim() || !item.includes(':')) return;
-                
-                const bagian = item.split(':');
-                const angkaKiri = bagian[0].trim();
-                const angkaKanan = bagian[1].trim();
+            // 1. Ini baris yang Anda tanyakan (BIARKAN TETAP ADA):
+const namaKeyAngka = `angka_${putaran}`;
+const namaKeyTunggal = `tunggal_${putaran}`;
 
-                let barisHTML = `<div class="ball-row">`;
-                for (let ch of angkaKiri) { 
-                    if (ch !== ' ') barisHTML += `<div class="ball red">${ch}</div>`; 
-                }
-                barisHTML += `<div class="separator">:</div>`;
-                
-                // ✔️ POTONGAN KODE BARU (BEBAS MAU 2, 3, ATAU 4 DIGIT BOLA):
-let isCoret = false;
-let teksAngkaKanan = angkaKanan.trim();
+const teksData = hariObj[namaKeyAngka] || '';
+const barisData = teksData.split('\n');
 
-// Cek jika baris angka diawali dengan tanda minus untuk coretan hadiah
-if (teksAngkaKanan.startsWith('-')) {
-    isCoret = true;
-    teksAngkaKanan = teksAngkaKanan.substring(1).trim(); // Buang tanda minusnya
-}
+// 2. Ini baris perulangan untuk memecah data per baris teks:
+barisData.forEach(item => {
+    if (!item.trim() || !item.includes(':')) return;
+    
+    const bagian = item.split(':');
+    const angkaKiri = bagian[0].trim();
+    const angkaKanan = bagian[1].trim();
 
-// Membaca karakter huruf satu per satu secara otomatis tanpa terpengaruh spasi
-for (let ch of teksAngkaKanan) {
-    if (ch !== ' ' && ch !== '\r' && ch !== '\n') {
-        const classCoret = isCoret ? 'strike-through' : '';
-        barisHTML += `<div class="ball white ${classCoret}">${ch}</div>`;
+    let barisHTML = `<div class="ball-row">`;
+    
+    // 3. Ini mesin bola merah (angka kiri):
+    for (let ch of angkaKiri) { 
+        if (ch !== ' ' && ch !== '\r' && ch !== '\n') {
+            barisHTML += `<div class="ball red">${ch}</div>`; 
+        }
     }
+    
+    barisHTML += `<div class="separator">:</div>`;
+    
+    // 4. Ini mesin baru bola putih (angka kanan, BEBAS JUMAT DIGIT BOLA):
+    let isCoret = false;
+    let teksAngkaKanan = angkaKanan.trim();
+
+    // Cek jika baris angka diawali dengan tanda minus untuk coretan hadiah
+    if (teksAngkaKanan.startsWith('-')) {
+        isCoret = true;
+        teksAngkaKanan = teksAngkaKanan.substring(1).trim(); // Buang tanda minusnya
+    }
+
+    // Membaca karakter huruf satu per satu secara otomatis tanpa terpengaruh spasi
+    for (let ch of teksAngkaKanan) {
+        if (ch !== ' ' && ch !== '\r' && ch !== '\n') {
+            const classCoret = isCoret ? 'strike-through' : '';
+            barisHTML += `<div class="ball white ${classCoret}">${ch}</div>`;
+        }
+    }
+
+    // 5. Ini adalah baris penutup yang rapi (JANGAN SAMPAI DOUBLE):
+    barisHTML += `</div>`;
+    containerTrek.innerHTML += barisHTML;
+}); // <-- Penutup barisData.forEach
+
+// 6. Ini untuk menampilkan angka tunggal di bawah bulatan bola:
+if(document.getElementById('angka-tunggal-box')) {
+    document.getElementById('angka-tunggal-box').innerText = hariObj[namaKeyTunggal] || '-';
 }
 
-                barisHTML += `</div>`;
-                containerTrek.innerHTML += barisHTML;
-            });
-
-            if(document.getElementById('angka-tunggal-box')) {
-                document.getElementById('angka-tunggal-box').innerText = hariObj[namaKeyTunggal] || '-';
-            }
         }
 
         const sekarang = new Date();
