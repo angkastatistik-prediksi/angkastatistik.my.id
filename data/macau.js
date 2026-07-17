@@ -35,8 +35,8 @@ const DATA_MACAU = {
         angka_p6: ``, tunggal_p6: ""
     },
 
-    jumat: {
-        angka_p1: `
+jumat: {
+angka_p1: `
 1970 : 89
 1194 : 81
 6689 : 06
@@ -54,9 +54,9 @@ const DATA_MACAU = {
 8425 : 57
 9256 : 14
         `,
-        tunggal_p1: "1", //Rumus ekor ada twin
+          tunggal_p1: "1", //Rumus ekor ada twin
 
-        angka_p2: `
+angka_p2: `
 3790 : 15
 0085 : 60
 3076 : 71
@@ -73,9 +73,9 @@ const DATA_MACAU = {
 1464 : 25
 6539 : 67
         `,
-        tunggal_p2: "6", //Rumus ekor ada twin
+          tunggal_p2: "6", //Rumus ekor ada twin
 
-        angka_p3: `
+angka_p3: `
 0370 : 26
 8227 : 13
 7216 : 12
@@ -93,9 +93,9 @@ const DATA_MACAU = {
 9372 : 28
 2315 : 13
         `,
-        tunggal_p3: "", //Rumus ekor -+ jgn langsung
+          tunggal_p3: "", //Rumus ekor -+ jgn langsung
         
-        angka_p4: `
+angka_p4: `
 3807 : 16
 9119 : 83
 5634 : 78
@@ -112,9 +112,9 @@ const DATA_MACAU = {
 9634 : 13
 6603 : 13
         `,
-        tunggal_p4: "1", //Rumus cop ada twin
+          tunggal_p4: "1", //Rumus cop ada twin
         
-        angka_p5: `
+angka_p5: `
 2231 : 12
 6761 : 64
 8843 : 92
@@ -149,7 +149,7 @@ const DATA_MACAU = {
             //1195 : 4572 54
 
         
-        angka_p6: `
+angka_p6: `
 1822 : 10
 5717 : 64
 2167 : 01
@@ -166,9 +166,9 @@ const DATA_MACAU = {
 3444 : 12
 7414 : 67
 0768 : 78
-        `,
-        tunggal_p6: "8" //Rumus 4d naik 2,duluan ai off
-    }, 
+`,
+  tunggal_p6: "8" //Rumus 4d naik 2,duluan ai off
+}, 
 
 sabtu: {
 angka_p1: `
@@ -189,9 +189,10 @@ angka_p1: `
 8425 : 57
 9256 : -14
 2723 : 27
-`, tunggal_p1: "2", //Rumus ekor ada twin
+`,
+  tunggal_p1: "2", //Rumus ekor ada twin
 
-angka_p2: 
+angka_p2: `
 3790 : 15
 0085 : 60
 3076 : 71
@@ -208,8 +209,8 @@ angka_p2:
 1464 : 25
 6539 : 67
 6031 : 05
-
-`, tunggal_p2: "5", //Rumus ekor ada twin
+`,
+  tunggal_p2: "5", //Rumus ekor ada twin
         
 angka_p3: `
 
