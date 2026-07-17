@@ -1,8 +1,42 @@
 const DATA_MACAU = {
-tanggal: "2026-07-14", 
-update: "Selasa 14 Juli 2026 10:20 WIB",
-data: {
-prediksi1: `
+    senin: {
+        angka_p1: ``, tunggal_p1: "",
+        angka_p2: ``, tunggal_p2: "",
+        angka_p3: ``, tunggal_p3: "",
+        angka_p4: ``, tunggal_p4: "",
+        angka_p5: ``, tunggal_p5: "",
+        angka_p6: ``, tunggal_p6: ""
+    },
+
+    selasa: {
+        angka_p1: ``, tunggal_p1: "",
+        angka_p2: ``, tunggal_p2: "",
+        angka_p3: ``, tunggal_p3: "",
+        angka_p4: ``, tunggal_p4: "",
+        angka_p5: ``, tunggal_p5: "",
+        angka_p6: ``, tunggal_p6: ""
+    },
+
+    rabu: {
+        angka_p1: ``, tunggal_p1: "",
+        angka_p2: ``, tunggal_p2: "",
+        angka_p3: ``, tunggal_p3: "",
+        angka_p4: ``, tunggal_p4: "",
+        angka_p5: ``, tunggal_p5: "",
+        angka_p6: ``, tunggal_p6: ""
+    },
+
+    kamis: {
+        angka_p1: ``, tunggal_p1: "",
+        angka_p2: ``, tunggal_p2: "",
+        angka_p3: ``, tunggal_p3: "",
+        angka_p4: ``, tunggal_p4: "",
+        angka_p5: ``, tunggal_p5: "",
+        angka_p6: ``, tunggal_p6: ""
+    },
+
+    jumat: {
+        angka_p1: `
 1970 : 89
 1194 : 81
 6689 : 06
@@ -15,11 +49,14 @@ prediksi1: `
 1354 : 16
 0213 : 64
 0470 : 47
-7463 : 74
-`,
-        //Rumus ekor ada twin
-        
-prediksi2: `
+7463 : -74
+2891 : 49
+8425 : 57
+9256 : 14
+        `,
+        tunggal_p1: "1", //Rumus ekor ada twin
+
+        angka_p2: `
 3790 : 15
 0085 : 60
 3076 : 71
@@ -32,27 +69,33 @@ prediksi2: `
 5907 : 69
 7095 : 24
 9354 : 25
-`,
-        //Rumus ekor ada twin
-        
-prediksi3: `
+1105 : 24
+1464 : 25
+6539 : 67
+        `,
+        tunggal_p2: "6", //Rumus ekor ada twin
+
+        angka_p3: `
 0370 : 26
 8227 : 13
 7216 : 12
 1351 : 23
-5953 : 80
+5953 : 07
 0448 : 27
-7751 : 35
-7695 : 71
+7751 : 55
+7695 : -93
 7515 : 71
-3078 : 04
-6570 : 48
+3078 : 47
+6570 : 34
 8036 : 79
-9228 : 04
-`,
-        //Rumus ekor twin
+9228 : 76
+6290 : 83
+9372 : 28
+2315 : 13
+        `,
+        tunggal_p3: "", //Rumus ekor -+ jgn langsung
         
-prediksi4: `
+        angka_p4: `
 3807 : 16
 9119 : 83
 5634 : 78
@@ -65,10 +108,13 @@ prediksi4: `
 6980 : 35
 5979 : 53
 5598 : 76
-`,
-        //Rumus cop ada twin
-
-prediksi5: `
+7111 : 36
+9634 : 13
+6603 : 13
+        `,
+        tunggal_p4: "1", //Rumus cop ada twin
+        
+        angka_p5: `
 2231 : 12
 6761 : 64
 8843 : 92
@@ -81,23 +127,29 @@ prediksi5: `
 2577 : 53
 4587 : 85
 6597 : 53
-`,
-        //Rumus C E   bawah mundur
-        //2231 : 1205 
-        //6761 : 6794 64
-        //8843 : 5629 92
-        //1182 : 1205 02
-        //5228 : 6794 76
-        //2507 : 2358 32
-        //8933 : 6794 76
-        //7259 : 7843 48
-        //8024 : 4873 78
-        //2577 : 2358 53
-        //4587 : 2358 85
-        //6597 : 2358 53
+4485 : 02
+1820 : 93
+1195 : 54
+        `,
+        tunggal_p5: "5", //Rumus C E . bawah mundur
+            //2231 : 1205 
+            //6761 : 6794 64
+            //8843 : 5629 92
+            //1182 : 1205 02
+            //5228 : 6794 76
+            //2507 : 2358 32
+            //8933 : 6794 76
+            //7259 : 7843 48
+            //8024 : 4573 78
+            //2577 : 2358 53
+            //4587 : 2358 85
+            //6597 : 2358 53
+            //4485 : 1205 02
+            //1820 : 8936 93
+            //1195 : 4572 54
 
         
-prediksi6: `
+        angka_p6: `
 1822 : 10
 5717 : 64
 2167 : 01
@@ -108,78 +160,71 @@ prediksi6: `
 5649 : 75
 1073 : 18
 2548 : 57
-4526 : -91
-0226 : 05
-4006 : 02
-`
-        //Rumus ekor ada twin
-}
+4526 : 12
+0226 : 67
+4006 : 23
+3444 : 12
+7414 : 67
+0768 : 78
+        `,
+        tunggal_p6: "8" //Rumus 4d naik 2,duluan ai off
+    }, 
+
+sabtu: {
+angka_p1: `
+1970 : 89
+1194 : 81
+6689 : 06
+6164 : 91
+4196 : 71
+1771 : 07
+6147 : 81
+1928 : 59
+5755 : 37
+1354 : 16
+0213 : 64
+0470 : 47
+7463 : -74
+2891 : 49
+8425 : 57
+9256 : -14
+2723 : 27
+`, tunggal_p1: "2", //Rumus ekor ada twin
+
+angka_p2: 
+3790 : 15
+0085 : 60
+3076 : 71
+6997 : 82
+1424 : 59
+2455 : 60
+9186 : 71
+9516 : -71
+2943 : 59
+5907 : 69
+7095 : 24
+9354 : 25
+1105 : 24
+1464 : 25
+6539 : 67
+6031 : 05
+
+`, tunggal_p2: "5", //Rumus ekor ada twin
+        
+angka_p3: `
+
+`, tunggal_p3: "",
+        angka_p4: ``, tunggal_p4: "",
+        angka_p5: ``, tunggal_p5: "",
+        angka_p6: ``, tunggal_p6: ""
+    },
+
+    minggu: {
+        angka_p1: ``, tunggal_p1: "",
+        angka_p2: ``, tunggal_p2: "",
+        angka_p3: ``, tunggal_p3: "",
+        angka_p4: ``, tunggal_p4: "",
+        angka_p5: ``, tunggal_p5: "",
+        angka_p6: ``, tunggal_p6: ""
+    }
 };
-
-
-const DATA_MACAU = {
-  senin: {
-    angka_p1: `
-    
-    `,
-    tunggal_p1: "",
-
-    angka_p2: `
-    
-    `,
-    tunggal_p2: "",
-
-    angka_p3: `
-    
-    `,
-    tunggal_p3: "",
-    
-    angka_p4: `
-    
-    `,
-    tunggal_p4: "",
-    
-    angka_p5: `
-    
-    `,
-    tunggal_p5: "",
-    
-    angka_p6: `
-    
-    `,
-    tunggal_p6: ""},
-  
-    selasa: {
-    angka_p1: `
-    
-    `,
-    tunggal_p1: "",
-
-    angka_p2: `
-    
-    `,
-    tunggal_p2: "",
-
-    angka_p3: `
-    
-    `,
-    tunggal_p3: "",
-    
-    angka_p4: `
-    
-    `,
-    tunggal_p4: "",
-    
-    angka_p5: `
-    
-    `,
-    tunggal_p5: "",
-    
-    angka_p6: `
-    
-    `,
-    tunggal_p6: ""},
-
-}
-};
-
