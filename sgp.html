@@ -3,11 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="seo-title">PREDIKSI SGP - Angka Statistik Akurat &amp; Bocoran Singapore Jitu</title>
-    <meta name="description" content="Halaman resmi bocoran prediksi toto SGP Singapore pools harian jitu akurat. Analisis data statistik angka keluar, rumus paito warna, dan live draw terupdate.">
-    <meta name="keywords" content="prediksi sgp, angka jitu sgp, bocoran sgp hari ini, toto singapore, live draw sgp, paito warna sgp, data pengeluaran sgp">
+    <title id="seo-title">PREDIKSI SGP - Angka Statistik Akurat &amp; Bocoran Jitu Singapore</title>
+    <meta name="description" content="Halaman resmi bocoran prediksi toto SGP pools harian jitu akurat. Analisis data statistik angka keluar, rumus paito warna, dan live draw Singapore terupdate.">
+    <meta name="keywords" content="prediksi sgp, angka jitu sgp, bocoran sgp hari ini, toto sgp, live draw sgp, paito warna sgp, data pengeluaran sgp, singapore pools, sgp prize, live sgp">
     <link id="seo-canonical" rel="canonical" href="https://angkastatistik.my.id">
     
+    <!-- Facebook Open Graph Meta Tags SGP -->
+    <meta property="og:title" content="PREDIKSI SGP - Angka Statistik Akurat &amp; Bocoran Jitu Singapore">
+    <meta property="og:description" content="Halaman resmi bocoran prediksi toto SGP pools harian jitu akurat. Analisis data statistik angka keluar, rumus paito warna, dan live draw Singapore terupdate.">
+    <meta property="og:image" content="https://angkastatistik.my.id">
+    <meta property="og:url" content="https://angkastatistik.my.id">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="PREDIKSI SGP - Angka Statistik Akurat &amp; Bocoran Jitu Singapore">
+    <meta name="twitter:description" content="Bocoran resmi toto Singapore pools harian jitu akurat terupdate.">
+    <meta name="twitter:image" content="https://angkastatistik.my.id">
+
     <style>
         :root {
             --bg-dark: #0f111a;
@@ -35,7 +48,6 @@
             line-height: 1.6;
             padding-bottom: 50px;
         }
-
         header {
             background: var(--gradient);
             padding: 25px 20px;
@@ -114,6 +126,8 @@
             font-size: 0.95rem;
             font-weight: bold;
             box-shadow: inset -2px -2px 6px rgba(0,0,0,0.4), 2px 3px 6px rgba(0,0,0,0.3);
+            flex-shrink: 0;
+            text-align: center;
         }
 
         .ball.red {
@@ -138,20 +152,6 @@
             text-decoration-thickness: 2px;
         }
 
-        /* Desain Khusus Info Libur SGP */
-        .holiday-notice {
-            padding: 20px;
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px dashed #ef4444;
-            color: #ef4444;
-            border-radius: 12px;
-            font-weight: bold;
-            font-size: 1rem;
-            margin: 20px auto;
-            max-width: 450px;
-            display: none;
-        }
-
         .tunggal-box {
             margin-top: 25px;
             padding-top: 25px;
@@ -169,7 +169,7 @@
             width: 60px;
             height: 60px;
             border-radius: 50%;
-            background: radial-gradient(circle at 30% 30%, #black, #black);
+            background: radial-gradient(circle at 30% 30%, #000, #000);
             color: #fff;
             display: flex;
             align-items: center;
@@ -194,18 +194,19 @@
             letter-spacing: 1px;
         }
 
-        .social-share-container {
+        .share-buttons-container {
             display: flex;
+            flex-wrap: wrap;
             gap: 12px;
             margin: 25px auto;
-            max-width: 450px;
-            flex-wrap: wrap;
+            max-width: 550px;
+            width: 100%;
         }
 
-        .btn-social {
+        .btn-social, .info-whatsapp {
             flex: 1;
-            min-width: 140px;
-            display: flex;
+            min-width: 150px;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
@@ -216,14 +217,18 @@
             font-size: 0.9rem;
             color: #ffffff;
             transition: all 0.2s ease;
+            box-sizing: border-box;
         }
 
-        .btn-whatsapp {
+        .btn-whatsapp, .info-whatsapp {
             background-color: #25d366;
             box-shadow: 0 4px 12px rgba(37, 211, 102, 0.2);
         }
 
-        .btn-whatsapp:hover { transform: none !important; }
+        .info-whatsapp {
+            cursor: default;
+            user-select: all;
+        }
 
         .btn-facebook {
             background-color: #1877f2;
@@ -236,7 +241,30 @@
             box-shadow: 0 6px 15px rgba(24, 119, 242, 0.4);
         }
 
-        .btn-social svg {
+        .btn-x {
+            background-color: #000000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-x:hover {
+            background-color: #14171a;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .btn-salin-link {
+            background-color: #e67e22;
+            box-shadow: 0 4px 12px rgba(230, 126, 34, 0.2);
+            cursor: pointer;
+        }
+
+        .btn-salin-link:hover {
+            background-color: #d35400;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(230, 126, 34, 0.4);
+        }
+
+        .btn-social svg, .info-whatsapp svg {
             width: 18px;
             height: 18px;
             fill: currentColor;
@@ -274,338 +302,289 @@
             gap: 8px;
         }
 
-        .btn-nav-link {
-            padding: 8px 10px;
-            background-color: #222638;
-            color: var(--text-main);
-            text-decoration: none;
-            border-radius: 6px;
-            font-size: 0.8rem;
-            text-align: center;
-            transition: all 0.2s ease;
-            border: 1px solid transparent;
-            font-weight: 500;
-        }
-
-        .btn-nav-link:hover {
-            background-color: #2d3142;
-            border-color: var(--accent);
-            color: var(--accent);
-        }
-
-                /* ==========================================
-           CSS UTAMA WADAH TOMBOL KONTROL BAWAH
-           ========================================== */
         .system-controls {
             display: flex;
             justify-content: space-between;
-            gap: 8px;                   /* Disamakan dengan gap tombol pasaran (.link-flex) */
-            margin-top: 20px;           /* Jarak vertikal dari tombol pasaran di atasnya */
-            width: 100%;                /* Mengunci lebar 100% mengikuti ukuran kartu nav-section */
+            gap: 8px;
+            margin-top: 20px;
+            width: 100%;
             box-sizing: border-box;
         }
 
-        /* Aturan Dasar Ukuran Tombol Menu Utama & Kembali ke Atas */
         .btn-control {
-            flex: 1;                    /* Kunci Utama: Membagi area 50:50 agar selalu sama panjang */
-            padding: 8px 14px;          /* Disamakan persis dengan padding .btn-nav-link Anda */
+            flex: 1;
+            padding: 8px 14px;
             text-align: center;
-            border-radius: 4px;         /* Sudut melengkung disamakan dengan .btn-nav-link Anda */
+            border-radius: 4px;
             font-weight: bold;
-            font-size: 14px;            /* Ukuran huruf disamakan dengan tombol pasaran */
-            text-decoration: none;      /* Menghilangkan garis bawah tautan */
+            font-size: 14px;
+            text-decoration: none;
             cursor: pointer;
             transition: all 0.2s ease;
             box-sizing: border-box;
-            
-            /* BAHAN RUBAHAN UTAMA: Langsung pakai warna Kuning Aktif bawaan Anda */
-            background-color: #ffc107;  /* Warna Kuning Khas Paito */
-            color: #000000;             /* Teks hitam agar kontras tinggi */
-            border: 1px solid #ff9800;  /* Garis tepi orange tipis */
-            box-shadow: 0 0 8px rgba(255, 193, 7, 0.6); /* Efek bercahaya/neon halus */
+            background-color: #ffc107;
+            color: #000000;
+            border: 1px solid #ff9800;
+            box-shadow: 0 0 8px rgba(255, 193, 7, 0.6);
         }
-
-        /* ==========================================
-           EFEK HOVER (SAAT DISENTUH KURSOR)
-           ========================================== */
         
-        /* Efek Hover untuk Tombol Menu Utama & Kembali ke Atas */
-        .btn-back:hover, .btn-top:hover { 
-            background-color: #ffc300;                    /* Warna kuning menjadi sedikit lebih terang */
-            box-shadow: 0 0 15px var(--accent-glow);       /* Cahaya neon menjadi lebih kuat menyala */
-            transform: translateY(-2px);                  /* Efek tombol sedikit terangkat naik */
+        .btn-control:hover { 
+            background-color: #ffc300;
+            box-shadow: 0 0 15px var(--accent-glow);
+            transform: translateY(-2px);
         }
-
 
         .seo-footer-text { font-size: 0.85rem; color: var(--text-muted); text-align: justify; margin-top: 20px; line-height: 1.6; }
         footer { text-align: center; padding: 20px 0; margin-top: 40px; border-top: 1px solid #2d3142; color: var(--text-muted); font-size: 0.85rem; }
         footer span { color: var(--accent); }
-        
-    /* ==========================================
-       1. STYLE DASAR TOMBOL NAVIGASI PASARAN & HARI
-       ========================================== */
-    .btn-nav-link {
-        display: inline-block;
-        padding: 8px 14px;
-        background-color: #34495e; /* Warna dasar tombol (abu-abu gelap elegan) */
-        color: #ffffff;            /* Warna teks putih */
-        text-decoration: none;     /* Menghilangkan garis bawah link */
-        border-radius: 4px;        /* Membuat sudut tombol agak melengkung */
-        font-weight: bold;
-        font-size: 14px;
-        border: 1px solid #2c3e50;
-        transition: all 0.2s ease; /* Efek transisi halus saat ditekan/diarahkan kursor */
-        text-align: center;
-    }
 
-    /* Efek ketika kursor diarahkan ke tombol (Hover) */
-    .btn-nav-link:hover {
-        background-color: #415b76;
-        color: #ffffff;
-    }
+        .btn-nav-link {
+            display: inline-block;
+            padding: 8px 14px;
+            background-color: #34495e;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 14px;
+            border: 1px solid #2c3e50;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
 
+        .btn-nav-link:hover {
+            background-color: #415b76;
+            color: #ffffff;
+        }
 
-    /* ==========================================
-       2. STYLE KETIKA TOMBOL AKTIF (WARNA KUNING)
-       ========================================== */
-    .btn-nav-link.active {
-        background-color: #ffc107 !important; /* Warna Kuning Khas Paito */
-        color: #000000 !important;            /* Warna teks menjadi hitam agar kontras */
-        border: 1px solid #ff9800 !important; /* Garis tepi orange tipis */
-        box-shadow: 0 0 8px rgba(255, 193, 7, 0.6); /* Efek bercahaya/neon halus */
-        transform: translateY(-1px);          /* Tombol agak sedikit terangkat */
-    }
+        .btn-nav-link.active {
+            background-color: #ffc107 !important;
+            color: #000000 !important;
+            border: 1px solid #ff9800 !important;
+            box-shadow: 0 0 8px rgba(255, 193, 7, 0.6);
+            transform: translateY(-1px);
+        }
 
+        .ball.strike-through {
+            position: relative;
+            text-decoration: line-through;
+            color: #95a5a6 !important;
+            opacity: 0.65;
+            border-color: #bdc3c7 !important;
+        }
 
-    /* ==========================================
-       3. STYLE UNTUK BOLA ANGKA MINUS (CORET TENGAH)
-       ========================================== */
-    .ball.strike-through {
-        position: relative;
-        text-decoration: line-through; /* Coretan standar pada teks angka */
-        color: #95a5a6 !important;     /* Mengubah warna angka menjadi abu-abu pudar */
-        opacity: 0.65;                 /* Membuat tampilan bola menjadi agak samar */
-        border-color: #bdc3c7 !important; /* Mengubah warna border bola menjadi pudar */
-    }
+        .ball.strike-through::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 5%;
+            width: 90%;
+            height: 2px;
+            background-color: #e74c3c;
+            transform: rotate(-15deg);
+        }
 
-    /* Opsional: Menambahkan garis coret tambahan yang lebih tebal melintasi bola */
-    .ball.strike-through::after {
-        content: "";
-        position: absolute;
-        top: 50%;
-        left: 5%;
-        width: 90%;
-        height: 2px;
-        background-color: #e74c3c; /* Garis coret merah melintang di tengah bola */
-        transform: rotate(-15deg); /* Membuat garis coret agak miring agar terlihat jelas */
-    }
-        .nav-bawah-container {
-    display: flex;          /* Mengaktifkan mode flexbox */
-    just/* 1. Mengatur wadah pembungkus agar melebar penuh dan rata samping */
-.system-controls {
-    display: flex;          /* Mengaktifkan flexbox horizontal */
-    width: 100%;            /* Memaksa wadah selebar elemen di atasnya */
-    gap: 8px;               /* Jarak renggang di tengah antara kedua tombol */
-    box-sizing: border-box;
-    margin-top: 10px;       /* Jarak vertikal dari barisan tombol pasaran atas */
+        .alert-libur-banner {
+            background-color: #ef4444;
+            color: #ffffff;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+            display: none;
+            animation: pulseGlow 1.5s infinite alternate;
+        }
+    
+#histats_counter,
+#histatsC{
+    position: fixed !important;
+    left: 50% !important;
+    bottom: 8px !important;
+    top: auto !important;
+    transform: translateX(-50%);
+    z-index: 9999;
+    opacity: .9;
 }
-
-/* 2. Mengatur tombol kiri dan kanan agar sama panjang */
-.system-controls .btn-control {
-    flex: 1;                /* Kunci Utama: Membagi lebar sama rata (50:50) */
-    text-align: center;     /* Membuat teks "Menu Utama" & "Kembali ke Atas" berada di tengah */
-    padding: 10px 0;        /* Mengatur tinggi tombol agar nyaman ditekan di HP */
-    text-decoration: none;  /* Menghilangkan garis bawah khas link <a> */
-    font-weight: bold;
-    font-size: 14px;
-    border-radius: 5px;     /* Menyamakan kelengkungan sudut tombol */
-    box-sizing: border-box;
- }
 
 </style>
 </head>
 <body id="top-page">
 
     <header>
-        <!-- MASTER FOTO SAMPUL & LOGO KELAS TOP -->
         <div class="sampul-banner" style="position: relative; width: 100%; height: 220px; background-color: #0c0c28; margin-bottom: 20px;">
-            <img src="sampul.jpg" alt="Sampul Angka Statistik" style="width: 100%; height: 100%; object-fit: cover; border-bottom: 1px solid rgba(0, 240, 255, 0.3);">
-            </div>
+            <img src="sampul.jpg" alt="Sampul Angka Statistik SGP" style="width: 100%; height: 100%; object-fit: cover; border-bottom: 1px solid rgba(0, 240, 255, 0.3);">
+        </div>
         <h1 style="margin-top: 45px;">PREDIKSI SGP <span id="nama-hari-header">HARI INI</span></h1>
     </header>
-
     <main class="container">
+        <!-- Notifikasi Banner Libur Otomatis SGP -->
+        <div id="banner-libur" class="alert-libur-banner">
+            ⚠️ PERHATIAN: HARI INI PASARAN TOTO SGP (SINGAPORE) LIBUR PENGELUARAN RESULT!
+        </div>
 
         <section class="result-container">
             <div class="result-title">Trek Riwayat Statistik Angka <span id="nama-hari-title"></span></div>
             
-            <!-- NOTIFIKASI OTOMATIS LIBUR SGP -->
-            <div id="sgp-holiday" class="holiday-notice">PASARAN SGP LIBUR HARI INI</div>
-            
-            <!-- FITUR LIVE JAM UPDATE DIMURNIKAN -->
             <div id="live-update-time" class="update-time-box">Memuat Waktu Update...</div>
             
             <div id="sgp-track" class="track-list"></div>
 
             <div style="text-align:center; margin:20px 0;">
-            <script async="async" data-cfasync="false"
-            src="https://pl30187165.effectivecpmnetwork.com/285abe3dfa3645b0c5001d78494f7ebb/invoke.js"></script>
-
-            <div id="container-285abe3dfa3645b0c5001d78494f7ebb"></div>
+                <script async="async" data-cfasync="false" src="https://effectivecpmnetwork.com"></script>
+                <div id="container-285abe3dfa3645b0c5001d78494f7ebb"></div>
             </div>
-
-            <div id="sgp-tunggal-area" class="tunggal-box">
+            
+            <div class="tunggal-box">
                 <div class="tunggal-title">ANGKA TUNGGAL HARI INI</div>
                 <div id="angka-tunggal-box" class="ball-glow">-</div>
                 <div class="wish-text">SEMOGA BERUNTUNG</div>
-            
-
-            <div class="social-share-container">
-            <div class="btn-social btn-whatsapp" style="cursor: default;">
-                <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.713-1.457L0 24zm6.59-4.846c1.66.986 3.288 1.48 4.861 1.481 5.405 0 9.803-4.383 9.806-9.768.001-2.61-1.006-5.064-2.836-6.896-1.83-1.83-4.287-2.837-6.897-2.838-5.408 0-9.807 4.384-9.81 9.771-.001 1.64.449 3.235 1.302 4.646L1.898 21.9l4.749-1.246zm12.3-5.597c-.334-.167-1.977-.975-2.28-1.086-.304-.11-.525-.167-.745.167-.221.334-.855 1.086-1.048 1.309-.193.222-.386.25-.72.083-1.573-.787-2.61-1.391-3.655-3.184-.275-.473.275-.44.787-1.465.084-.167.042-.314-.021-.447-.063-.133-.525-1.264-.72-1.73-.19-.457-.4-.395-.548-.403-.142-.007-.304-.009-.467-.009-.163 0-.429.061-.653.304-.224.244-.855.836-.855 2.036 0 1.2 1.472 2.316 1.472 2.316 0 0 1.94 2.96 4.701 4.154.656.284 1.168.453 1.569.58.66.21 1.261.18 1.736.11.529-.078 1.977-.808 2.253-1.59.276-.782.276-1.45.193-1.59-.083-.14-.304-.223-.638-.39z"/></svg>
-                088970383950
             </div>
-            <a id="fb-share-btn" href="#" target="_blank" rel="noopener noreferrer" class="btn-social btn-facebook">
-                <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-                Bagikan Halaman
-            </a>
-        </div>
-        </div>
+
+            <div class="share-buttons-container">
+                <a id="fb-share-btn" href="#" onclick="shareOnFacebook(event)" class="btn-social btn-facebook">
+                    <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                    Bagikan Halaman
+                </a>
+
+                <a id="x-share-btn" href="#" onclick="shareOnX(event)" class="btn-social btn-x">
+                    <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    X (Twitter)
+                </a>
+
+                <a href="javascript:void(0);" onclick="
+                    const linkHalaman = window.location.href;
+                    const judulHalaman = document.title;
+                    const teksYangDisalin = 'Bocoran jitu ' + judulHalaman + ' terbukti akurat! Lihat trek angka statistik harian lengkapnya di sini: ' + linkHalaman;
+                    
+                    navigator.clipboard.writeText(teksYangDisalin).then(() => {
+                        const spanTeks = this.querySelector('.text-tombol-salin-spesifik');
+                        const tombolSln = this;
+                        if (spanTeks) spanTeks.innerText = 'Teks Berhasil Disalin!';
+                        if (tombolSln) tombolSln.style.backgroundColor = '#27ae60';
+                        setTimeout(() => {
+                            if (spanTeks) spanTeks.innerText = 'Salin Link Prediksi';
+                            if (tombolSln) tombolSln.style.backgroundColor = '#e67e22';
+                        }, 2500);
+                    }).catch((err) => {
+                        alert('Gagal menyalin otomatis, silakan salin alamat link browser Anda secara manual.');
+                    });" 
+                    class="btn-social btn-salin-link">
+                    <svg viewBox="0 0 24 24"><path d="M19 2h-14c-1.103 0-2 .897-2 2v14h2v-14h14v-2zm3 4h-14c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0-2-.897-2-2v-14c0-1.103-.897-2-2-2zm0 16h-14v-14h14v14z"/></svg>
+                    <span class="text-tombol-salin-spesifik">Salin Link Prediksi</span>
+                </a>
+                <div class="info-whatsapp">
+                    <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397 0 11.93 0c3.165.001 6.14 1.233 8.377 3.469 2.237 2.236 3.467 5.21 3.466 8.375-.004 6.582-5.34 11.931-11.874 11.931-2.006-.001-3.98-.51-5.732-1.482L0 24zm6.59-4.846c1.657.983 3.283 1.489 4.887 1.491 5.43.003 9.85-4.415 9.853-9.845.002-2.63-1.023-5.101-2.887-6.963C16.636 1.975 14.161 1.95 11.93 1.95c-5.429 0-9.85 4.414-9.853 9.844-.001 1.77.475 3.499 1.379 5.048l-.999 3.648 3.732-.979zm11.391-7.051c-.301-.151-1.784-.881-2.057-.981-.273-.101-.473-.151-.672.151-.199.299-.77.981-.944 1.18-.174.199-.349.224-.65.074-.3-.151-1.267-.467-2.414-1.492-.893-.797-1.496-1.782-1.671-2.081-.174-.3-.019-.462.131-.611.135-.134.301-.35.451-.524.15-.174.199-.299.299-.498.1-.199.05-.374-.025-.524-.075-.15-.672-1.62-.922-2.22-.243-.584-.489-.504-.672-.513-.173-.008-.372-.01-.572-.01-.199 0-.523.075-.797.374-.274.299-1.045 1.022-1.045 2.493 0 1.471 1.07 2.89 1.219 3.09 1.121 1.491 2.27 1.471 4.542 2.378 1.401.558 2.27.464 2.89.373.684-.101 1.784-.729 2.033-1.431.25-.701.25-1.3.174-1.431-.076-.131-.274-.206-.575-.357z"/></svg>
+                    088970383950
+                </div>
+            </div>
         </section>
-   
 
         <div class="grid-nav-container">
-    <!-- 1. PILIHAN HARI SGP -->
-    <section class="nav-section">
-        <h3>Pilihan Hari SGP</h3>
-        <div class="link-flex">
-            <a href="sgp.html?hari=senin" class="btn-nav-link" id="btn-senin">Senin</a>
-            <a href="sgp.html?hari=selasa" class="btn-nav-link" id="btn-selasa" style="opacity: 0.5; background: #2a1b1b; color: #ef4444;">Selasa (Libur)</a>
-            <a href="sgp.html?hari=rabu" class="btn-nav-link" id="btn-rabu">Rabu</a>
-            <a href="sgp.html?hari=kamis" class="btn-nav-link" id="btn-kamis">Kamis</a>
-            <a href="sgp.html?hari=jumat" class="btn-nav-link" id="btn-jumat" style="opacity: 0.5; background: #2a1b1b; color: #ef4444;">Jumat (Libur)</a>
-            <a href="sgp.html?hari=sabtu" class="btn-nav-link" id="btn-sabtu">Sabtu</a>
-            <a href="sgp.html?hari=minggu" class="btn-nav-link" id="btn-minggu">Minggu</a>
-            <a href="almanak.html" class="btn-nav-link" id="btn-almanak">Almanak</a>
+            <section class="nav-section">
+                <h3>Pilihan Hari SGP</h3>
+                <div class="link-flex">
+                    <a href="sgp.html?hari=senin" class="btn-nav-link" id="btn-senin">Senin</a>
+                    <a href="sgp.html?hari=selasa" class="btn-nav-link" id="btn-selasa">Selasa</a>
+                    <a href="sgp.html?hari=rabu" class="btn-nav-link" id="btn-rabu">Rabu</a>
+                    <a href="sgp.html?hari=kamis" class="btn-nav-link" id="btn-kamis">Kamis</a>
+                    <a href="sgp.html?hari=jumat" class="btn-nav-link" id="btn-jumat">Jumat</a>
+                    <a href="sgp.html?hari=sabtu" class="btn-nav-link" id="btn-sabtu">Sabtu</a>
+                    <a href="sgp.html?hari=minggu" class="btn-nav-link" id="btn-minggu">Minggu</a>
+                    <a href="almanak.html" class="btn-nav-link">Almanak</a>
+                </div> 
+            </section>
+
+            <section class="nav-section">
+                <h3>Pasaran Lain Hari Ini</h3>
+                <div class="link-flex">
+                    <a href="macau.html" class="btn-nav-link" id="pasaran-macau">Macau</a>
+                    <a href="cambodia.html" class="btn-nav-link" id="pasaran-cambodia">Cambodia</a>
+                    <a href="sdy.html" class="btn-nav-link" id="pasaran-sdy">SDY</a>
+                    <a href="china.html" class="btn-nav-link" id="pasaran-china">China</a>
+                    <a href="japan.html" class="btn-nav-link" id="pasaran-japan">Japan</a>
+                    <a href="sgp.html" class="btn-nav-link" id="pasaran-sgp">SGP</a>
+                    <a href="taiwan.html" class="btn-nav-link" id="pasaran-taiwan">Taiwan</a>
+                    <a href="hk.html" class="btn-nav-link" id="pasaran-hk">HK</a>
+                </div>
+                <div class="system-controls">
+                    <a href="index.html" class="btn-control btn-back">Menu Utama</a>
+                    <a href="#top-page" class="btn-control btn-top">Kembali ke Atas ↑</a>
+                </div>
+            </section>
         </div>
-    </section>
-
-    <!-- 2. PASARAN LAIN HARI INI -->
-    <section class="nav-section">
-        <h3>Pasaran Lain Hari Ini</h3>
-        <div class="link-flex">
-            <a href="macau.html" class="btn-nav-link" id="pasaran-macau">Macau</a>
-            <a href="cambodia.html" class="btn-nav-link" id="pasaran-cambodia">Cambodia</a>
-            <a href="sdy.html" class="btn-nav-link" id="pasaran-sdy">SDY</a>
-            <a href="china.html" class="btn-nav-link" id="pasaran-china">China</a>
-            <a href="japan.html" class="btn-nav-link" id="pasaran-japan">Japan</a>
-            <a href="sgp.html" class="btn-nav-link" id="pasaran-sgp">SGP</a>
-            <a href="taiwan.html" class="btn-nav-link" id="pasaran-taiwan">Taiwan</a>
-            <a href="hk.html" class="btn-nav-link" id="pasaran-hk">HK</a>
-        </div>
-
-        <!-- PERBAIKAN: Tombol kontrol diletakkan di sini (di dalam kolom pasaran kanan) -->
-        <!-- Dengan ini, ujung kiri "Menu Utama" akan lurus dengan tombol "Japan" -->
-        <!-- Dan ujung kanan "Kembali ke Atas" akan lurus sempurna dengan tombol "HK" -->
-        <div class="system-controls">
-            <a href="index.html" class="btn-control btn-back">Menu Utama</a>
-            <a href="#top-page" class="btn-control btn-top">Kembali ke Atas ↑</a>
-        </div>
-    </section>
-</div>
-
-
-        <!-- Teks Kluster Artikel SEO Otomatis Pasaran SGP Singapore -->
         <p class="seo-footer-text">
-            Halaman resmi <strong id="seo-strong-tag">PREDIKSI SGP</strong> harian menyajikan bocoran angka jitu sgp terupdate langsung dari rangkuman data pengeluaran togel singapore pools harian. Menggunakan sistem rumus statistik jitu, kami meracik live draw angka main sgp, colok bebas, colok macau, bbfs, kepala, dan ekor harian secara akurat. Manfaatkan informasi grafik paito warna sgp singapore di situs judi online <em>angkastatistik.my.id</em> sebagai referensi utama Anda untuk menemukan nomor toto sgp paling berpeluang tembus hari ini.
+            Halaman resmi <strong id="seo-strong-tag">PREDIKSI SGP</strong> harian menyajikan bocoran angka jitu sgp terupdate langsung dari rangkuman data pengeluaran togel singapore pools harian. Menggunakan sistem rumus statistik jitu, kami meracik live draw angka main singapore, colok bebas, bbfs, kepala, dan ekor harian secara akurat. Manfaatkan informasi grafik paito warna sgp di situs judi online <em>angkastatistik.my.id</em> sebagai referensi utama Anda untuk menemukan nomor toto sgp pools singapore paling berpeluang tembus hari ini.
         </p>
 
         <p class="seo-footer-text" style="font-size: 0.8rem; opacity: 0.6; margin-top: 10px; border-top: 1px dashed #2d3142; padding-top: 10px;">
-            Pencarian terkait: <span id="seo-keywords-list">bocoran sgp, angka jitu sgp harian, toto singapore pools, paito warna sgp, data pengeluaran sgp terbaru.</span>
+            Pencarian terkait: <span id="seo-keywords-list">bocoran sgp, angka jitu sgp harian, toto singapore pools, paito warna sgp prize, data pengeluaran sgp terbaru, live draw singapore pools tercepat.</span>
         </p>
+    </main>
 
-        </main>
-
-        <script src="https://pl30187164.effectivecpmnetwork.com/27/ba/bd/27babd93febcd37a091303b95048fdf4.js"></script>
-
-        <!-- HISTATS DIV WITH COUNTER -->
-        <div id="histats_counter" style="text-align:center; margin-top:15px;"></div>
-
-        <footer>
+    <footer>
         <p>&copy; 2026 <span>ANGKA STATISTIK</span>. All Rights Reserved.</p>
-        </footer>
-
-    <!-- KODE IKLAN LAMA 3 (POP-UNDER BAWAH / REDIRECT PL) -->
-<!-- Histats.com  (div with counter) -->
-<div id="histats_counter"></div>
-<!-- Histats.com  START  (aync)-->
-<script type="text/javascript">var _Hasync= _Hasync|| [];
-_Hasync.push(['Histats.startgif', '1,5037448,4,10036,"div#histatsC {position: absolute;top:0px;left:0px;}body>div#histatsC {position: fixed;}"']);
-_Hasync.push(['Histats.fasi', '1']);
-_Hasync.push(['Histats.track_hits', '']);
-(function() {
-var hs = document.createElement('script'); hs.type = 'text/javascript'; hs.async = true;
-hs.src = ('//s10.histats.com/js15_giftop_as.js');
-(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(hs);
-})();</script>
-
-<noscript><style type="text/css">div#histatsC {position: absolute;top:0px;left:0px;}body>div#histatsC {position: fixed;}</style>
-<a href="/" alt="" target="_blank" ><div id="histatsC"><img border="0" src="//s4is.histats.com/stats/i/5037448.gif?5037448&103"></div></a>
-</noscript>
-        <!-- Histats.com  END  -->
-
-<!-- WAJIB ADA: Memanggil file database angka SGP Anda -->
-<script src="data/sgp.js"></script>
-
-<script>
-    // 1. DETEKSI HARI OTOMATIS BERDASARKAN HARI ASLI DI HP/KOMPUTER PENGUNJUNG
-    const daftarHariIndo = ['minggu', 'senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu'];
-    const hariIniAsli = daftarHariIndo[new Date().getDay()]; 
-
-    const urlParams = new URLSearchParams(window.location.search);
-    // Jika di URL tidak ada pilihan hari (?hari=), otomatis pakai hari asli saat ini!
-    let hari = urlParams.get('hari') || hariIniAsli; 
-    hari = hari.toLowerCase();
-
-    // 2. UPDATE TEXT SEO & TEXT HEADER (STRATEGI KUNCI CANONICAL)
-    if(document.getElementById('nama-hari-header')) document.getElementById('nama-hari-header').innerText = hari.toUpperCase();
-    if(document.getElementById('nama-hari-title')) document.getElementById('nama-hari-title').innerText = '- Hari ' + hari.charAt(0).toUpperCase() + hari.slice(1);
-    if(document.getElementById('seo-title')) document.getElementById('seo-title').innerText = `PREDIKSI SGP HARI INI ${hari.toUpperCase()}: Bocoran Angka Jitu Terakurat`;
-    if(document.getElementById('seo-strong-tag')) document.getElementById('seo-strong-tag').innerText = `PREDIKSI SGP ${hari.toUpperCase()}`;
     
-    // KUNCI MATI CANONICAL KE URL UTAMA UNTUK TEMBUS 5 BESAR GOOGLE (Tanpa parameter hari)
-    if(document.getElementById('seo-canonical')) document.getElementById('seo-canonical').href = `https://angkastatistik.my.id`;
-    
-    // PERBAIKAN LOGIKA DOLAR LINK SHARE FACEBOOK OFFICIAL
-    if(document.getElementById('fb-share-btn')) document.getElementById('fb-share-btn').href = `https://facebook.com{encodeURIComponent(window.location.href)}`;
-    
-    if(document.getElementById('seo-keywords-list')) document.getElementById('seo-keywords-list').innerText = `bocoran sgp ${hari}, prediksi singapore pools hari ${hari}, paito warna sgp harian, angka jitu sgp terupdate, data toto singapore keluar hari ${hari}.`;
+<script src="https://crypotential.com/aau2deh1y8?key=28127d0dedbc5859c5a05ec19fed2ae4"></script>
+<script src="https://pl30187164.effectivecpmnetwork.com/27/ba/bd/27babd93febcd37a091303b95048fdf4.js"></script>
+<div style="text-align:center;margin:20px 0;"><script async data-cfasync="false" src="https://pl30187165.effectivecpmnetwork.com/285abe3dfa3645b0c5001d78494f7ebb/invoke.js"></script><div id="container-285abe3dfa3645b0c5001d78494f7ebb"></div></div>
+<div style="position:fixed;bottom:4px;left:50%;transform:translateX(-50%);background:rgba(20,20,20,.8);padding:2px 10px;border-radius:20px;font-size:10px;z-index:9999"><div id="histats_counter"></div></div>
+<script type="text/javascript">var _Hasync=_Hasync||[];_Hasync.push(['Histats.startgif','1,5037448,4,10036,"div#histatsC {position:absolute;top:0;left:0;}body>div#histatsC {position:fixed;}"']);_Hasync.push(['Histats.fasi','1']);_Hasync.push(['Histats.track_hits','']);(function(){var hs=document.createElement('script');hs.async=true;hs.src='//s10.histats.com/js15_giftop_as.js';document.body.appendChild(hs);})();</script>
+</footer>
+    <script type="text/javascript">
+        var _Hasync= _Hasync|| [];
+        _Hasync.push(['Histats.startgif', '1,5037448,4,10036,"div#histatsC {position: absolute;top:0px;left:0px;}body>div#histatsC {position: fixed;}"']);
+        _Hasync.push(['Histats.fasi', '1']);
+        _Hasync.push(['Histats.track_hits', '']);
+        (function() {
+            var hs = document.createElement('script'); hs.type = 'text/javascript'; hs.async = true;
+            hs.src = '//://histats.com';
+            (document.getElementsByTagName('head') || document.getElementsByTagName('body')).appendChild(hs);
+        })();
+    </script>
+    <noscript>
+        <style type="text/css">div#histatsC {position: absolute;top:0px;left:0px;}body>div#histatsC {position: fixed;}</style>
+        <a href="/" target="_blank"><div id="histatsC"><img border="0" src="//://histats.com" alt="histats"></div></a>
+    </noscript>
 
-    const containerTrek = document.getElementById('sgp-track');
-    const holidayNotice = document.getElementById('sgp-holiday');
-    const tunggalArea = document.getElementById('sgp-tunggal-area');
-    const updateTimeBox = document.getElementById('live-update-time');
+    <!-- Memanggil database file eksternal khusus pasaran SGP -->
+    <script src="data/sgp.js"></script>
 
-    // 3. LOGIKA DETEKSI LIBUR OTOMATIS SELASA & JUMAT (STRUKTUR SUDAH DIPERBAIKI)
-    if (hari === 'selasa' || hari === 'jumat') {
-        if(containerTrek) containerTrek.style.display = 'none';
-        if(tunggalArea) tunggalArea.style.display = 'none';
-        if(updateTimeBox) updateTimeBox.style.display = 'none';
-        if(holidayNotice) {
-            holidayNotice.style.display = 'block';
-            holidayNotice.innerText = `PASARAN TOTO SGP SINGAPORE LIBUR SETIAP HARI ${hari.toUpperCase()}`;
+    <script>
+        const daftarHariIndo = ['minggu', 'senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu'];
+        const hariIniAsli = daftarHariIndo[new Date().getDay()];
+
+        const urlParams = new URLSearchParams(window.location.search);
+        let hari = urlParams.get('hari') || hariIniAsli; 
+        hari = hari.toLowerCase();
+
+        // LOGIKA DETEKSI HARI LIBUR SGP (SELASA & JUMAT)
+        if (hari === 'selasa' || hari === 'jumat') {
+            const bannerLibur = document.getElementById('banner-libur');
+            if (bannerLibur) {
+                bannerLibur.style.display = 'block';
+            }
+            // Munculkan notifikasi pop-up saat pengunjung membuka hari libur tersebut
+            alert(`Pemberitahuan Pengunjung: Hari ${hari.toUpperCase()} pasaran resmi SGP (Singapore) LIBUR. Tidak ada pembaruan angka keluar hari ini.`);
         }
-    } else {
-        // JIKA BUKAN HARI LIBUR, TAMPILKAN PREDIKSI SEPERTI BIASA
-        if(containerTrek) containerTrek.style.display = 'flex';
-        if(tunggalArea) tunggalArea.style.display = 'block';
-        if(updateTimeBox) updateTimeBox.style.display = 'block';
-        if(holidayNotice) holidayNotice.style.display = 'none'; 
 
+        if(document.getElementById('nama-hari-header')) document.getElementById('nama-hari-header').innerText = hari.toUpperCase();
+        if(document.getElementById('nama-hari-title')) document.getElementById('nama-hari-title').innerText = '- Hari ' + hari.charAt(0).toUpperCase() + hari.slice(1);
+        if(document.getElementById('seo-title')) document.getElementById('seo-title').innerText = `PREDIKSI SGP ${hari.toUpperCase()}: Bocoran Angka Jitu & Paito Warna Terakurat`;
+        if(document.getElementById('seo-strong-tag')) document.getElementById('seo-strong-tag').innerText = `PREDIKSI SGP ${hari.toUpperCase()}`;
+        
+        if(document.getElementById('seo-canonical')) document.getElementById('seo-canonical').href = `https://angkastatistik.my.id{hari}`;
+        
+        if(document.getElementById('seo-keywords-list')) document.getElementById('seo-keywords-list').innerText = `bocoran sgp ${hari}, prediksi singapore pools hari ${hari}, paito warna sgp harian, angka jitu sgp terupdate, data toto sgp keluar hari ${hari}.`;
+
+        const containerTrek = document.getElementById('sgp-track');
         if (containerTrek) {
             containerTrek.innerHTML = ''; 
 
-            const hariObj = DATA_SGP[hari] || { angka: '', tunggal: '-' }; 
+            // Menggunakan DATA_SGP dari data/sgp.js
+            const databaseSGP = (typeof DATA_SGP !== 'undefined') ? DATA_SGP : {};
+            const hariObj = databaseSGP[hari] || { angka: '', tunggal: '-' }; 
             const teksData = hariObj.angka || '';
             const barisData = teksData.split('\n');
             
@@ -613,8 +592,8 @@ hs.src = ('//s10.histats.com/js15_giftop_as.js');
                 if (!item.trim() || !item.includes(':')) return;
                 
                 const bagian = item.split(':');
-                const angkaKiri = bagian[0].trim();  
-                const angkaKanan = bagian[1].trim(); 
+                const angkaKiri = bagian[0].trim();
+                const angkaKanan = bagian[1].trim();
 
                 let barisHTML = `<div class="ball-row">`;
                 for (let ch of angkaKiri) { 
@@ -639,33 +618,69 @@ hs.src = ('//s10.histats.com/js15_giftop_as.js');
             }
         }
 
-        // 4. LOGIKA JAM LIVE UPDATE
         const sekarang = new Date();
         const jam = String(sekarang.getHours()).padStart(2, '0');
         const menit = String(sekarang.getMinutes()).padStart(2, '0');
-        if(updateTimeBox) {
-            updateTimeBox.innerHTML = `Jam ${jam}:${menit} WIB`; 
+        if(document.getElementById('live-update-time')) {
+            document.getElementById('live-update-time').innerHTML = `Jam ${jam}:${menit} WIB`; 
+        }
+
+        const tombolHariIni = document.getElementById(`btn-${hari}`);
+        if (tombolHariIni) {
+            tombolHariIni.classList.add('active');
+        }
+
+        const pathHalaman = window.location.pathname;
+        const namaFile = pathHalaman.substring(pathHalaman.lastIndexOf('/') + 1).replace('.html', '').toLowerCase();
+        const pasaranAktif = namaFile || 'sgp';
+        
+        const tombolPasaran = document.getElementById(`pasaran-${pasaranAktif}`);
+        if (tombolPasaran) {
+            tombolPasaran.classList.add('active');
+        }
+    </script>
+
+    <script>
+    function shareOnFacebook(event) {
+        event.preventDefault();
+        const currentUrl = window.location.href;
+        const pageTitle = document.title;
+
+        if (navigator.share) {
+            navigator.share({
+                title: pageTitle,
+                url: currentUrl
+            }).catch((err) => console.log("Gagal membagikan:", err));
+        } else {
+            const fbShareUrl = `https://facebook.com{encodeURIComponent(currentUrl)}`;
+            window.open(fbShareUrl, 'facebook-share', 'width=626,height=436');
         }
     }
 
-    // 5. MENYALAKAN TOMBOL HARI YANG AKTIF (WARNA KUNING)
-    const tombolHariIni = document.getElementById(`btn-${hari}`);
-    if (tombolHariIni) {
-        tombolHariIni.classList.add('active');
+    function shareOnX(event) {
+        event.preventDefault();
+        const currentUrl = encodeURIComponent(window.location.href);
+        const pageTitle = encodeURIComponent(document.title);
+        const xShareUrl = `https://twitter.com{pageTitle}&url=${currentUrl}`;
+        window.open(xShareUrl, 'x-share', 'width=600,height=400');
     }
+    </script>
 
-    // 6. MENYALAKAN TOMBOL PASARAN YANG AKTIF (WARNA KUNING)
-    const pathHalaman = window.location.pathname;
-    const namaFile = pathHalaman.substring(pathHalaman.lastIndexOf('/') + 1).replace('.html', '').toLowerCase();
-    const pasaranAktif = namaFile || 'sgp'; 
-    
-    const tombolPasaran = document.getElementById(`pasaran-${pasaranAktif}`);
-    if (tombolPasaran) {
-        tombolPasaran.classList.add('active');
-    }
-</script>
-
-<script src="https://crypotential.com/aau2deh1y8?key=28127d0dedbc5859c5a05ec19fed2ae4"></script>
+    <script type="text/javascript">
+        var _Hasync= _Hasync|| [];
+        _Hasync.push(['Histats.startgif', '1,5037448,4,10036,"div#histatsC {position: absolute;top:0px;left:0px;}body>div#histatsC {position: fixed;}"']);
+        _Hasync.push(['Histats.fasi', '1']);
+        _Hasync.push(['Histats.track_hits', '']);
+        (function() {
+            var hs = document.createElement('script'); hs.type = 'text/javascript'; hs.async = true;
+            hs.src = '//://histats.com';
+            (document.getElementsByTagName('head') || document.getElementsByTagName('body')).appendChild(hs);
+        })();
+    </script>
+    <noscript>
+        <style type="text/css">div#histatsC {position: absolute;top:0px;left:0px;}body>div#histatsC {position: fixed;}</style>
+        <a href="/" target="_blank"><div id="histatsC"><img border="0" src="//://histats.com" alt="histats"></div></a>
+    </noscript>
 <script src="data/sgp.js"></script>
 </body>
 </html>
