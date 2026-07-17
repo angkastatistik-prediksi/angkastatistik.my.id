@@ -572,14 +572,24 @@
                 }
                 barisHTML += `<div class="separator">:</div>`;
                 
-                let isCoret = false;
-                for (let ch of angkaKanan) {
-                    if (ch === '-') { isCoret = true; continue; }
-                    if (ch !== ' ') {
-                        const classCoret = isCoret ? 'strike-through' : '';
-                        barisHTML += `<div class="ball white ${classCoret}">${ch}</div>`;
-                    }
-                }
+                // TEMPELKAN KODE INI DI SEMUA FILE PASARAN LAIN (SDY, HK, DLL)
+let isCoret = false;
+let teksAngkaKanan = angkaKanan.trim();
+
+// Cek jika baris data angka diawali tanda minus (-) untuk coretan rumus
+if (teksAngkaKanan.startsWith('-')) {
+    isCoret = true;
+    teksAngkaKanan = teksAngkaKanan.substring(1).trim(); 
+}
+
+// Memecah otomatis karakter angka satu per satu menjadi bulatan bola
+for (let ch of teksAngkaKanan) {
+    if (ch !== ' ' && ch !== '\r' && ch !== '\n') {
+        const classCoret = isCoret ? 'strike-through' : '';
+        barisHTML += `<div class="ball white ${classCoret}">${ch}</div>`;
+    }
+}
+
                 barisHTML += `</div>`;
                 containerTrek.innerHTML += barisHTML;
             });
