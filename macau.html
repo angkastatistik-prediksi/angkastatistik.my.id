@@ -200,44 +200,35 @@
     <script src="data/macau.js"></script>
 
     <script>
-        const daftarHariIndo = ['minggu', 'senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu'];
-        const hariIniAsli = daftarHariIndo[new Date().getDay()];
+    
+const daftarHariIndo = ['minggu', 'senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu'];
+const hariIniAsli = daftarHariIndo[new Date().getDay()];
 
-        // Mengambil parameter Hari dan Putaran dari URL browser
-        // KODE BARU: DETEKSI PUTARAN OTOMATIS BERDASARKAN JAM STRUKTUR REAL-TIME
 const urlParams = new URLSearchParams(window.location.search);
 let hari = urlParams.get('hari') || hariIniAsli; 
 
-// Logika membaca jam komputer/HP pengunjung saat ini
+// --- MESIN BACA JAM Real-time
 const jamSekarang = new Date().getHours();
-let putaranOtomatis = 'p1'; // Default Putaran 1
+let putaranOtomatis = 'p1'; 
 
-if (jamSekarang >= 0 && jamSekarang < 13) {
-    putaranOtomatis = 'p1'; // Jam 00:00 - 12:59 tampilkan P1 untuk persiapan siang
-} else if (jamSekarang >= 13 && jamSekarang < 16) {
-    putaranOtomatis = 'p1'; // Jam 13:00 - 15:59 tampilkan P1
+if (jamSekarang >= 13 && jamSekarang < 16) {
+    putaranOtomatis = 'p1'; 
 } else if (jamSekarang >= 16 && jamSekarang < 19) {
-    putaranOtomatis = 'p2'; // Jam 16:00 - 18:59 OTOMATIS TAMPIL PUTARAN 2
+    putaranOtomatis = 'p2'; // Jam 16:00 - 18:59 Otomatis Tampil P2
 } else if (jamSekarang >= 19 && jamSekarang < 22) {
-    putaranOtomatis = 'p3'; // Jam 19:00 - 21:59 OTOMATIS TAMPIL PUTARAN 3
+    putaranOtomatis = 'p3'; // Jam 19:00 - 21:59 Otomatis Tampil P3
 } else if (jamSekarang >= 22 && jamSekarang < 23) {
-    putaranOtomatis = 'p4'; // Jam 22:00 - 22:59 OTOMATIS TAMPIL PUTARAN 4
+    putaranOtomatis = 'p4'; // Jam 22:00 - 22:59 Otomatis Tampil P4
 } else if (jamSekarang >= 23 && jamSekarang < 24) {
-    putaranOtomatis = 'p5'; // Jam 23:00 - 23:59 OTOMATIS TAMPIL PUTARAN 5
-} else if (jamSekarang === 0) {
-    putaranOtomatis = 'p6'; // Jam 00:01 - 00:59 OTOMATIS TAMPIL PUTARAN 6
+    putaranOtomatis = 'p5'; // Jam 23:00 - 23:59 Otomatis Tampil P5
+} else if (jamSekarang >= 0 && jamSekarang < 13) {
+    putaranOtomatis = 'p6'; // Lewat tengah malam otomatis tampilkan P6 hasil semalam
 }
 
-// Jika pengunjung mengklik tombol putaran manual di web, gunakan pilihan mereka. 
-// Tapi jika baru pertama kali buka web, jalankan putaran otomatis berdasarkan jam di atas.
 let putaran = urlParams.get('putaran') || putaranOtomatis; 
 
 hari = hari.toLowerCase();
 putaran = putaran.toLowerCase();
- 
-        
-        hari = hari.toLowerCase();
-        putaran = putaran.toLowerCase();
 
         const mapNamaPutaran = {
             'p1': 'Putaran 1 (13:00)', 'p2': 'Putaran 2 (16:00)', 
