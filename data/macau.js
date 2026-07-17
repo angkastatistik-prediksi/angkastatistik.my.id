@@ -93,7 +93,7 @@ angka_p3: `
 9372 : 28
 2315 : 13
         `,
-          tunggal_p3: "", //Rumus ekor -+ jgn langsung
+          tunggal_p3: "3", //Rumus ekor -+ jgn langsung
         
 angka_p4: `
 3807 : 16
