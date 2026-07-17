@@ -115,3 +115,71 @@ prediksi6: `
         //Rumus ekor ada twin
 }
 };
+
+
+const DATA_MACAU = {
+  senin: {
+    angka_p1: `
+    
+    `,
+    tunggal_p1: "",
+
+    angka_p2: `
+    
+    `,
+    tunggal_p2: "",
+
+    angka_p3: `
+    
+    `,
+    tunggal_p3: "",
+    
+    angka_p4: `
+    
+    `,
+    tunggal_p4: "",
+    
+    angka_p5: `
+    
+    `,
+    tunggal_p5: "",
+    
+    angka_p6: `
+    
+    `,
+    tunggal_p6: ""},
+  
+    selasa: {
+    angka_p1: `
+    
+    `,
+    tunggal_p1: "",
+
+    angka_p2: `
+    
+    `,
+    tunggal_p2: "",
+
+    angka_p3: `
+    
+    `,
+    tunggal_p3: "",
+    
+    angka_p4: `
+    
+    `,
+    tunggal_p4: "",
+    
+    angka_p5: `
+    
+    `,
+    tunggal_p5: "",
+    
+    angka_p6: `
+    
+    `,
+    tunggal_p6: ""},
+
+}
+};
+
