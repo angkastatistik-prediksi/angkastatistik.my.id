@@ -213,9 +213,27 @@ angka_p2: `
   tunggal_p2: "5", //Rumus ekor ada twin
         
 angka_p3: `
-
-`, tunggal_p3: "",
-        angka_p4: ``, tunggal_p4: "",
+0370 : 26
+8227 : 13
+7216 : 12
+1351 : 23
+5953 : 07
+0448 : 27
+7751 : 55
+7695 : -93
+7515 : 71
+3078 : 47
+6570 : 34
+8036 : 79
+9228 : 76
+6290 : 83
+9372 : 28
+2315 : 13
+1030 : 29
+        `,
+          tunggal_p3: "9", //Rumus ekor -+ jgn langsung
+    
+angka_p4: ``, tunggal_p4: "",
         angka_p5: ``, tunggal_p5: "",
         angka_p6: ``, tunggal_p6: ""
     },
