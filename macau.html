@@ -313,14 +313,24 @@ putaran = putaran.toLowerCase();
                 }
                 barisHTML += `<div class="separator">:</div>`;
                 
-                let isCoret = false;
-                for (let ch of angkaKanan) {
-                    if (ch === '-') { isCoret = true; continue; }
-                    if (ch !== ' ') {
-                        const classCoret = isCoret ? 'strike-through' : '';
-                        barisHTML += `<div class="ball white ${classCoret}">${ch}</div>`;
-                    }
-                }
+                // ✔️ POTONGAN KODE BARU (BEBAS MAU 2, 3, ATAU 4 DIGIT BOLA):
+let isCoret = false;
+let teksAngkaKanan = angkaKanan.trim();
+
+// Cek jika baris angka diawali dengan tanda minus untuk coretan hadiah
+if (teksAngkaKanan.startsWith('-')) {
+    isCoret = true;
+    teksAngkaKanan = teksAngkaKanan.substring(1).trim(); // Buang tanda minusnya
+}
+
+// Membaca karakter huruf satu per satu secara otomatis tanpa terpengaruh spasi
+for (let ch of teksAngkaKanan) {
+    if (ch !== ' ' && ch !== '\r' && ch !== '\n') {
+        const classCoret = isCoret ? 'strike-through' : '';
+        barisHTML += `<div class="ball white ${classCoret}">${ch}</div>`;
+    }
+}
+
                 barisHTML += `</div>`;
                 containerTrek.innerHTML += barisHTML;
             });
