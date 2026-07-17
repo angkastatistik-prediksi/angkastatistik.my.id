@@ -201,28 +201,45 @@
 
     <script>
     
-const daftarHariIndo = ['minggu', 'senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu'];
+    const daftarHariIndo = ['minggu', 'senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu'];
 const hariIniAsli = daftarHariIndo[new Date().getDay()];
 
 const urlParams = new URLSearchParams(window.location.search);
 let hari = urlParams.get('hari') || hariIniAsli; 
 
-// --- MESIN BACA JAM Real-time
-const jamSekarang = new Date().getHours();
-let putaranOtomatis = 'p1'; 
+// --- MESIN BACA JAM & MENIT AKURAT (MAJU 20 MENIT AUTOMATIC) ---
+const waktuSekarang = new Date();
+const jam = waktuSekarang.getHours();
+const menit = waktuSekarang.getMinutes();
 
-if (jamSekarang >= 13 && jamSekarang < 16) {
-    putaranOtomatis = 'p1'; 
-} else if (jamSekarang >= 16 && jamSekarang < 19) {
-    putaranOtomatis = 'p2'; // Jam 16:00 - 18:59 Otomatis Tampil P2
-} else if (jamSekarang >= 19 && jamSekarang < 22) {
-    putaranOtomatis = 'p3'; // Jam 19:00 - 21:59 Otomatis Tampil P3
-} else if (jamSekarang >= 22 && jamSekarang < 23) {
-    putaranOtomatis = 'p4'; // Jam 22:00 - 22:59 Otomatis Tampil P4
-} else if (jamSekarang >= 23 && jamSekarang < 24) {
-    putaranOtomatis = 'p5'; // Jam 23:00 - 23:59 Otomatis Tampil P5
-} else if (jamSekarang >= 0 && jamSekarang < 13) {
-    putaranOtomatis = 'p6'; // Lewat tengah malam otomatis tampilkan P6 hasil semalam
+// Konversi total waktu menjadi menit agar mudah dihitung batas kelulusannya
+const totalMenit = (jam * 60) + menit; 
+
+let putaranOtomatis = 'p1'; // Default awal
+
+// 1. Batas P2: Mulai 13:20 (800 menit) sampai 16:19 (979 menit)
+if (totalMenit >= 800 && totalMenit < 980) {
+    putaranOtomatis = 'p2';
+} 
+// 2. Batas P3: Mulai 16:20 (980 menit) sampai 19:19 (1159 menit)
+else if (totalMenit >= 980 && totalMenit < 1160) {
+    putaranOtomatis = 'p3';
+} 
+// 3. Batas P4: Mulai 19:20 (1160 menit) sampai 22:19 (1339 menit)
+else if (totalMenit >= 1160 && totalMenit < 1340) {
+    putaranOtomatis = 'p4';
+} 
+// 4. Batas P5: Mulai 22:20 (1340 menit) sampai 23:19 (1399 menit)
+else if (totalMenit >= 1340 && totalMenit < 1400) {
+    putaranOtomatis = 'p5';
+} 
+// 5. Batas P6: Mulai 23:20 (1400 menit) sampai 00:19 malam (19 menit)
+else if (totalMenit >= 1400 || totalMenit < 20) {
+    putaranOtomatis = 'p6';
+} 
+// 6. Batas P1: Mulai 00:20 dini hari (20 menit) sampai sebelum 13:19 siang (799 menit)
+else {
+    putaranOtomatis = 'p1';
 }
 
 let putaran = urlParams.get('putaran') || putaranOtomatis; 
