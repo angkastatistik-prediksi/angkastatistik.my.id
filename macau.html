@@ -75,17 +75,7 @@
         .btn-nav-link.active { background-color: #ffc107 !important; color: #000000 !important; border: 1px solid #ff9800 !important; box-shadow: 0 0 8px rgba(255, 193, 7, 0.6); transform: translateY(-1px); }
         .ball.strike-through { position: relative; text-decoration: line-through; color: #95a5a6 !important; opacity: 0.65; border-color: #bdc3c7 !important; }
         .ball.strike-through::after { content: ""; position: absolute; top: 50%; left: 5%; width: 90%; height: 2px; background-color: #e74c3c; transform: rotate(-15deg); }
-        
-        #histats_counter,
-        #histatsC{
-        position: fixed !important;
-        left: 50% !important;
-        bottom: 8px !important;
-        top: auto !important;
-        transform: translateX(-50%);
-        z-index: 9999;
-        opacity: .9;
-        }
+        #histats_counter, #histatsC { position: fixed !important; left: 50% !important; bottom: 8px !important; top: auto !important; transform: translateX(-50%); z-index: 9999; opacity: .9; }
     </style>
 </head>
 <body id="top-page">
@@ -108,7 +98,7 @@
 
             <div id="container-285abe3dfa3645b0c5001d78494f7ebb"></div>
             </div>
-            
+
             <div class="tunggal-box">
                 <div class="tunggal-title">ANGKA TUNGGAL HARI INI</div>
                 <div id="angka-tunggal-box" class="ball-glow">-</div>
@@ -179,12 +169,12 @@
             </section>
         </div>
 
-                <p class="seo-footer-text">
-            Halaman resmi <strong>PREDIKSI TOTO MACAU</strong> harian menyajikan bocoran angka jitu macau terupdate langsung dari rangkuman data pengeluaran togel macau pools harian. Menggunakan sistem rumus statistik jitu, kami meracik live draw angka main macau, colok bebas, colok macau, bbfs, kepala, dan ekor harian secara akurat. Manfaatkan informasi grafik paito warna macau di situs judi online <em>angkastatistik.my.id</em> sebagai referensi utama Anda untuk menemukan nomor toto macau 6 putaran paling berpeluang tembus hari ini.
+        <p class="seo-footer-text">
+            Halaman resmi <strong id="seo-strong-tag">PREDIKSI TOTO MACAU</strong> harian menyajikan bocoran angka jitu macau terupdate langsung dari rangkuman data pengeluaran togel macau pools harian [INDEX]. Menggunakan sistem rumus statistik jitu, kami meracik live draw angka main macau, colok bebas, colok macau, bbfs, kepala, dan ekor harian secara akurat [INDEX]. Manfaatkan informasi grafik paito warna macau di situs judi online <em>angkastatistik.my.id</em> sebagai referensi utama Anda untuk menemukan nomor toto macau 6 putaran paling berpeluang tembus hari ini [INDEX].
         </p>
 
         <p class="seo-footer-text" style="font-size: 0.8rem; opacity: 0.6; margin-top: 10px; border-top: 1px dashed #2d3142; padding-top: 10px;">
-            Pencarian terkait: <span id="seo-keywords-list">bocoran macau harian, angka jitu macau pools, toto macau p1 p2 p3 p4 p5 p6, paito warna macau harian, data pengeluaran macau terbaru.</span>
+            Pencarian terkait: <span id="seo-keywords-list">bocoran macau harian, angka jitu macau pools, toto macau p1 p2 p3 p4 p5 p6, paito warna macau harian, data pengeluaran macau terbaru [INDEX].</span>
         </p>
     </main>
 
@@ -192,7 +182,7 @@
 
     <footer>
         <p>&copy; 2026 <span>ANGKA STATISTIK</span>. All Rights Reserved.</p>
-        <div style="text-align:center;margin:20px 0;"><script async data-cfasync="false" src="https://effectivecpmnetwork.com"></script><div id="container-285abe3dfa3645b0c5001d78494f7ebb"></div></div>
+        
         <div style="position:fixed;bottom:4px;left:50%;transform:translateX(-50%);background:rgba(20,20,20,.8);padding:2px 10px;border-radius:20px;font-size:10px;z-index:9999"><div id="histats_counter"></div></div>
     </footer>
 
@@ -200,55 +190,41 @@
     <script src="data/macau.js"></script>
 
     <script>
-    
-    const daftarHariIndo = ['minggu', 'senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu'];
+        // GANTI DAN TEMPELKAN BLOK KODE UTUH INI:
+const daftarHariIndo = ['minggu', 'senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu'];
 const hariIniAsli = daftarHariIndo[new Date().getDay()];
 
 const urlParams = new URLSearchParams(window.location.search);
 let hari = urlParams.get('hari') || hariIniAsli; 
 
-// --- MESIN BACA JAM & MENIT AKURAT (MAJU 20 MENIT AUTOMATIC) ---
-const waktuSekarang = new Date();
-const jam = waktuSekarang.getHours();
-const menit = waktuSekarang.getMinutes();
+// --- MESIN BACA JAM REAL-TIME (JANGAN DIHAPUS) ---
+const jamSekarang = new Date().getHours();
+let putaranOtomatis = 'p1'; 
 
-// Konversi total waktu menjadi menit agar mudah dihitung batas kelulusannya
-const totalMenit = (jam * 60) + menit; 
-
-let putaranOtomatis = 'p1'; // Default awal
-
-// 1. Batas P2: Mulai 13:20 (800 menit) sampai 16:19 (979 menit)
-if (totalMenit >= 800 && totalMenit < 980) {
-    putaranOtomatis = 'p2';
-} 
-// 2. Batas P3: Mulai 16:20 (980 menit) sampai 19:19 (1159 menit)
-else if (totalMenit >= 980 && totalMenit < 1160) {
-    putaranOtomatis = 'p3';
-} 
-// 3. Batas P4: Mulai 19:20 (1160 menit) sampai 22:19 (1339 menit)
-else if (totalMenit >= 1160 && totalMenit < 1340) {
-    putaranOtomatis = 'p4';
-} 
-// 4. Batas P5: Mulai 22:20 (1340 menit) sampai 23:19 (1399 menit)
-else if (totalMenit >= 1340 && totalMenit < 1400) {
-    putaranOtomatis = 'p5';
-} 
-// 5. Batas P6: Mulai 23:20 (1400 menit) sampai 00:19 malam (19 menit)
-else if (totalMenit >= 1400 || totalMenit < 20) {
-    putaranOtomatis = 'p6';
-} 
-// 6. Batas P1: Mulai 00:20 dini hari (20 menit) sampai sebelum 13:19 siang (799 menit)
-else {
-    putaranOtomatis = 'p1';
+if (jamSekarang >= 13 && jamSekarang < 16) {
+    putaranOtomatis = 'p1'; 
+} else if (jamSekarang >= 16 && jamSekarang < 19) {
+    putaranOtomatis = 'p2'; // Jam 16:00 - 18:59 Otomatis Tampil P2
+} else if (jamSekarang >= 19 && jamSekarang < 22) {
+    putaranOtomatis = 'p3'; // Jam 19:00 - 21:59 Otomatis Tampil P3
+} else if (jamSekarang >= 22 && jamSekarang < 23) {
+    putaranOtomatis = 'p4'; // Jam 22:00 - 22:59 Otomatis Tampil P4
+} else if (jamSekarang >= 23 && jamSekarang < 24) {
+    putaranOtomatis = 'p5'; // Jam 23:00 - 23:59 Otomatis Tampil P5
+} else if (jamSekarang >= 0 && jamSekarang < 13) {
+    putaranOtomatis = 'p6'; // Lewat tengah malam otomatis tampilkan P6 hasil semalam
 }
 
 let putaran = urlParams.get('putaran') || putaranOtomatis; 
 
+// Diubah ke huruf kecil cukup 1 kali di sini saja
 hari = hari.toLowerCase();
 putaran = putaran.toLowerCase();
 
-        const mapNamaPutaran = {
-            'p1': 'Putaran 1 (13:00)', 'p2': 'Putaran 2 (16:00)', 
+// --- KODE LANGSUNG MENYAMBUNG KE SINI (JANGAN DIHAPUS) ---
+const mapNamaPutaran = {
+    'p1': 'Putaran 1 (13:00)', 
+    'p2': 'Putaran 2 (16:00)',
             'p3': 'Putaran 3 (19:00)', 'p4': 'Putaran 4 (22:00)', 
             'p5': 'Putaran 5 (23:00)', 'p6': 'Putaran 6 (00:01)'
         };
@@ -293,60 +269,42 @@ putaran = putaran.toLowerCase();
             const databaseMacau = (typeof DATA_MACAU !== 'undefined') ? DATA_MACAU : {};
             const hariObj = databaseMacau[hari] || {};
             
-            // 1. Ini baris yang Anda tanyakan (BIARKAN TETAP ADA):
-const namaKeyAngka = `angka_${putaran}`;
-const namaKeyTunggal = `tunggal_${putaran}`;
+            // Membaca dinamis sesuai key input format Anda (angka_p1, tunggal_p1, dst)
+            const namaKeyAngka = `angka_${putaran}`;
+            const namaKeyTunggal = `tunggal_${putaran}`;
+            
+            const teksData = hariObj[namaKeyAngka] || '';
+            const barisData = teksData.split('\n');
+            
+            barisData.forEach(item => {
+                if (!item.trim() || !item.includes(':')) return;
+                
+                const bagian = item.split(':');
+                const angkaKiri = bagian[0].trim();
+                const angkaKanan = bagian[1].trim();
 
-const teksData = hariObj[namaKeyAngka] || '';
-const barisData = teksData.split('\n');
+                let barisHTML = `<div class="ball-row">`;
+                for (let ch of angkaKiri) { 
+                    if (ch !== ' ') barisHTML += `<div class="ball red">${ch}</div>`; 
+                }
+                barisHTML += `<div class="separator">:</div>`;
+                
+                let isCoret = false;
+                for (let ch of angkaKanan) {
+                    if (ch === '-') { isCoret = true; continue; }
+                    if (ch !== ' ') {
+                        const classCoret = isCoret ? 'strike-through' : '';
+                        barisHTML += `<div class="ball white ${classCoret}">${ch}</div>`;
+                    }
+                }
+                barisHTML += `</div>`;
+                containerTrek.innerHTML += barisHTML;
+            });
 
-// 2. Ini baris perulangan untuk memecah data per baris teks:
-barisData.forEach(item => {
-    if (!item.trim() || !item.includes(':')) return;
-    
-    const bagian = item.split(':');
-    const angkaKiri = bagian[0].trim();
-    const angkaKanan = bagian[1].trim();
-
-    let barisHTML = `<div class="ball-row">`;
-    
-    // 3. Ini mesin bola merah (angka kiri):
-    for (let ch of angkaKiri) { 
-        if (ch !== ' ' && ch !== '\r' && ch !== '\n') {
-            barisHTML += `<div class="ball red">${ch}</div>`; 
+            if(document.getElementById('angka-tunggal-box')) {
+                document.getElementById('angka-tunggal-box').innerText = hariObj[namaKeyTunggal] || '-';
+            }
         }
-    }
-    
-    barisHTML += `<div class="separator">:</div>`;
-    
-    // 4. Ini mesin baru bola putih (angka kanan, BEBAS JUMAT DIGIT BOLA):
-    let isCoret = false;
-    let teksAngkaKanan = angkaKanan.trim();
-
-    // Cek jika baris angka diawali dengan tanda minus untuk coretan hadiah
-    if (teksAngkaKanan.startsWith('-')) {
-        isCoret = true;
-        teksAngkaKanan = teksAngkaKanan.substring(1).trim(); // Buang tanda minusnya
-    }
-
-    // Membaca karakter huruf satu per satu secara otomatis tanpa terpengaruh spasi
-    for (let ch of teksAngkaKanan) {
-        if (ch !== ' ' && ch !== '\r' && ch !== '\n') {
-            const classCoret = isCoret ? 'strike-through' : '';
-            barisHTML += `<div class="ball white ${classCoret}">${ch}</div>`;
-        }
-    }
-
-    // 5. Ini adalah baris penutup yang rapi (JANGAN SAMPAI DOUBLE):
-    barisHTML += `</div>`;
-    containerTrek.innerHTML += barisHTML;
-}); // <-- Penutup barisData.forEach
-
-// 6. Ini untuk menampilkan angka tunggal di bawah bulatan bola:
-if(document.getElementById('angka-tunggal-box')) {
-    document.getElementById('angka-tunggal-box').innerText = hariObj[namaKeyTunggal] || '-';
-        }
-    }
 
         const sekarang = new Date();
         const jam = String(sekarang.getHours()).padStart(2, '0');
@@ -380,7 +338,6 @@ if(document.getElementById('angka-tunggal-box')) {
         window.open(xShareUrl, 'x-share', 'width=600,height=400');
     }
     </script>
-
 <!-- Histats.com  (div with counter) -->
 <div id="histats_counter"></div>
 <!-- Histats.com  START  (aync)-->
@@ -398,11 +355,8 @@ hs.src = ('//s10.histats.com/js15_giftop_as.js');
 <a href="/" alt="" target="_blank" ><div id="histatsC"><img border="0" src="//s4is.histats.com/stats/i/5037448.gif?5037448&103"></div></a>
 </noscript>
         <!-- Histats.com  END  -->
-    
+
 <script src="https://crypotential.com/aau2deh1y8?key=28127d0dedbc5859c5a05ec19fed2ae4"></script>
 <script src="data/macau.js"></script>
 </body>
 </html>
-
-        
-       
