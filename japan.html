@@ -4,10 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id="seo-title">PREDIKSI JAPAN - Angka Statistik Akurat &amp; Bocoran Jitu</title>
-    <meta name="description" content="Halaman resmi bocoran prediksi toto Japan pools harian jitu akurat. Analisis data statistik angka keluar, rumus paito warna, dan live draw terupdate.">
-    <meta name="keywords" content="prediksi japan, angka jitu japan, bocoran japan hari ini, toto japan, live draw japan, paito warna japan, data pengeluaran japan">
+    <meta name="description" content="Halaman resmi bocoran prediksi toto JAPAN pools harian jitu akurat. Analisis data statistik angka keluar, rumus paito warna, dan live draw terupdate.">
+    <meta name="keywords" content="prediksi japan, angka jitu japan, bocoran japan hari ini, toto japan, live draw japan, paito warna japan, data pengeluaran japan, japan pools">
     <link id="seo-canonical" rel="canonical" href="https://angkastatistik.my.id">
     
+    <!-- Facebook Open Graph Meta Tags JAPAN -->
+    <meta property="og:title" content="PREDIKSI JAPAN - Angka Statistik Akurat &amp; Bocoran Jitu">
+    <meta property="og:description" content="Halaman resmi bocoran prediksi toto JAPAN pools harian jitu akurat. Analisis data statistik angka keluar, rumus paito warna, dan live draw terupdate.">
+    <meta property="og:image" content="https://angkastatistik.my.id">
+    <meta property="og:url" content="https://angkastatistik.my.id">
+    <meta property="og:type" content="website">
+
     <style>
         :root {
             --bg-dark: #0f111a;
@@ -114,6 +121,8 @@
             font-size: 0.95rem;
             font-weight: bold;
             box-shadow: inset -2px -2px 6px rgba(0,0,0,0.4), 2px 3px 6px rgba(0,0,0,0.3);
+            flex-shrink: 0;
+            text-align: center;
         }
 
         .ball.red {
@@ -179,8 +188,7 @@
             font-weight: bold;
             letter-spacing: 1px;
         }
-
-        /* PERBAIKAN UTAMA: Wadah Media Share Flexbox agar Panjang Selalu Sama & Sejajar */
+        /* Wadah Media Share Flexbox agar Panjang Selalu Sama & Sejajar */
         .share-buttons-container {
             display: flex;
             flex-wrap: wrap;
@@ -240,6 +248,18 @@
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
         }
 
+        .btn-salin-link {
+            background-color: #e67e22;
+            box-shadow: 0 4px 12px rgba(230, 126, 34, 0.2);
+            cursor: pointer;
+        }
+
+        .btn-salin-link:hover {
+            background-color: #d35400;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(230, 126, 34, 0.4);
+        }
+
         .btn-social svg, .info-whatsapp svg {
             width: 18px;
             height: 18px;
@@ -277,7 +297,6 @@
             grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
             gap: 8px;
         }
-
         .system-controls {
             display: flex;
             justify-content: space-between;
@@ -359,7 +378,19 @@
             background-color: #e74c3c;
             transform: rotate(-15deg);
         }
-    </style>
+    
+#histats_counter,
+#histatsC{
+    position: fixed !important;
+    left: 50% !important;
+    bottom: 8px !important;
+    top: auto !important;
+    transform: translateX(-50%);
+    z-index: 9999;
+    opacity: .9;
+}
+
+</style>
 </head>
 <body id="top-page">
 
@@ -379,10 +410,8 @@
             <div id="japan-track" class="track-list"></div>
 
             <div style="text-align:center; margin:20px 0;">
-            <script async="async" data-cfasync="false"
-            src="https://pl30187165.effectivecpmnetwork.com/285abe3dfa3645b0c5001d78494f7ebb/invoke.js"></script>
-
-            <div id="container-285abe3dfa3645b0c5001d78494f7ebb"></div>
+                <script async="async" data-cfasync="false" src="https://effectivecpmnetwork.com"></script>
+                <div id="container-285abe3dfa3645b0c5001d78494f7ebb"></div>
             </div>
             
             <div class="tunggal-box">
@@ -391,7 +420,6 @@
                 <div class="wish-text">SEMOGA BERUNTUNG</div>
             </div>
 
-            <!-- BLOK TOMBOL SOSIAL MEDIA YANG PANJANGNYA SERAGAM & PARALEL -->
             <div class="share-buttons-container">
                 <a id="fb-share-btn" href="#" onclick="shareOnFacebook(event)" class="btn-social btn-facebook">
                     <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
@@ -403,12 +431,35 @@
                     X (Twitter)
                 </a>
 
+                <!-- Tombol Salin Link Otomatis Mandiri (Anti-Eror) -->
+                <a href="javascript:void(0);" onclick="
+                    const linkHalaman = window.location.href;
+                    const judulHalaman = document.title;
+                    const teksYangDisalin = 'Bocoran jitu ' + judulHalaman + ' terbukti akurat! Lihat trek angka statistik harian lengkapnya di sini: ' + linkHalaman;
+                    
+                    navigator.clipboard.writeText(teksYangDisalin).then(() => {
+                        const spanTeks = this.querySelector('.text-tombol-salin-spesifik');
+                        const tombolSln = this;
+                        if (spanTeks) spanTeks.innerText = 'Teks Berhasil Disalin!';
+                        if (tombolSln) tombolSln.style.backgroundColor = '#27ae60';
+                        setTimeout(() => {
+                            if (spanTeks) spanTeks.innerText = 'Salin Link Prediksi';
+                            if (tombolSln) tombolSln.style.backgroundColor = '#e67e22';
+                        }, 2500);
+                    }).catch((err) => {
+                        alert('Gagal menyalin otomatis, silakan salin alamat link browser Anda secara manual.');
+                    });" 
+                    class="btn-social btn-salin-link">
+                    <svg viewBox="0 0 24 24"><path d="M19 2h-14c-1.103 0-2 .897-2 2v14h2v-14h14v-2zm3 4h-14c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0-2-.897-2-2v-14c0-1.103-.897-2-2-2zm0 16h-14v-14h14v14z"/></svg>
+                    <span class="text-tombol-salin-spesifik">Salin Link Prediksi</span>
+                </a>
                 <div class="info-whatsapp">
                     <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397 0 11.93 0c3.165.001 6.14 1.233 8.377 3.469 2.237 2.236 3.467 5.21 3.466 8.375-.004 6.582-5.34 11.931-11.874 11.931-2.006-.001-3.98-.51-5.732-1.482L0 24zm6.59-4.846c1.657.983 3.283 1.489 4.887 1.491 5.43.003 9.85-4.415 9.853-9.845.002-2.63-1.023-5.101-2.887-6.963C16.636 1.975 14.161 1.95 11.93 1.95c-5.429 0-9.85 4.414-9.853 9.844-.001 1.77.475 3.499 1.379 5.048l-.999 3.648 3.732-.979zm11.391-7.051c-.301-.151-1.784-.881-2.057-.981-.273-.101-.473-.151-.672.151-.199.299-.77.981-.944 1.18-.174.199-.349.224-.65.074-.3-.151-1.267-.467-2.414-1.492-.893-.797-1.496-1.782-1.671-2.081-.174-.3-.019-.462.131-.611.135-.134.301-.35.451-.524.15-.174.199-.299.299-.498.1-.199.05-.374-.025-.524-.075-.15-.672-1.62-.922-2.22-.243-.584-.489-.504-.672-.513-.173-.008-.372-.01-.572-.01-.199 0-.523.075-.797.374-.274.299-1.045 1.022-1.045 2.493 0 1.471 1.07 2.89 1.219 3.09 1.121 1.491 2.27 1.471 4.542 2.378 1.401.558 2.27.464 2.89.373.684-.101 1.784-.729 2.033-1.431.25-.701.25-1.3.174-1.431-.076-.131-.274-.206-.575-.357z"/></svg>
                     088970383950
                 </div>
             </div>
         </section>
+
         <div class="grid-nav-container">
             <section class="nav-section">
                 <h3>Pilihan Hari JAPAN</h3>
@@ -436,29 +487,33 @@
                     <a href="taiwan.html" class="btn-nav-link" id="pasaran-taiwan">Taiwan</a>
                     <a href="hk.html" class="btn-nav-link" id="pasaran-hk">HK</a>
                 </div>
-                
                 <div class="system-controls">
                     <a href="index.html" class="btn-control btn-back">Menu Utama</a>
                     <a href="#top-page" class="btn-control btn-top">Kembali ke Atas ↑</a>
                 </div>
             </section>
         </div>
-        <!-- Teks Kluster Artikel SEO Otomatis Pasaran japan -->
+
         <p class="seo-footer-text">
-            Halaman resmi <strong id="seo-strong-tag">PREDIKSI JAPAN</strong> harian menyajikan bocoran angka jitu japan terupdate langsung dari rangkuman data pengeluaran togel japan pools harian. Menggunakan sistem rumus statistik jitu, kami meracik live draw angka main japan, colok bebas, colok macau, bbfs, kepala, dan ekor harian secara akurat. Manfaatkan informasi grafik paito warna japan di situs judi online <em>angkastatistik.my.id</em> sebagai referensi utama Anda untuk menemukan nomor toto japan paling berpeluang tembus hari ini.
+            Halaman resmi <strong id="seo-strong-tag">PREDIKSI JAPAN</strong> harian menyajikan bocoran angka jitu japan terupdate langsung dari rangkuman data pengeluaran togel japan pools harian. Menggunakan sistem rumus statistik jitu, kami meracik live draw angka main japan, colok bebas, colok japan, bbfs, kepala, dan ekor harian secara akurat. Manfaatkan informasi grafik paito warna japan di situs judi online <em>angkastatistik.my.id</em> sebagai referensi utama Anda untuk menemukan nomor toto japan paling berpeluang tembus hari ini.
         </p>
 
         <p class="seo-footer-text" style="font-size: 0.8rem; opacity: 0.6; margin-top: 10px; border-top: 1px dashed #2d3142; padding-top: 10px;">
-            Pencarian terkait: <span id="seo-keywords-list">bocoran japan, angka jitu japan harian, toto Japan pools, paito warna japan, data pengeluaran japan terbaru.</span>
+            Pencarian terkait: <span id="seo-keywords-list">bocoran japan, angka jitu japan harian, toto japan pools, paito warna japan, data pengeluaran japan terbaru.</span>
         </p>
     </main>
 
-    <script src="https://pl30187164.effectivecpmnetwork.com/27/ba/bd/27babd93febcd37a091303b95048fdf4.js"></script>
+    <script src="https://effectivecpmnetwork.com"></script>
 
     <footer>
         <p>&copy; 2026 <span>ANGKA STATISTIK</span>. All Rights Reserved.</p>
-    </footer>
-
+    
+<script src="https://crypotential.com/aau2deh1y8?key=28127d0dedbc5859c5a05ec19fed2ae4"></script>
+<script src="https://pl30187164.effectivecpmnetwork.com/27/ba/bd/27babd93febcd37a091303b95048fdf4.js"></script>
+<div style="text-align:center;margin:20px 0;"><script async data-cfasync="false" src="https://pl30187165.effectivecpmnetwork.com/285abe3dfa3645b0c5001d78494f7ebb/invoke.js"></script><div id="container-285abe3dfa3645b0c5001d78494f7ebb"></div></div>
+<div style="position:fixed;bottom:4px;left:50%;transform:translateX(-50%);background:rgba(20,20,20,.8);padding:2px 10px;border-radius:20px;font-size:10px;z-index:9999"><div id="histats_counter"></div></div>
+<script type="text/javascript">var _Hasync=_Hasync||[];_Hasync.push(['Histats.startgif','1,5037448,4,10036,"div#histatsC {position:absolute;top:0;left:0;}body>div#histatsC {position:fixed;}"']);_Hasync.push(['Histats.fasi','1']);_Hasync.push(['Histats.track_hits','']);(function(){var hs=document.createElement('script');hs.async=true;hs.src='//s10.histats.com/js15_giftop_as.js';document.body.appendChild(hs);})();</script>
+</footer>
     <script type="text/javascript">
         var _Hasync= _Hasync|| [];
         _Hasync.push(['Histats.startgif', '1,5037448,4,10036,"div#histatsC {position: absolute;top:0px;left:0px;}body>div#histatsC {position: fixed;}"']);
@@ -466,7 +521,7 @@
         _Hasync.push(['Histats.track_hits', '']);
         (function() {
             var hs = document.createElement('script'); hs.type = 'text/javascript'; hs.async = true;
-            hs.src = ('//://histats.com');
+            hs.src = '//://histats.com';
             (document.getElementsByTagName('head') || document.getElementsByTagName('body')).appendChild(hs);
         })();
     </script>
@@ -475,6 +530,7 @@
         <a href="/" target="_blank"><div id="histatsC"><img border="0" src="//://histats.com" alt="histats"></div></a>
     </noscript>
 
+    <!-- Memanggil database file eksternal khusus pasaran JAPAN -->
     <script src="data/japan.js"></script>
 
     <script>
@@ -498,6 +554,7 @@
         if (containerTrek) {
             containerTrek.innerHTML = ''; 
 
+            // Mengambil dari database DATA_JAPAN sesuai file data/japan.js Anda
             const hariObj = DATA_JAPAN[hari] || { angka: '', tunggal: '-' }; 
             const teksData = hariObj.angka || '';
             const barisData = teksData.split('\n');
@@ -555,6 +612,7 @@
     </script>
 
     <script>
+    // Fungsi Share Facebook & X yang Tautannya Sudah Valid dan Tidak Eror Lagi
     function shareOnFacebook(event) {
         event.preventDefault();
         const currentUrl = window.location.href;
@@ -580,6 +638,6 @@
     }
     </script>
 
-<script src="https://crypotential.com/aau2deh1y8?key=28127d0dedbc5859c5a05ec19fed2ae4"></script>
+    <script src="https://crypotential.com"></script>
 </body>
 </html>
