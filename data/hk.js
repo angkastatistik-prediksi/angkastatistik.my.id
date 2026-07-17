@@ -20,7 +20,7 @@
 //9064 : 1602 102 02
 //Sama ekor atas mundur jgn sama ekor atas
 
-var DATA_HK = {
+const DATA_HK = {
 senin: {
 angka: `
 
