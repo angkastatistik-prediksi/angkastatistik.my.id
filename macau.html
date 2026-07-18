@@ -235,99 +235,118 @@ hs.src='//s10.histats.com/js15_as.js';
     <!-- Memanggil database file eksternal khusus pasaran MACAU -->
     <script src="data/macau.js"></script>
 
-    <script>
-        // GANTI DAN TEMPELKAN BLOK KODE UTUH INI:
-const daftarHariIndo = ['minggu', 'senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu'];
-const hariIniAsli = daftarHariIndo[new Date().getDay()];
+<script>
+    // GANTI DAN TEMPELKAN BLOK KODE UTUH INI:
+    const daftarHariIndo = ['minggu', 'senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu'];
+    const hariIniAsli = daftarHariIndo[new Date().getDay()];
 
-const urlParams = new URLSearchParams(window.location.search);
-let hari = urlParams.get('hari') || hariIniAsli; 
+    const urlParams = new URLSearchParams(window.location.search);
+    let hari = urlParams.get('hari') || hariIniAsli; 
 
-// --- MESIN BACA JAM REAL-TIME (JANGAN DIHAPUS) ---
-const jamSekarang = new Date().getHours();
-let putaranOtomatis = 'p1'; 
+    // --- MESIN BACA JAM REAL-TIME (SUDAH DISESUAIKAN) ---
+    const jamSekarang = new Date().getHours();
+    let putaranOtomatis = 'p1'; 
 
-if (jamSekarang >= 13 && jamSekarang < 16) {
-    putaranOtomatis = 'p1'; 
-} else if (jamSekarang >= 16 && jamSekarang < 19) {
-    putaranOtomatis = 'p2'; // Jam 16:00 - 18:59 Otomatis Tampil P2
-} else if (jamSekarang >= 19 && jamSekarang < 22) {
-    putaranOtomatis = 'p3'; // Jam 19:00 - 21:59 Otomatis Tampil P3
-} else if (jamSekarang >= 22 && jamSekarang < 23) {
-    putaranOtomatis = 'p4'; // Jam 22:00 - 22:59 Otomatis Tampil P4
-} else if (jamSekarang >= 23 && jamSekarang < 24) {
-    putaranOtomatis = 'p5'; // Jam 23:00 - 23:59 Otomatis Tampil P5
-} else if (jamSekarang >= 0 && jamSekarang < 13) {
-    putaranOtomatis = 'p6'; // Lewat tengah malam otomatis tampilkan P6 hasil semalam
-}
+    if (jamSekarang < 13) {
+        putaranOtomatis = 'p1'; // Sebelum jam 13 masuk putaran 1
+    } else if (jamSekarang < 16) {
+        putaranOtomatis = 'p2'; // Sebelum jam 16 masuk putaran 2
+    } else if (jamSekarang < 19) {
+        putaranOtomatis = 'p3'; // Sebelum jam 19 masuk putaran 3
+    } else if (jamSekarang < 22) {
+        putaranOtomatis = 'p4'; // Sebelum jam 22 masuk putaran 4
+    } else if (jamSekarang < 23) {
+        putaranOtomatis = 'p5'; // Sebelum jam 23 masuk putaran 5
+    } else {
+        putaranOtomatis = 'p6'; // Sebelum jam 00:00 (di atas jam 23:00) masuk putaran 6
+    }
 
-let putaran = urlParams.get('putaran') || putaranOtomatis; 
+    let putaran = urlParams.get('putaran') || putaranOtomatis; 
 
-// Diubah ke huruf kecil cukup 1 kali di sini saja
-hari = hari.toLowerCase();
-putaran = putaran.toLowerCase();
+    // Diubah ke huruf kecil cukup 1 kali di sini saja
+    hari = hari.toLowerCase();
+    putaran = putaran.toLowerCase();
 
-// --- KODE LANGSUNG MENYAMBUNG KE SINI (JANGAN DIHAPUS) ---
-const mapNamaPutaran = {
-    'p1': 'Putaran 1 (13:00)', 
-    'p2': 'Putaran 2 (16:00)',
-            'p3': 'Putaran 3 (19:00)', 'p4': 'Putaran 4 (22:00)', 
-            'p5': 'Putaran 5 (23:00)', 'p6': 'Putaran 6 (00:01)'
-        };
-        const teksPutaran = mapNamaPutaran[putaran] || 'Putaran 1 (13:00)';
+    // --- KODE LANGSUNG MENYAMBUNG KE SINI (JANGAN DIHAPUS) ---
+    const mapNamaPutaran = {
+        'p1': 'Putaran 1 (13:00)', 
+        'p2': 'Putaran 2 (16:00)',
+        'p3': 'Putaran 3 (19:00)', 
+        'p4': 'Putaran 4 (22:00)', 
+        'p5': 'Putaran 5 (23:00)', 
+        'p6': 'Putaran 6 (00:01)'
+    };
+    const teksPutaran = mapNamaPutaran[putaran] || 'Putaran 1 (13:00)';
 
-        // Render Tombol Navigasi Lapis 1 (Hari Lengkap - Tidak Disingkat)
-        const hariContainer = document.getElementById('hari-links-container');
-        if(hariContainer) {
-            hariContainer.innerHTML = '';
-            daftarHariIndo.forEach(h => {
-                const activeClass = (h === hari) ? 'active' : '';
-                const namaHariTeks = h.charAt(0).toUpperCase() + h.slice(1);
-                hariContainer.innerHTML += `<a href="macau.html?hari=${h}&putaran=${putaran}" class="btn-nav-link ${activeClass}">${namaHariTeks}</a>`;
-            });
-            hariContainer.innerHTML += `<a href="almanak.html" class="btn-nav-link">Almanak</a>`;
-        }
+    // Render Tombol Navigasi Lapis 1 (Hari Lengkap - Tidak Disingkat)
+    const hariContainer = document.getElementById('hari-links-container');
+    if(hariContainer) {
+        hariContainer.innerHTML = '';
+        daftarHariIndo.forEach(h => {
+            const activeClass = (h === hari) ? 'active' : '';
+            const namaHariTeks = h.charAt(0).toUpperCase() + h.slice(1);
+            hariContainer.innerHTML += `<a href="macau.html?hari=${h}&putaran=${putaran}" class="btn-nav-link ${activeClass}">${namaHariTeks}</a>`;
+        });
+        hariContainer.innerHTML += `<a href="almanak.html" class="btn-nav-link">Almanak</a>`;
+    }
 
-        // Render Tombol Navigasi Lapis 2 (Pilihan Putaran P1 - P6)
-        const putaranContainer = document.getElementById('putaran-links-container');
-        if(putaranContainer) {
-            putaranContainer.innerHTML = '';
-            Object.keys(mapNamaPutaran).forEach(p => {
-                const activeClass = (p === putaran) ? 'active' : '';
-                putaranContainer.innerHTML += `<a href="macau.html?hari=${hari}&putaran=${p}" class="btn-nav-link ${activeClass}">${p.toUpperCase()}</a>`;
-            });
-        }
+    // Render Tombol Navigasi Lapis 2 (Pilihan Putaran P1 - P6)
+    const putaranContainer = document.getElementById('putaran-links-container');
+    if(putaranContainer) {
+        putaranContainer.innerHTML = '';
+        Object.keys(mapNamaPutaran).forEach(p => {
+            const activeClass = (p === putaran) ? 'active' : '';
+            putaranContainer.innerHTML += `<a href="macau.html?hari=${hari}&putaran=${p}" class="btn-nav-link ${activeClass}">${p.toUpperCase()}</a>`;
+        });
+    }
 
-        // Sinkronisasi Judul dan Tag SEO
-        if(document.getElementById('nama-hari-header')) document.getElementById('nama-hari-header').innerText = `${hari.toUpperCase()} - ${putaran.toUpperCase()}`;
-        if(document.getElementById('nama-hari-title')) document.getElementById('nama-hari-title').innerText = `- Hari ${hari.charAt(0).toUpperCase() + hari.slice(1)} [${teksPutaran}]`;
-        if(document.getElementById('seo-title')) document.getElementById('seo-title').innerText = `PREDIKSI MACAU ${hari.toUpperCase()} ${putaran.toUpperCase()}: Bocoran Jitu ${teksPutaran}`;
-        if(document.getElementById('seo-strong-tag')) document.getElementById('seo-strong-tag').innerText = `PREDIKSI TOTO MACAU ${hari.toUpperCase()} ${teksPutaran.toUpperCase()}`;
+    // Sinkronisasi Judul dan Tag SEO
+    if(document.getElementById('nama-hari-header')) document.getElementById('nama-hari-header').innerText = `${hari.toUpperCase()} - ${putaran.toUpperCase()}`;
+    if(document.getElementById('nama-hari-title')) document.getElementById('nama-hari-title').innerText = `- Hari ${hari.charAt(0).toUpperCase() + hari.slice(1)} [${teksPutaran}]`;
+    if(document.getElementById('seo-title')) document.getElementById('seo-title').innerText = `PREDIKSI MACAU ${hari.toUpperCase()} ${putaran.toUpperCase()}: Bocoran Jitu ${teksPutaran}`;
+    if(document.getElementById('seo-strong-tag')) document.getElementById('seo-strong-tag').innerText = `PREDIKSI TOTO MACAU ${hari.toUpperCase()} ${teksPutaran.toUpperCase()}`;
+    
+    if(document.getElementById('seo-canonical')) document.getElementById('seo-canonical').href = `https://angkastatistik.my.id{hari}&putaran=${putaran}`;
+    if(document.getElementById('seo-keywords-list')) document.getElementById('seo-keywords-list').innerText = `bocoran macau hari ${hari}, prediksi macau ${putaran} hari ${hari}, paito warna macau pools harian, angka jitu macau terupdate.`;
+
+    // LOGIKA PEMBACAAN FORMAT DATA SIMPEL: DATA_MACAU[hari]["angka_" + putaran]
+    const containerTrek = document.getElementById('macau-track');
+    if (containerTrek) {
+        containerTrek.innerHTML = ''; 
+
+        const databaseMacau = (typeof DATA_MACAU !== 'undefined') ? DATA_MACAU : {};
+        const hariObj = databaseMacau[hari] || {};
         
-        if(document.getElementById('seo-canonical')) document.getElementById('seo-canonical').href = `https://angkastatistik.my.id{hari}&putaran=${putaran}`;
-        if(document.getElementById('seo-keywords-list')) document.getElementById('seo-keywords-list').innerText = `bocoran macau hari ${hari}, prediksi macau ${putaran} hari ${hari}, paito warna macau pools harian, angka jitu macau terupdate.`;
+        const namaKeyAngka = `angka_${putaran}`;
+        const namaKeyTunggal = `tunggal_${putaran}`;
+        
+        const teksData = hariObj[namaKeyAngka] || '';
 
-        // LOGIKA PEMBACAAN FORMAT DATA SIMPEL: DATA_MACAU[hari]["angka_" + putaran]
-        const containerTrek = document.getElementById('macau-track');
-        if (containerTrek) {
-            containerTrek.innerHTML = ''; 
-
-            const databaseMacau = (typeof DATA_MACAU !== 'undefined') ? DATA_MACAU : {};
-            const hariObj = databaseMacau[hari] || {};
+        // =========================================================================
+        // CEK PINTAR OTOMATIS: Jika data putaran Macau ini kosong / belum diisi
+        // =========================================================================
+        if (!teksData.trim()) {
+            containerTrek.innerHTML = `
+                <div class="notif-belum-update" style="text-align: center; padding: 25px 15px; font-weight: bold; color: #d9534f; background: #f2dede; border: 1px solid #ebccd1; border-radius: 8px; margin: 15px 0; font-size: 16px; width: 100%;">
+                    🙏 Mohon bersabar bosku, angka MACAU ${putaran.toUpperCase()} sedang dinormalisasi 🙏
+                </div>
+            `;
             
-            // Membaca dinamis sesuai key input format Anda (angka_p1, tunggal_p1, dst)
-            const namaKeyAngka = `angka_${putaran}`;
-            const namaKeyTunggal = `tunggal_${putaran}`;
-            
-            const teksData = hariObj[namaKeyAngka] || '';
+            if(document.getElementById('angka-tunggal-box')) {
+                document.getElementById('angka-tunggal-box').innerText = '-';
+            }
+        } else {
+            // =========================================================================
+            // JIKA DATA SUDAH UPDATE: Jalankan pembentukan bola angka asli Anda
+            // =========================================================================
             const barisData = teksData.split('\n');
             
             barisData.forEach(item => {
                 if (!item.trim() || !item.includes(':')) return;
                 
                 const bagian = item.split(':');
-                const angkaKiri = bagian[0].trim();
-                const angkaKanan = bagian[1].trim();
+                const angkaKiri = bagian[0].trim();  
+                const angkaKanan = bagian[1].trim(); 
 
                 let barisHTML = `<div class="ball-row">`;
                 for (let ch of angkaKiri) { 
@@ -351,17 +370,18 @@ const mapNamaPutaran = {
                 document.getElementById('angka-tunggal-box').innerText = hariObj[namaKeyTunggal] || '-';
             }
         }
+    }
 
-        const sekarang = new Date();
-        const jam = String(sekarang.getHours()).padStart(2, '0');
-        const menit = String(sekarang.getMinutes()).padStart(2, '0');
-        if(document.getElementById('live-update-time')) {
-            document.getElementById('live-update-time').innerHTML = `Jam ${jam}:${menit} WIB`; 
-        }
+    const sekarang = new Date();
+    const jam = String(sekarang.getHours()).padStart(2, '0');
+    const menit = String(sekarang.getMinutes()).padStart(2, '0');
+    if(document.getElementById('live-update-time')) {
+        document.getElementById('live-update-time').innerHTML = `Jam ${jam}:${menit} WIB`; 
+    }
 
-        const tombolPasaran = document.getElementById('pasaran-macau');
-        if (tombolPasaran) { tombolPasaran.classList.add('active'); }
-    </script>
+    const tombolPasaran = document.getElementById('pasaran-macau');
+    if (tombolPasaran) { tombolPasaran.classList.add('active'); }
+</script>
 
     <script>
     function shareOnFacebook(event) {
