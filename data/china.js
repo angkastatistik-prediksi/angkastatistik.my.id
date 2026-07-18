@@ -1,5 +1,6 @@
 const DATA_CHINA = {
 senin: {
+tanggal: "2026-07-13", 
 angka: `
 4504 : 23
 8093 : 52
@@ -8,6 +9,7 @@ tunggal: "2"
 },
 
 selasa: {
+tanggal: "2026-07-14", 
 angka: `
 4504 : 23
 8093 : 52
@@ -17,6 +19,7 @@ tunggal: "8"
 },
 
 rabu: {
+tanggal: "2026-07-15", 
 angka: `
 4504 : 23
 8093 : 52
@@ -27,6 +30,7 @@ tunggal: "0"
 },
 
 kamis: {
+tanggal: "2026-07-16", 
 angka: `
 4504 : 23
 8093 : 52
@@ -38,6 +42,7 @@ tunggal: "1"
 },
 
 jumat: {
+tanggal: "2026-07-17", 
 angka: `
 4504 : 23
 8093 : 52
@@ -50,6 +55,7 @@ tunggal: "7"
 },
 
 sabtu: {
+tanggal: "2026-07-18", 
 angka: `
 4504 : 23
 8093 : 52
@@ -63,6 +69,7 @@ tunggal: "2"
 },
 
 minggu: {
+tanggal: "2026-07-19", 
 angka: `
 6778 : 97
 `,
