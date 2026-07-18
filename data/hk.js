@@ -22,6 +22,7 @@
 
 const DATA_HK = {
 senin: {
+tanggal: "2026-07-13", 
 angka: `
 
 `,
@@ -29,6 +30,7 @@ tunggal: ""
 },
 
 selasa: {
+tanggal: "2026-07-14", 
 angka: `
 
 `,
@@ -36,6 +38,7 @@ tunggal: ""
 },
 
 rabu: {
+tanggal: "2026-07-15", 
 angka: `
 
 `,
@@ -43,6 +46,7 @@ tunggal: ""
 },
 
 kamis: {
+tanggal: "2026-07-16", 
 angka: `
 
 `,
@@ -50,6 +54,7 @@ tunggal: ""
 },
 
 jumat: {
+tanggal: "2026-07-17", 
 angka: ` 
 8172 : 956 
 4679 : 587 
@@ -75,6 +80,7 @@ tunggal: "2"
 },
 
 sabtu: {
+tanggal: "2026-07-18", 
 angka: `
 
 `,
@@ -82,6 +88,7 @@ tunggal: ""
 },
 
 minggu: {
+tanggal: "2026-07-19", 
 angka: `
 
 `,
