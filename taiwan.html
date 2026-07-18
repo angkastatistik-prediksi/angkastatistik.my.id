@@ -385,17 +385,6 @@
             transform: rotate(-15deg);
         }
 
-#histats_counter,
-#histatsC{
-    position: fixed !important;
-    left: 50% !important;
-    bottom: 8px !important;
-    top: auto !important;
-    transform: translateX(-50%);
-    z-index: 9999;
-    opacity: .9;
-    }
-
 </style>
 </head>
 <body id="top-page">
@@ -518,31 +507,72 @@
         <div style="position:fixed;bottom:4px;left:50%;transform:translateX(-50%);background:rgba(20,20,20,.8);padding:2px 10px;border-radius:20px;font-size:10px;z-index:9999"><div id="histats_counter"></div></div>
     </footer>
 
-    <script>
-        const daftarHariIndo = ['minggu', 'senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu'];
-        const hariIniAsli = daftarHariIndo[new Date().getDay()];
+    <script src="data/taiwan.js"></script>
 
-        const urlParams = new URLSearchParams(window.location.search);
-        let hari = urlParams.get('hari') || hariIniAsli; 
-        hari = hari.toLowerCase();
+<script>
+    const daftarHariIndo = ['minggu', 'senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu'];
+    const hariIniAsli = daftarHariIndo[new Date().getDay()];
 
-        if(document.getElementById('nama-hari-header')) document.getElementById('nama-hari-header').innerText = hari.toUpperCase();
-        if(document.getElementById('nama-hari-title')) document.getElementById('nama-hari-title').innerText = '- Hari ' + hari.charAt(0).toUpperCase() + hari.slice(1);
-        if(document.getElementById('seo-title')) document.getElementById('seo-title').innerText = `PREDIKSI TAIWAN ${hari.toUpperCase()}: Bocoran Angka Jitu & Paito Warna Terakurat`;
-        if(document.getElementById('seo-strong-tag')) document.getElementById('seo-strong-tag').innerText = `PREDIKSI TAIWAN ${hari.toUpperCase()}`;
+    const urlParams = new URLSearchParams(window.location.search);
+    let hari = urlParams.get('hari') || hariIniAsli; 
+    hari = hari.toLowerCase();
+
+    // SINKRONISASI SEO & JUDUL TAIWAN
+    if(document.getElementById('nama-hari-header')) document.getElementById('nama-hari-header').innerText = hari.toUpperCase();
+    if(document.getElementById('nama-hari-title')) document.getElementById('nama-hari-title').innerText = '- Hari ' + hari.charAt(0).toUpperCase() + hari.slice(1);
+    if(document.getElementById('seo-title')) document.getElementById('seo-title').innerText = `PREDIKSI TAIWAN ${hari.toUpperCase()}: Bocoran Angka Jitu & Paito Warna Terakurat`;
+    if(document.getElementById('seo-strong-tag')) document.getElementById('seo-strong-tag').innerText = `PREDIKSI TAIWAN ${hari.toUpperCase()}`;
+    
+    if(document.getElementById('seo-canonical')) document.getElementById('seo-canonical').href = `https://angkastatistik.my.id{hari}`;
+    if(document.getElementById('seo-keywords-list')) document.getElementById('seo-keywords-list').innerText = `bocoran taiwan ${hari}, prediksi taiwan pools hari ${hari}, paito warna taiwan harian, angka jitu taiwan terupdate, data toto taiwan keluar hari ${hari}.`;
+
+    const containerTrek = document.getElementById('taiwan-track') || document.getElementById('china-track');
+    if (containerTrek) {
+        containerTrek.innerHTML = ''; 
+
+        // Mengambil database Taiwan
+        const databaseTaiwan = (typeof DATA_TAIWAN !== 'undefined') ? DATA_TAIWAN : {};
+        const hariObj = databaseTaiwan[hari] || { tanggal: '', angka: '', tunggal: '-' }; 
+        const teksData = hariObj.angka || '';
+        const tanggalDataTeks = hariObj.tanggal || '';
         
-        if(document.getElementById('seo-canonical')) document.getElementById('seo-canonical').href = `https://angkastatistik.my.id{hari}`;
+        // =========================================================================
+        // MESIN HITUNG HARI REAL-TIME (DETEKSI DATA MINGGU KEMARIN)
+        // =========================================================================
+        let dataSudahKedaluwarsa = false;
         
-        if(document.getElementById('seo-keywords-list')) document.getElementById('seo-keywords-list').innerText = `bocoran taiwan ${hari}, prediksi taiwan pools hari ${hari}, paito warna taiwan harian, angka jitu taiwan terupdate, data toto taiwan keluar hari ${hari}.`;
+        if (tanggalDataTeks) {
+            const tglSekarang = new Date();
+            tglSekarang.setHours(0,0,0,0);
+            
+            const tglData = new Date(tanggalDataTeks);
+            tglData.setHours(0,0,0,0);
+            
+            const selisihMilidetik = tglSekarang.getTime() - tglData.getTime();
+            const jarakHariNyata = Math.floor(selisihMilidetik / (1000 * 60 * 60 * 24));
+            
+            if (jarakHariNyata >= 4) {
+                dataSudahKedaluwarsa = true;
+            }
+        }
 
-        const containerTrek = document.getElementById('taiwan-track');
-        if (containerTrek) {
-            containerTrek.innerHTML = ''; 
-
-            // Mengambil data dari variabel DATA_TAIWAN
-            const databaseTaiwan = (typeof DATA_TAIWAN !== 'undefined') ? DATA_TAIWAN : {};
-            const hariObj = databaseTaiwan[hari] || { angka: '', tunggal: '-' }; 
-            const teksData = hariObj.angka || '';
+        // =========================================================================
+        // KONDISI 1: Jika data Taiwan kosong / belum diisi
+        // =========================================================================
+        if (!teksData.trim()) {
+            containerTrek.innerHTML = `
+                <div class="notif-belum-update" style="text-align: center; padding: 25px 15px; font-weight: bold; color: #d9534f; background: #f2dede; border: 1px solid #ebccd1; border-radius: 8px; margin: 15px 0; font-size: 16px;">
+                    🙏 Mohon bersabar bosku, angka TAIWAN sedang dinormalisasi 🙏
+                </div>
+            `;
+            
+            if(document.getElementById('angka-tunggal-box')) {
+                document.getElementById('angka-tunggal-box').innerText = '-';
+            }
+        } else {
+            // =========================================================================
+            // JIKA DATA SUDAH ADA: Gambar bola angka putih & merah
+            // =========================================================================
             const barisData = teksData.split('\n');
             
             barisData.forEach(item => {
@@ -573,30 +603,42 @@
             if(document.getElementById('angka-tunggal-box')) {
                 document.getElementById('angka-tunggal-box').innerText = hariObj.tunggal || '-';
             }
-        }
 
-        const sekarang = new Date();
-        const jam = String(sekarang.getHours()).padStart(2, '0');
-        const menit = String(sekarang.getMinutes()).padStart(2, '0');
-        if(document.getElementById('live-update-time')) {
-            document.getElementById('live-update-time').innerHTML = `Jam ${jam}:${menit} WIB`; 
+            // =========================================================================
+            // KONDISI 2: DETEKSI MINGGU KELUAR NOTIFIKASI PINTAR BAWAH
+            // =========================================================================
+            if (dataSudahKedaluwarsa) {
+                containerTrek.innerHTML += `
+                    <div class="notif-data-lama" style="text-align: center; padding: 15px; font-weight: bold; color: #8a6d3b; background: #fcf8e3; border: 1px solid #faebcc; border-radius: 8px; margin: 15px 0; font-size: 14px; width: 100%;">
+                        ⚠️ Data ini belum di update bosku, masih data minggu kemren 😊
+                    </div>
+                `;
+            }
         }
+    }
 
-        const tombolHariIni = document.getElementById(`btn-${hari}`);
-        if (tombolHariIni) {
-            tombolHariIni.classList.add('active');
-        }
+    const sekarang = new Date();
+    const jam = String(sekarang.getHours()).padStart(2, '0');
+    const menit = String(sekarang.getMinutes()).padStart(2, '0');
+    if(document.getElementById('live-update-time')) {
+        document.getElementById('live-update-time').innerHTML = `Jam ${jam}:${menit} WIB`; 
+    }
 
-        const pathHalaman = window.location.pathname;
-        const namaFile = pathHalaman.substring(pathHalaman.lastIndexOf('/') + 1).replace('.html', '').toLowerCase();
-        const pasaranAktif = namaFile || 'taiwan';
-        
-        const tombolPasaran = document.getElementById(`pasaran-${pasaranAktif}`);
-        if (tombolPasaran) {
-            tombolPasaran.classList.add('active');
-        }
-    </script>
+    const tombolHariIni = document.getElementById(`btn-${hari}`);
+    if (tombolHariIni) {
+        tombolHariIni.classList.add('active');
+    }
 
+    const pathHalaman = window.location.pathname;
+    const namaFile = pathHalaman.substring(pathHalaman.lastIndexOf('/') + 1).replace('.html', '').toLowerCase();
+    const pasaranAktif = namaFile || 'taiwan';
+    
+    const tombolPasaran = document.getElementById(`pasaran-${pasaranAktif}`);
+    if (tombolPasaran) {
+        tombolPasaran.classList.add('active');
+    }
+</script>
+    
     <script>
     function shareOnFacebook(event) {
         event.preventDefault();
