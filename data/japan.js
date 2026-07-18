@@ -1,5 +1,6 @@
 const DATA_JAPAN = {
 senin: {
+tanggal: "2026-07-13", 
 angka: `
 2827 : 49
 6414 : 38
@@ -9,6 +10,7 @@ tunggal: "6"
 },
 
 selasa: {
+tanggal: "2026-07-14", 
 angka: `
 2827 : 49
 6414 : 38
@@ -19,6 +21,7 @@ tunggal: "4"
 },
 
 rabu: {
+tanggal: "2026-07-15", 
 angka: `
 2827 : 49
 6414 : 38
@@ -30,6 +33,7 @@ tunggal: "8"
 },
 
 kamis: {
+tanggal: "2026-07-16", 
 angka: `
 2827 : 49
 6414 : 38
@@ -42,6 +46,7 @@ tunggal: "3"
 },
 
 jumat: {
+tanggal: "2026-07-17", 
 angka: `
 2827 : 49
 6414 : 38
@@ -55,6 +60,7 @@ tunggal: "5"
 },
 
 sabtu: {
+tanggal: "2026-07-18", 
 angka: `
 9637 : 123
 `,
@@ -62,6 +68,7 @@ tunggal: "1"
 },
 
 minggu: {
+tanggal: "2026-07-19", 
 angka: `
 
 `,
