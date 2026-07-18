@@ -162,7 +162,7 @@
             font-size: 1rem;
             letter-spacing: 1px;
             margin-bottom: 12px;
-            color: var(--accent);
+            color: red;
         }
 
         .ball-glow {
@@ -395,18 +395,7 @@
             box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
             display: none;
             animation: pulseGlow 1.5s infinite alternate;
-        }
-    
-#histats_counter,
-#histatsC{
-    position: fixed !important;
-    left: 50% !important;
-    bottom: 8px !important;
-    top: auto !important;
-    transform: translateX(-50%);
-    z-index: 9999;
-    opacity: .9;
-}
+            }
 
 </style>
 </head>
@@ -439,7 +428,7 @@
             </div>
             
             <div class="tunggal-box">
-                <div class="tunggal-title">ANGKA TUNGGAL HARI INI</div>
+                <div class="tunggal-title">ANGKA TUNGGAL</div>
                 <div id="angka-tunggal-box" class="ball-glow">-</div>
                 <div class="wish-text">SEMOGA BERUNTUNG</div>
             </div>
@@ -512,7 +501,7 @@
                 </div>
                 <div class="system-controls">
                     <a href="index.html" class="btn-control btn-back">Menu Utama</a>
-                    <a href="#top-page" class="btn-control btn-top">Kembali ke Atas ↑</a>
+                    <a href="#top-page" class="btn-control btn-top">Kembali ke Atas</a>
                 </div>
             </section>
         </div>
@@ -528,26 +517,57 @@
     <script src="https://pl30187164.effectivecpmnetwork.com/27/ba/bd/27babd93febcd37a091303b95048fdf4.js"></script>
 
     <footer>
-        <p>&copy; 2026 <span>ANGKA STATISTIK</span>. All Rights Reserved.</p>
 
-<div style="position:fixed;bottom:4px;left:50%;transform:translateX(-50%);background:rgba(20,20,20,.8);padding:2px 10px;border-radius:20px;font-size:10px;z-index:9999"><div id="histats_counter"></div></div>
-<script type="text/javascript">var _Hasync=_Hasync||[];_Hasync.push(['Histats.startgif','1,5037448,4,10036,"div#histatsC {position:absolute;top:0;left:0;}body>div#histatsC {position:fixed;}"']);_Hasync.push(['Histats.fasi','1']);_Hasync.push(['Histats.track_hits','']);(function(){var hs=document.createElement('script');hs.async=true;hs.src='//s10.histats.com/js15_giftop_as.js';document.body.appendChild(hs);})();</script>
+<p>&copy; 2026 <span>ANGKA STATISTIK</span>. All Rights Reserved.</p>
+
+<!-- Histats Counter -->
+<div id="histats_counter" style="
+display:flex;
+justify-content:center;
+align-items:center;
+height:18px;
+overflow:hidden;
+transform:scale(.55);
+transform-origin:center;
+opacity:.85;
+">
+</div>
+
 </footer>
-    <script type="text/javascript">
-        var _Hasync= _Hasync|| [];
-        _Hasync.push(['Histats.startgif', '1,5037448,4,10036,"div#histatsC {position: absolute;top:0px;left:0px;}body>div#histatsC {position: fixed;}"']);
-        _Hasync.push(['Histats.fasi', '1']);
-        _Hasync.push(['Histats.track_hits', '']);
-        (function() {
-            var hs = document.createElement('script'); hs.type = 'text/javascript'; hs.async = true;
-            hs.src = '//://histats.com';
-            (document.getElementsByTagName('head') || document.getElementsByTagName('body')).appendChild(hs);
-        })();
-    </script>
-    <noscript>
-        <style type="text/css">div#histatsC {position: absolute;top:0px;left:0px;}body>div#histatsC {position: fixed;}</style>
-        <a href="/" target="_blank"><div id="histatsC"><img border="0" src="//://histats.com" alt="histats"></div></a>
-    </noscript>
+
+
+<!-- Histats.com START -->
+<script type="text/javascript">
+var _Hasync= _Hasync || [];
+
+_Hasync.push(['Histats.start',
+'1,5037448,4,600,110,30,00001001'
+]);
+
+_Hasync.push(['Histats.fasi','1']);
+
+_Hasync.push(['Histats.track_hits','']);
+
+(function(){
+
+var hs=document.createElement('script');
+hs.type='text/javascript';
+hs.async=true;
+hs.src='//s10.histats.com/js15_as.js';
+
+(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0])
+.appendChild(hs);
+
+})();
+</script>
+
+<noscript>
+<a href="/" target="_blank">
+<img src="//sstatic1.histats.com/0.gif?5037448&101" alt="" border="0">
+</a>
+</noscript>
+
+<!-- Histats.com END -->
 
     <!-- Memanggil database file eksternal khusus pasaran SGP -->
     <script src="data/sgp.js"></script>
@@ -603,13 +623,21 @@
                 barisHTML += `<div class="separator">:</div>`;
                 
                 let isCoret = false;
-                for (let ch of angkaKanan) {
-                    if (ch === '-') { isCoret = true; continue; }
-                    if (ch !== ' ') {
-                        const classCoret = isCoret ? 'strike-through' : '';
-                        barisHTML += `<div class="ball white ${classCoret}">${ch}</div>`;
-                    }
-                }
+let teksAngkaKanan = angkaKanan.trim();
+
+// Cek jika baris angka diawali dengan tanda minus untuk coretan hadiah
+if (teksAngkaKanan.startsWith('-')) {
+    isCoret = true;
+    teksAngkaKanan = teksAngkaKanan.substring(1).trim(); // Buang tanda minusnya
+}
+
+// Membaca karakter huruf satu per satu secara otomatis tanpa terpengaruh spasi
+for (let ch of teksAngkaKanan) {
+    if (ch !== ' ' && ch !== '\r' && ch !== '\n') {
+        const classCoret = isCoret ? 'strike-through' : '';
+        barisHTML += `<div class="ball white ${classCoret}">${ch}</div>`;
+    }
+}
                 barisHTML += `</div>`;
                 containerTrek.innerHTML += barisHTML;
             });
