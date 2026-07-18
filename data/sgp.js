@@ -11,6 +11,7 @@
   //4948 : 109 10,
   //4087 : 765 75
   //5447 : 321 31
+  //9418 : 432 32
   //Rumus C E .  bawah mundur
 
 const DATA_SGP = {
@@ -61,9 +62,11 @@ tunggal: "3"
 minggu: {
 tanggal: "2026-07-19", 
 angka: `
-
+4087 : 75
+5447 : 31
+9418 : 32
 `,
-tunggal: ""
+tunggal: "3"
 
 }
 };
