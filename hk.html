@@ -540,11 +540,33 @@
         containerTrek.innerHTML = ''; 
 
         // Pastikan di file data/hk.js, variabelnya bernama DATA_HK
-        const hariObj = DATA_HK[hari] || { angka: '', tunggal: '-' }; 
+        const hariObj = DATA_HK[hari] || { tanggal: '', angka: '', tunggal: '-' }; 
         const teksData = hariObj.angka || '';
+        const tanggalDataTeks = hariObj.tanggal || '';
         
         // =========================================================================
-        // CEK PINTAR OTOMATIS: Jika data belum diisi / masih kosong
+        // MESIN HITUNG HARI REAL-TIME (AKURAT 100% DETEKSI DATA MINGGU KEMARIN)
+        // =========================================================================
+        let dataSudahKedaluwarsa = false;
+        
+        if (tanggalDataTeks) {
+            const tglSekarang = new Date();
+            tglSekarang.setHours(0,0,0,0);
+            
+            const tglData = new Date(tanggalDataTeks);
+            tglData.setHours(0,0,0,0);
+            
+            const selisihMilidetik = tglSekarang.getTime() - tglData.getTime();
+            const jarakHariNyata = Math.floor(selisihMilidetik / (1000 * 60 * 60 * 24));
+            
+            // Jarak aman 4 hari. Jika selisih kalender >= 4 hari, fiks data minggu lalu!
+            if (jarakHariNyata >= 4) {
+                dataSudahKedaluwarsa = true;
+            }
+        }
+        
+        // =========================================================================
+        // KONDISI 1: Jika data belum diisi / masih kosong
         // =========================================================================
         if (!teksData.trim()) {
             containerTrek.innerHTML = `
@@ -566,8 +588,8 @@
                 if (!item.trim() || !item.includes(':')) return;
                 
                 const bagian = item.split(':');
-                const angkaKiri = bagian[0].trim();  // <-- Perbaikan di sini (tambah [0])
-                const angkaKanan = bagian[1].trim(); // <-- Perbaikan di sini (tambah [1])
+                const angkaKiri = bagian[0].trim();  
+                const angkaKanan = bagian[1].trim(); 
 
                 let barisHTML = `<div class="ball-row">`;
                 for (let ch of angkaKiri) { 
@@ -596,6 +618,17 @@
             if(document.getElementById('angka-tunggal-box')) {
                 document.getElementById('angka-tunggal-box').innerText = hariObj.tunggal || '-';
             }
+
+            // =========================================================================
+            // KONDISI 2: DETEKSI MINGGU KELUAR NOTIFIKASI PINTAR BAWAH (HK)
+            // =========================================================================
+            if (dataSudahKedaluwarsa) {
+                containerTrek.innerHTML += `
+                    <div class="notif-data-lama" style="text-align: center; padding: 15px; font-weight: bold; color: #8a6d3b; background: #fcf8e3; border: 1px solid #faebcc; border-radius: 8px; margin: 15px 0; font-size: 14px; width: 100%;">
+                        ⚠️ Data ini belum di update bosku, masih data minggu kemren 😊
+                    </div>
+                `;
+            }
         }
     }
 
@@ -620,6 +653,7 @@
         tombolPasaran.classList.add('active');
     }
 </script>
+
 
     <script>
     function shareOnFacebook(event) {
