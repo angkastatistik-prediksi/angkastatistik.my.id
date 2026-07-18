@@ -553,7 +553,7 @@ hs.src='//s10.histats.com/js15_as.js';
 
 
     <!-- Memanggil database file eksternal khusus pasaran CAMBODIA -->
-    <script src="data/cambodia.js"></script>
+<script src="data/cambodia.js"></script>
 
 <script>
     const daftarHariIndo = ['minggu', 'senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu'];
@@ -577,11 +577,33 @@ hs.src='//s10.histats.com/js15_as.js';
         containerTrek.innerHTML = ''; 
 
         // Mengambil dari database DATA_CAMBODIA sesuai file data/cambodia.js Anda
-        const hariObj = DATA_CAMBODIA[hari] || { angka: '', tunggal: '-' }; 
+        const hariObj = DATA_CAMBODIA[hari] || { tanggal: '', angka: '', tunggal: '-' }; 
         const teksData = hariObj.angka || '';
+        const tanggalDataTeks = hariObj.tanggal || ''; 
         
         // =========================================================================
-        // CEK PINTAR OTOMATIS: Jika data Cambodia belum diupdate / masih kosong
+        // MESIN HITUNG HARI REAL-TIME (AKURAT 100% DETEKSI DATA MINGGU KEMARIN)
+        // =========================================================================
+        let dataSudahKedaluwarsa = false;
+        
+        if (tanggalDataTeks) {
+            const tglSekarang = new Date();
+            tglSekarang.setHours(0,0,0,0);
+            
+            const tglData = new Date(tanggalDataTeks);
+            tglData.setHours(0,0,0,0);
+            
+            const selisihMilidetik = tglSekarang.getTime() - tglData.getTime();
+            const jarakHariNyata = Math.floor(selisihMilidetik / (1000 * 60 * 60 * 24));
+            
+            // Jarak aman 4 hari. Jika selisih kalender >= 4 hari, fiks data minggu lalu!
+            if (jarakHariNyata >= 4) {
+                dataSudahKedaluwarsa = true;
+            }
+        }
+
+        // =========================================================================
+        // KONDISI 1: Jika data Cambodia kosong melompong / belum diisi sama sekali
         // =========================================================================
         if (!teksData.trim()) {
             containerTrek.innerHTML = `
@@ -595,7 +617,7 @@ hs.src='//s10.histats.com/js15_as.js';
             }
         } else {
             // =========================================================================
-            // JIKA DATA SUDAH ADA: Jalankan logika pembuatan pola bola angka asli Anda
+            // JIKA DATA SUDAH ADA: Tampilkan baris bola angka seperti biasa
             // =========================================================================
             const barisData = teksData.split('\n');
             
@@ -615,13 +637,11 @@ hs.src='//s10.histats.com/js15_as.js';
                 let isCoret = false;
                 let teksAngkaKanan = angkaKanan.trim();
 
-                // Cek jika baris angka diawali dengan tanda minus untuk coretan hadiah
                 if (teksAngkaKanan.startsWith('-')) {
                     isCoret = true;
-                    teksAngkaKanan = teksAngkaKanan.substring(1).trim(); // Buang tanda minusnya
+                    teksAngkaKanan = teksAngkaKanan.substring(1).trim(); 
                 }
 
-                // Membaca karakter huruf satu per satu secara otomatis tanpa terpengaruh spasi
                 for (let ch of teksAngkaKanan) {
                     if (ch !== ' ' && ch !== '\r' && ch !== '\n') {
                         const classCoret = isCoret ? 'strike-through' : '';
@@ -634,6 +654,17 @@ hs.src='//s10.histats.com/js15_as.js';
 
             if(document.getElementById('angka-tunggal-box')) {
                 document.getElementById('angka-tunggal-box').innerText = hariObj.tunggal || '-';
+            }
+
+            // =========================================================================
+            // KONDISI 2: DETEKSI MINGGU KELUAR NOTIFIKASI PINTAR BAWAH (CAMBODIA)
+            // =========================================================================
+            if (dataSudahKedaluwarsa) {
+                containerTrek.innerHTML += `
+                    <div class="notif-data-lama" style="text-align: center; padding: 15px; font-weight: bold; color: #8a6d3b; background: #fcf8e3; border: 1px solid #faebcc; border-radius: 8px; margin: 15px 0; font-size: 14px; width: 100%;">
+                        ⚠️ Data ini belum di update bosku, masih data minggu kemren 😊
+                    </div>
+                `;
             }
         }
     }
@@ -659,6 +690,7 @@ hs.src='//s10.histats.com/js15_as.js';
         tombolPasaran.classList.add('active');
     }
 </script>
+
 
 
     <script>
