@@ -15,6 +15,7 @@
 
 const DATA_SGP = {
 senin: {
+tanggal: "2026-07-13", 
 angka: `
 
 `,
@@ -22,6 +23,7 @@ tunggal: ""
 },
 
 rabu: {
+tanggal: "2026-07-15", 
 angka: `
 
 `,
@@ -29,6 +31,7 @@ tunggal: ""
 },
 
 kamis: {
+tanggal: "2026-07-16", 
 angka: `
 3428 : 78
 6428 : 23
@@ -47,6 +50,7 @@ tunggal: "5"
 },
 
 sabtu: {
+tanggal: "2026-07-18", 
 angka: `
 4087 : 75
 5447 : 31
@@ -55,6 +59,7 @@ tunggal: "3"
 },
 
 minggu: {
+tanggal: "2026-07-19", 
 angka: `
 
 `,
