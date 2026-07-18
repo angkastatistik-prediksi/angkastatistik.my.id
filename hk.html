@@ -524,33 +524,27 @@
     let hari = urlParams.get('hari') || hariIniAsli; 
     hari = hari.toLowerCase();
 
-    // =========================================================================
-    // PENYESUAIAN SEO & HEADER UNTUK PASARAN HK (HONGKONG)
-    // =========================================================================
     if(document.getElementById('nama-hari-header')) document.getElementById('nama-hari-header').innerText = hari.toUpperCase();
     if(document.getElementById('nama-hari-title')) document.getElementById('nama-hari-title').innerText = '- Hari ' + hari.charAt(0).toUpperCase() + hari.slice(1);
     if(document.getElementById('seo-title')) document.getElementById('seo-title').innerText = `PREDIKSI HK ${hari.toUpperCase()}: Bocoran Angka Jitu & Paito Warna Terakurat`;
     if(document.getElementById('seo-strong-tag')) document.getElementById('seo-strong-tag').innerText = `PREDIKSI HONGKONG ${hari.toUpperCase()}`;
     
-    // Sesuaikan URL domain untuk pasaran hongkong/hk
     if(document.getElementById('seo-canonical')) document.getElementById('seo-canonical').href = `https://angkastatistik.my.id{hari}`;
     
     if(document.getElementById('seo-keywords-list')) document.getElementById('seo-keywords-list').innerText = `bocoran hk ${hari}, prediksi hk pools hari ${hari}, paito warna hk harian, angka jitu hk terupdate, data toto hk keluar hari ${hari}.`;
 
-    // Pastikan ID container di HTML Anda menggunakan 'hk-track' atau sesuaikan dengan ID asli HTML HK Anda
+    // Kode ini otomatis mendeteksi apakah di HTML Anda pakai nama id 'hk-track' atau 'china-track'
     const containerTrek = document.getElementById('hk-track') || document.getElementById('china-track');
     
     if (containerTrek) {
         containerTrek.innerHTML = ''; 
 
-        // =========================================================================
-        // MENGAMBIL DARI DATABASE DATA_HK (Pastikan di data/hk.js namanya DATA_HK)
-        // =========================================================================
+        // Pastikan di file data/hk.js, variabelnya bernama DATA_HK
         const hariObj = DATA_HK[hari] || { angka: '', tunggal: '-' }; 
         const teksData = hariObj.angka || '';
         
         // =========================================================================
-        // CEK PINTAR OTOMATIS: Mendeteksi jika data HK belum diupdate / masih kosong
+        // CEK PINTAR OTOMATIS: Jika data belum diisi / masih kosong
         // =========================================================================
         if (!teksData.trim()) {
             containerTrek.innerHTML = `
@@ -564,7 +558,7 @@
             }
         } else {
             // =========================================================================
-            // JIKA DATA HK SUDAH ADA: Jalankan pembuatan bola angka
+            // JIKA DATA HK SUDAH ADA: Logika pembentuk bola (SUDAH DI-PERBAIKI)
             // =========================================================================
             const barisData = teksData.split('\n');
             
@@ -572,8 +566,8 @@
                 if (!item.trim() || !item.includes(':')) return;
                 
                 const bagian = item.split(':');
-                const angkaKiri = bagian[0].trim();  
-                const angkaKanan = bagian[1].trim(); 
+                const angkaKiri = bagian[0].trim();  // <-- Perbaikan di sini (tambah [0])
+                const angkaKanan = bagian[1].trim(); // <-- Perbaikan di sini (tambah [1])
 
                 let barisHTML = `<div class="ball-row">`;
                 for (let ch of angkaKiri) { 
@@ -619,7 +613,7 @@
 
     const pathHalaman = window.location.pathname;
     const namaFile = pathHalaman.substring(pathHalaman.lastIndexOf('/') + 1).replace('.html', '').toLowerCase();
-    const pasaranAktif = namaFile || 'hk'; // Default aktifkan tombol pasaran hk
+    const pasaranAktif = namaFile || 'hk';
     
     const tombolPasaran = document.getElementById(`pasaran-${pasaranAktif}`);
     if (tombolPasaran) {
