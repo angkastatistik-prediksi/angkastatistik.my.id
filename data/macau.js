@@ -1,5 +1,6 @@
 const DATA_MACAU = {
     senin: {
+    tanggal: "2026-07-13", 
         angka_p1: ``, tunggal_p1: "",
         angka_p2: ``, tunggal_p2: "",
         angka_p3: ``, tunggal_p3: "",
@@ -9,6 +10,7 @@ const DATA_MACAU = {
     },
 
     selasa: {
+    tanggal: "2026-07-14", 
         angka_p1: ``, tunggal_p1: "",
         angka_p2: ``, tunggal_p2: "",
         angka_p3: ``, tunggal_p3: "",
@@ -18,6 +20,7 @@ const DATA_MACAU = {
     },
 
     rabu: {
+    tanggal: "2026-07-15", 
         angka_p1: ``, tunggal_p1: "",
         angka_p2: ``, tunggal_p2: "",
         angka_p3: ``, tunggal_p3: "",
@@ -27,6 +30,7 @@ const DATA_MACAU = {
     },
 
     kamis: {
+    tanggal: "2026-07-16", 
         angka_p1: ``, tunggal_p1: "",
         angka_p2: ``, tunggal_p2: "",
         angka_p3: ``, tunggal_p3: "",
@@ -36,6 +40,7 @@ const DATA_MACAU = {
     },
 
 jumat: {
+tanggal: "2026-07-17", 
 angka_p1: `
 1970 : 89
 1194 : 81
@@ -171,6 +176,7 @@ angka_p6: `
 }, 
 
 sabtu: {
+tanggal: "2026-07-18", 
 angka_p1: `
 1970 : 89
 1194 : 81
@@ -313,6 +319,7 @@ angka_p6: `
     },
 
     minggu: {
+    tanggal: "2026-07-19", 
         angka_p1: ``, tunggal_p1: "",
         angka_p2: ``, tunggal_p2: "",
         angka_p3: ``, tunggal_p3: "",
