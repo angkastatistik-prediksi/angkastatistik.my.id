@@ -576,11 +576,32 @@ hs.src='//s10.histats.com/js15_as.js';
         containerTrek.innerHTML = ''; 
 
         // Mengambil dari database DATA_SDY sesuai file data/sdy.js Anda
-        const hariObj = DATA_SDY[hari] || { angka: '', tunggal: '-' }; 
+        const hariObj = DATA_SDY[hari] || { tanggal: '', angka: '', tunggal: '-' }; 
         const teksData = hariObj.angka || '';
+        const tanggalDataTeks = hariObj.tanggal || ''; // Membaca tanggal dari data JS
         
+        // --- MESIN HITUNG SELISIH HARI (CEK DATA KEDALUWARSA) ---
+        let dataSudahKedaluwarsa = false;
+        if (tanggalDataTeks) {
+            const tanggalSekarang = new Date();
+            // Menghilangkan komponen jam agar hitungan harinya akurat
+            tanggalSekarang.setHours(0,0,0,0); 
+            
+            const tanggalData = new Date(tanggalDataTeks);
+            tanggalData.setHours(0,0,0,0);
+            
+            // Hitung selisih dalam hitungan hari
+            const selisihWaktu = tanggalSekarang.getTime() - tanggalData.getTime();
+            const selisihHari = Math.floor(selisihWaktu / (1000 * 3600 * 24));
+            
+            // Jika jaraknya 7 hari atau lebih, berarti itu data minggu lalu
+            if (selisihHari >= 7) {
+                dataSudahKedaluwarsa = true;
+            }
+        }
+
         // =========================================================================
-        // CEK PINTAR OTOMATIS: Jika data SDY belum diupdate / masih kosong
+        // KONDISI 1: JIKA DATA KOSONG MELOMPONG / BELUM DIISI SAMA SEKALI
         // =========================================================================
         if (!teksData.trim()) {
             containerTrek.innerHTML = `
@@ -588,13 +609,12 @@ hs.src='//s10.histats.com/js15_as.js';
                     🙏 Mohon bersabar bosku, angka SDY sedang dinormalisasi 🙏
                 </div>
             `;
-            
             if(document.getElementById('angka-tunggal-box')) {
                 document.getElementById('angka-tunggal-box').innerText = '-';
             }
         } else {
             // =========================================================================
-            // JIKA DATA SUDAH ADA: Jalankan logika pembuatan pola bola angka asli Anda
+            // JIKA DATA ADA: Tampilkan baris bola angka seperti biasa
             // =========================================================================
             const barisData = teksData.split('\n');
             
@@ -602,8 +622,8 @@ hs.src='//s10.histats.com/js15_as.js';
                 if (!item.trim() || !item.includes(':')) return;
                 
                 const bagian = item.split(':');
-                const angkaKiri = bagian.trim();
-                const angkaKanan = bagian.trim();
+                const angkaKiri = bagian[0].trim();
+                const angkaKanan = bagian[1].trim();
 
                 let barisHTML = `<div class="ball-row">`;
                 for (let ch of angkaKiri) { 
@@ -614,13 +634,11 @@ hs.src='//s10.histats.com/js15_as.js';
                 let isCoret = false;
                 let teksAngkaKanan = angkaKanan.trim();
 
-                // Cek jika baris angka diawali dengan tanda minus untuk coretan hadiah
                 if (teksAngkaKanan.startsWith('-')) {
                     isCoret = true;
-                    teksAngkaKanan = teksAngkaKanan.substring(1).trim(); // Buang tanda minusnya
+                    teksAngkaKanan = teksAngkaKanan.substring(1).trim(); 
                 }
 
-                // Membaca karakter huruf satu per satu secara otomatis tanpa terpengaruh spasi
                 for (let ch of teksAngkaKanan) {
                     if (ch !== ' ' && ch !== '\r' && ch !== '\n') {
                         const classCoret = isCoret ? 'strike-through' : '';
@@ -633,6 +651,17 @@ hs.src='//s10.histats.com/js15_as.js';
 
             if(document.getElementById('angka-tunggal-box')) {
                 document.getElementById('angka-tunggal-box').innerText = hariObj.tunggal || '-';
+            }
+
+            // =========================================================================
+            // KONDISI 2: JIKA DATA TETAP MUNCUL TAPI SUDAH LEBIH DARI 7 HARI (MINGGU LALU)
+            // =========================================================================
+            if (dataSudahKedaluwarsa) {
+                containerTrek.innerHTML += `
+                    <div class="notif-data-lama" style="text-align: center; padding: 15px; font-weight: bold; color: #8a6d3b; background: #fcf8e3; border: 1px solid #faebcc; border-radius: 8px; margin: 15px 0; font-size: 14px; width: 100%;">
+                        ⚠️ Data ini belum di update bosku, masih data minggu kemren 😊
+                    </div>
+                `;
             }
         }
     }
