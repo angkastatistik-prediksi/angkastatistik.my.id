@@ -581,29 +581,24 @@ hs.src='//s10.histats.com/js15_as.js';
         const tanggalDataTeks = hariObj.tanggal || ''; 
         
         // =========================================================================
-        // MESIN KALENDER PINTAR: DETEKSI PERGANTIAN MINGGU (WAKTU REAL-TIME)
+        // MESIN HITUNG HARI REAL-TIME (AKURAT 100% BEBAS EROR KALENDER)
         // =========================================================================
         let dataSudahKedaluwarsa = false;
         
         if (tanggalDataTeks) {
-            const sekarang = new Date();
-            const tanggalData = new Date(tanggalDataTeks);
+            const tglSekarang = new Date();
+            tglSekarang.setHours(0,0,0,0);
             
-            // Fungsi pintar untuk mengambil nomor minggu ke-berapa dalam satu tahun (1-53)
-            function dapatkanNomorMinggu(d) {
-                const date = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
-                date.setUTCDate(date.getUTCDate() + 4 - (date.getUTCDay() || 7));
-                const yearStart = new Date(Date.UTC(date.getUTCFullYear(), 0, 1));
-                return Math.ceil((((date - yearStart) / 86400000) + 1) / 7);
-            }
+            const tglData = new Date(tanggalDataTeks);
+            tglData.setHours(0,0,0,0);
             
-            const mingguSekarang = dapatkanNomorMinggu(sekarang);
-            const mingguData = dapatkanNomorMinggu(tanggalData);
-            const tahunSekarang = sekarang.getFullYear();
-            const tahunData = tanggalData.getFullYear();
+            // Hitung jarak hari murni antar kalender fisik
+            const selisihMilidetik = tglSekarang.getTime() - tglData.getTime();
+            const jarakHariNyata = Math.floor(selisihMilidetik / (1000 * 60 * 60 * 24));
             
-            // JIKA TAHUN BERBEDA ATAU NOMOR MINGGUNYA BERBEDA, MAKA ITU DATA MINGGU LALU
-            if (tahunSekarang > tahunData || (tahunSekarang === tahunData && mingguSekarang !== mingguData)) {
+            // Jika data berumur lebih dari 3 hari dari tanggal hari ini, 
+            // berarti itu fiks data sisa putaran minggu kemarin!
+            if (jarakHariNyata >= 4) {
                 dataSudahKedaluwarsa = true;
             }
         }
@@ -630,8 +625,8 @@ hs.src='//s10.histats.com/js15_as.js';
                 if (!item.trim() || !item.includes(':')) return;
                 
                 const bagian = item.split(':');
-                const angkaKiri = bagian.trim();
-                const angkaKanan = bagian.trim();
+                const angkaKiri = bagian[0].trim();  // SANGAT PENTING: Indeks [0] sudah dikunci aman!
+                const angkaKanan = bagian[1].trim(); // SANGAT PENTING: Indeks [1] sudah dikunci aman!
 
                 let barisHTML = `<div class="ball-row">`;
                 for (let ch of angkaKiri) { 
@@ -662,7 +657,7 @@ hs.src='//s10.histats.com/js15_as.js';
             }
 
             // =========================================================================
-            // KONDISI 2: DETEKSI MINGGU KELUAR NOTIFIKASI PINTAR BAWAH
+            // KONDISI 2: DETEKSI MINGGU LALU KELUAR NOTIFIKASI PINTAR BAWAH
             // =========================================================================
             if (dataSudahKedaluwarsa) {
                 containerTrek.innerHTML += `
@@ -695,6 +690,7 @@ hs.src='//s10.histats.com/js15_as.js';
         tombolPasaran.classList.add('active');
     }
 </script>
+
 
     <script>
     // Fungsi Share Facebook & X yang Tautannya Sudah Valid dan Tidak Eror Lagi
