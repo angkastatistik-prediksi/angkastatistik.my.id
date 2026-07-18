@@ -1,5 +1,6 @@
 const DATA_CAMBODIA = {
 senin: {
+tanggal: "2026-07-13", 
 angka: `
 
 `,
@@ -7,6 +8,7 @@ tunggal: ""
 },
 
 selasa: {
+tanggal: "2026-07-14", 
 angka: `
 2065 : 37
 1207 : 64
@@ -19,6 +21,7 @@ tunggal: "0"
 },
 
 rabu: {
+tanggal: "2026-07-15", 
 angka: `
 2065 : 37
 1207 : 64
@@ -32,6 +35,7 @@ tunggal: "8"
 },
 
 kamis: {
+tanggal: "2026-07-16", 
 angka: `
 2065 : 37
 1207 : 64
@@ -46,6 +50,7 @@ tunggal: "0"
 },
 
 jumat: {
+tanggal: "2026-07-17", 
 angka: `
 2065 : 37
 1207 : 64
@@ -61,6 +66,7 @@ tunggal: "0"
 },
 
 sabtu: {
+tanggal: "2026-07-18", 
 angka: `
 2065 : 37
 1207 : 64
@@ -77,6 +83,7 @@ tunggal: "2"
 },
 
 minggu: {
+tanggal: "2026-07-19", 
 angka: `
 2065 : 37
 1207 : 64
