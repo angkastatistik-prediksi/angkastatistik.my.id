@@ -321,9 +321,31 @@ hs.src='//s10.histats.com/js15_as.js';
         const namaKeyTunggal = `tunggal_${putaran}`;
         
         const teksData = hariObj[namaKeyAngka] || '';
+        const tanggalDataTeks = hariObj.tanggal || ''; // Membaca tanggal utama dari objek hari Macau
 
         // =========================================================================
-        // CEK PINTAR OTOMATIS: Jika data putaran Macau ini kosong / belum diisi
+        // MESIN HITUNG HARI REAL-TIME (AKURAT 100% DETEKSI DATA MINGGU KEMARIN)
+        // =========================================================================
+        let dataSudahKedaluwarsa = false;
+        
+        if (tanggalDataTeks) {
+            const tglSekarang = new Date();
+            tglSekarang.setHours(0,0,0,0);
+            
+            const tglData = new Date(tanggalDataTeks);
+            tglData.setHours(0,0,0,0);
+            
+            const selisihMilidetik = tglSekarang.getTime() - tglData.getTime();
+            const jarakHariNyata = Math.floor(selisihMilidetik / (1000 * 60 * 60 * 24));
+            
+            // Jarak aman 4 hari. Jika selisih kalender >= 4 hari, fiks data minggu lalu!
+            if (jarakHariNyata >= 4) {
+                dataSudahKedaluwarsa = true;
+            }
+        }
+
+        // =========================================================================
+        // KONDISI 1: Jika data putaran Macau ini kosong / belum diisi sama sekali
         // =========================================================================
         if (!teksData.trim()) {
             containerTrek.innerHTML = `
@@ -368,6 +390,17 @@ hs.src='//s10.histats.com/js15_as.js';
 
             if(document.getElementById('angka-tunggal-box')) {
                 document.getElementById('angka-tunggal-box').innerText = hariObj[namaKeyTunggal] || '-';
+            }
+
+            // =========================================================================
+            // KONDISI 2: DETEKSI MINGGU KELUAR NOTIFIKASI PINTAR BAWAH (MACAU)
+            // =========================================================================
+            if (dataSudahKedaluwarsa) {
+                containerTrek.innerHTML += `
+                    <div class="notif-data-lama" style="text-align: center; padding: 15px; font-weight: bold; color: #8a6d3b; background: #fcf8e3; border: 1px solid #faebcc; border-radius: 8px; margin: 15px 0; font-size: 14px; width: 100%;">
+                        ⚠️ Data ini belum di update bosku, masih data minggu kemren 😊
+                    </div>
+                `;
             }
         }
     }
