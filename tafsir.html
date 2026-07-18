@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BUKU MIMPI & EREK EREK 2D LENGKAP - ANGKA STATISTIK</title>
+    <style>
+        :root {
+            --bg-dark: #0f111a;
+            --bg-card: #1a1d29;
+            --text-main: #f0f2f5;
+            --text-muted: #a0aec0;
+            --accent: #ffb703;
+            --accent-green: #4ade80;
+            --gradient: linear-gradient(135deg, #1e2235, #121420);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: var(--bg-dark); color: var(--text-main); line-height: 1.6; padding-bottom: 50px; }
+        header { background: var(--gradient); padding: 25px 20px; text-align: center; border-bottom: 2px solid var(--accent); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); }
+        header h1 { font-size: 1.6rem; letter-spacing: 1px; text-transform: uppercase; }
+        header h1 span { color: var(--accent); }
+        
+        .container { max-width: 800px; margin: 30px auto; padding: 0 20px; }
+        
+        /* Desain Kotak Pencarian Instan */
+        .search-container { 
+            background-color: var(--bg-card); 
+            border: 1px dashed var(--accent-green); 
+            border-radius: 12px; 
+            padding: 20px; 
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .search-container h2 { font-size: 1rem; color: var(--accent-green); text-transform: uppercase; margin-bottom: 12px; letter-spacing: 0.5px; border-left: 3px solid var(--accent-green); padding-left: 10px; }
+        .search-box { width: 100%; padding: 12px 15px; font-size: 1rem; background-color: rgba(0,0,0,0.3); border: 1px solid #2d3142; border-radius: 6px; color: var(--text-main); outline: none; transition: all 0.2s ease; }
+        .search-box:focus { border-color: var(--accent); box-shadow: 0 0 10px rgba(255, 183, 3, 0.2); }
+        /* Desain Tabel Buku Mimpi Mewah */
+        .table-wrapper { background-color: var(--bg-card); border: 1px solid #2d3142; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        table { width: 100%; border-collapse: collapse; text-align: left; }
+        th, td { padding: 14px 16px; border-bottom: 1px solid #2d3142; }
+        th { background-color: rgba(0,0,0,0.4); font-size: 0.95rem; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; }
+        td { font-size: 0.95rem; }
+        tr:last-child td { border-bottom: none; }
+        tr:hover { background-color: rgba(255,255,255,0.02); }
+        
+        .angka-col { font-weight: bold; color: var(--accent-green); font-size: 1.1rem; width: 80px; text-align: center; }
+        .no-data { text-align: center; padding: 30px; color: #e63946; font-weight: bold; }
+        
+        /* Navigasi Control Menu Utama Ringkas Minimalis */
+        .system-controls { display: flex; justify-content: center; margin-top: 25px; }
+        .btn-control { width: 100%; max-width: 250px; padding: 10px 14px; text-align: center; border-radius: 6px; font-weight: bold; font-size: 14px; text-decoration: none; cursor: pointer; transition: all 0.2s ease; background-color: #ffc107; color: #000000; border: 1px solid #ff9800; box-shadow: 0 0 8px rgba(255, 193, 7, 0.4); }
+        .btn-control:hover { background-color: #ffc300; transform: translateY(-2px); }
+        
+        footer { text-align: center; padding: 20px 0; margin-top: 40px; border-top: 1px solid #2d3142; color: var(--text-muted); font-size: 0.85rem; }
+        footer span { color: var(--accent); }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Buku Mimpi & <span>Erek Erek 2D</span></h1>
+    </header>
+
+    <main class="container">
+        
+        <!-- KOTAK PENCARIAN INSTAN DIGITAL -->
+        <section class="search-container">
+            <h2>Pencarian Tafsir Mimpi Instan</h2>
+            <input type="text" id="input-cari-mimpi" class="search-box" placeholder="Ketik kata kunci mimpi Anda di sini... (Contoh: kucing, uang, hantu)">
+        </section>
+
+        <!-- WADAH TABEL DATA TAFSIR MIMPI -->
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th style="text-align: center;">Angka</th>
+                        <th>Tafsir Arti Mimpi / Erek-Erek Benda & Kejadian</th>
+                    </tr>
+                </thead>
+                <tbody id="body-tabel-mimpi">
+                    <!-- DATA BUKU MIMPI AKAN DI-RENDER OTOMATIS OLEH JAVASCRIPT -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- PANEL NAVIGASI KEMBALI DINAMIS (HANYA KEMBALI KE ASAL HALAMAN / MENU UTAMA) -->
+        <div class="system-controls">
+            <a id="tombol-kembali-dinamis" href="index.html" class="btn-control">Kembali ke Menu Utama</a>
+        </div>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 <span>ANGKA STATISTIK</span>. All Rights Reserved.</p>
+    </footer>
+    <!-- SKRIP PROGRAM DATABASE, PENCARIAN INSTAN, DAN PELACAK OTOMATIS ASAL HALAMAN -->
+    <script>
+        // --- SISTEM PELACAK DINAMIS ASAL HALAMAN PENGUNJUNG ---
+        window.addEventListener('DOMContentLoaded', () => {
+            const asalHalaman = document.referrer;
+            const tombolKembali = document.getElementById('tombol-kembali-dinamis');
+
+            if (tombolKembali && asalHalaman.trim() !== "") {
+                if (asalHalaman.includes('macau.html')) {
+                    tombolKembali.href = 'macau.html';
+                    tombolKembali.innerText = 'Kembali ke Macau';
+                } else if (asalHalaman.includes('sdy.html')) {
+                    tombolKembali.href = 'sdy.html';
+                    tombolKembali.innerText = 'Kembali ke SDY';
+                } else if (asalHalaman.includes('cambodia.html')) {
+                    tombolKembali.href = 'cambodia.html';
+                    tombolKembali.innerText = 'Kembali ke Cambodia';
+                } else if (asalHalaman.includes('china.html')) {
+                    tombolKembali.href = 'china.html';
+                    tombolKembali.innerText = 'Kembali ke China';
+                } else if (asalHalaman.includes('japan.html')) {
+                    tombolKembali.href = 'japan.html';
+                    tombolKembali.innerText = 'Kembali ke Japan';
+                } else if (asalHalaman.includes('sgp.html')) {
+                    tombolKembali.href = 'sgp.html';
+                    tombolKembali.innerText = 'Kembali ke SGP';
+                } else if (asalHalaman.includes('taiwan.html')) {
+                    tombolKembali.href = 'taiwan.html';
+                    tombolKembali.innerText = 'Kembali ke Taiwan';
+                } else if (asalHalaman.includes('hk.html')) {
+                    tombolKembali.href = 'hk.html';
+                    tombolKembali.innerText = 'Kembali ke HK';
+                } else if (asalHalaman.includes('almanak.html')) {
+                    tombolKembali.href = 'almanak.html';
+                    tombolKembali.innerText = 'Kembali ke Almanak';
+                }
+            }
+        });
+
+        // DATA LENGKAP 100 ANGKA BUKU MIMPI 2D (00 - 30)
+        const databaseMimpi = [
+            { angka: "00", tafsir: "Penyair - Tapir - Kupas Kelapa - Sempritan - Rembulan - Bulan - Pindah Rumah - Tanggalan - Kumbo Karno" },
+            { angka: "01", tafsir: "Setan - Bandeng - Obor - Jambu Mente - Tangan - Bacang - Betara Kala" },
+            { angka: "02", tafsir: "Sarjana - Bekicot - Loncat Tinggi - Wortel - Sandal - Jangkar - Betara Brahma" },
+            { angka: "03", tafsir: "Orang Mati - Angsa - Lompat Galah - Sawi - Kaki - Cemburu - Subali" },
+            { angka: "04", tafsir: "Kwan Im - Merak - Lompat Jauh - Kangkung - Balon - Petai - Dewi Ratih" },
+            { angka: "05", tafsir: "Kepala Rampok - Singa - Loncat Indah - Merica - Kayu Manis - Kereta Api - Jemur Baju - Garu Langit" },
+            { angka: "06", tafsir: "Dewi Bulan - Kelinci - Bantuan - Renang - Kapas - Boneka - Daun Teh - Dewi Sri" },
+            { angka: "07", tafsir: "Pelayan - Babi - Perahu Layar - Lilin - Senter - Daun Bawang - Wacang - Betara Indra" },
+            { angka: "08", tafsir: "Macan - Pasar - Kecubung - Terlanggar - Daun Sop - Maling Kecil - Motor Boat - Tiam Istana" },
+            { angka: "09", tafsir: "Jendral - Kerbau - Mendayung - Kates (Pepaya) - Jala - Gadis - Bima" },
+            { angka: "10", tafsir: "Kelenteng - Kelabang/Lipan - Menyelam - Kelapa - Bir - Panjat Pohon - Sembahyang" },
+            { angka: "11", tafsir: "Menteri Serakah - Anjing - Lari Cepat - Sapu - Kipas - Kerudung - Sengkuni" },
+            { angka: "12", tafsir: "Penasehat Perang - Kuda - Lari Gawang - Lemon - Bola Lampu - Luku - Wibisana" },
+            { angka: "13", tafsir: "Penjaga Pintu - Gajah - Lari Estafet - Kipas Angin - Keris - Cuci Rambut - Prabu Kesa" },
+            { angka: "14", tafsir: "Potong Babi - Onta - Tolak Peluru - Jembatan - Spet (Suntikan) - Jaya Langsuan" },
+            { angka: "15", tafsir: "Hakim - Tikus - Lempar Martil - Kantor Pos - Sekrup - Kresna" },
+            { angka: "16", tafsir: "Sakit Gudik - Tawon - Lempar Cakram - Surat - Nanas - Pohon Pisang - Jembawan" },
+            { angka: "17", tafsir: "Pemadat - Bangau - Lempar Lembing - Durian - Telepon - Buto Terong" },
+            { angka: "18", tafsir: "Kas Uang - Kucing - Polo Air - Lombok - Kantor Polisi - Parang - Jual Es - Bisma" },
+            { angka: "19", tafsir: "Gadis Remaja - Sekuter - Lempar Bola - Buaya - Ban Sepeda - Cabut Gigi - Srikandi" },
+            { angka: "20", tafsir: "Istri Sejati - Lalat - Voli Ball - Palu - Bermesraan - Kedai Tuak - Setiawati" },
+            { angka: "21", tafsir: "Pelacur - Walet - Bulutangkis - Permen - Kapak - Lesmanawati" },
+            { angka: "22", tafsir: "Peti Mati - Capung - Tenis - Terong - Harmonika - Arjuna dan Sembadra" },
+            { angka: "23", tafsir: "Setan Gantung - Kera - Bola Basket - Pisang - Piano - Wilkampana" },
+            { angka: "24", tafsir: "Sumber Air - Katak - Tenis Meja - Sawi - Sikat Gigi - Padi - Dewa Ruci" },
+            { angka: "25", tafsir: "Menantu Raja - Rajawali - Baseball - Jagung - Tapal Gigi - Ronggeng - Betara Guru" },
+            { angka: "26", tafsir: "Raja - Naga - Kebaya - Sawi - Lokomotif - Uang Logam - Bertengkar - Mesra - Dewa Sri" },
+            { angka: "27", tafsir: "Wanita Cantik - Kura-Kura - Bola Sodok - Sabun Bubuk - Otak - Dewi Supraba" },
+            { angka: "28", tafsir: "Pencari Kayu - Ayam - Menembak - Tomat - Jarum - Nakula" },
+            { angka: "29", tafsir: "Pendeta Sakti - Belut - Panahan - Kursi - Koran - Uang Perak - Truk Barang - Wiratha" },
+            { angka: "30", tafsir: "Nelayan - Ikan Mas - Angkat Besi - Belimbing - WC/Toilet - Nagatatmala" },
+            { angka: "31", tafsir: "Anggota Kelamin - Udang - Senam - Cacing Pita - Sangkar Burung - Yuyu Rumpung" },
+            { angka: "32", tafsir: "Ahli Nujum - Ular - Kamar Mandi - Tali - Sarang Lebah - Cari Kerang - Yudo - Abiyasa" },
+            { angka: "33", tafsir: "Pengemis - Laba-Laba - Uang - Gulat - Sabun - Gigi - Tahu - Petruk" },
+            { angka: "34", tafsir: "Orang Buta - Rusa - Silat - Jamu - Paru-Paru - Merpati - Destarata" },
+            { angka: "35", tafsir: "Wanita - Kambing - Tinju - Lambung - Jalan-Jalan - Boncengan - Gatotkaca" },
+            { angka: "36", tafsir: "Pendeta Wanita - Musang - Balap Sepeda - Manggis - Apotik - Rumah Sakit - Baladewa" },
+            { angka: "37", tafsir: "Si Bungkuk - Gabus - Balap Mobil - Anggur - BH/Bra - Truk - Gareng" },
+            { angka: "38", tafsir: "Putra Raja - Cendrawasih - Balap Motor - Tong - Kapal Perang - Hamil - Drupadi" },
+            { angka: "39", tafsir: "Sepasang Kekasih - Kalajengking - Balap Kuda - Topi - Bemo - Narasuma" },
+            { angka: "40", tafsir: "Penolong - Gelatik - Golf - Tang - Peci - Jual Jamu - Widura" },
+            { angka: "41", tafsir: "Pahlawan - Kepiting - Berkuda - Lilin - Paku - Sabuk - Warsaya" },
+            { angka: "42", tafsir: "Jejaka Tua - Buaya - Berjalan - Catur - Pakis - Dokter - Lesmana" },
+            { angka: "43", tafsir: "Janda Muda - Hiu - Bom - Anggar - Mawar - Langsat - Grendel - Sembadra" },
+            { angka: "44", tafsir: "Berandal - Badak - Terbang Layang - Sisir - Kuaci - Seruling - Citraksa" },
+            { angka: "45", tafsir: "Pengembara - Banteng - Terbang Layang - Kendi - Tas - Ketupat - Rama" },
+            { angka: "46", tafsir: "Nenek Moyang - Orang Utan - Terjun Bebas - Sikat - Toko - Rumah - Hyang Wenang" },
+            { angka: "47", tafsir: "Bencong - Zebra - Upacara Bendera - Tangga - Hotel - Sirkus - Keladi - Citrayuda" },
+            { angka: "48", tafsir: "Si Ceroboh - Landak - Main Catur - Garuk - Bioskop - Semangka - Dasamuka" },
+            { angka: "49", tafsir: "Pengadu Ayam - Keledai - Tarik Tambang - Lampu Minyak - Rumah Makan - Arjuna" },
+            { angka: "50", tafsir: "Orang Eskimo - Beruang - Pemburu - Tikus - Sandang - Penjual Sate - Wak Gendut" },
+            { angka: "51", tafsir: "Ahli Filsafat - Kerang - Lonceng - Rapat Kerja - Patil Lele - Tebu - Celana - Yuyun" },
+            { angka: "52", tafsir: "Raja Laut - Domba - Menembak - Botol - Kemeja - Paus - Main Tali - Burisrawa" },
+            { angka: "53", tafsir: "Penjual Silat - Ikan Duri - Akrobat - Garam - Rambutan - Kirim Surat - Drupadi" },
+            { angka: "54", tafsir: "Raja Kera - Ikan Lele - Sepatu Roda - Kalung - Dokar - Kera Hanoman" },
+            { angka: "55", tafsir: "Pertapa - Kangguru - Kelereng - Gelang - Di Lempar - Memetik Cabe - Jayadewa" },
+            { angka: "56", tafsir: "Budak - Ikan Duyung - Makan Durian - Cikar - Ambulans - Bengkung - Rarasati" },
+            { angka: "57", tafsir: "Anak Sakit - Ulat Sutra - Jual Bakso - Layang-Layang - Kunyit - Tempat Tidur - Sapta Arga" },
+            { angka: "58", tafsir: "Penari - Cumi-Cumi - Hantu - Rumah - Sekolahan - Pacuan Kuda - Kunti" },
+            { angka: "59", tafsir: "Putra Raja - Kakak Tua - Kaos - Dakon - Kedondong - Jam Dinding - Resi Tama" },
+            { angka: "60", tafsir: "Kepala Polisi - Cicak - Potong Rambut - Karambol - Catur - Delima - Handuk - Sentiyaki" },
+            { angka: "61", tafsir: "Pedagang - Kecoa - Gendongan - Kacamata - Buku - Baladewa" },
+            { angka: "62", tafsir: "Pagoda - Walang Kadung - Petan - Termos - Selendang - Sapu - Merpati - Setiawati" },
+            { angka: "63", tafsir: "Pendekar Wanita - Kumbang - Treksando - Bantal - Jendela - Talas - Larasati" },
+            { angka: "64", tafsir: "Dewa Uang - Kuda Laut - Ronggeng - Bandulan - Guling - Apel - Guling - Betara Indra" },
+            { angka: "65", tafsir: "Raja Setan - Hiu - Kayang - Kaca Mata - Klompen - Petromak - Isap Candu - Kala Srenggi" },
+            { angka: "66", tafsir: "Dewa Bumi - Jerapah - Potong Padi - Sukun - Gelas - Antaboga" },
+            { angka: "67", tafsir: "Penjual Daging - Burung Unta - Korek Api - Egrang - Sendok - Truk - Jalamu" },
+            { angka: "68", tafsir: "Pembuat Pedang - Burung Hantu - Pemanjat Tebing - Ubi - Pisau - Sapi - Arjuna" },
+            { angka: "69", tafsir: "Pencari Jejak - Mimi - Engklek - Gunting - Tukang Jamu - Lemari Baju - Sengkuni" },
+            { angka: "70", tafsir: "Panglima - Keledai - Tarik Tambang - Lampu Minyak - Rumah Makan - Adipati Karna" },
+            { angka: "71", tafsir: "Pemburu - Macan Tutul - Kemeja - Loncat Karet - Sumur - Daun Talas - Pandu" },
+            { angka: "72", tafsir: "Dewa Langit - Ikan Dorang - Menanam Padi - Kran Air - Arloji - Tugu - Betara Guru" },
+            { angka: "73", tafsir: "Tuan Tanah - Semut - Balappen - Sikat Gigi - Bolpen - Antareja" },
+            { angka: "74", tafsir: "Bajak Laut - Pinguin - Kenari - Ketapel - Gentong - Radio - Indrajit" },
+            { angka: "75", tafsir: "Suami Istri - Bebek - Balapan Lari - Nangka - Lemari - Ratih dan Kamajaya" },
+            { angka: "76", tafsir: "Jendral Wanita - Nyamuk - Teplekan - Kasur - Ambil Air - Matahari - Srikandi" },
+            { angka: "77", tafsir: "Walikota - Penyu - Bermain Bekel - Cincin - Payung - Pare - Anjing - Betara Kala" },
+            { angka: "78", tafsir: "Orang Kaya - Ikan Gergaji - Balap Becak - Semangka - Wajan - Lesmana" },
+            { angka: "79", tafsir: "Jendral - Orong-Orong - Jagung - Piring - Jeruk Bali - Truk - Subali" },
+            { angka: "80", tafsir: "Kepala Desa - Bajing - Memanjat - Pohon Kelapa - Ceret - Semar" },
+            { angka: "81", tafsir: "Penipu - Kancil - Janur - Menyulam - Cangkir - Dam-Daman - Aswatama" },
+            { angka: "82", tafsir: "Gembala - Kuda Nil - Lencana - Kupas Kelapa - Lilin - Kartu Cina - Udawa" },
+            { angka: "83", tafsir: "Ibu Suri - Burung Gereja - Kasur - Merica - Meja - Pipa - Bisma" },
+            { angka: "84", tafsir: "Budha - Burung Merpati - Kacang Tanah - Kantong Plastik - Ceret - Jepretan - Dewa Bumi" },
+            { angka: "85", tafsir: "Penyihir Wanita - Jangkrik - Rotan - Latihan Hanoman - Pintu - Arjuna" },
+            { angka: "86", tafsir: "Pencabut Nyawa - Ikan Sampan - Salak - Gerak Badan - Rokok - Timun - Yamadipati" },
+            { angka: "87", tafsir: "Orang Gila - Burung Betet - Kerja Bakti - Botol - Toilet - Burisrawa" },
+            { angka: "88", tafsir: "Dewi Mega - Domba - Balap Karung - Jeruk Manis - Piring - Wilutama" },
+            { angka: "89", tafsir: "Pemabuk - Ikan Bendera - Lampu Setopan - Jeruk Keprok - Ember - Boma" },
+            { angka: "90", tafsir: "Tawon - Kakap - Pertapa - Treksando - Senter - Daun Sirih - Jembawan" },
+            { angka: "91", tafsir: "Siluman Air - Srigala - Ambulans - Bambu - Toples - Kedai Samsu - Witama" },
+            { angka: "92", tafsir: "Pendekar Wanita - Kumbang - Main Beladiri - Sabun - Jendela - Anggur - Larasati" },
+            { angka: "93", tafsir: "Penjilat - Babi Hutan - Perahu Layar - Kaos Kaki - Lapangan - Durna" },
+            { angka: "94", tafsir: "Kwan Kong - Kakap - Jahit Baju - Pemandian - Jambu - Pena - Salya" },
+            { angka: "95", tafsir: "Petani - Perkutut - Pisau Cukur - Jalan Raya - Kunci - Irawan" },
+            { angka: "96", tafsir: "Prajurit - Ikan Nus - Selimut - Laut - Mangga - Pramuka - Dewa Ruci" },
+            { angka: "97", tafsir: "Raksasa - Tokek - Ambil Kelapa - Kali - Sirsak - Lemari Es - Prahasta" },
+            { angka: "98", tafsir: "Penjaga Malam - Tongkol - TV - Lengkeng - Kupas Kelapa - Kecelakaan - Trijata" },
+            { angka: "99", tafsir: "Hidung Belang - Menyelam - Jalak - Bayi - Buah Sawo - Meja - Menenun - Arjuna" }
+        ];
+
+        const tbody = document.getElementById('body-tabel-mimpi');
+        const inputCari = document.getElementById('input-cari-mimpi');
+
+        // Fungsi utama untuk me-render data ke dalam baris tabel
+        function tampilkanSemuaData(dataArray) {
+            tbody.innerHTML = '';
+            if (dataArray.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="2" class="no-data">❌ Kata kunci arti mimpi tidak ditemukan bosku!</td></tr>`;
+                return;
+            }
+            dataArray.forEach(item => {
+                tbody.innerHTML += `
+                    <tr>
+                        <td class="angka-col">${item.angka}</td>
+                        <td>${item.tafsir}</td>
+                    </tr>
+                `;
+            });
+        }
+
+        // Jalankan cetak database 2D pertama kali halaman dibuka
+        tampilkanSemuaData(databaseMimpi);
+
+        // Mesin Filter Search Instan Otomatis (Real-time Filtering)
+        inputCari.addEventListener('input', (e) => {
+            const kataKunci = e.target.value.toLowerCase().trim();
+            const hasilFilter = databaseMimpi.filter(item => {
+                return item.angka.includes(kataKunci) || item.tafsir.toLowerCase().includes(kataKunci);
+            });
+            tampilkanSemuaData(hasilFilter);
+        });
+    </script>
+</body>
+</html>

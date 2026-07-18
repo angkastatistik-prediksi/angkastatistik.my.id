@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MESIN RUMUS OTOMATIS JITU - ANGKA STATISTIK</title>
+    <style>
+        :root {
+            --bg-dark: #0f111a;
+            --bg-card: #1a1d29;
+            --text-main: #f0f2f5;
+            --text-muted: #a0aec0;
+            --accent: #ffb703;
+            --accent-green: #4ade80;
+            --gradient: linear-gradient(135deg, #1e2235, #121420);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: var(--bg-dark); color: var(--text-main); line-height: 1.6; padding-bottom: 50px; }
+        header { background: var(--gradient); padding: 25px 20px; text-align: center; border-bottom: 2px solid var(--accent); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); }
+        header h1 { font-size: 1.6rem; letter-spacing: 1px; text-transform: uppercase; }
+        header h1 span { color: var(--accent); }
+        
+        .container { max-width: 800px; margin: 30px auto; padding: 0 20px; }
+        
+        /* Desain Kotak Input Rumus Mengikuti Model Alat Pendukung */
+        .rumus-container { 
+            background-color: var(--bg-card); 
+            border: 1px dashed var(--accent-green); 
+            border-radius: 12px; 
+            padding: 25px 20px; 
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            text-align: center;
+        }
+        .rumus-container h2 { font-size: 1rem; color: var(--accent-green); text-transform: uppercase; margin-bottom: 15px; letter-spacing: 0.5px; border-left: 3px solid var(--accent-green); padding-left: 10px; text-align: left; }
+        
+        .input-group { display: flex; justify-content: center; gap: 10px; margin-bottom: 15px; }
+        .input-angka { width: 100%; max-width: 250px; padding: 12px 15px; font-size: 1.2rem; font-weight: bold; background-color: rgba(0,0,0,0.3); border: 1px solid #2d3142; border-radius: 6px; color: var(--accent); text-align: center; outline: none; letter-spacing: 4px; }
+        .input-angka:focus { border-color: var(--accent); box-shadow: 0 0 10px rgba(255, 183, 3, 0.2); }
+        
+        .btn-hitung { padding: 12px 25px; font-size: 1rem; font-weight: bold; background-color: var(--accent-green); color: #121420; border: none; border-radius: 6px; cursor: pointer; transition: all 0.2s ease; box-shadow: 0 4px 12px rgba(74, 222, 128, 0.3); }
+        .btn-hitung:hover { background-color: #3ec96d; transform: translateY(-2px); }
+        
+        /* Desain Kotak Hasil Output */
+        .hasil-container { background-color: var(--bg-card); border: 1px solid #2d3142; border-radius: 12px; padding: 20px; display: none; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .hasil-title { font-size: 1rem; color: var(--accent); text-transform: uppercase; margin-bottom: 15px; letter-spacing: 0.5px; border-left: 3px solid var(--accent); padding-left: 10px; }
+        
+        .grid-hasil { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 15px; }
+        .box-hasil { background-color: rgba(0,0,0,0.2); border: 1px solid #2d3142; border-radius: 8px; padding: 12px; text-align: center; }
+        .box-hasil label { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 5px; }
+        .box-hasil span { font-size: 1.1rem; font-weight: bold; color: #ffffff; letter-spacing: 1px; }
+        .box-hasil .highlight { color: var(--accent); }
+        
+        /* Navigasi Menu Utama */
+        .system-controls { display: flex; justify-content: center; margin-top: 25px; }
+        .btn-control { width: 100%; max-width: 250px; padding: 10px 14px; text-align: center; border-radius: 6px; font-weight: bold; font-size: 14px; text-decoration: none; cursor: pointer; transition: all 0.2s ease; background-color: #ffc107; color: #000000; border: 1px solid #ff9800; box-shadow: 0 0 8px rgba(255, 193, 7, 0.4); }
+        .btn-control:hover { background-color: #ffc300; transform: translateY(-2px); }
+        
+        footer { text-align: center; padding: 20px 0; margin-top: 40px; border-top: 1px solid #2d3142; color: var(--text-muted); font-size: 0.85rem; }
+        footer span { color: var(--accent); }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Mesin Rumus <span>Otomatis Jitu</span></h1>
+    </header>
+
+    <main class="container">
+        
+        <!-- AREA INPUT RESULT KEMARIN -->
+        <section class="rumus-container">
+            <h2>Masukkan Result Pengeluaran Kemarin</h2>
+            <div class="input-group">
+                <input type="text" id="input-result" class="input-angka" maxlength="4" placeholder="4321" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+            </div>
+            <button type="button" class="btn-hitung" onclick="hitungRumusOtomatis()">Hitung Rumus Sekarang</button>
+        </section>
+
+        <!-- KOTAK OUTPUT HASIL RACIKAN RUMUS -->
+        <section id="box-hasil-rumus" class="hasil-container">
+            <div class="hasil-title">Hasil Analisis Rumus Statistik Jitu</div>
+            
+            <div class="grid-hasil">
+                <div class="box-hasil">
+                    <label>Angka Ikut (AI)</label>
+                    <span id="res-ai" class="highlight">-</span>
+                </div>
+                <div class="box-hasil">
+                    <label>Colok Bebas</label>
+                    <span id="res-cb">-</span>
+                </div>
+                <div class="box-hasil">
+                    <label>As Terkuat</label>
+                    <span id="res-as">-</span>
+                </div>
+                <div class="box-hasil">
+                    <label>Kop Terkuat</label>
+                    <span id="res-kop">-</span>
+                </div>
+            </div>
+
+            <div class="grid-hasil">
+                <div class="box-hasil">
+                    <label>Kepala Paten</label>
+                    <span id="res-kepala" class="highlight">-</span>
+                </div>
+                <div class="box-hasil">
+                    <label>Ekor Paten</label>
+                    <span id="res-ekor" class="highlight">-</span>
+                </div>
+                <div class="box-hasil">
+                    <label>Jalur Shio Main</label>
+                    <span id="res-shio">-</span>
+                </div>
+                <div class="box-hasil">
+                    <label>Angka Lemah (Pangkas)</label>
+                    <span id="res-mati" style="color: #e63946;">-</span>
+                </div>
+            </div>
+
+            <div class="grid-hasil" style="grid-template-columns: 1fr;">
+                <div class="box-hasil" style="text-align: left; padding: 15px;">
+                    <label style="margin-bottom: 8px;">Rekomendasi Line 2D Jitu Top</label>
+                    <span id="res-line2d" style="color: #4ade80; font-size: 1.1rem; word-break: break-all; letter-spacing: 2px;">-</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- PANEL NAVIGASI KEMBALI DINAMIS (OTOMATIS BERUBAH SESUAI ASAL HALAMAN) -->
+        <div class="system-controls">
+            <a id="tombol-kembali-dinamis" href="index.html" class="btn-control">Kembali ke Menu Utama</a>
+        </div>
+
+    </main>
+    <footer>
+        <p>&copy; 2026 <span>ANGKA STATISTIK</span>. All Rights Reserved.</p>
+    </footer>
+
+    <!-- SKRIP MESIN HITUNG RUMUS & PELACAK DINAMIS ANTI-NYASAR -->
+    <script>
+        // --- SISTEM PELACAK DINAMIS ASAL HALAMAN PENGUNJUNG ---
+        window.addEventListener('DOMContentLoaded', () => {
+            const asalHalaman = document.referrer;
+            const tombolKembali = document.getElementById('tombol-kembali-dinamis');
+
+            if (tombolKembali && asalHalaman.trim() !== "") {
+                // Mengecek apakah pengunjung datang dari salah satu file pasaran Anda
+                if (asalHalaman.includes('macau.html')) {
+                    tombolKembali.href = 'macau.html';
+                    tombolKembali.innerText = 'Kembali ke Macau';
+                } else if (asalHalaman.includes('sdy.html')) {
+                    tombolKembali.href = 'sdy.html';
+                    tombolKembali.innerText = 'Kembali ke SDY';
+                } else if (asalHalaman.includes('cambodia.html')) {
+                    tombolKembali.href = 'cambodia.html';
+                    tombolKembali.innerText = 'Kembali ke Cambodia';
+                } else if (asalHalaman.includes('china.html')) {
+                    tombolKembali.href = 'china.html';
+                    tombolKembali.innerText = 'Kembali ke China';
+                } else if (asalHalaman.includes('japan.html')) {
+                    tombolKembali.href = 'japan.html';
+                    tombolKembali.innerText = 'Kembali ke Japan';
+                } else if (asalHalaman.includes('sgp.html')) {
+                    tombolKembali.href = 'sgp.html';
+                    tombolKembali.innerText = 'Kembali ke SGP';
+                } else if (asalHalaman.includes('taiwan.html')) {
+                    tombolKembali.href = 'taiwan.html';
+                    tombolKembali.innerText = 'Kembali ke Taiwan';
+                } else if (asalHalaman.includes('hk.html')) {
+                    tombolKembali.href = 'hk.html';
+                    tombolKembali.innerText = 'Kembali ke HK';
+                } else if (asalHalaman.includes('almanak.html')) {
+                    tombolKembali.href = 'almanak.html';
+                    tombolKembali.innerText = 'Kembali ke Almanak';
+                }
+            }
+        });
+
+        // --- SKRIP JAVASCRIPT UTAMA MESIN RUMUS OTOMATIS ---
+        function hitungRumusOtomatis() {
+            const inputResult = document.getElementById('input-result').value.trim();
+            
+            // Validasi wajib 4 digit angka
+            if (inputResult.length !== 4) {
+                alert('Silakan masukkan 4 digit angka result kemarin terlebih dahulu, bosku!');
+                return;
+            }
+
+            // Memecah 4 digit angka menjadi AS, KOP, KEPALA, EKOR
+            const n1 = parseInt(inputResult[0]); // AS
+            const n2 = parseInt(inputResult[1]); // KOP
+            const n3 = parseInt(inputResult[2]); // KEPALA
+            const n4 = parseInt(inputResult[3]); // EKOR
+
+            // 1. Mencari Angka Ikut (AI) dengan Mistik Lama / Baru
+            const ai1 = (n3 + 3) % 10;
+            const ai2 = (n4 + 5) % 10;
+            const ai3 = (n1 + n2) % 10;
+            const kumpulanAI = [...new Set([ai1, ai2, ai3, (ai1 + 4) % 10])].sort().join(', ');
+
+            // 2. Menentukan Colok Bebas Terkuat
+            const cb = ai1 === ai2 ? ai1 : ai2;
+
+            // 3. Racikan Posisi 4D (As & Kop)
+            const asTerkuat = [...new Set([(n1 + 2) % 10, (n1 + 7) % 10])].join(' atau ');
+            const kopTerkuat = [...new Set([(n2 + 1) % 10, (n2 + 6) % 10])].join(' atau ');
+
+            // 4. Racikan Kepala & Ekor Paten (Metode Indeks Kebalikan)
+            const kepalaPaten = [...new Set([n3, (n3 + 5) % 10, (n4 + 1) % 10])].sort().join(', ');
+            const ekorPaten = [...new Set([n4, (n4 + 5) % 10, (n3 + 2) % 10])].sort().join(', ');
+
+            // 5. Jalur Shio Main Otomatis (Menggunakan Sisa Bagi Jumlah 2D)
+            const jumlah2D = (n3 * 10 + n4) % 12;
+            const shioMain = jumlah2D === 0 ? "Jalur 3 (Shio Naga / Anjing)" : 
+                             jumlah2D % 3 === 0 ? "Jalur 3 (Shio Babi / Ayam)" :
+                             jumlah2D % 3 === 1 ? "Jalur 1 (Shio Tikus / Kelinci)" : "Jalur 2 (Shio Lembu / Kambing)";
+
+            // 6. Angka Mati (Pangkas) Untuk Memperkecil Line Betting
+            const angkaMati = (n1 + n4) % 10;
+
+            // 7. Generate Kombinasi Line 2D Jitu Top (Menyilangkan Kepala & Ekor Paten)
+            const arrKepala = kepalaPaten.split(', ').map(x => x.trim());
+            const arrEkor = ekorPaten.split(', ').map(x => x.trim());
+            let listLine2D = [];
+
+            for (let k of arrKepala) {
+                for (let e of arrEkor) {
+                    if (k === e) continue; // Skip angka kembar demi efisiensi cost bet
+                    const line = k + e;
+                    // Pastikan tidak mengandung angka mati hasil pangkas rumus
+                    if (!line.includes(angkaMati.toString())) {
+                        listLine2D.push(line);
+                    }
+                }
+            }
+            const stringLine2D = listLine2D.slice(0, 10).join(' - ');
+
+            // --- INJECT HASIL HITUNGAN KE ELEMEN HTML ---
+            document.getElementById('res-ai').innerText = kumpulanAI;
+            document.getElementById('res-cb').innerText = cb;
+            document.getElementById('res-as').innerText = asTerkuat;
+            document.getElementById('res-kop').innerText = kopTerkuat;
+            document.getElementById('res-kepala').innerText = kepalaPaten;
+            document.getElementById('res-ekor').innerText = ekorPaten;
+            document.getElementById('res-shio').innerText = shioMain;
+            document.getElementById('res-mati').innerText = "Pangkas Angka " + angkaMati;
+            document.getElementById('res-line2d').innerText = stringLine2D || "Silakan cek angka ikut Anda.";
+
+            // Tampilkan kotak wadah hasil dengan efek animasi mulus
+            const boxHasil = document.getElementById('box-hasil-rumus');
+            boxHasil.style.display = 'block';
+            boxHasil.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
