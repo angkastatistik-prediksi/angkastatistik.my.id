@@ -578,24 +578,32 @@ hs.src='//s10.histats.com/js15_as.js';
         // Mengambil dari database DATA_SDY sesuai file data/sdy.js Anda
         const hariObj = DATA_SDY[hari] || { tanggal: '', angka: '', tunggal: '-' }; 
         const teksData = hariObj.angka || '';
-        const tanggalDataTeks = hariObj.tanggal || ''; // Membaca tanggal dari data JS
+        const tanggalDataTeks = hariObj.tanggal || ''; 
         
-        // --- MESIN HITUNG SELISIH HARI (CEK DATA KEDALUWARSA) ---
+        // =========================================================================
+        // MESIN KALENDER PINTAR: DETEKSI PERGANTIAN MINGGU (WAKTU REAL-TIME)
+        // =========================================================================
         let dataSudahKedaluwarsa = false;
+        
         if (tanggalDataTeks) {
-            const tanggalSekarang = new Date();
-            // Menghilangkan komponen jam agar hitungan harinya akurat
-            tanggalSekarang.setHours(0,0,0,0); 
-            
+            const sekarang = new Date();
             const tanggalData = new Date(tanggalDataTeks);
-            tanggalData.setHours(0,0,0,0);
             
-            // Hitung selisih dalam hitungan hari
-            const selisihWaktu = tanggalSekarang.getTime() - tanggalData.getTime();
-            const selisihHari = Math.floor(selisihWaktu / (1000 * 3600 * 24));
+            // Fungsi pintar untuk mengambil nomor minggu ke-berapa dalam satu tahun (1-53)
+            function dapatkanNomorMinggu(d) {
+                const date = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+                date.setUTCDate(date.getUTCDate() + 4 - (date.getUTCDay() || 7));
+                const yearStart = new Date(Date.UTC(date.getUTCFullYear(), 0, 1));
+                return Math.ceil((((date - yearStart) / 86400000) + 1) / 7);
+            }
             
-            // Jika jaraknya 7 hari atau lebih, berarti itu data minggu lalu
-            if (selisihHari >= 7) {
+            const mingguSekarang = dapatkanNomorMinggu(sekarang);
+            const mingguData = dapatkanNomorMinggu(tanggalData);
+            const tahunSekarang = sekarang.getFullYear();
+            const tahunData = tanggalData.getFullYear();
+            
+            // JIKA TAHUN BERBEDA ATAU NOMOR MINGGUNYA BERBEDA, MAKA ITU DATA MINGGU LALU
+            if (tahunSekarang > tahunData || (tahunSekarang === tahunData && mingguSekarang !== mingguData)) {
                 dataSudahKedaluwarsa = true;
             }
         }
@@ -622,8 +630,8 @@ hs.src='//s10.histats.com/js15_as.js';
                 if (!item.trim() || !item.includes(':')) return;
                 
                 const bagian = item.split(':');
-                const angkaKiri = bagian[0].trim();
-                const angkaKanan = bagian[1].trim();
+                const angkaKiri = bagian.trim();
+                const angkaKanan = bagian.trim();
 
                 let barisHTML = `<div class="ball-row">`;
                 for (let ch of angkaKiri) { 
@@ -654,7 +662,7 @@ hs.src='//s10.histats.com/js15_as.js';
             }
 
             // =========================================================================
-            // KONDISI 2: JIKA DATA TETAP MUNCUL TAPI SUDAH LEBIH DARI 7 HARI (MINGGU LALU)
+            // KONDISI 2: DETEKSI MINGGU KELUAR NOTIFIKASI PINTAR BAWAH
             // =========================================================================
             if (dataSudahKedaluwarsa) {
                 containerTrek.innerHTML += `
