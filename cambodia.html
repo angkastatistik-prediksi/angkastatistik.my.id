@@ -674,92 +674,130 @@ for (let ch of teksAngkaKanan) {
 <script src="data/cambodia.js"></script>
 
 <!-- ========================================================
-     PAKET BANNER BOOSTER FINAL: EFEC LOGO CLASSIC PHOTO 3D
+     PAKET FRAME BOOSTER FINAL: SENSOR GERAK + KEJUTAN KILATAN ACAK MISTERIUS
      ======================================================== -->
 
-<!-- A. GARIS PEMBUNGKUS SISI KIRI (HITAM PEKAT + KILATAN VERTIKAL KE BAWAH) -->
-<div style="position: fixed !important; top: 0 !important; left: 0 !important; width: 5px !important; height: 100vh !important; background: #000000 !important; z-index: 9999996 !important; box-shadow: 3px 0 15px rgba(0,0,0,0.8) !important; overflow: hidden !important;">
-    <!-- Jalur Kilat Vertikal Kiri -->
-    <div style="position: absolute !important; left: 0 !important; width: 100% !important; height: 40% !important; background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.7) 50%, rgba(255,255,255,0) 100%) !important; top: -150%; animation: kilat-vertikal 4s linear infinite !important;"></div>
-</div>
-
-<!-- B. GARIS PEMBUNGKUS SISI KANAN (HITAM PEKAT + KILATAN VERTIKAL KE BAWAH) -->
-<div style="position: fixed !important; top: 0 !important; right: 0 !important; width: 5px !important; height: 100vh !important; background: #000000 !important; z-index: 9999996 !important; box-shadow: -3px 0 15px rgba(0,0,0,0.8) !important; overflow: hidden !important;">
-    <!-- Jalur Kilat Vertikal Kanan -->
-    <div style="position: absolute !important; left: 0 !important; width: 100% !important; height: 40% !important; background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.7) 50%, rgba(255,255,255,0) 100%) !important; top: -150%; animation: kilat-vertikal 4s linear infinite !important; animation-delay: 2s !important;"></div>
-</div>
-
-
-<!-- 1. BANNER ATAS: HITAM KACA + TEKS EFEK FOTO LOGO KLASIK 3D + MULTI-KILATAN BOLAK-BALIK -->
-<div style="position: fixed !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 50px !important; background: rgba(10, 10, 12, 0.9) !important; backdrop-filter: blur(8px) !important; -webkit-backdrop-filter: blur(8px) !important; z-index: 9999999 !important; display: flex !important; align-items: center !important; justify-content: center !important; box-shadow: 0 4px 15px rgba(0,0,0,0.6) !important; border-bottom: 2px solid #1f1235 !important; box-sizing: border-box !important; overflow: hidden !important;">
-    
-    <!-- Wadah Pengunci Lebar Penuh Jalur Kilatan -->
+<!-- 1. BANNER ATAS: SEBAGAI ATAP BINGKAI + TEKS LOGO KLASIK 3D -->
+<div style="position: fixed !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 50px !important; background: #000000 !important; z-index: 9999999 !important; display: flex !important; align-items: center !important; justify-content: center !important; box-shadow: 0 4px 15px rgba(0,0,0,0.8) !important; border-bottom: 2px solid #111111 !important; box-sizing: border-box !important; overflow: hidden !important;">
     <div style="position: relative !important; display: block !important; width: 100% !important; height: 100% !important; overflow: hidden !important; text-align: center !important; box-sizing: border-box !important;">
-
-        <!-- Teks Utama: Menggunakan Efek Potongan Gradasi Chrome 3D Klasik dengan Outline dan Shadow Tebal -->
-        <h2 class="premium-classic-photo-text" style="margin: 0 !important; padding: 0 !important; font-family: system-ui, -apple-system, BlinkMacSystemFont, Arial, sans-serif !important; font-size: 21px !important; font-weight: 900 !important; letter-spacing: 1px !important; text-transform: uppercase !important; line-height: 50px !important; -webkit-font-smoothing: antialiased !important; position: relative !important; z-index: 2 !important; background: linear-gradient(180deg, #ffffff 0%, #ff66cc 45%, #990066 55%, #ff007f 100%) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important;">
+        <!-- Teks Utama Klasik 3D -->
+        <h2 class="premium-classic-photo-text" style="margin: 0 !important; padding: 0 !important; font-family: system-ui, -apple-system, BlinkMacSystemFont, Arial, sans-serif !important; font-size: 21px !important; font-weight: 900 !important; letter-spacing: 1px !important; text-transform: uppercase !important; line-height: 50px !important; -webkit-font-smoothing: antialiased !important; position: relative !important; z-index: 5 !important; background: linear-gradient(180deg, #ffffff 0%, #ff66cc 45%, #990066 55%, #ff007f 100%) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important;">
             PREDIKSI ANGKA STATISTIK JITU
         </h2>
-
-        <!-- KILATAN A: Menyambar dari Kiri ke Kanan -->
-        <div style="position: absolute !important; top: 0 !important; width: 45% !important; height: 100% !important; background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.85) 50%, rgba(255,255,255,0) 100%) !important; transform: skewX(-25deg) !important; left: -150%; z-index: 1 !important; animation: kilat-ke-kanan 3.5s cubic-bezier(0.25, 1, 0.5, 1) infinite !important;"></div>
-
-        <!-- KILATAN B: Menyambar dari Kanan ke Kiri -->
-        <div style="position: absolute !important; top: 0 !important; width: 45% !important; height: 100% !important; background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.85) 50%, rgba(255,255,255,0) 100%) !important; transform: skewX(25deg) !important; right: -150%; z-index: 1 !important; animation: kilat-ke-kiri 3.5s cubic-bezier(0.25, 1, 0.5, 1) infinite !important; animation-delay: 1.75s !important;"></div>
+        <!-- Jalur Kilat Atas (Laser Tipis Terang Misterius) -->
+        <div id="kilatAtas" style="position: absolute !important; top: 0 !important; height: 100% !important; width: 12% !important; background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.98) 50%, rgba(255,255,255,0) 100%) !important; transform: skewX(-30deg) !important; left: 50%; z-index: 1 !important; box-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff !important; opacity: 0 !important; transition: left 0.12s cubic-bezier(0.1, 0.8, 0.3, 1), opacity 0.08s ease-in-out !important;"></div>
     </div>
 </div>
 
-
-<!-- 2. BANNER BAWAH: EXTRA ULTRA RAMPING MIKRO (HANYA 18PX) -->
-<div style="position: fixed !important; bottom: 0 !important; left: 0 !important; width: 100% !important; height: 18px !important; background: rgba(15, 15, 15, 0.4) !important; backdrop-filter: blur(10px) !important; -webkit-backdrop-filter: blur(10px) !important; z-index: 9999998 !important; display: flex !important; align-items: center !important; justify-content: space-between !important; box-shadow: 0 -2px 15px rgba(0,0,0,0.2) !important; border-top: 1px solid rgba(255, 255, 255, 0.08) !important; box-sizing: border-box !important; overflow: hidden !important;">
-
-    <div style="background: rgba(15, 15, 15, 0.6) !important; padding: 0 8px !important; height: 100% !important; display: flex !important; align-items: center !important; z-index: 3 !important; font-size: 10px !important;">✶</div>
-
-    <div style="flex-grow: 1 !important; overflow: hidden !important; display: flex !important; align-items: center !important; z-index: 1 !important; height: 100% !important;">
-        <marquee scrollamount="3" style="font-family: system-ui, -apple-system, Arial, sans-serif !important; font-size: 10px !important; font-weight: bold !important; color: #ffffff !important; letter-spacing: 0.5px !important; width: 100% !important; line-height: 18px !important;">
-            SEMOGA BERUNTUNG • TETAP SEMANGAT • PANTANG MUNDUR
-        </marquee>
-    </div>
-
-    <div style="background: rgba(15, 15, 15, 0.6) !important; padding: 0 8px !important; height: 100% !important; display: flex !important; align-items: center !important; z-index: 3 !important; font-size: 10px !important;">✶</div>
+<!-- 2. GARIS BINGKAI KANAN -->
+<div style="position: fixed !important; top: 0 !important; right: 0 !important; width: 6px !important; height: 100vh !important; background: #000000 !important; z-index: 9999996 !important; box-shadow: -3px 0 15px rgba(0,0,0,0.8) !important; overflow: hidden !important;">
+    <!-- Jalur Kilat Kanan -->
+    <div id="kilatKanan" style="position: absolute !important; left: 0 !important; width: 100% !important; height: 15% !important; background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.98) 50%, rgba(255,255,255,0) 100%) !important; top: 50%; z-index: 1 !important; box-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff !important; opacity: 0 !important; transition: top 0.12s cubic-bezier(0.1, 0.8, 0.3, 1), opacity 0.08s ease-in-out !important;"></div>
 </div>
 
+<!-- 3. GARIS BINGKAI BAWAH -->
+<div style="position: fixed !important; bottom: 0 !important; left: 0 !important; width: 100% !important; height: 6px !important; background: #000000 !important; z-index: 9999997 !important; box-shadow: 0 -3px 15px rgba(0,0,0,0.8) !important; overflow: hidden !important;">
+    <!-- Jalur Kilat Bawah -->
+    <div id="kilatBawah" style="position: absolute !important; top: 0 !important; height: 100% !important; width: 12% !important; background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.98) 50%, rgba(255,255,255,0) 100%) !important; transform: skewX(30deg) !important; right: 50%; z-index: 1 !important; box-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff !important; opacity: 0 !important; transition: right 0.12s cubic-bezier(0.1, 0.8, 0.3, 1), opacity 0.08s ease-in-out !important;"></div>
+</div>
 
-<!-- 3. DRIVER JARAK HALAMAN & ENGINE ANIMASI BERAKSELERASI -->
+<!-- 4. GARIS BINGKAI KIRI -->
+<div style="position: fixed !important; top: 0 !important; left: 0 !important; width: 6px !important; height: 100vh !important; background: #000000 !important; z-index: 9999996 !important; box-shadow: 3px 0 15px rgba(0,0,0,0.8) !important; overflow: hidden !important;">
+    <!-- Jalur Kilat Kiri -->
+    <div id="kilatKiri" style="position: absolute !important; left: 0 !important; width: 100% !important; height: 15% !important; background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.98) 50%, rgba(255,255,255,0) 100%) !important; bottom: 50%; z-index: 1 !important; box-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff !important; opacity: 0 !important; transition: bottom 0.12s cubic-bezier(0.1, 0.8, 0.3, 1), opacity 0.08s ease-in-out !important;"></div>
+</div>
+
+<!-- 5. DRIVER POLA RUANG & FILTER TEXT -->
 <style>
     html, body {
-        padding-top: 55px !important;
-        padding-bottom: 24px !important;
-        padding-left: 5px !important;
-        padding-right: 5px !important;
+        padding-top: 54px !important;
+        padding-bottom: 8px !important;
+        padding-left: 6px !important;
+        padding-right: 6px !important;
     }
-
-    /* Efek Filter Bayangan & Outline 3D di Belakang Teks Gradasi */
     .premium-classic-photo-text {
-        filter: drop-shadow(2px 2px 1px #000000) drop-shadow(-1px -1px 0px #000000) drop-shadow(0px 0px 8px rgba(255, 0, 0, 0.8)) !important;
+        filter: drop-shadow(2px 2px 1px #000000) drop-shadow(-1px -1px 0px #000000) drop-shadow(0px 0px 8px rgba(255, 0, 0, 0.9)) !important;
     }
-
-    /* Animasi Kilat A: Bergerak dari Kiri ke Kanan */
-    @keyframes kilat-ke-kanan {
-        0% { left: -150%; }
-        25% { left: 150%; } 
-        100% { left: 150%; } 
-    }
-
-    /* Animasi Kilat B: Bergerak dari Kanan ke Kiri */
-    @keyframes kilat-ke-kiri {
-        0% { right: -150%; }
-        25% { right: 150%; } 
-        100% { right: 150%; } 
-    }
-
-    /* Animasi Kilat Vertikal Samping */
-    @keyframes kilat-vertikal {
-        0% { top: -150%; }
-        30% { top: 150%; }
-        100% { top: 150%; }
+    #kilatAtas, #kilatKanan, #kilatBawah, #kilatKiri {
+        will-change: left, top, right, bottom, opacity !important;
     }
 </style>
+
+<!-- 6. ENGINE JAVASCRIPT: UNPREDICTABLE GYRO-LINKED SHOCK FLASH -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const kAtas = document.getElementById("kilatAtas");
+        const kKanan = document.getElementById("kilatKanan");
+        const kBawah = document.getElementById("kilatBawah");
+        const kKiri = document.getElementById("kilatKiri");
+
+        const listKilat = [kAtas, kKanan, kBawah, kKiri];
+
+        // Koordinat default di tengah-tengah bingkai layar jika sensor PC
+        let posX = 50;
+        let posY = 50;
+
+        // --- SISTEM 1: TRACKING GERAKAN HP (POROS POSISI TETAP MENGIKUTI DEVICE) ---
+        if (window.DeviceOrientationEvent) {
+            window.addEventListener("deviceorientation", function(event) {
+                let sKiriKanan = event.gamma; 
+                let sDepanBelakang = event.beta;
+
+                if (sKiriKanan !== null && sDepanBelakang !== null) {
+                    // Konversi poros kemiringan tangan menjadi angka persen (0% - 100%)
+                    posX = ((sKiriKanan + 25) / 50) * 100;
+                    posY = ((sDepanBelakang + 25) / 50) * 100;
+
+                    posX = Math.max(5, Math.min(95, posX));
+                    posY = Math.max(5, Math.min(95, posY));
+
+                    // Memindahkan koordinat laser di latar belakang secara sembunyi (opacity 0)
+                    kAtas.style.left = `${posX}%`;
+                    kBawah.style.right = `${100 - posX}%`;
+                    kKanan.style.top = `${posY}%`;
+                    kKiri.style.bottom = `${100 - posY}%`;
+                }
+            }, true);
+        }
+
+        // --- SISTEM 2: SAMBARAN KEJUTAN INSTAN (MUNCUL ACAK, LIAR, & TAK TERDUGA) ---
+        function ledakkanKilatMisterius() {
+            // Jika PC, geser posisinya secara acak dulu sebelum dilempar kejutan cahaya
+            if (!window.DeviceOrientationEvent) {
+                posX = Math.floor(Math.random() * 90) + 5;
+                posY = Math.floor(Math.random() * 90) + 5;
+                kAtas.style.left = `${posX}%`;
+                kBawah.style.right = `${100 - posX}%`;
+                kKanan.style.top = `${posY}%`;
+                kKiri.style.bottom = `${100 - posY}%`;
+            }
+
+            // Pilih salah satu atau dua sisi bingkai secara acak untuk dikejutkan petir
+            let jumlahKilat = Math.random() > 0.65 ? 2 : 1; // Kadang 1 kilat keluar, kadang 2 sekaligus bersamaan
+            
+            for (let i = 0; i < jumlahKilat; i++) {
+                let indeksAcak = Math.floor(Math.random() * 4);
+                let targetKilat = listKilat[indeksAcak];
+
+                // MEKANISME KEJUTAN HENTAKAN: Nyalakan 100% terang secara instan lalu matikan kilat
+                targetKilat.style.opacity = "1";
+                
+                // Durasi kilauan menempel di layar sangat singkat (0.08 detik - 0.2 detik) seperti jepretan kamera
+                let durasiPijar = Math.random() * 120 + 80; 
+                setTimeout(() => {
+                    targetKilat.style.opacity = "0";
+                }, durasiPijar);
+            }
+
+            // TEMPO TIDAK TERDUGA: Waktu jeda antar ledakan kilat dibuat acak ekstrem (0.2 detik sampai 1.8 detik)
+            let jedaMisterius = Math.floor(Math.random() * 1600) + 200;
+            setTimeout(ledakkanKilatMisterius, jedaMisterius);
+        }
+
+        // Mulai jalankan mesin kejutan rahasia
+        setTimeout(ledakkanKilatMisterius, 800);
+    });
+</script>
 
 
 </body>
