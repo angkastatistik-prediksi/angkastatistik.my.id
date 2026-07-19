@@ -10,6 +10,7 @@ const DAFTAR_SITUS = [
   'https://masterlive.net'
 ];
 
+// Menentukan lokasi file cambodia.js secara presisi
 const filePath = path.join(__dirname, '..', 'result', 'cambodia.js');
 
 // Robot menggunakan teknologi pemotong teks presisi (Anti-Iklan)
@@ -40,9 +41,20 @@ async function grabberCambodia() {
     try {
       console.log(`📡 Robot meluncur ke Sumber ke-${i + 1}: ${DAFTAR_SITUS[i]}`);
       
-      const response = await fetch(DAFTAR_SITUS[i], { signal: AbortSignal.timeout(7000) });
-      const htmlContent = await response.text();
+      // Menggunakan Header Samaran Browser HP agar lolos deteksi sistem keamanan/Cloudflare target
+      const response = await fetch(DAFTAR_SITUS[i], { 
+        method: 'GET',
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1',
+          'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+          'Accept-Language': 'id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7',
+          'Cache-Control': 'no-cache',
+          'Pragma': 'no-cache'
+        },
+        signal: AbortSignal.timeout(7000) 
+      });
       
+      const htmlContent = await response.text();
       angkaKeluar = ekstrakNomorSah(htmlContent);
       
       if (angkaKeluar && angkaKeluar !== "0000") {
@@ -61,7 +73,7 @@ async function grabberCambodia() {
     return;
   }
 
-    // PROSES EDIT & INSERT KE FILE RESULT TANPA MENGHAPUS DATA LAMA
+  // PROSES EDIT & INSERT KE FILE RESULT TANPA MENGHAPUS DATA LAMA
   try {
     const fileContent = fs.readFileSync(filePath, 'utf-8');
     
@@ -104,3 +116,6 @@ async function grabberCambodia() {
   } catch (error) {
     console.error(`❌ Gagal memperbarui file berkas: ${error.message}`);
   }
+}
+
+grabberCambodia();
