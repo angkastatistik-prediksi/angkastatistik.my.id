@@ -234,6 +234,8 @@ hs.src='//s10.histats.com/js15_as.js';
 </noscript>
 
 <!-- Histats.com END -->
+ 
+<!-- MEMBACA DATA PAITO SECARA EKSTERNAL DARI BERKAS DATA MANUAL -->
     <!-- MEMBACA DATA PAITO SECARA EKSTERNAL DARI BERKAS DATA MANUAL -->
     <script src="result/cambodia.js"></script>
     <script>
@@ -292,40 +294,44 @@ hs.src='//s10.histats.com/js15_as.js';
         perbaruiJamOtomatis(); 
         setInterval(perbaruiJamOtomatis, 1000); 
         
-        // 4. GENERATE STRUKTUR TABEL OTOMATIS BERDASARKAN ARRAY BERKAS MANUAL
-        const sumberPaitoCambodia = (typeof DATA_PAITO_CAMBODIA !== 'undefined') ? DATA_PAITO_CAMBODIA : [];
+        // 4. GENERATE STRUKTUR TABEL DARI DATABASE DERET KOMA MURNI (UPDATE TERBARU)
+        const dataMentah = (typeof DATA_PAITO_CAMBODIA !== 'undefined') ? DATA_PAITO_CAMBODIA : [];
         const paitoTbody = document.getElementById('paito-tbody-data');
         
-        if (paitoTbody) {
+        if (paitoTbody && dataMentah.length > 0) {
             paitoTbody.innerHTML = '';
-
-            if (sumberPaitoCambodia.length === 0) {
-                paitoTbody.innerHTML = '<tr><td colspan="8" style="color:var(--text-muted); padding:10px;">Data Berkas Kosong.</td></tr>';
-            } else {
-                sumberPaitoCambodia.forEach(baris => {
-                    let barisHTML = `<tr>`;
+            
+            // Sistem memotong deret angka array setiap 8 item (1 Kolom Hari/W + 7 Kolom Angka Harian)
+            for (let i = 0; i < dataMentah.length; i += 8) {
+                let baris = dataMentah.slice(i, i + 8);
+                if (baris.length < 8) break; 
+                
+                let barisHTML = `<tr>`;
+                baris.forEach((draw, indeks) => {
+                    let teksDraw = String(draw).trim();
                     
-                    baris.forEach((draw, indeks) => {
-                        if (indeks === 0) {
-                            barisHTML += `<td class="mgg-row">${draw}</td>`;
-                        } else {
-                            let digitHTML = '';
-                            if (draw && draw !== "-") {
-                                let pos = 0;
-                                for (let karakterAngka of draw) {
-                                    digitHTML += `<span data-pos="${pos}">${karakterAngka}</span>`;
-                                    pos++;
-                                }
-                            } else {
-                                digitHTML = `<span style="color:var(--text-muted); opacity:0.3;">-</span>`;
-                            }
-                            barisHTML += `<td class="paito-cell">${digitHTML}</td>`;
-                        }
-                    });
+                    // Menjaga format visual nomor (menambahkan angka 0 di depan jika terpotong sistem array)
+                    if (indeks === 0 && teksDraw.length === 1) teksDraw = "0" + teksDraw;
+                    if (indeks > 0 && teksDraw.length < 4 && teksDraw !== "-") teksDraw = teksDraw.padStart(4, "0");
 
-                    barisHTML += `</tr>`;
-                    paitoTbody.innerHTML += barisHTML;
+                    if (indeks === 0) {
+                        barisHTML += `<td class="mgg-row">${teksDraw}</td>`;
+                    } else {
+                        let digitHTML = '';
+                        if (teksDraw !== "-") {
+                            let pos = 0;
+                            for (let karakterAngka of teksDraw) {
+                                digitHTML += `<span data-pos="${pos}">${karakterAngka}</span>`;
+                                pos++;
+                            }
+                        } else {
+                            digitHTML = `<span style="color:var(--text-muted); opacity:0.3;">-</span>`;
+                        }
+                        barisHTML += `<td class="paito-cell">${digitHTML}</td>`;
+                    }
                 });
+                barisHTML += `</tr>`;
+                paitoTbody.innerHTML += barisHTML;
             }
         }
         
@@ -357,13 +363,11 @@ hs.src='//s10.histats.com/js15_as.js';
                 if(span.innerText === "-") return;
                 const posisiDigit = span.getAttribute('data-pos'); 
 
-                // Jika input kepala cocok dengan digit ke-3
                 if (cariKepala !== "" && posisiDigit === "2" && span.innerText === cariKepala) {
                     span.style.backgroundColor = "#ffb703"; 
                     span.style.color = "#000000";
                     span.style.fontWeight = "bold";
                 }
-                // Jika input ekor cocok dengan digit ke-4
                 if (cariEkor !== "" && posisiDigit === "3" && span.innerText === cariEkor) {
                     span.style.backgroundColor = "#ff007f"; 
                     span.style.color = "#ffffff";
@@ -383,6 +387,5 @@ hs.src='//s10.histats.com/js15_as.js';
             });
         });
     </script>
-    <script src="https://crypotential.com/aau2deh1y8?key=28127d0dedbc5859c5a05ec19fed2ae4"></script>
 </body>
 </html>
