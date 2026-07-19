@@ -8,67 +8,50 @@ const DAFTAR_SITUS = [
   'https://livecambodia.cyou'
 ];
 
-// PERBAIKAN UTAMA: Mundur dari folder grabber/ lalu masuk ke result/cambodia.js
+// Jalur khusus untuk masuk ke folder result dari dalam folder grabber
 const filePath = path.join(__dirname, '..', 'result', 'cambodia.js');
 
 function ekstrakNomorSah(htmlContent) {
   const teksBersih = htmlContent.replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>|<[^>]+>/gi, " ");
-  
   const cocokPrize = teksBersih.match(/1st\s*Prize[\s\S]*?(\d{4})/i);
-  if (cocokPrize && cocokPrize[1]) {
-    return cocokPrize[1];
-  }
-  
+  if (cocokPrize && cocokPrize[1]) return cocokPrize[1];
   const cocokTerbalik = teksBersih.match(/(\d{4})[\s\S]*?1st\s*Prize/i);
-  if (cocokTerbalik && cocokTerbalik[1]) {
-    return cocokTerbalik[1];
-  }
-  
+  if (cocokTerbalik && cocokTerbalik[1]) return cocokTerbalik[1];
   return null;
 }
 
 async function grabberCambodia() {
   let angkaKeluar = null;
-
   for (let i = 0; i < DAFTAR_SITUS.length; i++) {
     try {
-      console.log(`📡 Robot mengecek Sumber ke-${i + 1}: ${DAFTAR_SITUS[i]}`);
-      
+      console.log(`📡 Memeriksa: ${DAFTAR_SITUS[i]}`);
       const response = await fetch(DAFTAR_SITUS[i], { 
         method: 'GET',
-        headers: {
-          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
-        },
+        headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)' },
         signal: AbortSignal.timeout(7000) 
       });
       const htmlContent = await response.text();
-      
       angkaKeluar = ekstrakNomorSah(htmlContent);
-      
       if (angkaKeluar && angkaKeluar !== "0000" && angkaKeluar.length === 4) {
-        console.log(`🎯 TARGET KETEMU -> Angka Sah: ${angkaKeluar}`);
+        console.log(`🎯 ANGKA KETEMU -> ${angkaKeluar}`);
         break; 
       }
     } catch (err) {
-      console.log(`❌ Sumber ke-${i + 1} dilewati: ${err.message}`);
+      console.log(`❌ Gagal: ${err.message}`);
     }
   }
 
   if (!angkaKeluar) {
-    console.error("🚨 Sinyal terputus: Belum ada nomor baru di situs target.");
+    console.error("🚨 Semua situs gagal.");
     return;
   }
 
   try {
     const fileContent = fs.readFileSync(filePath, 'utf-8');
-    
     const matchArray = fileContent.match(/const\s+DATA_PAITO_CAMBODIA\s*=\s*(\[[\s\S]*?\]);/);
-    if (!matchArray) {
-      throw new Error("Struktur DATA_PAITO_CAMBODIA tidak ditemukan!");
-    }
+    if (!matchArray) throw new Error("Struktur rusak!");
 
     let dataPaito = eval(matchArray[1]);
-    
     let barisTerakhir = dataPaito[dataPaito.length - 1];
     let slotKosongKetemu = false;
     
@@ -86,13 +69,11 @@ async function grabberCambodia() {
     }
     
     const tanggalUpdate = new Date().toLocaleString("id-ID", { timeZone: "Asia/Jakarta" }) + " WIB";
-    
     const isiFileBaru = `const DATA_PAITO_CAMBODIA = ${JSON.stringify(dataPaito, null, 2)};\n\nif (typeof module !== 'undefined' && module.exports) {\n    module.exports = { latestResult: "${angkaKeluar}", updatedAt: "${tanggalUpdate}" };\n}`;
-
     fs.writeFileSync(filePath, isiFileBaru, 'utf-8');
-    console.log(`✅ DATA BERHASIL DI-INJECT KE FILE: ${angkaKeluar}`);
+    console.log(`✅ BERHASIL UPDATE KE FILE RESULT!`);
   } catch (error) {
-    console.error(`❌ Gagal memperbarui file berkas: ${error.message}`);
+    console.error(`❌ Gagal: ${error.message}`);
   }
 }
 
