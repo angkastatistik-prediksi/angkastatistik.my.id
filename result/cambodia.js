@@ -18,10 +18,6 @@ const DATA_PAITO_CAMBODIA = [
   ["17", "2665", "5202", "0279", "4237", "0820", "3572", "-"]
 ];
 
-// Kode penutup pengaman untuk sistem Live Box dan Node.js Grabber Anda
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { 
-        latestResult: "2665", // Otomatis diperbarui robot
-        updatedAt: "19-07-2026 12:15 WIB" // Otomatis diperbarui robot
-    };
+    module.exports = { latestResult: "-", updatedAt: "-" };
 }
