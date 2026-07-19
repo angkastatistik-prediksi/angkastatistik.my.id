@@ -346,12 +346,10 @@ hs.src='//s10.histats.com/js15_as.js';
 document.addEventListener("DOMContentLoaded", function() {
     let arrayAngkaMentah = [];
 
-    // Tanam URL share otomatis jika sudah di hosting online
+    // FIX: Format URL Share Facebook Resmi yang Benar & Lolos Blokir GitHub Pages
     let urlWebsiteIni = window.location.href;
-    if(urlWebsiteIni.startsWith("http")) {
-        let linkShareFB = "https://facebook.com" + encodeURIComponent(urlWebsiteIni);
-        document.getElementById('btn-share-facebook').setAttribute('href', linkShareFB);
-    }
+    let linkShareFB = "https://facebook.com" + encodeURIComponent(urlWebsiteIni);
+    document.getElementById('btn-share-facebook').setAttribute('href', linkShareFB);
 
     // 1. EKSTRAKSI DATA STRING PAITO CAMBODIA
     if (typeof DATA_PAITO_CAMBODIA !== 'undefined' && DATA_PAITO_CAMBODIA.trim() !== '') {
@@ -420,14 +418,21 @@ function jalankanMesinShio(arrayAngkaMentah) {
     let shioUrutanHot = [...skorShio].sort((a, b) => b.skor - a.skor);
     let shioUrutanCold = [...skorShio].sort((a, b) => a.skor - b.skor);
 
+    // FIX LOGIKA: Menentukan Shio Bom dan Cadangan 1 murni dari indeks urutan statistik harian
     let shioBom = shioUrutanHot[0].nama;
     let shioCadangan1 = shioUrutanCold[0].nama;
-    if (shioCadangan1 === shioBom) { shioCadangan1 = shioUrutanCold[1].nama; }
+    if (shioCadangan1 === shioBom) { 
+        shioCadangan1 = shioUrutanCold[1].nama; 
+    }
 
+    // FIX LOGIKA: Shio cadangan 2 murni mengambil jalur mistik atau bergeser ke ranking statistik berikutnya jika duplikat (Tanpa Math.random agar 100% Paten Konsisten)
     let shioCadangan2 = tabelMistikShio[shioBom];
     if (shioCadangan2 === shioBom || shioCadangan2 === shioCadangan1) {
-        let sisaShio = daftarShio.filter(s => s !== shioBom && s !== shioCadangan1);
-        shioCadangan2 = sisaShio[Math.floor(Math.random() * sisaShio.length)];
+        // Jika terjadi duplikat, ambil Shio terkuat urutan kedua dari hasil statistik harian
+        shioCadangan2 = shioUrutanHot[1].nama;
+        if (shioCadangan2 === shioBom || shioCadangan2 === shioCadangan1) {
+            shioCadangan2 = shioUrutanHot[2].nama;
+        }
     }
 
     // Tampilkan Hasil Text + Gambar Emoji ke HTML
