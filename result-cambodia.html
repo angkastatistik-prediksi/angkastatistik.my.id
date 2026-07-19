@@ -294,14 +294,17 @@ hs.src='//s10.histats.com/js15_as.js';
         perbaruiJamOtomatis(); 
         setInterval(perbaruiJamOtomatis, 1000); 
         
-        // 4. GENERATE STRUKTUR TABEL DARI DATABASE DERET KOMA MURNI (UPDATE TERBARU)
-        const dataMentah = (typeof DATA_PAITO_CAMBODIA !== 'undefined') ? DATA_PAITO_CAMBODIA : [];
+                // 4. GENERATE STRUKTUR TABEL DARI SISTEM TEKS KOMA (AMALAN ANTI-ERROR)
+        const wadahMentah = (typeof DATA_PAITO_CAMBODIA !== 'undefined') ? DATA_PAITO_CAMBODIA[0] : "";
         const paitoTbody = document.getElementById('paito-tbody-data');
         
-        if (paitoTbody && dataMentah.length > 0) {
+        if (paitoTbody && wadahMentah.trim() !== "") {
             paitoTbody.innerHTML = '';
             
-            // Sistem memotong deret angka array setiap 8 item (1 Kolom Hari/W + 7 Kolom Angka Harian)
+            // Bersihkan enter/spasi lalu pecah data berdasarkan tanda koma
+            let dataMentah = wadahMentah.replace(/\s+/g, '').split(',').filter(x => x !== "");
+            
+            // Potong data setiap 8 elemen (1 Kolom Minggu + 7 Kolom Hari)
             for (let i = 0; i < dataMentah.length; i += 8) {
                 let baris = dataMentah.slice(i, i + 8);
                 if (baris.length < 8) break; 
@@ -310,13 +313,21 @@ hs.src='//s10.histats.com/js15_as.js';
                 baris.forEach((draw, indeks) => {
                     let teksDraw = String(draw).trim();
                     
-                    // Menjaga format visual nomor (menambahkan angka 0 di depan jika terpotong sistem array)
-                    if (indeks === 0 && teksDraw.length === 1) teksDraw = "0" + teksDraw;
-                    if (indeks > 0 && teksDraw.length < 4 && teksDraw !== "-") teksDraw = teksDraw.padStart(4, "0");
-
                     if (indeks === 0) {
+                        // Kolom Minggu Ke: Otomatis kunci di format 2 digit (misal ditulis "8" atau "08" tetap keluar "08")
+                        if (teksDraw.length === 1) teksDraw = "0" + teksDraw;
+                        if (teksDraw.length > 2) teksDraw = teksDraw.slice(-2);
                         barisHTML += `<td class="mgg-row">${teksDraw}</td>`;
                     } else {
+                        // Kolom Angka Hasil: Jika tidak sengaja ditulis 3 digit (misal "187"), tambal jadi "0187"
+                        if (teksDraw !== "-" && teksDraw.length < 4) {
+                            teksDraw = teksDraw.padStart(4, "0");
+                        }
+                        // Jika kelebihan angka nol (misal "00187"), potong murni ambil 4 digit terakhir
+                        if (teksDraw !== "-" && teksDraw.length > 4) {
+                            teksDraw = teksDraw.slice(-4);
+                        }
+                        
                         let digitHTML = '';
                         if (teksDraw !== "-") {
                             let pos = 0;
