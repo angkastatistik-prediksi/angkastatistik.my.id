@@ -171,7 +171,7 @@
                 </div>
                 <div class="system-controls">
                     <a href="index.html" class="btn-control">Menu Utama</a>
-                    <a href="result-macau.html" class="btn-control" style="background-color: #34495e; color: #fff; border-color: #2c3e50;">Kembali ke Prediksi</a>
+                    <a href="macau.html" class="btn-control" style="background-color: #34495e; color: #fff; border-color: #2c3e50;">Kembali ke Prediksi</a>
                 </div>
             </section>
         </div>
@@ -293,7 +293,10 @@ if (paitoTbody && teksMentah.trim() !== "") {
     
     for (let i = 0; i < dataMentah.length; i += 7) {
         let baris = dataMentah.slice(i, i + 7);
-        if (baris.length < 7) break; 
+        
+        while (baris.length < 7) {
+            baris.push("-");
+        }
         
         let barisHTML = `<tr>`;
         baris.forEach((draw, indeks) => {
