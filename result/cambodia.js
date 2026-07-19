@@ -1,3 +1,6 @@
+const LIVE_RESULT_CAMBODIA = {
+    latestResult: "0471"
+};
 const DATA_PAITO_CAMBODIA = [
   ["01", "5679", "1726", "0187", "9067", "7981", "2898", "0914"],
   ["02", "2116", "5194", "7497", "7059", "0389", "5048", "9982"],
@@ -17,7 +20,3 @@ const DATA_PAITO_CAMBODIA = [
   ["16", "6290", "2528", "2065", "1207", "6126", "6781", "0925"],
   ["17", "2665", "5202", "0279", "4237", "0820", "3572", "0471"]
 ];
-
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { latestResult: "-", updatedAt: "-" };
-}
