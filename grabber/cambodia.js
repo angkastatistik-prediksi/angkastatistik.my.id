@@ -1,34 +1,24 @@
 const fs = require('fs');
 const path = require('path');
 
-// 5 LINK ANDALAN ANDA (SUDAH DIURUTKAN DENGAN BENAR)
 const DAFTAR_SITUS = [
   'https://livecmd.live',
   'https://masterlive.net',
   'https://live-drawcambodia.shop',
-  'https://livecambodia.cyou',
-  'https://masterlive.net'
+  'https://livecambodia.cyou'
 ];
 
-// Menentukan lokasi file cambodia.js secara presisi
-const filePath = path.join(__dirname, '..', 'result', 'cambodia.js');
+const filePath = path.join(__dirname, 'result', 'cambodia.js');
 
-// Robot menggunakan teknologi pemotong teks presisi (Anti-Iklan)
 function ekstrakNomorSah(htmlContent) {
-  // 1. Bersihkan semua skrip iklan dan kode CSS agar teks menjadi bersih
   const teksBersih = htmlContent.replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>|<[^>]+>/gi, " ");
   
-  // 2. Radar mengunci teks "1st Prize" lalu mengambil 4 digit angka di sebelah kanannya
+  // Melacak text 1st prize
   const cocokPrize = teksBersih.match(/1st\s*Prize[\s\S]*?(\d{4})/i);
-  if (cocokPrize && cocokPrize[1]) {
-    return cocokPrize[1];
-  }
+  if (cocokPrize && cocokPrize[1]) return cocokPrize[1];
   
-  // Cadangan jika angka ditulis duluan baru teks 1st Prize
   const cocokTerbalik = teksBersih.match(/(\d{4})[\s\S]*?1st\s*Prize/i);
-  if (cocokTerbalik && cocokTerbalik[1]) {
-    return cocokTerbalik[1];
-  }
+  if (cocokTerbalik && cocokTerbalik[1]) return cocokTerbalik[1];
   
   return null;
 }
@@ -36,61 +26,50 @@ function ekstrakNomorSah(htmlContent) {
 async function grabberCambodia() {
   let angkaKeluar = null;
 
-  // Sistem estafet: Jika situs ke-1 error, otomatis pindah ke situs berikutnya dalam 7 detik
   for (let i = 0; i < DAFTAR_SITUS.length; i++) {
     try {
-      console.log(`📡 Robot meluncur ke Sumber ke-${i + 1}: ${DAFTAR_SITUS[i]}`);
+      console.log(`📡 Memulai pemindaian Sumber-${i + 1}: ${DAFTAR_SITUS[i]}`);
       
-      // Menggunakan Header Samaran Browser HP agar lolos deteksi sistem keamanan/Cloudflare target
       const response = await fetch(DAFTAR_SITUS[i], { 
         method: 'GET',
         headers: {
-          'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1',
-          'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-          'Accept-Language': 'id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7',
-          'Cache-Control': 'no-cache',
-          'Pragma': 'no-cache'
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+          'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9',
+          'Accept-Language': 'id-ID,id;q=0.9'
         },
-        signal: AbortSignal.timeout(7000) 
+        signal: AbortSignal.timeout(8000) 
       });
       
       const htmlContent = await response.text();
       angkaKeluar = ekstrakNomorSah(htmlContent);
       
-      if (angkaKeluar && angkaKeluar !== "0000") {
-        console.log(`🎯 TARGET KETEMU di Sumber ke-${i + 1} -> Angka Sah: ${angkaKeluar}`);
+      if (angkaKeluar && angkaKeluar !== "0000" && angkaKeluar.length === 4) {
+        console.log(`🎯 NOMOR SAH TERDETEKSI -> ${angkaKeluar}`);
         break; 
-      } else {
-        console.log(`⚠️ Sumber ke-${i + 1} aktif, tapi angka 1st Prize belum tayang.`);
       }
     } catch (err) {
-      console.log(`❌ Sumber ke-${i + 1} gagal diakses: ${err.message}`);
+      console.log(`❌ Link-${i + 1} bermasalah: ${err.message}`);
     }
   }
 
   if (!angkaKeluar) {
-    console.error("🚨 Gagal Total: Kelima situs target sedang gangguan atau belum update!");
+    console.error("🚨 Sinyal terputus: Seluruh situs target gagal ditembus.");
     return;
   }
 
-  // PROSES EDIT & INSERT KE FILE RESULT TANPA MENGHAPUS DATA LAMA
   try {
     const fileContent = fs.readFileSync(filePath, 'utf-8');
-    
-    // Mengambil isi array DATA_PAITO_CAMBODIA secara utuh
     const regexArray = fileContent.match(/const\s+DATA_PAITO_CAMBODIA\s*=\s*(\[[\s\S]*?\]);/);
-    if (!regexArray) {
-      throw new Error("Struktur array DATA_PAITO_CAMBODIA tidak ditemukan di file!");
-    }
+    
+    if (!regexArray) throw new Error("Format berkas rusak!");
 
-    // Mengubah kutipan tunggal menjadi ganda agar aman saat diproses JSON.parse
-    const jsonValidString = regexArray[1].replace(/'/g, '"');
-    let dataPaito = JSON.parse(jsonValidString);
+    // Konversi aman tanda kutip tunggal dan ganda untuk JSON
+    const jsonString = regexArray[1].replace(/'/g, '"');
+    let dataPaito = JSON.parse(jsonString);
     
     let barisTerakhir = dataPaito[dataPaito.length - 1];
     let slotKosongKetemu = false;
     
-    // Cari kolom kosong "-" di baris minggu terakhir
     for (let i = 1; i < barisTerakhir.length; i++) {
       if (barisTerakhir[i] === "-") {
         barisTerakhir[i] = angkaKeluar;
@@ -99,22 +78,18 @@ async function grabberCambodia() {
       }
     }
     
-    // Jika baris minggu terakhir sudah penuh, buat baris minggu baru
     if (!slotKosongKetemu) {
       const nomorMingguBaru = String(dataPaito.length + 1).padStart(2, '0');
       dataPaito.push([nomorMingguBaru, angkaKeluar, "-", "-", "-", "-", "-", "-"]);
     }
     
-    // Format waktu Indonesia Barat (WIB)
     const tanggalUpdate = new Date().toLocaleString("id-ID", { timeZone: "Asia/Jakarta" }) + " WIB";
-    
-    // Tulis kembali file dengan struktur gabungan agar ramah bagi HTML maupun Node.js
-    const isiFileBaru = `const DATA_PAITO_CAMBODIA = ${JSON.stringify(dataPaito, null, 2)};\n\nif (typeof module !== 'undefined' && module.exports) {\n    module.exports = { latestResult: "${angkaKeluar}", updatedAt: "${tanggalUpdate}" };\n}`;
+    const isiFileBaru = `const DATA_PAITO_CAMBODIA = ${JSON.stringify(dataPaito, null, 2)};\n\nif (typeof module !== 'undefined' && module.exports) {\n    module.exports = { DATA_PAITO_CAMBODIA, latestResult: "${angkaKeluar}", updatedAt: "${tanggalUpdate}" };\n}`;
 
     fs.writeFileSync(filePath, isiFileBaru, 'utf-8');
-    console.log(`✅ DISIMPAN! Angka ${angkaKeluar} resmi masuk ke file result/cambodia.js`);
+    console.log(`✅ File result/cambodia.js sukses diperbarui.`);
   } catch (error) {
-    console.error(`❌ Gagal memperbarui file berkas: ${error.message}`);
+    console.error(`❌ Gagal inject data: ${error.message}`);
   }
 }
 
