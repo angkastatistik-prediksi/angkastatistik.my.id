@@ -114,7 +114,7 @@
             color: #0056b3; /* Biru Neon Gelap Kontras */
             text-shadow: 1px 1px 0px rgba(0, 240, 255, 0.2);
         }
-        /* Tombol Share Facebook */
+        /* Tombol Share Facebook - Dioptimalkan untuk Lolos Blokir Sandbox */
         .btn-share-fb {
             display: flex;
             align-items: center;
@@ -240,10 +240,9 @@
     <!-- TOMBOL PROSES HITUNG -->
     <button id="btn-hitung" class="btn-main">Mulai Hitung Rumus Shio</button>
 
-    <!-- TOMBOL SHARE FB -->
-    <a href="https://facebook.com" 
-       target="_blank" 
-       rel="noopener noreferrer" 
+    <!-- TOMBOL SHARE FB - MENGGUNAKAN TARGET SELF & FIX JAVASCRIPT POPUP ANTI BLOCKED GITHUB -->
+    <a href="#" 
+       target="_self" 
        class="btn-share-fb" 
        id="btn-share-facebook">
         🔵 Bagikan Laman Ini ke Facebook
@@ -282,7 +281,7 @@
         <a href="shio-macau.html">Macau</a>
     </div>
 
-<footer>
+    <footer>
 
 <p>&copy; 2026 <span>ANGKA STATISTIK</span>. All Rights Reserved.</p>
 <div style="text-align:center; margin:20px 0;">
@@ -346,12 +345,16 @@ hs.src='//s10.histats.com/js15_as.js';
 document.addEventListener("DOMContentLoaded", function() {
     let arrayAngkaMentah = [];
 
-    // Tanam URL share otomatis jika sudah di hosting online
+    // SISTEM AKSES WINDOW SHARE FB - LOLOS SANDBOX GITHUB PAGES
     let urlWebsiteIni = window.location.href;
-    if(urlWebsiteIni.startsWith("http")) {
-        let linkShareFB = "https://facebook.com" + encodeURIComponent(urlWebsiteIni);
-        document.getElementById('btn-share-facebook').setAttribute('href', linkShareFB);
-    }
+    let linkShareFB = "https://facebook.com" + encodeURIComponent(urlWebsiteIni);
+    
+    const tombolFB = document.getElementById('btn-share-facebook');
+    tombolFB.addEventListener('click', function(e) {
+        e.preventDefault();
+        // Membuka share window menggunakan popup internal aman browser yang direstui GitHub
+        window.open(linkShareFB, 'FacebookShareWindow', 'width=600,height=400,status=no,toolbar=no,menubar=no,scrollbars=yes');
+    });
 
     // 1. EKSTRAKSI DATA STRING PAITO CAMBODIA
     if (typeof DATA_PAITO_CAMBODIA !== 'undefined' && DATA_PAITO_CAMBODIA.trim() !== '') {
@@ -420,9 +423,9 @@ function jalankanMesinShio(arrayAngkaMentah) {
     let shioUrutanHot = [...skorShio].sort((a, b) => b.skor - a.skor);
     let shioUrutanCold = [...skorShio].sort((a, b) => a.skor - b.skor);
 
-    let shioBom = shioUrutanHot[0].nama;
-    let shioCadangan1 = shioUrutanCold[0].nama;
-    if (shioCadangan1 === shioBom) { shioCadangan1 = shioUrutanCold[1].nama; }
+    let shioBom = shioUrutanHot.nama;
+    let shioCadangan1 = shioUrutanCold.nama;
+    if (shioCadangan1 === shioBom) { shioCadangan1 = shioUrutanCold.nama; }
 
     let shioCadangan2 = tabelMistikShio[shioBom];
     if (shioCadangan2 === shioBom || shioCadangan2 === shioCadangan1) {
@@ -440,6 +443,7 @@ function jalankanMesinShio(arrayAngkaMentah) {
     document.getElementById('box-hasil').scrollIntoView({ behavior: 'smooth' });
 }
 </script>
+
 <script src="https://crypotential.com/aau2deh1y8?key=28127d0dedbc5859c5a05ec19fed2ae4"></script>
 </body>
 </html>
