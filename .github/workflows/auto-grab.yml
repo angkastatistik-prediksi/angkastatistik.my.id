@@ -2,8 +2,8 @@ name: Robot Otomatis Cambodia
 
 on:
   schedule:
-    - cron: '15 5 * * *' # Jam 12:15 WIB siang
-  workflow_dispatch: # Tombol darurat manual dari HP
+    - cron: '15 5 * * *'
+  workflow_dispatch:
 
 jobs:
   jalankan-robot:
@@ -28,4 +28,4 @@ jobs:
         git config --global user.name "github-actions[bot]"
         git config --global user.email "github-actions[bot]@://github.com"
         git add result/cambodia.js
-        git diff-index --quiet HEAD || (git commit -m "Robot: Sinkronisasi paito terbaru" && git push)
+        git diff-index --quiet HEAD || (git commit -m "Robot: Update data nomor terbaru" && git push)
