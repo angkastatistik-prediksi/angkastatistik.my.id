@@ -1,6 +1,6 @@
 // 1. DATA LIVE 4D (BOX ATAS) - OTOMATIS AMBIL RESULT TERAKHIR HARI INI
 const LIVE_RESULT_MACAU = {
-    latestResult: "3230"
+    latestResult: "6654"
 };
 
 // 2. DATA UTAMA TABEL PAITO (DARI TANGGAL TERLAMA KE TERBARU)
@@ -35,5 +35,5 @@ const DATA_PAITO_MACAU = [
   ["16 Jul", "7414", "9256", "6539", "2315", "6603", "1195"],
   ["17 Jul", "0768", "2723", "6031", "1030", "2157", "0489"],
   ["18 Jul", "2714", "3569", "3406", "7113", "1545", "6913"],
-  ["19 Jul", "1668", "3230", "-", "-", "-", "-"]
+  ["19 Jul", "1668", "3230", "2472", "6654", "-", "-"]
 ];
