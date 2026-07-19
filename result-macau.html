@@ -231,7 +231,7 @@ hs.src='//s10.histats.com/js15_as.js';
 <!-- Histats.com END -->
     <script src="result/macau.js"></script>
     <script>
-        let warnaKuasAktif = "transparent";
+    let warnaKuasAktif = "transparent";
 
 if (typeof LIVE_RESULT_MACAU !== 'undefined') {
     const angkaSah = LIVE_RESULT_MACAU.latestResult;
@@ -289,7 +289,7 @@ const paitoTbody = document.getElementById('paito-tbody-data');
 if (paitoTbody && teksMentah.trim() !== "") {
     paitoTbody.innerHTML = '';
     
-    let dataMentah = teksMentah.replace(/\s+/g, '').split(',').filter(x => x !== "");
+    let dataMentah = teksMentah.split(',').map(x => x.trim()).filter(x => x !== "");
     
     for (let i = 0; i < dataMentah.length; i += 7) {
         let baris = dataMentah.slice(i, i + 7);
@@ -300,8 +300,6 @@ if (paitoTbody && teksMentah.trim() !== "") {
             let teksDraw = String(draw).trim();
             
             if (indeks === 0) {
-                if (teksDraw.length === 1) teksDraw = "0" + teksDraw;
-                if (teksDraw.length > 2) teksDraw = teksDraw.slice(-2);
                 barisHTML += `<td class="mgg-row">${teksDraw}</td>`;
             } else {
                 if (teksDraw !== "-" && teksDraw.length < 4) {
