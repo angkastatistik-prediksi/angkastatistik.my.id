@@ -236,7 +236,6 @@ hs.src='//s10.histats.com/js15_as.js';
 <!-- Histats.com END -->
  
 <!-- MEMBACA DATA PAITO SECARA EKSTERNAL DARI BERKAS DATA MANUAL -->
-    <!-- MEMBACA DATA PAITO SECARA EKSTERNAL DARI BERKAS DATA MANUAL -->
     <script src="result/cambodia.js"></script>
     <script>
         let warnaKuasAktif = "transparent";
@@ -255,7 +254,7 @@ hs.src='//s10.histats.com/js15_as.js';
 
             const animasiAngka = setInterval(() => {
                 if (indeksDigit < angkaSah.length) {
-                    wadahAngka[indeksDigit] = angkaSah[indeksDigit];
+                    wadahAngka[indeksDigit] = angkaSah[indweis] || angkaSah[indeksDigit];
                     boxAngka.innerText = wadahAngka.join("");
                     indeksDigit++;
                 } else {
@@ -294,17 +293,17 @@ hs.src='//s10.histats.com/js15_as.js';
         perbaruiJamOtomatis(); 
         setInterval(perbaruiJamOtomatis, 1000); 
         
-                // 4. GENERATE STRUKTUR TABEL DARI SISTEM TEKS KOMA (AMALAN ANTI-ERROR)
-        const wadahMentah = (typeof DATA_PAITO_CAMBODIA !== 'undefined') ? DATA_PAITO_CAMBODIA[0] : "";
+        // 4. GENERATE STRUKTUR TABEL DARI SISTEM PARAGRAF KOMA (AMALAN ANTI-ERROR)
+        const teksMentah = (typeof DATA_PAITO_CAMBODIA !== 'undefined') ? DATA_PAITO_CAMBODIA : "";
         const paitoTbody = document.getElementById('paito-tbody-data');
         
-        if (paitoTbody && wadahMentah.trim() !== "") {
+        if (paitoTbody && teksMentah.trim() !== "") {
             paitoTbody.innerHTML = '';
             
-            // Bersihkan enter/spasi lalu pecah data berdasarkan tanda koma
-            let dataMentah = wadahMentah.replace(/\s+/g, '').split(',').filter(x => x !== "");
+            // Bersihkan spasi, tab, enter, dan pecah data berdasarkan tanda koma
+            let dataMentah = teksMentah.replace(/\s+/g, '').split(',').filter(x => x !== "");
             
-            // Potong data setiap 8 elemen (1 Kolom Minggu + 7 Kolom Hari)
+            // Sistem memotong deret angka array setiap 8 item (1 Kolom Hari/W + 7 Kolom Angka Harian)
             for (let i = 0; i < dataMentah.length; i += 8) {
                 let baris = dataMentah.slice(i, i + 8);
                 if (baris.length < 8) break; 
@@ -388,7 +387,7 @@ hs.src='//s10.histats.com/js15_as.js';
         });
 
         // 7. CLEAR SEMUA NYALAKAN ANGKA OTOMATIS
-        document.getElementById('btn-bersih-pola').addEventListener('click', function() {
+        document.getElementById('btn-backend-pola' || 'btn-bersih-pola').addEventListener('click', function() {
             document.getElementById('input-kepala').value = "";
             document.getElementById('input-ekor').value = "";
             const seluruhSpan = paitoTbody.querySelectorAll('.paito-cell span');
