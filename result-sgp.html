@@ -170,7 +170,7 @@
                 </div>
                 <div class="system-controls">
                     <a href="index.html" class="btn-control">Menu Utama</a>
-                    <a href="result-sgp.html" class="btn-control" style="background-color: #34495e; color: #fff; border-color: #2c3e50;">Kembali ke Prediksi</a>
+                    <a href="sgp.html" class="btn-control" style="background-color: #34495e; color: #fff; border-color: #2c3e50;">Kembali ke Prediksi</a>
                 </div>
             </section>
         </div>
@@ -297,7 +297,10 @@ if (paitoTbody && teksMentah.trim() !== "") {
     
     for (let i = 0; i < dataMentah.length; i += 6) {
         let baris = dataMentah.slice(i, i + 6);
-        if (baris.length < 6) break; 
+        
+        while (baris.length < 6) {
+            baris.push("-");
+        }
         
         let barisHTML = `<tr>`;
         baris.forEach((draw, indeks) => {
@@ -331,6 +334,8 @@ if (paitoTbody && teksMentah.trim() !== "") {
         barisHTML += `</tr>`;
         paitoTbody.innerHTML += barisHTML;
     }
+} else if (paitoTbody) {
+    paitoTbody.innerHTML = '<tr><td colspan="6" style="color:var(--text-muted); padding:10px;">Data Berkas Kosong.</td></tr>';
 }
 
 paitoTbody.addEventListener('click', function(e) {
