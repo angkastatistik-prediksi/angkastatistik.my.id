@@ -19,5 +19,5 @@ const DATA_PAITO_CAMBODIA = [
 ];
 
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { DATA_PAITO_CAMBODIA, latestResult: "-", updatedAt: "-" };
+    module.exports = { latestResult: "-", updatedAt: "-" };
 }
