@@ -8,22 +8,20 @@ const DAFTAR_SITUS = [
   'https://livecambodia.cyou'
 ];
 
-const filePath = path.join(__dirname, 'result', 'cambodia.js');
+// PERBAIKAN UTAMA: Mundur dari folder grabber/ lalu masuk ke result/cambodia.js
+const filePath = path.join(__dirname, '..', 'result', 'cambodia.js');
 
 function ekstrakNomorSah(htmlContent) {
-  // 1. Bersihkan semua skrip iklan dan kode CSS agar teks menjadi bersih
   const teksBersih = htmlContent.replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>|<[^>]+>/gi, " ");
   
-  // 2. Radar mengunci teks "1st Prize" lalu mengambil 4 digit angka di sebelah kanannya
   const cocokPrize = teksBersih.match(/1st\s*Prize[\s\S]*?(\d{4})/i);
   if (cocokPrize && cocokPrize[1]) {
-    return cocokPrize[1]; // <-- Wajib menggunakan [1] untuk mengambil angkanya saja
+    return cocokPrize[1];
   }
   
-  // Cadangan jika angka ditulis duluan baru teks 1st Prize
   const cocokTerbalik = teksBersih.match(/(\d{4})[\s\S]*?1st\s*Prize/i);
   if (cocokTerbalik && cocokTerbalik[1]) {
-    return cocokTerbalik[1]; // <-- Wajib menggunakan [1]
+    return cocokTerbalik[1];
   }
   
   return null;
@@ -34,44 +32,42 @@ async function grabberCambodia() {
 
   for (let i = 0; i < DAFTAR_SITUS.length; i++) {
     try {
-      console.log(`📡 Memulai pemindaian Sumber-${i + 1}: ${DAFTAR_SITUS[i]}`);
+      console.log(`📡 Robot mengecek Sumber ke-${i + 1}: ${DAFTAR_SITUS[i]}`);
       
       const response = await fetch(DAFTAR_SITUS[i], { 
         method: 'GET',
         headers: {
-          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-          'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9',
-          'Accept-Language': 'id-ID,id;q=0.9'
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
         },
-        signal: AbortSignal.timeout(8000) 
+        signal: AbortSignal.timeout(7000) 
       });
-      
       const htmlContent = await response.text();
+      
       angkaKeluar = ekstrakNomorSah(htmlContent);
       
       if (angkaKeluar && angkaKeluar !== "0000" && angkaKeluar.length === 4) {
-        console.log(`🎯 NOMOR SAH TERDETEKSI -> ${angkaKeluar}`);
+        console.log(`🎯 TARGET KETEMU -> Angka Sah: ${angkaKeluar}`);
         break; 
       }
     } catch (err) {
-      console.log(`❌ Link-${i + 1} bermasalah: ${err.message}`);
+      console.log(`❌ Sumber ke-${i + 1} dilewati: ${err.message}`);
     }
   }
 
   if (!angkaKeluar) {
-    console.error("🚨 Sinyal terputus: Seluruh situs target gagal ditembus.");
+    console.error("🚨 Sinyal terputus: Belum ada nomor baru di situs target.");
     return;
   }
 
   try {
     const fileContent = fs.readFileSync(filePath, 'utf-8');
-    const regexArray = fileContent.match(/const\s+DATA_PAITO_CAMBODIA\s*=\s*(\[[\s\S]*?\]);/);
     
-    if (!regexArray) throw new Error("Format berkas rusak!");
+    const matchArray = fileContent.match(/const\s+DATA_PAITO_CAMBODIA\s*=\s*(\[[\s\S]*?\]);/);
+    if (!matchArray) {
+      throw new Error("Struktur DATA_PAITO_CAMBODIA tidak ditemukan!");
+    }
 
-    // Konversi aman tanda kutip tunggal dan ganda untuk JSON
-    const jsonString = regexArray[1].replace(/'/g, '"');
-    let dataPaito = JSON.parse(jsonString);
+    let dataPaito = eval(matchArray[1]);
     
     let barisTerakhir = dataPaito[dataPaito.length - 1];
     let slotKosongKetemu = false;
@@ -90,12 +86,13 @@ async function grabberCambodia() {
     }
     
     const tanggalUpdate = new Date().toLocaleString("id-ID", { timeZone: "Asia/Jakarta" }) + " WIB";
-    const isiFileBaru = `const DATA_PAITO_CAMBODIA = ${JSON.stringify(dataPaito, null, 2)};\n\nif (typeof module !== 'undefined' && module.exports) {\n    module.exports = { DATA_PAITO_CAMBODIA, latestResult: "${angkaKeluar}", updatedAt: "${tanggalUpdate}" };\n}`;
+    
+    const isiFileBaru = `const DATA_PAITO_CAMBODIA = ${JSON.stringify(dataPaito, null, 2)};\n\nif (typeof module !== 'undefined' && module.exports) {\n    module.exports = { latestResult: "${angkaKeluar}", updatedAt: "${tanggalUpdate}" };\n}`;
 
     fs.writeFileSync(filePath, isiFileBaru, 'utf-8');
-    console.log(`✅ File result/cambodia.js sukses diperbarui.`);
+    console.log(`✅ DATA BERHASIL DI-INJECT KE FILE: ${angkaKeluar}`);
   } catch (error) {
-    console.error(`❌ Gagal inject data: ${error.message}`);
+    console.error(`❌ Gagal memperbarui file berkas: ${error.message}`);
   }
 }
 
