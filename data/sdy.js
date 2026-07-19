@@ -1,6 +1,6 @@
 const DATA_SDY = {
 senin: {
-tanggal: "2026-07-13", 
+tanggal: "2026-07-20", 
 angka: `
 2380 : 72
 4782 : 09
