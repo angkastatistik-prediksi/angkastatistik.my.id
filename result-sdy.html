@@ -172,7 +172,7 @@
                 </div>
                 <div class="system-controls">
                     <a href="index.html" class="btn-control">Menu Utama</a>
-                    <a href="result-sdy.html" class="btn-control" style="background-color: #34495e; color: #fff; border-color: #2c3e50;">Kembali ke Prediksi</a>
+                    <a href="sdy.html" class="btn-control" style="background-color: #34495e; color: #fff; border-color: #2c3e50;">Kembali ke Prediksi</a>
                 </div>
             </section>
         </div>
@@ -287,35 +287,34 @@ function perbaruiJamOtomatis() {
 }
 perbaruiJamOtomatis(); 
 setInterval(perbaruiJamOtomatis, 1000); 
-
+        
 const teksMentah = (typeof DATA_PAITO_SDY !== 'undefined') ? DATA_PAITO_SDY : "";
 const paitoTbody = document.getElementById('paito-tbody-data');
-
+        
 if (paitoTbody && teksMentah.trim() !== "") {
     paitoTbody.innerHTML = '';
     
     let dataMentah = teksMentah.replace(/\s+/g, '').split(',').filter(x => x !== "");
     
-    
     for (let i = 0; i < dataMentah.length; i += 8) {
         let baris = dataMentah.slice(i, i + 8);
-        if (baris.length < 8) break; 
+        
+        while (baris.length < 8) {
+            baris.push("-");
+        }
         
         let barisHTML = `<tr>`;
         baris.forEach((draw, indeks) => {
             let teksDraw = String(draw).trim();
             
             if (indeks === 0) {
-                
                 if (teksDraw.length === 1) teksDraw = "0" + teksDraw;
                 if (teksDraw.length > 2) teksDraw = teksDraw.slice(-2);
                 barisHTML += `<td class="mgg-row">${teksDraw}</td>`;
             } else {
-                
                 if (teksDraw !== "-" && teksDraw.length < 4) {
                     teksDraw = teksDraw.padStart(4, "0");
                 }
-
                 if (teksDraw !== "-" && teksDraw.length > 4) {
                     teksDraw = teksDraw.slice(-4);
                 }
@@ -336,8 +335,10 @@ if (paitoTbody && teksMentah.trim() !== "") {
         barisHTML += `</tr>`;
         paitoTbody.innerHTML += barisHTML;
     }
+} else if (paitoTbody) {
+    paitoTbody.innerHTML = '<tr><td colspan="8" style="color:var(--text-muted); padding:10px;">Data Berkas Kosong.</td></tr>';
 }
-
+        
 paitoTbody.addEventListener('click', function(e) {
     if (e.target && e.target.tagName === 'SPAN' && e.target.innerText !== "-") {
         if (warnaKuasAktif === "transparent") {
@@ -369,7 +370,6 @@ document.getElementById('btn-cari-pola').addEventListener('click', function() {
             span.style.color = "#000000";
             span.style.fontWeight = "bold";
         }
-        // Pola Ekor (Digit ke-4, indeks 3) -> Warna Ungu/Magenta cerah
         if (cariEkor !== "" && posisiDigit === "3" && span.innerText === cariEkor) {
             span.style.backgroundColor = "#9b5de5"; 
             span.style.color = "#ffffff";
