@@ -216,89 +216,92 @@ hs.src='//s10.histats.com/js15_as.js';
 
     <!-- MEMBACA DATA PAITO SECARA EXTERNAL DARI FOLDER HASIL BERKAS ANDA -->
     <script src="result/cambodia.js"></script>
-    <script>
-        let warnaKuasAktif = "transparent";
+<script>
+    let warnaKuasAktif = "transparent";
 
-        // LOGIKA MENAMPILKAN DATA LIVE DARI FILE KERJA ROBOT (result/cambodia.js)
-        fetch('result/cambodia.js')
-            .then(res => res.text())
-            .then(dataTeks => {
-                const cocokAngka = dataTeks.match(/latestResult:\s*"(\d{4})"/);
-                const cocokWaktu = dataTeks.match(/updatedAt:\s*"(.*?)"/);
-                
-                if(cocokAngka && cocokAngka[1]) {
-                    document.getElementById('angka-terbaru-box').innerText = cocokAngka[1];
-                }
-                if(cocokWaktu && cocokWaktu[1]) {
-                    document.getElementById('waktu-terbaru-box').innerText = "Update Sah: " + cocokWaktu[1];
-                }
-            })
-            .catch(err => {
-                document.getElementById('waktu-terbaru-box').innerText = "Gagal memuat otomatis.";
-                console.error(err);
-            });
-
-        const tombolWarna = document.querySelectorAll('.color-palette .color-btn');
-        tombolWarna.forEach(btn => {
-            btn.addEventListener('click', function() {
-                tombolWarna.forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                warnaKuasAktif = this.getAttribute('data-color');
-            });
+    // FETCH LIVE UPDATE INFO RESMI
+    fetch('result/cambodia.js')
+        .then(res => res.text())
+        .then(dataTeks => {
+            const cocokAngka = dataTeks.match(/latestResult:\s*"([^"]+)"/);
+            const cocokWaktu = dataTeks.match(/updatedAt:\s*"([^"]+)"/);
+            
+            if(cocokAngka && cocokAngka[1] && cocokAngka[1] !== "-") {
+                document.getElementById('angka-terbaru-box').innerText = cocokAngka[1];
+            }
+            if(cocokWaktu && cocokWaktu[1] && cocokWaktu[1] !== "-") {
+                document.getElementById('waktu-terbaru-box').innerText = "Update Sah: " + cocokWaktu[1];
+            }
+        })
+        .catch(err => {
+            document.getElementById('waktu-terbaru-box').innerText = "Gagal memuat otomatis.";
+            console.error(err);
         });
 
-        const sekarang = new Date();
-        document.getElementById('live-update-time').innerHTML = `Jam ${String(sekarang.getHours()).padStart(2, '0')}:${String(sekarang.getMinutes()).padStart(2, '0')} WIB | Fitur Kuas HP Aktif`;
-        
-        const sumberPaitoCambodia = (typeof DATA_PAITO_CAMBODIA !== 'undefined') ? DATA_PAITO_CAMBODIA : [];
+    // PALET WARNA KUAS HP
+    const tombolWarna = document.querySelectorAll('.color-palette .color-btn');
+    tombolWarna.forEach(btn => {
+        btn.addEventListener('click', function() {
+            tombolWarna.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            warnaKuasAktif = this.getAttribute('data-color');
+        });
+    });
 
-        const paitoTbody = document.getElementById('paito-tbody-data');
-        if (paitoTbody) {
-            paitoTbody.innerHTML = '';
-
-            if (sumberPaitoCambodia.length === 0) {
-                paitoTbody.innerHTML = '<tr><td colspan="8" style="color:var(--text-muted); padding:10px;">Data Berkas Kosong.</td></tr>';
-            } else {
-                sumberPaitoCambodia.forEach(baris => {
-                    let barisHTML = `<tr>`;
-                    
-                    baris.forEach((draw, indeks) => {
-                        if (indeks === 0) {
-                            barisHTML += `<td class="mgg-row">W-${draw}</td>`;
-                        } else {
-                            let digitHTML = '';
-                            if (draw && draw !== "-") {
-                                for (let karakterAngka of draw) {
-                                    digitHTML += `<span>${karakterAngka}</span>`;
-                                }
-                            } else {
-                                digitHTML = "-";
+    const sekarang = new Date();
+    const liveTimeEl = document.getElementById('live-update-time');
+    if(liveTimeEl) {
+        liveTimeEl.innerHTML = `Jam ${String(sekarang.getHours()).padStart(2, '0')}:${String(sekarang.getMinutes()).padStart(2, '0')} WIB | Fitur Kuas HP Aktif`;
+    }
+    
+    // RENDER DATA TABEL PAITO
+    const sumberPaitoCambodia = (typeof DATA_PAITO_CAMBODIA !== 'undefined') ? DATA_PAITO_CAMBODIA : [];
+    const paitoTbody = document.getElementById('paito-tbody-data');
+    
+    if (paitoTbody) {
+        paitoTbody.innerHTML = '';
+        if (sumberPaitoCambodia.length === 0) {
+            paitoTbody.innerHTML = '<tr><td colspan="8" style="color:var(--text-muted); padding:10px;">Data Berkas Kosong.</td></tr>';
+        } else {
+            sumberPaitoCambodia.forEach(baris => {
+                let barisHTML = `<tr>`;
+                baris.forEach((draw, indeks) => {
+                    if (indeks === 0) {
+                        barisHTML += `<td class="mgg-row">W-${draw}</td>`;
+                    } else {
+                        let digitHTML = '';
+                        if (draw && draw !== "-") {
+                            for (let karakterAngka of draw) {
+                                digitHTML += `<span>${karakterAngka}</span>`;
                             }
-                            barisHTML += `<td class="paito-cell">${digitHTML}</td>`;
+                        } else {
+                            digitHTML = "-";
                         }
-                    });
-
-                    barisHTML += `</tr>`;
-                    paitoTbody.innerHTML += barisHTML;
+                        barisHTML += `<td class="paito-cell">${digitHTML}</td>`;
+                    }
                 });
+                barisHTML += `</tr>`;
+                paitoTbody.innerHTML += barisHTML;
+            });
+        }
+    }
+    
+    // EVENT DELEGATION ANTI LEMOT DI HP
+    document.getElementById('paito-tbody-data').addEventListener('click', function(e) {
+        if (e.target && e.target.tagName === 'SPAN') {
+            if (warnaKuasAktif === "transparent") {
+                e.target.style.backgroundColor = "transparent";
+                e.target.style.color = "var(--text-main)";
+                e.target.style.boxShadow = "none";
+            } else {
+                e.target.style.backgroundColor = warnaKuasAktif;
+                e.target.style.color = "#000000";
+                e.target.style.boxShadow = "0 1px 3px rgba(0,0,0,0.4)";
             }
         }
-        
-        // Menggunakan Event Delegation agar pewarnaan klik berjalan lancar di HP tanpa lemot
-        document.getElementById('paito-tbody-data').addEventListener('click', function(e) {
-            if (e.target && e.target.tagName === 'SPAN') {
-                if (warnaKuasAktif === "transparent") {
-                    e.target.style.backgroundColor = "transparent";
-                    e.target.style.color = "var(--text-main)";
-                    e.target.style.boxShadow = "none";
-                } else {
-                    e.target.style.backgroundColor = warnaKuasAktif;
-                    e.target.style.color = "#000000";
-                    e.target.style.boxShadow = "0 1px 3px rgba(0,0,0,0.4)";
-                }
-            }
-        });
-    </script>
+    });
+</script>
+
     <script src="https://crypotential.com/aau2deh1y8?key=28127d0dedbc5859c5a05ec19fed2ae4"></script>
 </body>
 </html>
