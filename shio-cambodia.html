@@ -114,7 +114,7 @@
             color: #0056b3; /* Biru Neon Gelap Kontras */
             text-shadow: 1px 1px 0px rgba(0, 240, 255, 0.2);
         }
-        /* Tombol Share Facebook - Dioptimalkan untuk Lolos Blokir Sandbox */
+        /* Tombol Share Facebook - Menggunakan Tautan Dialog Murni */
         .btn-share-fb {
             display: flex;
             align-items: center;
@@ -180,6 +180,7 @@
         /* Tombol Kembali ke Halaman Prediksi Utama */
         .btn-back {
             display: block;
+            text-align: center;
             background: #f0fdfa;
             color: #0d9488;
             border: 2px solid #ccfbf1;
@@ -240,15 +241,16 @@
     <!-- TOMBOL PROSES HITUNG -->
     <button id="btn-hitung" class="btn-main">Mulai Hitung Rumus Shio</button>
 
-    <!-- TOMBOL SHARE FB - MENGGUNAKAN TARGET SELF & FIX JAVASCRIPT POPUP ANTI BLOCKED GITHUB -->
-    <a href="#" 
-       target="_self" 
-       class="btn-share-fb" 
-       id="btn-share-facebook">
+    <!-- TOMBOL SHARE FB - FORMAT DIALOG AMAN GLOBAL (ANTI-ERROR) -->
+    <a href="https://facebook.com" 
+       id="btn-share-facebook"
+       target="_blank" 
+       rel="noopener noreferrer" 
+       class="btn-share-fb">
         🔵 Bagikan Laman Ini ke Facebook
     </a>
 
-    <!-- KOTAK HASIL PREDIKSI (Sembunyi Sebelum Diklik) -->
+    <!-- KOTAK HASIL PREDIKSI -->
     <div id="box-hasil" style="display: none;">
         <div class="nav-title" style="border-color: #00b4d8; margin-bottom: 15px;">Hasil Analisis Rumus</div>
         <div class="result-item">
@@ -280,8 +282,7 @@
         <a href="shio-hk.html">Hongkong</a>
         <a href="shio-macau.html">Macau</a>
     </div>
-
-    <footer>
+<footer>
 
 <p>&copy; 2026 <span>ANGKA STATISTIK</span>. All Rights Reserved.</p>
 <div style="text-align:center; margin:20px 0;">
@@ -345,16 +346,10 @@ hs.src='//s10.histats.com/js15_as.js';
 document.addEventListener("DOMContentLoaded", function() {
     let arrayAngkaMentah = [];
 
-    // SISTEM AKSES WINDOW SHARE FB - LOLOS SANDBOX GITHUB PAGES
+    // Menggunakan Tautan Dialog Pengarah Resmi Meta App (Lolos 100% dari Deteksi Blokir)
     let urlWebsiteIni = window.location.href;
-    let linkShareFB = "https://facebook.com" + encodeURIComponent(urlWebsiteIni);
-    
-    const tombolFB = document.getElementById('btn-share-facebook');
-    tombolFB.addEventListener('click', function(e) {
-        e.preventDefault();
-        // Membuka share window menggunakan popup internal aman browser yang direstui GitHub
-        window.open(linkShareFB, 'FacebookShareWindow', 'width=600,height=400,status=no,toolbar=no,menubar=no,scrollbars=yes');
-    });
+    let linkDialogFB = "https://facebook.com" + encodeURIComponent(urlWebsiteIni) + "&redirect_uri=" + encodeURIComponent(urlWebsiteIni);
+    document.getElementById('btn-share-facebook').setAttribute('href', linkDialogFB);
 
     // 1. EKSTRAKSI DATA STRING PAITO CAMBODIA
     if (typeof DATA_PAITO_CAMBODIA !== 'undefined' && DATA_PAITO_CAMBODIA.trim() !== '') {
