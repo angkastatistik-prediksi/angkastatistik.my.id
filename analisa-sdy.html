@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ANGKA STATISTIK - Analisa Angka Top SDY</title>
+    <style>
+        :root {
+            --bg-dark: #0f111a;
+            --bg-card: #1a1d29;
+            --text-main: #f0f2f5;
+            --text-muted: #a0aec0;
+            --accent: #ffb703;
+            --gradient: linear-gradient(135deg, #1e2235, #121420);
+            --border-color: #2d3142;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: var(--bg-dark); color: var(--text-main); padding: 10px; padding-bottom: 40px; }
+        .container { max-width: 600px; margin: 0 auto; }
+        header { background: var(--gradient); padding: 15px; text-align: center; border-radius: 8px; border-bottom: 2px solid var(--accent); margin-bottom: 15px; }
+        header h1 { font-size: 1.1rem; text-transform: uppercase; }
+        header span { color: var(--accent); }
+        .card { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); margin-bottom: 15px; }
+        .card-title { font-size: 0.9rem; color: var(--accent); text-transform: uppercase; margin-bottom: 10px; font-weight: bold; border-left: 3px solid var(--accent); padding-left: 8px; }
+        .history-list { font-size: 0.8rem; background: rgba(0,0,0,0.2); padding: 8px; border-radius: 6px; border: 1px dashed var(--border-color); margin-bottom: 10px; }
+        .history-item { display: flex; justify-content: space-between; padding: 3px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .history-item:last-child { border: none; }
+        .btn-action { display: block; width: 100%; padding: 10px; background-color: var(--accent); color: #000; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; text-align: center; font-size: 0.9rem; text-transform: uppercase; transition: 0.2s; margin-bottom: 10px; }
+        .btn-action:hover { background-color: #ffc300; }
+        .btn-back { display: block; width: 100%; padding: 8px; background-color: #34495e; color: #fff; border: 1px solid #2c3e50; border-radius: 6px; font-weight: bold; cursor: pointer; text-align: center; font-size: 0.8rem; text-transform: uppercase; text-decoration: none; transition: 0.2s; }
+        .btn-back:hover { background-color: #415b76; }
+        .result-box { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px; }
+        .result-item { background: #121420; border: 1px solid var(--border-color); padding: 10px; border-radius: 6px; text-align: center; }
+        .result-label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; }
+        .result-val { font-size: 1.2rem; font-weight: bold; color: #4ade80; margin-top: 3px; letter-spacing: 1px; }
+        footer { text-align: center; padding: 15px 0; margin-top: 25px; border-top: 1px solid var(--border-color); color: var(--text-muted); font-size: 0.75rem; }
+        footer span { color: var(--accent); }
+    </style>
+</head>
+<body>
+
+<main class="container">
+    <header>
+        <h1>ANGKA STATISTIK - <span>ANALISA ANGKA TOP SDY</span></h1>
+    </header>
+
+    <!-- BOX HISTORI DATA YANG BERHASIL DITARIK -->
+    <section class="card">
+        <div class="card-title">📊 Basis Data 7 Result Terakhir SDY</div>
+        <div id="wrapper-histori" class="history-list">
+            Memuat database sdy...
+        </div>
+        <button id="btn-hitung" class="btn-action">Hitung Angka Top Sekarang</button>
+        
+        <!-- TOMBOL KEMBALI OTOMATIS DENGAN NOTIFIKASI DINAMIS -->
+        <a href="sdy.html" id="btn-kembali-paito" class="btn-back">Kembali ke Prediksi Utama SDY</a>
+    </section>
+
+    <!-- BOX HASIL PREDIKSI ANALISA -->
+    <section class="card" id="box-hasil" style="display: none;">
+        <div class="card-title">🔮 Rumusan Hasil Analisis Angka Top</div>
+        <div class="result-box">
+            <div class="result-item">
+                <div class="result-label">Angka Ikut Top (AI)</div>
+                <div id="res-ai" class="result-val">--</div>
+            </div>
+            <div class="result-item">
+                <div class="result-label">Kepala Top</div>
+                <div id="res-kepala" class="result-val">--</div>
+            </div>
+            <div class="result-item">
+                <div class="result-label">Ekor Top</div>
+                <div id="res-ekor" class="result-val">--</div>
+            </div>
+        </div>
+        <div style="font-size: 0.65rem; color: var(--text-muted); text-align: center; margin-top: 12px;">
+            *Sistem membedah pola tarikan frekuensi kemunculan nomor dari 7 result terakhir secara akurat.
+        </div>
+    </section>
+</main>
+
+<footer>
+
+<p>&copy; 2026 <span>ANGKA STATISTIK</span>. All Rights Reserved.</p>
+<div style="text-align:center; margin:20px 0;">
+    <script async="async" data-cfasync="false"
+    src="https://pl30187165.effectivecpmnetwork.com/285abe3dfa3645b0c5001d78494f7ebb/invoke.js"></script>
+
+    <div id="container-285abe3dfa3645b0c5001d78494f7ebb"></div>
+</div><script src="https://pl30187164.effectivecpmnetwork.com/27/ba/bd/27babd93febcd37a091303b95048fdf4.js"></script><script src="https://crypotential.com/aau2deh1y8?key=28127d0dedbc5859c5a05ec19fed2ae4"></script>
+<!-- Histats Counter -->
+<div id="histats_counter" style="
+display:flex;
+justify-content:center;
+align-items:center;
+height:18px;
+overflow:hidden;
+transform:scale(.55);
+transform-origin:center;
+opacity:.85;
+">
+</div>
+
+</footer>
+
+
+<!-- Histats.com START -->
+<script type="text/javascript">
+var _Hasync= _Hasync || [];
+
+_Hasync.push(['Histats.start',
+'1,5037448,4,600,110,30,00001001'
+]);
+
+_Hasync.push(['Histats.fasi','1']);
+
+_Hasync.push(['Histats.track_hits','']);
+
+(function(){
+
+var hs=document.createElement('script');
+hs.type='text/javascript';
+hs.async=true;
+hs.src='//s10.histats.com/js15_as.js';
+
+(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0])
+.appendChild(hs);
+
+})();
+</script>
+
+<noscript>
+<a href="/" target="_blank">
+<img src="//sstatic1.histats.com/0.gif?5037448&101" alt="" border="0">
+</a>
+</noscript>
+
+<!-- Histats.com END --><!-- MEMPANGGIL DATABASE MANUAL SYDNEY ANDA -->
+<script src="result/sdy.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+    let arrayAngkaMentah = [];
+
+    // LOGIKA DETEKSI LAMAN ASAL DAN PERUBAHAN TEKS NOTIFIKASI TOMBOL
+    const tombolKembali = document.getElementById('btn-kembali-paito');
+    if (document.referrer && document.referrer.includes(window.location.hostname)) {
+        const urlAsal = document.referrer.toLowerCase();
+        if (urlAsal.includes('macau')) { tombolKembali.innerText = "Kembali ke Prediksi Utama Macau"; tombolKembali.setAttribute('href', 'macau.html'); }
+        else if (urlAsal.includes('cambodia')) { tombolKembali.innerText = "Kembali ke Prediksi Utama Cambodia"; tombolKembali.setAttribute('href', 'cambodia.html'); }
+        else if (urlAsal.includes('china')) { tombolKembali.innerText = "Kembali ke Prediksi Utama China"; tombolKembali.setAttribute('href', 'china.html'); }
+        else if (urlAsal.includes('japan')) { tombolKembali.innerText = "Kembali ke Prediksi Utama Japan"; tombolKembali.setAttribute('href', 'japan.html'); }
+        else if (urlAsal.includes('sgp')) { tombolKembali.innerText = "Kembali ke Prediksi Utama SGP"; tombolKembali.setAttribute('href', 'sgp.html'); }
+        else if (urlAsal.includes('taiwan')) { tombolKembali.innerText = "Kembali ke Prediksi Utama Taiwan"; tombolKembali.setAttribute('href', 'taiwan.html'); }
+        else if (urlAsal.includes('hk')) { tombolKembali.innerText = "Kembali ke Prediksi Utama HK"; tombolKembali.setAttribute('href', 'hk.html'); }
+        else { tombolKembali.innerText = "Kembali ke Prediksi Utama SDY"; tombolKembali.setAttribute('href', 'sdy.html'); }
+
+        tombolKembali.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = document.referrer; 
+        });
+    }
+
+    // 1. PROSES EKSTRAKSI DATA STRING PAITO SDY (ANTI ERROR)
+    if (typeof DATA_PAITO_SDY !== 'undefined' && DATA_PAITO_SDY.trim() !== '') {
+        let containerHistori = document.getElementById('wrapper-histori');
+        containerHistori.innerHTML = '';
+        
+        // Memecah string berdasarkan koma dan membersihkan spasi/pindah baris
+        let semuaPotongan = DATA_PAITO_SDY.split(',')
+                                           .map(item => item.trim())
+                                           .filter(item => item !== "");
+
+        // Filter: Hanya ambil yang panjangnya TEPAT 4 DIGIT (Mengabaikan nomor baris 01, 02, dst)
+        let semuaAngkaSah = semuaPotongan.filter(item => item.length === 4 && item !== "-");
+
+        // Ambil 7 data terakhir dari urutan paling bawah
+        let tujuhDataTerakhir = semuaAngkaSah.slice(-7);
+        
+        // Simpan ke array utama untuk bahan hitung tombol
+        arrayAngkaMentah = [...tujuhDataTerakhir];
+
+        // Tampilkan ke HTML (Dibalik agar yang paling baru muncul di urutan ke-1)
+        let tampilanHistori = [...tujuhDataTerakhir].reverse();
+        tampilanHistori.forEach((nomor, indeks) => {
+            containerHistori.innerHTML += `
+                <div class="history-item">
+                    <span>Result Ke-${indeks + 1}</span>
+                    <strong style="color:#ffb703;">${nomor}</strong>
+                </div>`;
+        });
+    } else {
+        document.getElementById('wrapper-histori').innerText = "Gagal memuat database sdy.js atau data kosong";
+        return;
+    }
+
+    // 2. LOGIKA HITUNG GABUNGAN 3 UNSUR (HOT, COLD, MISTIK)
+    document.getElementById('btn-hitung').addEventListener('click', function() {
+        if(arrayAngkaMentah.length < 7) {
+            alert("Data sah dalam berkas sdy.js belum mencapai 7 hari!");
+            return;
+        }
+
+        let hitungDigit = Array(10).fill(0);
+        let hitungKepala = Array(10).fill(0);
+        let hitungEkor = Array(10).fill(0);
+
+        // Tabel Mistik Tradisional (0-5, 1-6, 2-7, 3-8, 4-9, dst)
+        const tabelMistik = { 0:5, 1:6, 2:7, 3:8, 4:9, 5:0, 6:1, 7:2, 8:3, 9:4 };
+
+        arrayAngkaMentah.forEach(angka => {
+            let d1 = parseInt(angka[0]);
+            let d2 = parseInt(angka[1]);
+            let d3 = parseInt(angka[2]); // Posisi Kepala
+            let d4 = parseInt(angka[3]); // Posisi Ekor
+
+            hitungDigit[d1]++; hitungDigit[d2]++; hitungDigit[d3]++; hitungDigit[d4]++;
+            hitungKepala[d3]++;
+            hitungEkor[d4]++;
+        });
+
+        // Urutkan skor kemunculan digit global
+        let dataSkorDigit = hitungDigit.map((v, i) => ({ angka: i, skor: v }));
+        let urutanHot = [...dataSkorDigit].sort((a, b) => b.skor - a.skor);
+        let urutanCold = [...dataSkorDigit].sort((a, b) => a.skor - b.skor);
+
+        // Ambil Unsur 1 & 2 (Hot & Cold)
+        let angkaHotUtama = urutanHot[0].angka; 
+        let angkaColdUtama = urutanCold[0].angka; 
+
+        if (angkaHotUtama === angkaColdUtama) {
+            angkaColdUtama = urutanCold[1].angka; // Ambil cadangan jika kembar
+        }
+
+        // Ambil Unsur 3 (Mistik dari angka terkuat kedua)
+        let angkaMistik = tabelMistik[urutanHot[1].angka];
+
+        // Gabungkan ketiganya menjadi Angka Ikut (AI)
+        let hasilAI = [angkaHotUtama, angkaColdUtama, angkaMistik];
+        hasilAI = [...new Set(hasilAI)]; // Buang duplikat jika ada
+
+        // Isi sisa angka acak jika ada yang kembar agar total tetap 3 digit
+        while(hasilAI.length < 3) {
+            let acakMurni = Math.floor(Math.random() * 10);
+            if(!hasilAI.includes(acakMurni)) { hasilAI.push(acakMurni); }
+        }
+
+        // Acak posisinya (Shuffle) agar tidak monoton kaku
+        hasilAI.sort(() => Math.random() - 0.5);
+
+        // Tentukan Kepala (Cari yang paling panas/sering muncul)
+        let kepalaKuat = hitungKepala.map((v, i) => ({ angka: i, skor: v })).sort((a, b) => b.skor - a.skor)[0].angka;
+        
+        // Tentukan Ekor (Cari yang paling dingin/jarang muncul untuk penyeimbang)
+        let ekorKuat = hitungEkor.map((v, i) => ({ angka: i, skor: v })).sort((a, b) => a.skor - b.skor)[0].angka;
+
+        // Cetak ke layar elemen HTML Anda
+        document.getElementById('res-ai').innerText = hasilAI.join(" , ");
+        document.getElementById('res-kepala').innerText = kepalaKuat;
+        document.getElementById('res-ekor').innerText = ekorKuat;
+        document.getElementById('box-hasil').style.display = "block";
+    });
+});
+
+</script>
+</body>
+</html>
+
