@@ -235,12 +235,12 @@ hs.src='//s10.histats.com/js15_as.js';
 
 <!-- Histats.com END -->
  
-<!-- MEMBACA DATA PAITO SECARA EKSTERNAL DARI BERKAS DATA MANUAL -->
+    <!-- MEMBACA DATA PAITO SECARA EKSTERNAL DARI BERKAS DATA MANUAL -->
     <script src="result/cambodia.js"></script>
     <script>
         let warnaKuasAktif = "transparent";
 
-        // 1. FITUR ANIMASI MUNCUL SATU PER SATU PER 3 DETIK (LIVE 4D EFFECT)
+        // 1. FITUR ANIMASI MUNCUL SATU PER SATU PER 3 DETIK (LIVE 4D EFFECT) - FIXED
         if (typeof LIVE_RESULT_CAMBODIA !== 'undefined') {
             const angkaSah = LIVE_RESULT_CAMBODIA.latestResult;
             const boxAngka = document.getElementById('angka-terbaru-box');
@@ -254,7 +254,7 @@ hs.src='//s10.histats.com/js15_as.js';
 
             const animasiAngka = setInterval(() => {
                 if (indeksDigit < angkaSah.length) {
-                    wadahAngka[indeksDigit] = angkaSah[indweis] || angkaSah[indeksDigit];
+                    wadahAngka[indeksDigit] = angkaSah[indeksDigit];
                     boxAngka.innerText = wadahAngka.join("");
                     indeksDigit++;
                 } else {
@@ -293,7 +293,7 @@ hs.src='//s10.histats.com/js15_as.js';
         perbaruiJamOtomatis(); 
         setInterval(perbaruiJamOtomatis, 1000); 
         
-        // 4. GENERATE STRUKTUR TABEL DARI SISTEM PARAGRAF KOMA (AMALAN ANTI-ERROR)
+        // 4. GENERATE STRUKTUR TABEL DARI SISTEM PARAGRAF KOMA (ANTI-ERROR)
         const teksMentah = (typeof DATA_PAITO_CAMBODIA !== 'undefined') ? DATA_PAITO_CAMBODIA : "";
         const paitoTbody = document.getElementById('paito-tbody-data');
         
@@ -313,16 +313,16 @@ hs.src='//s10.histats.com/js15_as.js';
                     let teksDraw = String(draw).trim();
                     
                     if (indeks === 0) {
-                        // Kolom Minggu Ke: Otomatis kunci di format 2 digit (misal ditulis "8" atau "08" tetap keluar "08")
+                        // Kolom Minggu Ke: Otomatis kunci di format 2 digit
                         if (teksDraw.length === 1) teksDraw = "0" + teksDraw;
                         if (teksDraw.length > 2) teksDraw = teksDraw.slice(-2);
                         barisHTML += `<td class="mgg-row">${teksDraw}</td>`;
                     } else {
-                        // Kolom Angka Hasil: Jika tidak sengaja ditulis 3 digit (misal "187"), tambal jadi "0187"
+                        // Kolom Angka Hasil: Jika kurang dari 4 digit, tambal jadi "0187"
                         if (teksDraw !== "-" && teksDraw.length < 4) {
                             teksDraw = teksDraw.padStart(4, "0");
                         }
-                        // Jika kelebihan angka nol (misal "00187"), potong murni ambil 4 digit terakhir
+                        // Jika kelebihan angka nol, potong murni ambil 4 digit terakhir
                         if (teksDraw !== "-" && teksDraw.length > 4) {
                             teksDraw = teksDraw.slice(-4);
                         }
@@ -387,7 +387,7 @@ hs.src='//s10.histats.com/js15_as.js';
         });
 
         // 7. CLEAR SEMUA NYALAKAN ANGKA OTOMATIS
-        document.getElementById('btn-backend-pola' || 'btn-bersih-pola').addEventListener('click', function() {
+        document.getElementById('btn-bersih-pola').addEventListener('click', function() {
             document.getElementById('input-kepala').value = "";
             document.getElementById('input-ekor').value = "";
             const seluruhSpan = paitoTbody.querySelectorAll('.paito-cell span');
