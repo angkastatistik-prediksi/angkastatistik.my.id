@@ -172,7 +172,7 @@
                 </div>
                 <div class="system-controls">
                     <a href="index.html" class="btn-control">Menu Utama</a>
-                    <a href="result-china.html" class="btn-control" style="background-color: #34495e; color: #fff; border-color: #2c3e50;">Kembali ke Prediksi</a>
+                    <a href="china.html" class="btn-control" style="background-color: #34495e; color: #fff; border-color: #2c3e50;">Kembali ke Prediksi</a>
                 </div>
             </section>
         </div>
@@ -299,7 +299,10 @@ if (paitoTbody && teksMentah.trim() !== "") {
     
     for (let i = 0; i < dataMentah.length; i += 8) {
         let baris = dataMentah.slice(i, i + 8);
-        if (baris.length < 8) break; 
+        
+        while (baris.length < 8) {
+            baris.push("-");
+        }
         
         let barisHTML = `<tr>`;
         baris.forEach((draw, indeks) => {
