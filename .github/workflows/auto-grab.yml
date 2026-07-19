@@ -1,34 +1,33 @@
-name: Auto Grab Cambodia Data
+name: Robot Otomatis Cambodia
 
 on:
   schedule:
-    # Berjalan otomatis setiap hari pukul 05:15 UTC (sama dengan jam 12:15 WIB siang)
+    # Berjalan otomatis setiap hari pukul 05:15 UTC (Sama dengan jam 12:15 WIB siang, setelah result sah keluar)
     - cron: '15 5 * * *'
-  workflow_dispatch: # Tombol untuk menjalankan manual kapan saja dari HP
+  workflow_dispatch: # Membuat tombol manual agar bisa diklik kapan saja dari HP
 
 jobs:
-  build:
+  jalankan-robot:
     runs-on: ubuntu-latest
     permissions:
-      contents: write # Izin agar robot bisa menulis ke file cambodia.js Anda
+      contents: write # Memberikan izin agar robot bisa mengedit file result/cambodia.js Anda
 
     steps:
-    - name: Checkout repositori
+    - name: Ambil Kode Repositori
       uses: actions/checkout@v4
 
-    - name: Setup Node.js
+    - name: Siapkan Sistem Node.js
       uses: actions/setup-node@v4
       with:
         node-version: 20
 
-    - name: Jalankan Skrip Grabber
+    - name: Jalankan Skrip Memulung Data
       run: node grabber.js
 
-    - name: Simpan dan Dorong Perubahan ke File cambodia.js
+    - name: Simpan Otomatis Ke Repositori GitHub
       run: |
         git config --global user.name "github-actions[bot]"
         git config --global user.email "github-actions[bot]@://github.com"
         git add result/cambodia.js
-        git diff-index --quiet HEAD || git commit -m "Otomatis update data Cambodia [skip ci]"
+        git diff-index --quiet HEAD || git commit -m "Robot otomatis update nomor Cambodia [skip ci]"
         git push
-
