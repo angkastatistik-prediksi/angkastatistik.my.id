@@ -1,21 +1,18 @@
 const DATA_SDY = {
 senin: {
-tanggal: "2026-07-12", 
+tanggal: "2026-07-13", 
 angka: `
-7683 : 61
-5206 : 65
-8652 : 60
-5164 : 06
-8502 : 15
-7985 : 02
-9408 : 59
-4205 : 90
+2380 : 72
+4782 : 09
+2394 : 38
+6163 : -79
+7706 : 47
 `,
-tunggal: "9"
+tunggal: "7"
 },
 
 selasa: {
-tanggal: "2026-07-13", 
+tanggal: "2026-07-14", 
 angka: `
 7683 : 61
 5206 : 65
@@ -32,7 +29,7 @@ tunggal: "0"
 },
 
 rabu: {
-tanggal: "2026-07-14", 
+tanggal: "2026-07-15", 
 angka: `
 7683 : 61
 5206 : 65
@@ -49,7 +46,7 @@ tunggal: "5"
 },
 
 kamis: {
-tanggal: "2026-07-15", 
+tanggal: "2026-07-16", 
 angka: `
 7683 : 61
 5206 : 65
@@ -67,7 +64,7 @@ tunggal: "2"
 },
 
 jumat: {
-tanggal: "2026-07-16", 
+tanggal: "2026-07-17", 
 angka: `
 7683 : 61
 5206 : 65
@@ -86,7 +83,7 @@ tunggal: "3"
 },
 
 sabtu: {
-tanggal: "2026-07-17",
+tanggal: "2026-07-18",
 angka: `
 7683 : 61
 5206 : 65
@@ -106,7 +103,7 @@ tunggal: "8"
 },
 
 minggu: {
-tanggal: "2026-07-18", 
+tanggal: "2026-07-19", 
 angka: `
 2380 : 72
 4782 : 09
@@ -138,4 +135,5 @@ tunggal: "7"
 //4782 : 0938 098 09 9
 //2394 : 3278 328 38 3
 //6163 : 8794 879 79 7
+//7706 : 5437 547 47 7
 //Rumus JUMLAH 2D TURUN 2 . sama ekor maju langsung sama gpp
