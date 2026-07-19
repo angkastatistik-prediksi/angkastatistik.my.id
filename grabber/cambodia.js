@@ -11,14 +11,20 @@ const DAFTAR_SITUS = [
 const filePath = path.join(__dirname, 'result', 'cambodia.js');
 
 function ekstrakNomorSah(htmlContent) {
+  // 1. Bersihkan semua skrip iklan dan kode CSS agar teks menjadi bersih
   const teksBersih = htmlContent.replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>|<[^>]+>/gi, " ");
   
-  // Melacak text 1st prize
+  // 2. Radar mengunci teks "1st Prize" lalu mengambil 4 digit angka di sebelah kanannya
   const cocokPrize = teksBersih.match(/1st\s*Prize[\s\S]*?(\d{4})/i);
-  if (cocokPrize && cocokPrize[1]) return cocokPrize[1];
+  if (cocokPrize && cocokPrize[1]) {
+    return cocokPrize[1]; // <-- Wajib menggunakan [1] untuk mengambil angkanya saja
+  }
   
+  // Cadangan jika angka ditulis duluan baru teks 1st Prize
   const cocokTerbalik = teksBersih.match(/(\d{4})[\s\S]*?1st\s*Prize/i);
-  if (cocokTerbalik && cocokTerbalik[1]) return cocokTerbalik[1];
+  if (cocokTerbalik && cocokTerbalik[1]) {
+    return cocokTerbalik[1]; // <-- Wajib menggunakan [1]
+  }
   
   return null;
 }
