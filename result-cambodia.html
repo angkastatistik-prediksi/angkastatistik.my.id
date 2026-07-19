@@ -219,7 +219,8 @@ hs.src='//s10.histats.com/js15_as.js';
 <script>
     let warnaKuasAktif = "transparent";
 
-    fetch('result/cambodia.js')
+    // PENGAMBILAN DATA LIVE DRAW UNTUK KOTAK DISPLAY UTAMA
+    fetch('result/cambodia.js?v=' + new Date().getTime()) // Tambah anti-cache browser
         .then(res => res.text())
         .then(dataTeks => {
             const cocokAngka = dataTeks.match(/latestResult:\s*["']([^"']+)["']/);
@@ -233,34 +234,20 @@ hs.src='//s10.histats.com/js15_as.js';
             if(cocokWaktu && cocokWaktu[1] && cocokWaktu[1] !== "-") {
                 document.getElementById('waktu-terbaru-box').innerText = "Update Sah: " + cocokWaktu[1];
             } else {
-                document.getElementById('waktu-terbaru-box').innerText = "Belum Ada Update";
+                document.getElementById('waktu-terbaru-box').innerText = "Menunggu Live Draw...";
             }
         })
         .catch(err => {
-            document.getElementById('waktu-terbaru-box').innerText = "Gagal memuat otomatis.";
+            document.getElementById('waktu-terbaru-box').innerText = "Gagal memuat info.";
         });
 
-    const tombolWarna = document.querySelectorAll('.color-palette .color-btn');
-    tombolWarna.forEach(btn => {
-        btn.addEventListener('click', function() {
-            tombolWarna.forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
-            warnaKuasAktif = this.getAttribute('data-color');
-        });
-    });
-
-    const sekarang = new Date();
-    const liveTimeEl = document.getElementById('live-update-time');
-    if (liveTimeEl) {
-        liveTimeEl.innerHTML = `Jam ${String(sekarang.getHours()).padStart(2, '0')}:${String(sekarang.getMinutes()).padStart(2, '0')} WIB | Fitur Kuas HP Aktif`;
-    }
-    
+    // SISTEM RENDER OTOMATIS TABEL DAFTAR RESULT (PAITO)
     const sumberPaitoCambodia = (typeof DATA_PAITO_CAMBODIA !== 'undefined') ? DATA_PAITO_CAMBODIA : [];
     const paitoTbody = document.getElementById('paito-tbody-data');
     if (paitoTbody) {
         paitoTbody.innerHTML = '';
         if (sumberPaitoCambodia.length === 0) {
-            paitoTbody.innerHTML = '<tr><td colspan="8" style="padding:10px;">Data Berkas Kosong.</td></tr>';
+            paitoTbody.innerHTML = '<tr><td colspan="8" style="padding:10px;">Data Kosong.</td></tr>';
         } else {
             sumberPaitoCambodia.forEach(baris => {
                 let barisHTML = `<tr>`;
@@ -284,7 +271,17 @@ hs.src='//s10.histats.com/js15_as.js';
             });
         }
     }
-    
+
+    // LOGIKA PEWARNAAN KUAS HP
+    const tombolWarna = document.querySelectorAll('.color-palette .color-btn');
+    tombolWarna.forEach(btn => {
+        btn.addEventListener('click', function() {
+            tombolWarna.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            warnaKuasAktif = this.getAttribute('data-color');
+        });
+    });
+
     document.getElementById('paito-tbody-data').addEventListener('click', function(e) {
         if (e.target && e.target.tagName === 'SPAN') {
             if (warnaKuasAktif === "transparent") {
@@ -299,7 +296,6 @@ hs.src='//s10.histats.com/js15_as.js';
         }
     });
 </script>
-
 
     <script src="https://crypotential.com/aau2deh1y8?key=28127d0dedbc5859c5a05ec19fed2ae4"></script>
 </body>
