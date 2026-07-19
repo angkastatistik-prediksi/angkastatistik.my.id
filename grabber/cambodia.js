@@ -61,15 +61,24 @@ async function grabberCambodia() {
     return;
   }
 
-  // PROSES EDIT & INSERT KE FILE RESULT TANPA MENGHAPUS DATA LAMA
+    // PROSES EDIT & INSERT KE FILE RESULT TANPA MENGHAPUS DATA LAMA
   try {
     const fileContent = fs.readFileSync(filePath, 'utf-8');
+    
+    // Mengambil isi array DATA_PAITO_CAMBODIA secara utuh
     const regexArray = fileContent.match(/const\s+DATA_PAITO_CAMBODIA\s*=\s*(\[[\s\S]*?\]);/);
-    let dataPaito = JSON.parse(regexArray[1]);
+    if (!regexArray) {
+      throw new Error("Struktur array DATA_PAITO_CAMBODIA tidak ditemukan di file!");
+    }
+
+    // Mengubah kutipan tunggal menjadi ganda agar aman saat diproses JSON.parse
+    const jsonValidString = regexArray[1].replace(/'/g, '"');
+    let dataPaito = JSON.parse(jsonValidString);
     
     let barisTerakhir = dataPaito[dataPaito.length - 1];
     let slotKosongKetemu = false;
     
+    // Cari kolom kosong "-" di baris minggu terakhir
     for (let i = 1; i < barisTerakhir.length; i++) {
       if (barisTerakhir[i] === "-") {
         barisTerakhir[i] = angkaKeluar;
@@ -78,12 +87,16 @@ async function grabberCambodia() {
       }
     }
     
+    // Jika baris minggu terakhir sudah penuh, buat baris minggu baru
     if (!slotKosongKetemu) {
       const nomorMingguBaru = String(dataPaito.length + 1).padStart(2, '0');
       dataPaito.push([nomorMingguBaru, angkaKeluar, "-", "-", "-", "-", "-", "-"]);
     }
     
+    // Format waktu Indonesia Barat (WIB)
     const tanggalUpdate = new Date().toLocaleString("id-ID", { timeZone: "Asia/Jakarta" }) + " WIB";
+    
+    // Tulis kembali file dengan struktur gabungan agar ramah bagi HTML maupun Node.js
     const isiFileBaru = `const DATA_PAITO_CAMBODIA = ${JSON.stringify(dataPaito, null, 2)};\n\nif (typeof module !== 'undefined' && module.exports) {\n    module.exports = { latestResult: "${angkaKeluar}", updatedAt: "${tanggalUpdate}" };\n}`;
 
     fs.writeFileSync(filePath, isiFileBaru, 'utf-8');
@@ -91,6 +104,3 @@ async function grabberCambodia() {
   } catch (error) {
     console.error(`❌ Gagal memperbarui file berkas: ${error.message}`);
   }
-}
-
-grabberCambodia();
