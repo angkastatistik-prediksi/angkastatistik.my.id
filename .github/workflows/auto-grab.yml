@@ -21,7 +21,7 @@ jobs:
         node-version: 20
 
     - name: Jalankan Skrip Memulung Data
-      run: node result/grabber.js
+      run: node grabber/cambodia.js
 
     - name: Simpan Otomatis Ke Repositori GitHub
       run: |
