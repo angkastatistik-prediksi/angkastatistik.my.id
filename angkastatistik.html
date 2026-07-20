@@ -491,67 +491,65 @@ function ubahKeBase64Lokal(urlSrc) {
 }
 
 // Fungsi utama unduh gambar prediksi Anda
-async function unduhGambarPaitoPng() {
+function unduhGambarPaitoPng() {
     const parameterURL = new URLSearchParams(window.location.search);
     let namaPasaran = parameterURL.get('pasaran') ? parameterURL.get('pasaran').toUpperCase() : "SGP";
     
-    document.getElementById('judul-foto-pasaran').innerText = `PREDIKSI ${namaPasaran}`;
-
+    // Ambil elemen area foto yang ingin disimpan
     const areaFoto = document.getElementById('area-foto-paito');
     const tombol = document.getElementById('btn-download-paito');
     
     if (!areaFoto || !tombol) {
-        alert("Elemen HTML tidak ditemukan!");
+        alert("Elemen gambar tidak ditemukan! Periksa ID area-foto-paito atau btn-download-paito.");
         return;
     }
-    
-    tombol.innerText = "⏳ Memproses Keamanan...";
+
+    tombol.innerText = "⏳ Menyiapkan Dokumen...";
     tombol.disabled = true;
 
-    try {
-        // AMANKAN GAMBAR: Deteksi semua tag <img> di dalam area foto dan ubah ke Base64 murni
-        const semuaGambar = areaFoto.querySelectorAll('img');
-        for (let img of semuaGambar) {
-            if (img.src && !img.src.startsWith('data:')) {
-                const hasilBase64 = await ubahKeBase64Lokal(img.src);
-                img.src = hasilBase64;
-            }
-        }
+    // Buat jendela cetak tiruan di latar belakang
+    const jendelaCetak = window.open('', '_blank', 'height=600,width=800');
+    
+    // Salin gaya desain (CSS) agar tampilan di gambar cetak tidak berantakan
+    let gayaDesain = '';
+    const semuaStyle = document.querySelectorAll('style, link[rel="stylesheet"]');
+    semuaStyle.forEach(style => {
+        gayaDesain += style.outerHTML;
+    });
 
-        tombol.innerText = "⏳ Menyimpan Gambar...";
+    // Susun dokumen baru khusus untuk area foto saja
+    jendelaCetak.document.write(`
+        <html>
+        <head>
+            <title>PREDIKSI-${namaPasaran}-ANGKA-STATISTIK</title>
+            \${gayaDesain}
+            <style>
+                body { margin: 0; padding: 20px; display: flex; justify-content: center; align-items: center; background: #fff; }
+                #area-foto-paito { box-shadow: none !important; border: none !important; display: block !important; }
+                @page { size: auto; margin: 0mm; }
+            </style>
+        </head>
+        <body>
+            <div id="area-foto-paito">\${areaFoto.innerHTML}</div>
+            <script>
+                // Tunggu semua gambar luar selesai dimuat sempurna oleh browser baru, lalu eksekusi
+                window.onload = function() {
+                    window.print();
+                    setTimeout(function() { window.close(); }, 500);
+                };
+            <\/script>
+        </body>
+        </html>
+    `);
 
-        // Jalankan mesin html2canvas dengan konfigurasi bersih
-        html2canvas(areaFoto, { 
-            scale: 2,
-            useCORS: true,
-            allowTaint: false, // Wajib false agar browser tidak mengunci fungsi simpan
-            logging: false,
-            scrollX: 0,
-            scrollY: -window.scrollY
-        }).then(canvas => {
-            const urlGambar = canvas.toDataURL('image/png');
-            const triggerLink = document.createElement('a');
-            triggerLink.href = urlGambar;
-            triggerLink.download = `PREDIKSI-${namaPasaran}-ANGKA-STATISTIK.png`;
-            
-            document.body.appendChild(triggerLink);
-            triggerLink.click();
-            document.body.removeChild(triggerLink);
-            
-            tombol.innerText = "📥 Download Gambar Prediksi (.PNG)";
-            tombol.disabled = false;
-        }).catch(err => {
-            throw err;
-        });
-
-    } catch (error) {
-        console.error("Detail Kendala:", error);
-        alert("Gagal memproses gambar. Solusi: Gunakan screenshot manual atau pindahkan file gambar ke folder lokal hosting Anda.");
+    jendelaCetak.document.close();
+    
+    // Kembalikan status tombol setelah jendela cetak terbuka
+    setTimeout(() => {
         tombol.innerText = "📥 Download Gambar Prediksi (.PNG)";
         tombol.disabled = false;
-    }
+    }, 1000);
 }
-
 </script>
-</body>
+</body> 
 </html>
