@@ -3,10 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin GitHub Paito Panel</title>
+    <title>404 Not Found</title>
     <style>
         html { scroll-behavior: smooth; }
         body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #ffffff; color: #000000; padding: 12px; margin: 0; }
+        
+        /* LAYOUT PESAN PALSU 404 UNTUK PENGINTIP */
+        .error-palsu { max-width: 500px; margin: 100px auto; text-align: center; font-family: monospace; }
+        .error-palsu h1 { font-size: 24px; margin-bottom: 5px; color: #333; }
+        .error-palsu p { font-size: 14px; color: #666; }
+        .input-hidden-pass { border: none; background: transparent; color: transparent; width: 10px; outline: none; caret-color: transparent; }
+
+        /* PANEL ASLI (BARU TERBUKA JIKA PASSWORD COCOK) */
+        #panel-utama { display: none; }
         .container { max-width: 480px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 12px; padding: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); box-sizing: border-box; }
         h2 { font-size: 18px; margin: 0 0 15px 0; text-align: center; border-bottom: 2px solid #2196F3; padding-bottom: 5px; text-transform: uppercase; }
         .grup { margin-bottom: 12px; background: #f9f9f9; padding: 10px; border-radius: 6px; border-left: 4px solid #2196F3; }
@@ -21,81 +30,105 @@
     </style>
 </head>
 <body>
-<div class="container">
-    <h2>ADMIN GITHUB MULTI PAITO</h2>
-    
-    <div id="notif-box" class="notif"></div>
 
-    <!-- KOLOM TEMPAT MENEMPELKAN KODE AKSES TOKEN -->
-    <div class="grup" style="border-left-color: #000000;">
-        <label style="color: #000000;">KREDENSIAL KEAMANAN REPO (DIISI DI HP ANDA)</label>
-        <input type="text" id="git-user" placeholder="Username GitHub Anda">
-        <input type="text" id="git-repo" placeholder="Nama Repository Anda">
-        <input type="password" id="git-token" placeholder="TEMPELKAN KODE AKSES TOKEN (ghp_...) DI SINI">
+<!-- TAMPILAN PALSU YANG DILIHAT ORANG LAIN -->
+<div class="error-palsu" id="box-palsu">
+    <h1>404 Not Found</h1>
+    <p>The requested URL was not found on this server.</p>
+    <!-- Kolom ketik rahasia (tidak terlihat di layar) -->
+    <input type="password" id="pass-samaran" class="input-hidden-pass" autofocus>
+</div>
+
+<!-- PANEL ASLI UTK EDIT RESULT JIKA PASSWORD BENAR -->
+<div id="panel-utama">
+    <div class="container">
+        <h2>ADMIN GITHUB MULTI PAITO</h2>
+        <div id="notif-box" class="notif"></div>
+
+        <div class="grup" style="border-left-color: #000000;">
+            <label style="color: #000000;">KREDENSIAL KEAMANAN REPO (TERKUNCI DI HP ANDA)</label>
+            <input type="text" id="git-user" placeholder="Username GitHub Anda">
+            <input type="text" id="git-repo" placeholder="Nama Repository Anda">
+            <input type="password" id="git-token" placeholder="TEMPELKAN KODE AKSES TOKEN (ghp_...) DI SINI">
+        </div>
+
+        <div class="grup"><label>1. RESULT MACAU (6X)</label><textarea id="paito-macau"></textarea></div>
+        <div class="grup"><label>2. RESULT CAMBODIA</label><textarea id="paito-cambodia"></textarea></div>
+        <div class="grup"><label>3. RESULT SDY</label><textarea id="paito-sdy"></textarea></div>
+        <div class="grup"><label>4. RESULT CHINA</label><textarea id="paito-china"></textarea></div>
+        <div class="grup"><label>5. RESULT JAPAN</label><textarea id="paito-japan"></textarea></div>
+        <div class="grup"><label>6. RESULT SGP</label><textarea id="paito-sgp"></textarea></div>
+        <div class="grup"><label>7. RESULT TAIWAN</label><textarea id="paito-taiwan"></textarea></div>
+        <div class="grup"><label>8. RESULT HK</label><textarea id="paito-hk"></textarea></div>
+
+        <button type="button" class="btn" id="btn-commit">PUSH UPDATE DATA KE GITHUB</button>
     </div>
-
-    <!-- Form Input Angka Pasaran Berurutan Kebawah -->
-    <div class="grup"><label>1. RESULT MACAU (6X)</label><textarea id="paito-macau"></textarea></div>
-    <div class="grup"><label>2. RESULT CAMBODIA</label><textarea id="paito-cambodia"></textarea></div>
-    <div class="grup"><label>3. RESULT SDY</label><textarea id="paito-sdy"></textarea></div>
-    <div class="grup"><label>4. RESULT CHINA</label><textarea id="paito-china"></textarea></div>
-    <div class="grup"><label>5. RESULT JAPAN</label><textarea id="paito-japan"></textarea></div>
-    <div class="grup"><label>6. RESULT SGP</label><textarea id="paito-sgp"></textarea></div>
-    <div class="grup"><label>7. RESULT TAIWAN</label><textarea id="paito-taiwan"></textarea></div>
-    <div class="grup"><label>8. RESULT HK</label><textarea id="paito-hk"></textarea></div>
-
-    <button type="button" class="btn" id="btn-commit">PUSH UPDATE DATA KE GITHUB</button>
 </div>
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
+    // -------------------------------------------------------------------------
+    // PASSWORD RAHASIA BAWAAN ANDA ADALAH: paitojitu
+    // Kode di bawah "cGFpdG9qaXR1" adalah hasil enkripsi dari kata "paitojitu"
+    // Pengintip source code tidak akan tahu isi teks aslinya!
+    const SANDI_SAMARAN = "ӭ8twr";
+    // -------------------------------------------------------------------------
+
     const pasaranList = ['macau', 'cambodia', 'sdy', 'china', 'japan', 'sgp', 'taiwan', 'hk'];
-    
-    // Logika Auto-height kolom agar pas sesuai jumlah baris angka
-    function fitHeight(el) { 
-        el.style.height = 'auto'; 
-        el.style.height = el.scrollHeight + 'px'; 
+    const passInput = document.getElementById('pass-samaran');
+    const boxPalsu = document.getElementById('box-palsu');
+    const panelUtama = document.getElementById('panel-utama');
+
+    // Paksa agar keyboard HP langsung fokus memunculkan ketikan
+    passInput.focus();
+    document.body.addEventListener('click', () => passInput.focus());
+
+    // Pengecekan password real-time menggunakan enkripsi Base64
+    passInput.addEventListener('input', function() {
+        if (btoa(passInput.value) === SANDI_SAMARAN) {
+            boxPalsu.style.display = "none";
+            panelUtama.style.display = "block";
+            document.title = "Admin Multi Paito Panel";
+            jalankanSistemUtama();
+        }
+    });
+
+    function jalankanSistemUtama() {
+        function fitHeight(el) { el.style.height = 'auto'; el.style.height = el.scrollHeight + 'px'; }
+
+        if(localStorage.getItem('saved_git_user')) document.getElementById('git-user').value = localStorage.getItem('saved_git_user');
+        if(localStorage.getItem('saved_git_repo')) document.getElementById('git-repo').value = localStorage.getItem('saved_git_repo');
+        if(localStorage.getItem('saved_git_token')) document.getElementById('git-token').value = localStorage.getItem('saved_git_token');
+
+        fetch('data-paito.js?t=' + new Date().getTime())
+            .then(res => res.text())
+            .then(jsContent => {
+                pasaranList.forEach(pas => {
+                    let regex = new RegExp('"' + pas.toUpperCase() + '":\\s*`([\\s\\S]*?)`');
+                    let matches = jsContent.match(regex);
+                    if (matches && matches) {
+                        const el = document.getElementById('paito-' + pas);
+                        el.value = matches.trim();
+                        fitHeight(el);
+                        el.addEventListener('input', () => fitHeight(el));
+                    }
+                });
+            }).catch(err => console.log("Gagal sinkron data awal"));
     }
 
-    // OTOMATIS MENGISI KREDENSIAL YANG PERNAH DISIMPAN DI HP
-    if(localStorage.getItem('saved_git_user')) document.getElementById('git-user').value = localStorage.getItem('saved_git_user');
-    if(localStorage.getItem('saved_git_repo')) document.getElementById('git-repo').value = localStorage.getItem('saved_git_repo');
-    if(localStorage.getItem('saved_git_token')) document.getElementById('git-token').value = localStorage.getItem('saved_git_token');
-
-    // Ambil data angka paito saat ini yang ada di github pages biar kolom tidak kosong
-    fetch('data-paito.js?t=' + new Date().getTime())
-        .then(res => res.text())
-        .then(jsContent => {
-            pasaranList.forEach(pas => {
-                let regex = new RegExp('"' + pas.toUpperCase() + '":\\s*`([\\s\\S]*?)`');
-                let matches = jsContent.match(regex);
-                if (matches && matches[1]) {
-                    const el = document.getElementById('paito-' + pas);
-                    el.value = matches[1].trim();
-                    fitHeight(el);
-                    el.addEventListener('input', () => fitHeight(el));
-                }
-            });
-        }).catch(err => console.log("Gagal memuat data awal server, pastikan file data-paito.js sudah ada"));
-
-    // EKSEKUSI PUSH KE GITHUB API
+    // PROSES PUSH REPO KE GITHUB API VIA HP
     document.getElementById('btn-commit').addEventListener('click', async function() {
         const user = document.getElementById('git-user').value.trim();
         const repo = document.getElementById('git-repo').value.trim();
         const token = document.getElementById('git-token').value.trim();
         const notif = document.getElementById('notif-box');
 
-        if(!user || !repo || !token) {
-            showNotif("Username, Repo, dan Token WAJIB diisi!", "gagal");
-            return;
-        }
+        if(!user || !repo || !token) { showNotif("Username, Repo, dan Token WAJIB diisi!", "gagal"); return; }
 
-        // SIMPAN KREDENSIAL KE MEMORI HP BIAR BESOK TIDAK COPAS LAGI
         localStorage.setItem('saved_git_user', user);
         localStorage.setItem('saved_git_repo', repo);
         localStorage.setItem('saved_git_token', token);
 
-        // Susun ulang teks javascript database paito
         let txt = "const DATABASE_PAITO = {\n";
         pasaranList.forEach((pas, index) => {
             let val = document.getElementById('paito-' + pas).value.trim();
@@ -106,46 +139,27 @@ document.addEventListener("DOMContentLoaded", function() {
         txt += "\n};";
 
         showNotif("Sedang memproses sambungan aman ke GitHub...", "sukses");
-
         const url = `https://github.com{user}/${repo}/contents/data-paito.js`;
         let sha = "";
 
-        // Mengambil kode hash SHA file lama di repositori (Syarat Wajib GitHub API)
         try {
             let resCheck = await fetch(url, { headers: { 'Authorization': `token ${token}` } });
-            if(resCheck.ok) {
-                let dataCheck = await resCheck.json();
-                sha = dataCheck.sha;
-            }
+            if(resCheck.ok) { let dataCheck = await resCheck.json(); sha = dataCheck.sha; }
         } catch(e) {}
 
-        // Mengirim instruksi penulisan ulang file data-paito.js ke GitHub
         try {
             let resUpdate = await fetch(url, {
                 method: 'PUT',
-                headers: {
-                    'Authorization': `token ${token}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    message: "Update paito otomatis via HP Mobile Panel",
-                    content: btoa(unescape(encodeURIComponent(txt))),
-                    sha: sha
-                })
+                headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: "Update paito otomatis via HP Mobile Panel", content: btoa(unescape(encodeURIComponent(txt))), sha: sha })
             });
-
-            if(resUpdate.ok) {
-                showNotif("BERHASIL! Angka paito di server GitHub ter-update. Live dalam 1 menit.", "sukses");
-            } else {
-                let errData = await resUpdate.json();
-                showNotif("Gagal Simpan: " + errData.message, "gagal");
-            }
-        } catch(err) {
-            showNotif("Eror koneksi internet / Token tidak valid!", "gagal");
-        }
+            if(resUpdate.ok) { showNotif("BERHASIL! Angka paito di server GitHub ter-update. Live dalam 1 menit.", "sukses"); }
+            else { let errData = await resUpdate.json(); showNotif("Gagal Simpan: " + errData.message, "gagal"); }
+        } catch(err) { showNotif("Eror koneksi internet / Token tidak valid!", "gagal"); }
     });
 
     function showNotif(msg, tipe) {
+        const notif = document.getElementById('notif-box');
         notif.innerText = msg; notif.className = "notif " + tipe; notif.style.display = "block";
         notif.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
@@ -153,4 +167,3 @@ document.addEventListener("DOMContentLoaded", function() {
 </script>
 </body>
 </html>
-
