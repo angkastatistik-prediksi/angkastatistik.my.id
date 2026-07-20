@@ -1,5 +1,5 @@
 const LIVE_RESULT_CHINA = {
-    latestResult: "6307"
+    latestResult: "5554"
 };
 
 const DATA_PAITO_CHINA = `
@@ -19,4 +19,5 @@ const DATA_PAITO_CHINA = `
   14,8658,3615,7668,5242,0729,2206,1032,
   15,9407,5574,8682,7756,4708,4504,8093,
   16,4272,9748,5042,1630,9589,6778,6307,
+  17,5554,
 `;
