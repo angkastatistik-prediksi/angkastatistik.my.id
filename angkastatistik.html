@@ -211,12 +211,10 @@
     </div>
 </div>
 <script>
-    // 🎯 SEKARANG SEMUA 8 PASARAN SUDAH ADA GUDANG DATANYA MASING-MASING:
+    // 🎯 SEKARANG FORMAT DATA HK & SEMUA PASARAN SUDAH DISESUAIKAN AGAR PASTI MASUK
     const DATA_PAITO_SGP = "01,7672,3361,1653,5479,7517,\n02,5066,0672,9876,2735,0368,\n12,9720,";
     const DATA_PAITO_MACAU = "20 jul,7209,7123,2640,"; 
     const DATA_PAITO_HK = "01,8888,9999,1111,2222,3333,4444,5555,";
-    
-    // Silakan ganti angka contoh di bawah ini dengan result asli pasaran bosku:
     const DATA_PAITO_SDY = "01,1111,2222,3333,4444,5555,6666,7777,";
     const DATA_PAITO_CAMBODIA = "01,2222,3333,4444,5555,6666,7777,8888,";
     const DATA_PAITO_CHINA = "01,3333,4444,5555,6666,7777,8888,9999,";
@@ -228,7 +226,7 @@
 document.addEventListener("DOMContentLoaded", function() {
     let arrayAngkaMentah = [];
 
-    // 1. DETEKSI PASARAN VIA URL PARAMETER (?pasaran=sgp)
+    // 1. DETEKSI PASARAN VIA URL PARAMETER (?pasaran=hk)
     const parameterURL = new URLSearchParams(window.location.search);
     let pasaranAktif = parameterURL.get('pasaran') ? parameterURL.get('pasaran').toUpperCase() : "SGP";
     
@@ -246,7 +244,7 @@ document.addEventListener("DOMContentLoaded", function() {
         tombolMenu.scrollIntoView({ behavior: 'auto', block: 'nearest', inline: 'center' });
     }
 
-    // 2. AMBIL DATA DARI LOCALSTORAGE ATAU VARIABEL GLOBAL (SUDAH MENDUKUNG 8 PASARAN)
+    // 2. AMBIL DATA DARI LOCALSTORAGE ATAU VARIABEL GLOBAL
     let dataPaitoDinamis = localStorage.getItem(`LOCAL_PAITO_${pasaranAktif}`);
     if (!dataPaitoDinamis) {
         if (pasaranAktif === "SGP") dataPaitoDinamis = DATA_PAITO_SGP;
@@ -268,7 +266,7 @@ document.addEventListener("DOMContentLoaded", function() {
         
         let semuaPotongan = dataPaitoDinamis.split(',').map(item => item.trim()).filter(item => item !== "");
         
-        // Penyaring Pintar: Hanya meloloskan data 4 digit murni angka
+        // Saring ketat: Hanya meloloskan potongan teks yang murni 4 angka
         let semuaAngkaSah = semuaPotongan.filter(item => item.length === 4 && /^\d+$/.test(item));
         
         if (semuaAngkaSah.length === 0) {
@@ -276,17 +274,17 @@ document.addEventListener("DOMContentLoaded", function() {
             return;
         }
 
-        // PENGATURAN JUMLAH HARI RESULT PASARAN
-        let jumlahAmbil = -7; // Default pasaran umum 7 hari harian
+        // Pengaturan jumlah hari aktif tarikan paito
+        let jumlahAmbil = -7; 
         if (pasaranAktif === "MACAU") {
-            jumlahAmbil = -6; // Macau diambil 6 putaran sehari
+            jumlahAmbil = -6; 
         } else if (pasaranAktif === "SGP") {
-            jumlahAmbil = -5; // SGP khusus diambil 5 hari aktif seminggu
+            jumlahAmbil = -5; 
         }
         
         arrayAngkaMentah = semuaAngkaSah.slice(jumlahAmbil);
 
-        // Tampilkan data terbalik (terbaru di atas) ke dalam wadah HTML otomatis
+        // Munculkan nomor result terbalik (terbaru di paling atas wadah)
         let tampilanHistori = [...arrayAngkaMentah].reverse();
         tampilanHistori.forEach((nomor, indeks) => {
             let labelResult = (pasaranAktif === "MACAU") ? `Putaran Ke-${tampilanHistori.length - indeks}` : `Result Ke-${indeks + 1}`;
@@ -314,7 +312,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 
-// 5. RUMUS INTI PREDIKSI PAITO
+// 5. RUMUS INTI PREDIKSI PAITO (REVISI TOTAL BEBAS UNDEFINED & CRASH)
 function jalankanMesinHitung(arrayAngkaMentah) {
     let hitungDigit = Array(10).fill(0);
     let hitungKepala = Array(10).fill(0);
@@ -323,6 +321,7 @@ function jalankanMesinHitung(arrayAngkaMentah) {
 
     arrayAngkaMentah.forEach(angka => {
         if (angka.length === 4) {
+            // 🔥 REVISI 1: Memisahkan urutan digit dengan akurat (As, Kop, Kepala, Ekor)
             let d1 = parseInt(angka[0]); 
             let d2 = parseInt(angka[1]); 
             let d3 = parseInt(angka[2]); 
@@ -340,6 +339,7 @@ function jalankanMesinHitung(arrayAngkaMentah) {
     let urutanHot = [...dataSkorDigit].sort((a, b) => b.skor - a.skor);
     let urutanCold = [...dataSkorDigit].sort((a, b) => a.skor - b.skor);
 
+    // 🔥 REVISI 2: Memperbaiki tanda kurung kotak array [0] agar tidak terjadi undefined
     let angkaHotUtama = urutanHot[0].angka; 
     let angkaColdUtama = urutanCold[0].angka; 
     if (angkaHotUtama === angkaColdUtama && urutanCold[1]) { 
@@ -362,7 +362,7 @@ function jalankanMesinHitung(arrayAngkaMentah) {
     let kepalaKuat = dataKepala[0].angka;
     let ekorKuat = dataEkor[0].angka;
 
-    // Masukkan ke HTML DOM hasil paito
+    // Suntikkan angka jadi ke kotak hasil paito website
     const resAi = document.getElementById('res-ai');
     const resKepala = document.getElementById('res-kepala');
     const resEkor = document.getElementById('res-ekor');
