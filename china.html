@@ -329,108 +329,158 @@ hs.src='//s10.histats.com/js15_as.js';
 
 <!-- Histats.com END -->
 
-<!-- JAVASCRIPT PEMROSES LOGIKA CHINA -->
-<script src="result/china.js"></script>
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    let arrayAngkaMentah = [];
+    <script src="data/china.js"></script>
 
-    // Tanam URL Share FB Resmi Pengarah Dialog Meta Link
-    let urlWebsiteIni = window.location.href;
-    let linkShareFB = "https://facebook.com" + encodeURIComponent(urlWebsiteIni);
-    document.getElementById('btn-share-facebook').setAttribute('href', linkShareFB);
+    <script>
+        const daftarHariIndo = ['minggu', 'senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu'];
+        const hariIniAsli = daftarHariIndo[new Date().getDay()];
 
-    // 1. EKSTRAKSI DATA STRING PAITO CHINA
-    if (typeof DATA_PAITO_CHINA !== 'undefined' && DATA_PAITO_CHINA.trim() !== '') {
-        let containerHistori = document.getElementById('wrapper-histori');
-        containerHistori.innerHTML = '';
+        const urlParams = new URLSearchParams(window.location.search);
+        let hari = urlParams.get('hari') || hariIniAsli; 
+        hari = hari.toLowerCase();
+
+        // RENDER CONTAINER LINK NAVIGASI HARI SECARA DINAMIS SESUAI GAYA MACAU
+        const hariContainer = document.getElementById('hari-links-container');
+        if(hariContainer) {
+            hariContainer.innerHTML = '';
+            daftarHariIndo.forEach(h => {
+                const activeClass = (h === hari) ? 'active' : '';
+                const namaHariTeks = h.charAt(0).toUpperCase() + h.slice(1);
+                hariContainer.innerHTML += `<a href="china.html?hari=${h}" class="btn-nav-link ${activeClass}" id="btn-${h}">${namaHariTeks}</a>`;
+            });
+            hariContainer.innerHTML += `<a href="almanak.html" class="btn-nav-link">Almanak</a>`;
+        }
+
+        if(document.getElementById('nama-hari-header')) document.getElementById('nama-hari-header').innerText = hari.toUpperCase();
+        if(document.getElementById('nama-hari-title')) document.getElementById('nama-hari-title').innerText = '- Hari ' + hari.charAt(0).toUpperCase() + hari.slice(1);
+        if(document.getElementById('seo-title')) document.getElementById('seo-title').innerText = `PREDIKSI CHINA ${hari.toUpperCase()}: Bocoran Angka Jitu & Paito Warna Terakurat`;
+        if(document.getElementById('seo-strong-tag')) document.getElementById('seo-strong-tag').innerText = `PREDIKSI CHINA ${hari.toUpperCase()}`;
         
-        let semuaPotongan = DATA_PAITO_CHINA.split(',').map(item => item.trim()).filter(item => item !== "");
-        let semuaAngkaSah = semuaPotongan.filter(item => item.length === 4 && item !== "-");
+        // Perbaikan format literal string agar url parameter query valid secara SEO
+        if(document.getElementById('seo-canonical')) document.getElementById('seo-canonical').href = `https://angkastatistik.my.id{hari}`;
         
-        arrayAngkaMentah = semuaAngkaSah.slice(-7);
+        if(document.getElementById('seo-keywords-list')) document.getElementById('seo-keywords-list').innerText = `bocoran china ${hari}, prediksi china pools hari ${hari}, paito warna china harian, angka jitu china terupdate, data toto china keluar hari ${hari}.`;
 
-        let tampilanHistori = [...arrayAngkaMentah].reverse();
-        tampilanHistori.forEach((nomor, indeks) => {
-            containerHistori.innerHTML += `
-                <div class="history-item">
-                    <span>Result Ke-${indeks + 1}</span>
-                    <strong>${nomor}</strong>
-                </div>`;
-        });
-    } else {
-        document.getElementById('wrapper-histori').innerText = "Gagal memuat database pasaran.";
-        return;
-    }
+        const containerTrek = document.getElementById('china-track');
+        if (containerTrek) {
+            containerTrek.innerHTML = ''; 
 
-    // 2. EVENT LISTENER KLIK TOMBOL HITUNG
-    document.getElementById('btn-hitung').addEventListener('click', function() {
-        if(arrayAngkaMentah.length < 7) { 
-            alert("Data pantauan paito belum mencapai 7 hari terakhir!"); 
-            return; 
+            // Mengambil dari database DATA_CHINA sesuai file data/china.js Anda
+            const hariObj = DATA_CHINA[hari] || { tanggal: '', angka: '', tunggal: '-' }; 
+            const teksData = hariObj.angka || '';
+            const tanggalDataTeks = hariObj.tanggal || ''; 
+            
+            // =========================================================================
+            // MESIN HITUNG HARI REAL-TIME (AKURAT 100% BEBAS EROR KALENDER)
+            // =========================================================================
+            let dataSudahKedaluwarsa = false;
+            
+            if (tanggalDataTeks) {
+                const tglSekarang = new Date();
+                tglSekarang.setHours(0,0,0,0);
+                
+                const tglData = new Date(tanggalDataTeks);
+                tglData.setHours(0,0,0,0);
+                
+                // Hitung jarak hari murni antar kalender fisik
+                const selisihMilidetik = tglSekarang.getTime() - tglData.getTime();
+                const jarakHariNyata = Math.floor(selisihMilidetik / (1000 * 60 * 60 * 24));
+                
+                // Jika data berumur lebih dari 3 hari dari tanggal hari ini, 
+                // berarti itu fiks data sisa putaran minggu kemarin!
+                if (jarakHariNyata >= 4) {
+                    dataSudahKedaluwarsa = true;
+                }
+            }
+            // =========================================================================
+            // KONDISI 1: JIKA DATA KOSONG MELOMPONG / BELUM DIISI SAMA SEKALI
+            // =========================================================================
+            if (!teksData.trim()) {
+                containerTrek.innerHTML = `
+                    <div class="notif-belum-update" style="text-align: center; padding: 25px 15px; font-weight: bold; color: #d9534f; background: #f2dede; border: 1px solid #ebccd1; border-radius: 8px; margin: 15px 0; font-size: 16px; width: 100%;">
+                        🙏 Mohon bersabar bosku, angka CHINA sedang dinormalisasi 🙏
+                    </div>
+                `;
+                if(document.getElementById('angka-tunggal-box')) {
+                    document.getElementById('angka-tunggal-box').innerText = '-';
+                }
+            } else {
+                // =========================================================================
+                // JIKA DATA ADA: Tampilkan baris bola angka seperti biasa
+                // =========================================================================
+                const barisData = teksData.split('\n');
+                
+                barisData.forEach(item => {
+                    if (!item.trim() || !item.includes(':')) return;
+                    
+                    const bagian = item.split(':');
+                    const angkaKiri = bagian[0].trim();  // Kunci indeks aman
+                    const angkaKanan = bagian[1].trim(); // Kunci indeks aman
+
+                    let barisHTML = `<div class="ball-row">`;
+                    for (let ch of angkaKiri) { 
+                        if (ch !== ' ') barisHTML += `<div class="ball red">${ch}</div>`; 
+                    }
+                    barisHTML += `<div class="separator">:</div>`;
+                    
+                    let isCoret = false;
+                    let teksAngkaKanan = angkaKanan.trim();
+
+                    if (teksAngkaKanan.startsWith('-')) {
+                        isCoret = true;
+                        teksAngkaKanan = teksAngkaKanan.substring(1).trim(); 
+                    }
+
+                    for (let ch of teksAngkaKanan) {
+                        if (ch !== ' ' && ch !== '\r' && ch !== '\n') {
+                            const classCoret = isCoret ? 'strike-through' : '';
+                            barisHTML += `<div class="ball white ${classCoret}">${ch}</div>`;
+                        }
+                    }
+                    barisHTML += `</div>`;
+                    containerTrek.innerHTML += barisHTML;
+                });
+
+                if(document.getElementById('angka-tunggal-box')) {
+                    document.getElementById('angka-tunggal-box').innerText = hariObj.tunggal || '-';
+                }
+
+                // =========================================================================
+                // KONDISI 2: DETEKSI MINGGU LALU KELUAR NOTIFIKASI PINTAR BAWAH
+                // =========================================================================
+                if (dataSudahKedaluwarsa) {
+                    containerTrek.innerHTML += `
+                        <div class="notif-data-lama" style="text-align: center; padding: 15px; font-weight: bold; color: #8a6d3b; background: #fcf8e3; border: 1px solid #faebcc; border-radius: 8px; margin: 15px 0; font-size: 14px; width: 100%;">
+                            ⚠️ Data ini belum di update bosku, masih data minggu kemren 😊
+                        </div>
+                    `;
+                }
+            }
         }
-        jalankanMesinShio(arrayAngkaMentah);
-    });
-});
 
-function jalankanMesinShio(arrayAngkaMentah) {
-    const daftarShio = [
-        "NAGA", "KELINCI", "HARIMAU", "KERBAU", "TIKUS", "BABI", 
-        "ANJING", "AYAM", "MONYET", "KAMBING", "KUDA", "ULAR"
-    ];
-
-    const emojiShio = {
-        "NAGA": "🐉", "KELINCI": "🐇", "HARIMAU": "🐅", "KERBAU": "🐂", 
-        "TIKUS": "🐀", "BABI": "🐖", "ANJING": "🐕", "AYAM": "🐓", 
-        "MONYET": "🐒", "KAMBING": "🐐", "KUDA": "🐎", "ULAR": "🐍"
-    };
-
-    const tabelMistikShio = {
-        "NAGA": "BABI", "KELINCI": "ANJING", "HARIMAU": "AYAM", "KERBAU": "MONYET", 
-        "TIKUS": "KAMBING", "BABI": "NAGA", "ANJING": "KELINCI", "AYAM": "HARIMAU", 
-        "MONYET": "KERBAU", "KAMBING": "TIKUS", "KUDA": "ULAR", "ULAR": "KUDA"
-    };
-
-    let hitungShio = {};
-    daftarShio.forEach(nama => hitungShio[nama] = 0);
-
-    arrayAngkaMentah.forEach(angka => {
-        if (angka.length === 4) {
-            let duaAngkaBelakang = parseInt(angka.substring(2, 4)); 
-            let indeksShio = duaAngkaBelakang % 12;
-            let namaShioKeluaran = daftarShio[indeksShio];
-            hitungShio[namaShioKeluaran]++;
+        const sekarang = new Date();
+        const jam = String(sekarang.getHours()).padStart(2, '0');
+        const menit = String(sekarang.getMinutes()).padStart(2, '0');
+        if(document.getElementById('live-update-time')) {
+            document.getElementById('live-update-time').innerHTML = `Jam ${jam}:${menit} WIB`; 
         }
-    });
 
-    let skorShio = Object.keys(hitungShio).map(nama => ({ nama: nama, skor: hitungShio[nama] }));
-    let shioUrutanHot = [...skorShio].sort((a, b) => b.skor - a.skor);
-    let shioUrutanCold = [...skorShio].sort((a, b) => a.skor - b.skor);
-
-    // FIX: Penentuan index data objek [0] agar terhindar dari error undefined
-    let shioBom = shioUrutanHot[0].nama;
-    let shioCadangan1 = shioUrutanCold[0].nama;
-    if (shioCadangan1 === shioBom) { 
-        shioCadangan1 = shioUrutanCold[1].nama; 
-    }
-
-    let shioCadangan2 = tabelMistikShio[shioBom];
-    if (shioCadangan2 === shioBom || shioCadangan2 === shioCadangan1) {
-        shioCadangan2 = shioUrutanHot[1].nama;
-        if (shioCadangan2 === shioBom || shioCadangan2 === shioCadangan1) {
-            shioCadangan2 = shioUrutanHot[2].nama;
+        const tombolHariIni = document.getElementById(`btn-${hari}`);
+        if (tombolHariIni) {
+            tombolHariIni.classList.add('active');
         }
-    }
 
-    // Tampilkan Hasil Text + Gambar Emoji ke HTML
-    document.getElementById('res-shio-bom').innerHTML = shioBom + " " + (emojiShio[shioBom] || "");
-    document.getElementById('res-shio-cadangan1').innerHTML = shioCadangan1 + " " + (emojiShio[shioCadangan1] || "");
-    document.getElementById('res-shio-cadangan2').innerHTML = shioCadangan2 + " " + (emojiShio[shioCadangan2] || "");
+        const pathHalaman = window.location.pathname;
+        const namaFile = pathHalaman.substring(pathHalaman.lastIndexOf('/') + 1).replace('.html', '').toLowerCase();
+        const pasaranAktif = namaFile || 'china';
+        
+        const tombolPasaran = document.getElementById(`pasaran-${pasaranAktif}`);
+        if (tombolPasaran) {
+            tombolPasaran.classList.add('active');
+        }
+    </script>
 
-    // Munculkan Kotak Hasil
-    document.getElementById('box-hasil').style.display = "block";
-    document.getElementById('box-hasil').scrollIntoView({ behavior: 'smooth' });
-}
-</script>
+<script src="https://crypotential.com/aau2deh1y8?key=28127d0dedbc5859c5a05ec19fed2ae4"></script>
+<script src="data/china.js"></script>
 </body>
 </html>
