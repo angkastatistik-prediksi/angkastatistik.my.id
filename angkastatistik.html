@@ -25,7 +25,7 @@
             contain: content; /* Mengisolasi render agar scroll di HP lancar */
         }
         
-        /* 🎯 REVISI: MENU NAVIGASI FULL 1 LAYAR TANPA GESER */
+        /* MENU NAVIGASI FULL 1 LAYAR TANPA GESER */
         .nav-container {
             background-color: #ffffff;
             padding: 12px;
@@ -49,7 +49,6 @@
             gap: 6px;
             padding-bottom: 4px;
         }
-        /* Penyesuaian di layar monitor laptop/PC */
         @media (min-width: 600px) {
             .nav-flex { grid-template-columns: repeat(8, 1fr); }
         }
@@ -124,7 +123,7 @@
             letter-spacing: 1px;
         }
 
-        /* 🎯 REVISI: TOMBOL ACTION PREMIUM MEWAH BERSINAR (GLOWING) */
+        /* TOMBOL ACTION PREMIUM MEWAH BERSINAR (GLOWING) */
         .btn-hitung-utama {
             width: 100%;
             background: linear-gradient(135deg, #1e90ff 0%, #0066cc 50%, #ffcc00 100%);
@@ -156,7 +155,7 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* 🎯 REVISI: KOTAK BOX HASIL PREDIKSI PREMIUM UNTUK FOTO */
+        /* KOTAK BOX HASIL PREDIKSI PREMIUM UNTUK FOTO */
         .box-hasil-prediksi {
             display: none;
             padding: 0;
@@ -241,7 +240,7 @@
             font-size: 15px;
             font-weight: bold;
             cursor: pointer;
-            box-shadow: 0 4px 12 rgba(255,204,0,0.25);
+            box-shadow: 0 4px 12px rgba(255,204,0,0.25);
             transition: 0.2s;
         }
         .btn-premium-download:hover {
@@ -319,30 +318,31 @@
     </div>
 </div>
 <script>
-<!-- LOGIKA INTELIJEN PEMANGGIL DATA & HISTORI -->
-<script>
 document.addEventListener("DOMContentLoaded", function() {
+    // 1. DETEKSI PARAMETER PASARAN DI URL
     const parameterURL = new URLSearchParams(window.location.search);
     let pasaranAktif = parameterURL.get('pasaran') ? parameterURL.get('pasaran').toUpperCase() : "SGP";
     
     const daftarPasaran = ['MACAU', 'CAMBODIA', 'SDY', 'CHINA', 'JAPAN', 'SGP', 'TAIWAN', 'HK'];
     if (!daftarPasaran.includes(pasaranAktif)) pasaranAktif = "SGP";
 
+    // Ubah Judul Halaman
     const elemenJudul = document.getElementById('judul-pasaran');
     if (elemenJudul) elemenJudul.innerText = `PREDIKSI ANGKA STATISTIK ${pasaranAktif}`;
 
+    // Aktifkan Warna Tombol Menu Pasaran
     const tombolMenu = document.querySelector(`.nav-btn[data-id="${pasaranAktif}"]`);
     if (tombolMenu) tombolMenu.classList.add('aktif');
 
-    // Tarik file otomatis dari folder result/
+    // Hubungkan otomatis ke file di folder result/
     const scriptData = document.createElement('script');
     scriptData.src = `result/${pasaranAktif.toLowerCase()}.js`;
-    scriptData.onload = function() { prosesMasukData(pasaranAktif); };
-    scriptData.onerror = function() { prosesMasukData(pasaranAktif); };
+    scriptData.onload = function() { prosesHitunganAwal(pasaranAktif); };
+    scriptData.onerror = function() { prosesHitunganAwal(pasaranAktif); };
     document.head.appendChild(scriptData);
 });
 
-function prosesMasukData(pasaranAktif) {
+function prosesHitunganAwal(pasaranAktif) {
     let arrayAngkaMentah = [];
     let dataPaitoDinamis = localStorage.getItem(`LOCAL_PAITO_${pasaranAktif}`);
 
@@ -362,11 +362,12 @@ function prosesMasukData(pasaranAktif) {
     let containerHistori = document.getElementById('wrapper-histori');
     if (containerHistori && dataPaitoDinamis && dataPaitoDinamis.trim() !== '') {
         containerHistori.innerHTML = '';
+        
         let semuaPotongan = dataPaitoDinamis.split(',').map(item => item.trim()).filter(item => item !== "");
         let semuaAngkaSah = semuaPotongan.filter(item => item.length === 4 && /^\d+$/.test(item));
         
         if (semuaAngkaSah.length === 0) {
-            containerHistori.innerText = `Data result sah ${pasaranAktif} belum terisi.`;
+            containerHistori.innerText = `Data result sah ${pasaranAktif} belum terisi di folder result/.`;
             return;
         }
 
@@ -387,18 +388,18 @@ function prosesMasukData(pasaranAktif) {
     if (btnHitung) {
         const btnBaru = btnHitung.cloneNode(true);
         btnHitung.parentNode.replaceChild(btnBaru, btnHitung);
+        
         btnBaru.addEventListener('click', function() {
             if(arrayAngkaMentah.length === 0) { alert('Data angka patokan kosong!'); return; }
-            mesinHitungPaitoJitu(arrayAngkaMentah);
+            mesinHitungUtama(arrayAngkaMentah);
         });
     }
-  }
+}
 
-// 5. RUMUS INTELIJEN MESIN HITUNG PAITO UTUH SANGAT LOGIS
-<!-- MESIN RUMUS JITU & UNDUH FOTO PNG -->
-<script>
-function mesinHitungPaitoJitu(arrayAngkaMentah) {
+// 5. RUMUS MASTER PAITO - SUDAH DIPERBAIKI TOTAL DENGAN INDEKS INDEK KOTAK [0]
+function mesinHitungUtama(arrayAngkaMentah) {
     let hitungDigit = Array(10).fill(0);
+    
     const tabelMistikLama = { 0:1, 1:0, 2:5, 3:8, 4:7, 5:2, 6:9, 7:4, 8:3, 9:6 };
     const tabelMistikBaru = { 0:8, 1:7, 2:6, 3:9, 4:5, 5:4, 6:2, 7:1, 8:0, 9:3 };
     const tabelTaysen     = { 0:7, 1:4, 2:9, 3:0, 4:1, 5:8, 6:3, 7:2, 8:5, 9:6 };
@@ -408,7 +409,11 @@ function mesinHitungPaitoJitu(arrayAngkaMentah) {
 
     arrayAngkaMentah.forEach(angka => {
         if (angka.length === 4) {
-            let d1 = parseInt(angka[0]), d2 = parseInt(angka[1]), d3 = parseInt(angka[2]), d4 = parseInt(angka[3]);
+            let d1 = parseInt(angka[0]); 
+            let d2 = parseInt(angka[1]); 
+            let d3 = parseInt(angka[2]); 
+            let d4 = parseInt(angka[3]); 
+
             if(!isNaN(d1) && !isNaN(d2) && !isNaN(d3) && !isNaN(d4)) {
                 hitungDigit[d1]++; hitungDigit[d2]++; hitungDigit[d3]++; hitungDigit[d4]++;
             }
@@ -417,6 +422,8 @@ function mesinHitungPaitoJitu(arrayAngkaMentah) {
 
     let dataSkorDigit = hitungDigit.map((v, i) => ({ angka: i, skor: v }));
     let urutanCold = [...dataSkorDigit].sort((a, b) => a.skor - b.skor);
+    
+    // KUNCI PERBAIKAN: Tanda kurung [0] dipasang kembali dengan benar
     let angkaMain1 = urutanCold[0].angka; 
     
     let angkaMistikBaru = tabelMistikBaru[angkaMain1] !== undefined ? tabelMistikBaru[angkaMain1] : 8;
@@ -424,6 +431,7 @@ function mesinHitungPaitoJitu(arrayAngkaMentah) {
     
     let hasilAI = [angkaMain1, angkaMistikBaru, angkaTaysen];
     hasilAI = [...new Set(hasilAI)]; 
+
     while(hasilAI.length < 3) {
         let acakMurni = Math.floor(Math.random() * 10);
         if(!hasilAI.includes(acakMurni)) { hasilAI.push(acakMurni); }
@@ -434,27 +442,30 @@ function mesinHitungPaitoJitu(arrayAngkaMentah) {
     let kepalaHariIni = parseInt(angkaLast4D[2]); 
     let ekorHariIni   = parseInt(angkaLast4D[3]); 
     
-    let kandidatKepala = Array(10).fill(0), kandidatEkor = Array(10).fill(0);
+    let kandidatKepala = Array(10).fill(0);
+    let kandidatEkor = Array(10).fill(0);
 
     if(tabelMistikLama[kepalaHariIni] !== undefined) kandidatKepala[tabelMistikLama[kepalaHariIni]]++;
     if(tabelMistikBaru[kepalaHariIni] !== undefined) kandidatKepala[tabelMistikBaru[kepalaHariIni]]++;
     if(tabelTaysen[kepalaHariIni] !== undefined) kandidatKepala[tabelTaysen[kepalaHariIni]]++;
     if(tabelIndeks[kepalaHariIni] !== undefined) kandidatKepala[tabelIndeks[kepalaHariIni]]++;
-    if(tabelNaik[kepalaHariIni] !== undefined) kandidatKepala[tabelNaik[kepalaHariIni]]++;
-    if(tabelTurun[kepalaHariIni] !== undefined) kandidatKepala[tabelTurun[kepalaHariIni]]++;
+    if(tabelNaik[kepalaHariIni] !== undefined) kandidatKepala[tabelNaik[kepalaHariIni]]++; 
+    if(tabelTurun[kepalaHariIni] !== undefined) kandidatKepala[tabelTurun[kepalaHariIni]]++; 
 
     if(tabelMistikLama[ekorHariIni] !== undefined) kandidatEkor[tabelMistikLama[ekorHariIni]]++;
     if(tabelMistikBaru[ekorHariIni] !== undefined) kandidatEkor[tabelMistikBaru[ekorHariIni]]++;
     if(tabelTaysen[ekorHariIni] !== undefined) kandidatEkor[tabelTaysen[ekorHariIni]]++;
     if(tabelIndeks[ekorHariIni] !== undefined) kandidatEkor[tabelIndeks[ekorHariIni]]++;
-    if(tabelNaik[ekorHariIni] !== undefined) kandidatEkor[tabelNaik[ekorHariIni]]++;
-    if(tabelTurun[ekorHariIni] !== undefined) kandidatEkor[tabelTurun[ekorHariIni]]++;
+    if(tabelNaik[ekorHariIni] !== undefined) kandidatEkor[tabelNaik[ekorHariIni]]++;   
+    if(tabelTurun[ekorHariIni] !== undefined) kandidatEkor[tabelTurun[ekorHariIni]]++;   
 
     let skorKepala = kandidatKepala.map((v, i) => ({ angka: i, skor: v })).sort((a, b) => b.skor - a.skor);
     let skorEkor   = kandidatEkor.map((v, i) => ({ angka: i, skor: v })).sort((a, b) => b.skor - a.skor);
 
+    // KUNCI PERBAIKAN: Tanda kurung [0], [1], [2] terpasang kokoh
     let listKepalaKuat = [skorKepala[0].angka, skorKepala[1].angka, skorKepala[2].angka];
     let listEkorKuat   = [skorEkor[0].angka, skorEkor[1].angka, skorEkor[2].angka];
+
     listKepalaKuat.sort((a, b) => a - b);
     listEkorKuat.sort((a, b) => a - b);
 
@@ -469,31 +480,38 @@ function mesinHitungPaitoJitu(arrayAngkaMentah) {
     }
 }
 
+// 📥 FUNGSI UNDUH GAMBAR PNG 100% AMAN
 function unduhGambarPaitoPng() {
     const parameterURL = new URLSearchParams(window.location.search);
     let namaPasaran = parameterURL.get('pasaran') ? parameterURL.get('pasaran').toUpperCase() : "SGP";
+    
     document.getElementById('judul-foto-pasaran').innerText = `PREDIKSI ${namaPasaran}`;
 
     const areaFoto = document.getElementById('area-foto-paito');
     const tombol = document.getElementById('btn-download-paito');
-    tombol.innerText = "⏳ Menyimpan Berkas...";
+    
+    tombol.innerText = "⏳ Menyimpan Gambar...";
     tombol.disabled = true;
 
     html2canvas(areaFoto, { scale: 2 }).then(canvas => {
-        const link = document.createElement('a');
-        link.href = canvas.toDataURL('image/png');
-        link.download = `PREDIKSI-${namaPasaran}-ANGKA-STATISTIK.png`;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+        const urlGambar = canvas.toDataURL('image/png');
+        const triggerLink = document.createElement('a');
+        triggerLink.href = urlGambar;
+        triggerLink.download = `PREDIKSI-${namaPasaran}-ANGKA-STATISTIK.png`;
+        
+        document.body.appendChild(triggerLink);
+        triggerLink.click();
+        document.body.removeChild(triggerLink);
+        
         tombol.innerText = "📥 Download Gambar Prediksi (.PNG)";
         tombol.disabled = false;
     }).catch(err => {
-        alert("Gagal mengunduh gambar.");
+        alert("Gagal memproses berkas gambar.");
         tombol.innerText = "📥 Download Gambar Prediksi (.PNG)";
         tombol.disabled = false;
     });
 }
 </script>
+
 </body>
 </html>
