@@ -469,7 +469,29 @@ function jalankanMesinRumusMaster(arrayAngkaMentah) {
     }
 }
 
-function unduhGambarPaitoPng() {
+// Fungsi pembantu untuk mengubah gambar luar menjadi teks Base64 lokal
+function ubahKeBase64Lokal(urlSrc) {
+    return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.crossOrigin = 'Anonymous'; // Meminta izin CORS secara halus
+        img.src = urlSrc;
+        img.onload = () => {
+            const canvas = document.createElement('canvas');
+            canvas.width = img.width;
+            canvas.height = img.height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0);
+            resolve(canvas.toDataURL('image/png'));
+        };
+        img.onerror = () => {
+            // Jika gambar luar gagal karena proteksi ketat, abaikan agar tidak membuat macet seluruh fungsi
+            resolve(urlSrc); 
+        };
+    });
+}
+
+// Fungsi utama unduh gambar prediksi Anda
+async function unduhGambarPaitoPng() {
     const parameterURL = new URLSearchParams(window.location.search);
     let namaPasaran = parameterURL.get('pasaran') ? parameterURL.get('pasaran').toUpperCase() : "SGP";
     
@@ -479,39 +501,55 @@ function unduhGambarPaitoPng() {
     const tombol = document.getElementById('btn-download-paito');
     
     if (!areaFoto || !tombol) {
-        alert("Elemen HTML tidak ditemukan! Periksa ID area-foto-paito atau btn-download-paito.");
+        alert("Elemen HTML tidak ditemukan!");
         return;
     }
     
-    tombol.innerText = "⏳ Menyimpan Gambar...";
+    tombol.innerText = "⏳ Memproses Keamanan...";
     tombol.disabled = true;
 
-    // Perbaikan Opsi: Hapus allowTaint, gunakan useCORS, dan kunci posisi scroll
-    html2canvas(areaFoto, { 
-        scale: 2,
-        useCORS: true,       // Mengizinkan gambar eksternal dengan header CORS yang valid
-        allowTaint: false,   // WAJIB FALSE agar fungsi toDataURL() tidak diblokir browser
-        logging: false,      // Mematikan log konsol internal agar performa lebih cepat
-        scrollX: 0,          // Mencegah gambar terpotong akibat posisi scroll horizontal
-        scrollY: -window.scrollY // Menyelaraskan offset scroll vertikal browser
-    }).then(canvas => {
-        const urlGambar = canvas.toDataURL('image/png');
-        const triggerLink = document.createElement('a');
-        triggerLink.href = urlGambar;
-        triggerLink.download = `PREDIKSI-${namaPasaran}-ANGKA-STATISTIK.png`;
-        
-        document.body.appendChild(triggerLink);
-        triggerLink.click();
-        document.body.removeChild(triggerLink);
-        
+    try {
+        // AMANKAN GAMBAR: Deteksi semua tag <img> di dalam area foto dan ubah ke Base64 murni
+        const semuaGambar = areaFoto.querySelectorAll('img');
+        for (let img of semuaGambar) {
+            if (img.src && !img.src.startsWith('data:')) {
+                const hasilBase64 = await ubahKeBase64Lokal(img.src);
+                img.src = hasilBase64;
+            }
+        }
+
+        tombol.innerText = "⏳ Menyimpan Gambar...";
+
+        // Jalankan mesin html2canvas dengan konfigurasi bersih
+        html2canvas(areaFoto, { 
+            scale: 2,
+            useCORS: true,
+            allowTaint: false, // Wajib false agar browser tidak mengunci fungsi simpan
+            logging: false,
+            scrollX: 0,
+            scrollY: -window.scrollY
+        }).then(canvas => {
+            const urlGambar = canvas.toDataURL('image/png');
+            const triggerLink = document.createElement('a');
+            triggerLink.href = urlGambar;
+            triggerLink.download = `PREDIKSI-${namaPasaran}-ANGKA-STATISTIK.png`;
+            
+            document.body.appendChild(triggerLink);
+            triggerLink.click();
+            document.body.removeChild(triggerLink);
+            
+            tombol.innerText = "📥 Download Gambar Prediksi (.PNG)";
+            tombol.disabled = false;
+        }).catch(err => {
+            throw err;
+        });
+
+    } catch (error) {
+        console.error("Detail Kendala:", error);
+        alert("Gagal memproses gambar. Solusi: Gunakan screenshot manual atau pindahkan file gambar ke folder lokal hosting Anda.");
         tombol.innerText = "📥 Download Gambar Prediksi (.PNG)";
         tombol.disabled = false;
-    }).catch(err => {
-        console.error("Detail Error:", err); 
-        alert("Gagal memproses berkas gambar: " + err.message);
-        tombol.innerText = "📥 Download Gambar Prediksi (.PNG)";
-        tombol.disabled = false;
-    });
+    }
 }
 
 </script>
