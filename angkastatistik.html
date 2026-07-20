@@ -322,6 +322,7 @@
     </div>
 </div>
 
+<!-- KODE PENGATUR PASARAN & HISTORI ANGKA -->
 <script>
 document.addEventListener("DOMContentLoaded", function() {
     const parameterURL = new URLSearchParams(window.location.search);
@@ -333,22 +334,21 @@ document.addEventListener("DOMContentLoaded", function() {
     const elemenJudul = document.getElementById('judul-pasaran');
     if (elemenJudul) elemenJudul.innerText = `PREDIKSI ANGKA STATISTIK ${pasaranAktif}`;
 
-    // Sinkronisasi otomatis judul teks di kartu gambar paito
     const elemenJudulFoto = document.getElementById('judul-foto-pasaran');
     if (elemenJudulFoto) elemenJudulFoto.innerText = `PREDIKSI ${pasaranAktif}`;
 
     const tombolMenu = document.querySelector(`.nav-btn[data-id="${pasaranAktif}"]`);
     if (tombolMenu) tombolMenu.classList.add('aktif');
 
-    // Load file paito dari folder result/ secara otomatis
+    // Memuat berkas angka otomatis dari folder result/
     const scriptData = document.createElement('script');
     scriptData.src = `result/${pasaranAktif.toLowerCase()}.js`;
-    scriptData.onload = function() { prosesMasukDataInti(pasaranAktif); };
-    scriptData.onerror = function() { prosesMasukDataInti(pasaranAktif); };
+    scriptData.onload = function() { prosesMuatDataPaito(pasaranAktif); };
+    scriptData.onerror = function() { prosesMuatDataPaito(pasaranAktif); };
     document.head.appendChild(scriptData);
 });
 
-function prosesMasukDataInti(pasaranAktif) {
+function prosesMuatDataPaito(pasaranAktif) {
     let arrayAngkaMentah = [];
     let dataPaitoDinamis = localStorage.getItem(`LOCAL_PAITO_${pasaranAktif}`);
 
@@ -368,12 +368,11 @@ function prosesMasukDataInti(pasaranAktif) {
     let containerHistori = document.getElementById('wrapper-histori');
     if (containerHistori && dataPaitoDinamis && dataPaitoDinamis.trim() !== '') {
         containerHistori.innerHTML = '';
-        
         let semuaPotongan = dataPaitoDinamis.split(',').map(item => item.trim()).filter(item => item !== "");
         let semuaAngkaSah = semuaPotongan.filter(item => item.length === 4 && /^\d+$/.test(item));
         
         if (semuaAngkaSah.length === 0) {
-            containerHistori.innerText = `Data result sah ${pasaranAktif} belum terisi di folder result/.`;
+            containerHistori.innerText = `Data result sah ${pasaranAktif} belum terisi.`;
             return;
         }
 
@@ -394,17 +393,16 @@ function prosesMasukDataInti(pasaranAktif) {
     if (btnHitung) {
         const btnBaru = btnHitung.cloneNode(true);
         btnHitung.parentNode.replaceChild(btnBaru, btnHitung);
-        
         btnBaru.addEventListener('click', function() {
-            if(arrayAngkaMentah.length === 0) { alert('Data angka patokan kosong!'); return; }
+            if(arrayAngkaMentah.length === 0) { alert('Data patokan kosong!'); return; }
             jalankanMesinRumusMaster(arrayAngkaMentah);
         });
     }
 }
-
+<!-- KODE RUMUS HITUNG & TOMBOL EXPORT FOTO PNG -->
+<script>
 function jalankanMesinRumusMaster(arrayAngkaMentah) {
     let hitungDigit = Array(10).fill(0);
-    
     const tabelMistikLama = { 0:1, 1:0, 2:5, 3:8, 4:7, 5:2, 6:9, 7:4, 8:3, 9:6 };
     const tabelMistikBaru = { 0:8, 1:7, 2:6, 3:9, 4:5, 5:4, 6:2, 7:1, 8:0, 9:3 };
     const tabelTaysen     = { 0:7, 1:4, 2:9, 3:0, 4:1, 5:8, 6:3, 7:2, 8:5, 9:6 };
@@ -414,11 +412,7 @@ function jalankanMesinRumusMaster(arrayAngkaMentah) {
 
     arrayAngkaMentah.forEach(angka => {
         if (angka.length === 4) {
-            let d1 = parseInt(angka.charAt(0)); 
-            let d2 = parseInt(angka.charAt(1)); 
-            let d3 = parseInt(angka.charAt(2)); 
-            let d4 = parseInt(angka.charAt(3)); 
-
+            let d1 = parseInt(angka.charAt(0)), d2 = parseInt(angka.charAt(1)), d3 = parseInt(angka.charAt(2)), d4 = parseInt(angka.charAt(3)); 
             if(!isNaN(d1) && !isNaN(d2) && !isNaN(d3) && !isNaN(d4)) {
                 hitungDigit[d1]++; hitungDigit[d2]++; hitungDigit[d3]++; hitungDigit[d4]++;
             }
@@ -427,16 +421,12 @@ function jalankanMesinRumusMaster(arrayAngkaMentah) {
 
     let dataSkorDigit = hitungDigit.map((v, i) => ({ angka: i, skor: v }));
     let urutanCold = dataSkorDigit.sort((a, b) => a.skor - b.skor);
-    
-    // 🎯 REVISI AMAN: Menggunakan properti object berantai, dijamin anti-sensor chat AI
     let angkaMain1 = urutanCold.shift().angka; 
-    
     let angkaMistikBaru = tabelMistikBaru[angkaMain1] !== undefined ? tabelMistikBaru[angkaMain1] : 8;
     let angkaTaysen     = tabelTaysen[angkaMain1] !== undefined ? tabelTaysen[angkaMain1] : 4;
     
     let hasilAI = [angkaMain1, angkaMistikBaru, angkaTaysen];
     hasilAI = [...new Set(hasilAI)]; 
-
     while(hasilAI.length < 3) {
         let acakMurni = Math.floor(Math.random() * 10);
         if(!hasilAI.includes(acakMurni)) { hasilAI.push(acakMurni); }
@@ -444,18 +434,15 @@ function jalankanMesinRumusMaster(arrayAngkaMentah) {
     hasilAI.sort(() => Math.random() - 0.5);
 
     let angkaLast4D = arrayAngkaMentah[arrayAngkaMentah.length - 1]; 
-    let kepalaHariIni = parseInt(angkaLast4D.charAt(2)); 
-    let ekorHariIni   = parseInt(angkaLast4D.charAt(3)); 
-    
-    let kandidatKepala = Array(10).fill(0);
-    let kandidatEkor = Array(10).fill(0);
+    let kepalaHariIni = parseInt(angkaLast4D.charAt(2)), ekorHariIni = parseInt(angkaLast4D.charAt(3)); 
+    let kandidatKepala = Array(10).fill(0), kandidatEkor = Array(10).fill(0);
 
     if(tabelMistikLama[kepalaHariIni] !== undefined) kandidatKepala[tabelMistikLama[kepalaHariIni]]++;
     if(tabelMistikBaru[kepalaHariIni] !== undefined) kandidatKepala[tabelMistikBaru[kepalaHariIni]]++;
     if(tabelTaysen[kepalaHariIni] !== undefined) kandidatKepala[tabelTaysen[kepalaHariIni]]++;
     if(tabelIndeks[kepalaHariIni] !== undefined) kandidatKepala[tabelIndeks[kepalaHariIni]]++;
     if(tabelNaik[kepalaHariIni] !== undefined) kandidatKepala[tabelNaik[kepalaHariIni]]++; 
-    if(tabelTurun[kepalaHariIni] !== undefined) presidentialKepala = kandidatKepala[tabelTurun[kepalaHariIni]]++; 
+    if(tabelTurun[kepalaHariIni] !== undefined) kandidatKepala[tabelTurun[kepalaHariIni]]++; 
 
     if(tabelMistikLama[ekorHariIni] !== undefined) kandidatEkor[tabelMistikLama[ekorHariIni]]++;
     if(tabelMistikBaru[ekorHariIni] !== undefined) kandidatEkor[tabelMistikBaru[ekorHariIni]]++;
@@ -467,19 +454,9 @@ function jalankanMesinRumusMaster(arrayAngkaMentah) {
     let skorKepala = kandidatKepala.map((v, i) => ({ angka: i, skor: v })).sort((a, b) => b.skor - a.skor);
     let skorEkor   = kandidatEkor.map((v, i) => ({ angka: i, skor: v })).sort((a, b) => b.skor - a.skor);
 
-    // 🎯 REVISI AMAN: Pengambilan 3 rangking teratas menggunakan metode shift, bebas dari tanda kurung eror
-    let k1 = skorKepala.shift().angka;
-    let k2 = skorKepala.shift().angka;
-    let k3 = skorKepala.shift().angka;
-    let listKepalaKuat = [k1, k2, k3];
-
-    let e1 = skorEkor.shift().angka;
-    let e2 = skorEkor.shift().angka;
-    let e1_3 = skorEkor.shift().angka;
-    let listEkorKuat = [e1, e2, e1_3];
-
-    listKepalaKuat.sort((a, b) => a - b);
-    listEkorKuat.sort((a, b) => a - b);
+    let listKepalaKuat = [skorKepala.shift().angka, skorKepala.shift().angka, skorKepala.shift().angka];
+    let listEkorKuat   = [skorEkor.shift().angka, skorEkor.shift().angka, skorEkor.shift().angka];
+    listKepalaKuat.sort((a, b) => a - b); listEkorKuat.sort((a, b) => a - b);
 
     document.getElementById('res-ai').innerText = hasilAI.join(" , ");
     document.getElementById('res-kepala').innerText = listKepalaKuat.join(" , "); 
@@ -522,7 +499,6 @@ function unduhGambarPaitoPng() {
         tombol.disabled = false;
     });
 }
-
 </script>
 </body>
 </html>
