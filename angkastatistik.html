@@ -149,6 +149,9 @@
         .btn-hitung-utama:active {
             transform: scale(0.98);
         }
+        @media (prefers-reduced-motion: reduce) {
+            .btn-hitung-utama { animation: none; }
+        }
         @keyframes kilauTombol {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
@@ -289,23 +292,24 @@
         
         <!-- Wadah khusus yang akan dicapture jadi foto PNG -->
         <div id="area-foto-paito" class="area-capture-foto">
-            <h3 id="judul-foto-pasaran" class="judul-foto">PREDIKSI PAITO</h3>
-            <span class="sub-foto">ANGKA STATISTIK JITU</span>
+            <!-- FORMAT BARU: PREDIKSI (OTOMATIS) DAN ANGKA STATISTIK -->
+            <h3 id="judul-foto-pasaran" class="judul-foto">PREDIKSI</h3>
+            <span class="sub-foto">ANGKA STATISTIK</span>
             
             <div class="row-hasil">
                 <span>ANGKA IKUT (AI 3D)</span>
                 <div id="res-ai" class="badge-angka-jadi ai-style">-</div>
             </div>
             <div class="row-hasil">
-                <span>KEPALA KUAT</span>
+                <span>🔴KEPALA</span>
                 <div id="res-kepala" class="badge-angka-jadi kepala-style">-</div>
             </div>
             <div class="row-hasil">
-                <span>EKOR KUAT</span>
+                <span>🔴EKOR</span>
                 <div id="res-ekor" class="badge-angka-jadi ekor-style">-</div>
             </div>
             
-            <!-- COPYRIGHT TERMS FIXED -->
+            <!-- COPYRIGHT -->
             <div class="copyright-foto">
                 © ANGKA STATISTIK | angkastatistik.my.id
             </div>
@@ -319,30 +323,31 @@
 </div>
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-    // 1. DETEKSI PARAMETER PASARAN DI URL
     const parameterURL = new URLSearchParams(window.location.search);
     let pasaranAktif = parameterURL.get('pasaran') ? parameterURL.get('pasaran').toUpperCase() : "SGP";
     
     const daftarPasaran = ['MACAU', 'CAMBODIA', 'SDY', 'CHINA', 'JAPAN', 'SGP', 'TAIWAN', 'HK'];
     if (!daftarPasaran.includes(pasaranAktif)) pasaranAktif = "SGP";
 
-    // Ubah Judul Halaman
     const elemenJudul = document.getElementById('judul-pasaran');
     if (elemenJudul) elemenJudul.innerText = `PREDIKSI ANGKA STATISTIK ${pasaranAktif}`;
 
-    // Aktifkan Warna Tombol Menu Pasaran
+    // Sinkronisasi otomatis judul teks di kartu gambar paito
+    const elemenJudulFoto = document.getElementById('judul-foto-pasaran');
+    if (elemenJudulFoto) elemenJudulFoto.innerText = `PREDIKSI ${pasaranAktif}`;
+
     const tombolMenu = document.querySelector(`.nav-btn[data-id="${pasaranAktif}"]`);
     if (tombolMenu) tombolMenu.classList.add('aktif');
 
-    // Hubungkan otomatis ke file di folder result/
+    // Load file paito dari folder result/ secara otomatis
     const scriptData = document.createElement('script');
     scriptData.src = `result/${pasaranAktif.toLowerCase()}.js`;
-    scriptData.onload = function() { prosesHitunganAwal(pasaranAktif); };
-    scriptData.onerror = function() { prosesHitunganAwal(pasaranAktif); };
+    scriptData.onload = function() { prosesMasukDataInti(pasaranAktif); };
+    scriptData.onerror = function() { prosesMasukDataInti(pasaranAktif); };
     document.head.appendChild(scriptData);
 });
 
-function prosesHitunganAwal(pasaranAktif) {
+function prosesMasukDataInti(pasaranAktif) {
     let arrayAngkaMentah = [];
     let dataPaitoDinamis = localStorage.getItem(`LOCAL_PAITO_${pasaranAktif}`);
 
@@ -391,13 +396,12 @@ function prosesHitunganAwal(pasaranAktif) {
         
         btnBaru.addEventListener('click', function() {
             if(arrayAngkaMentah.length === 0) { alert('Data angka patokan kosong!'); return; }
-            mesinHitungUtama(arrayAngkaMentah);
+            jalankanMesinRumusMaster(arrayAngkaMentah);
         });
     }
 }
 
-// 5. RUMUS MASTER PAITO - SUDAH DIPERBAIKI TOTAL DENGAN INDEKS INDEK KOTAK [0]
-function mesinHitungUtama(arrayAngkaMentah) {
+function jalankanMesinRumusMaster(arrayAngkaMentah) {
     let hitungDigit = Array(10).fill(0);
     
     const tabelMistikLama = { 0:1, 1:0, 2:5, 3:8, 4:7, 5:2, 6:9, 7:4, 8:3, 9:6 };
@@ -409,11 +413,7 @@ function mesinHitungUtama(arrayAngkaMentah) {
 
     arrayAngkaMentah.forEach(angka => {
         if (angka.length === 4) {
-            let d1 = parseInt(angka[0]); 
-            let d2 = parseInt(angka[1]); 
-            let d3 = parseInt(angka[2]); 
-            let d4 = parseInt(angka[3]); 
-
+            let d1 = parseInt(angka[0]), d2 = parseInt(angka[1]), d3 = parseInt(angka[2]), d4 = parseInt(angka[3]); 
             if(!isNaN(d1) && !isNaN(d2) && !isNaN(d3) && !isNaN(d4)) {
                 hitungDigit[d1]++; hitungDigit[d2]++; hitungDigit[d3]++; hitungDigit[d4]++;
             }
@@ -422,8 +422,6 @@ function mesinHitungUtama(arrayAngkaMentah) {
 
     let dataSkorDigit = hitungDigit.map((v, i) => ({ angka: i, skor: v }));
     let urutanCold = [...dataSkorDigit].sort((a, b) => a.skor - b.skor);
-    
-    // KUNCI PERBAIKAN: Tanda kurung [0] dipasang kembali dengan benar
     let angkaMain1 = urutanCold[0].angka; 
     
     let angkaMistikBaru = tabelMistikBaru[angkaMain1] !== undefined ? tabelMistikBaru[angkaMain1] : 8;
@@ -442,8 +440,7 @@ function mesinHitungUtama(arrayAngkaMentah) {
     let kepalaHariIni = parseInt(angkaLast4D[2]); 
     let ekorHariIni   = parseInt(angkaLast4D[3]); 
     
-    let kandidatKepala = Array(10).fill(0);
-    let kandidatEkor = Array(10).fill(0);
+    let kandidatKepala = Array(10).fill(0), kandidatEkor = Array(10).fill(0);
 
     if(tabelMistikLama[kepalaHariIni] !== undefined) kandidatKepala[tabelMistikLama[kepalaHariIni]]++;
     if(tabelMistikBaru[kepalaHariIni] !== undefined) kandidatKepala[tabelMistikBaru[kepalaHariIni]]++;
@@ -462,10 +459,8 @@ function mesinHitungUtama(arrayAngkaMentah) {
     let skorKepala = kandidatKepala.map((v, i) => ({ angka: i, skor: v })).sort((a, b) => b.skor - a.skor);
     let skorEkor   = kandidatEkor.map((v, i) => ({ angka: i, skor: v })).sort((a, b) => b.skor - a.skor);
 
-    // KUNCI PERBAIKAN: Tanda kurung [0], [1], [2] terpasang kokoh
     let listKepalaKuat = [skorKepala[0].angka, skorKepala[1].angka, skorKepala[2].angka];
     let listEkorKuat   = [skorEkor[0].angka, skorEkor[1].angka, skorEkor[2].angka];
-
     listKepalaKuat.sort((a, b) => a - b);
     listEkorKuat.sort((a, b) => a - b);
 
@@ -480,7 +475,6 @@ function mesinHitungUtama(arrayAngkaMentah) {
     }
 }
 
-// 📥 FUNGSI UNDUH GAMBAR PNG 100% AMAN
 function unduhGambarPaitoPng() {
     const parameterURL = new URLSearchParams(window.location.search);
     let namaPasaran = parameterURL.get('pasaran') ? parameterURL.get('pasaran').toUpperCase() : "SGP";
@@ -512,6 +506,5 @@ function unduhGambarPaitoPng() {
     });
 }
 </script>
-
 </body>
 </html>
