@@ -210,15 +210,20 @@
         </div>
     </div>
 </div>
-
-<!-- CADANGAN DATA JIKA LOCALSTORAGE MASIH KOSONG (DATABASE DEFAULT) -->
 <script>
+    // 🎯 SEKARANG SEMUA 8 PASARAN SUDAH ADA GUDANG DATANYA MASING-MASING:
     const DATA_PAITO_SGP = "01,7672,3361,1653,5479,7517,\n02,5066,0672,9876,2735,0368,\n12,9720,";
-    const DATA_PAITO_MACAU = "20 jul,7209,7123,2640,"; // Sesuai format kiriman Anda
+    const DATA_PAITO_MACAU = "20 jul,7209,7123,2640,"; 
     const DATA_PAITO_HK = "01,8888,9999,1111,2222,3333,4444,5555,";
+    
+    // Silakan ganti angka contoh di bawah ini dengan result asli pasaran bosku:
+    const DATA_PAITO_SDY = "01,1111,2222,3333,4444,5555,6666,7777,";
+    const DATA_PAITO_CAMBODIA = "01,2222,3333,4444,5555,6666,7777,8888,";
+    const DATA_PAITO_CHINA = "01,3333,4444,5555,6666,7777,8888,9999,";
+    const DATA_PAITO_JAPAN = "01,4444,5555,6666,7777,8888,9999,0000,";
+    const DATA_PAITO_TAIWAN = "01,5555,6666,7777,8888,9999,0000,1111,";
 </script>
 
-<!-- LOGIKA JAVASCRIPT INTI UTANPA ERROR & RINGAN -->
 <script>
 document.addEventListener("DOMContentLoaded", function() {
     let arrayAngkaMentah = [];
@@ -227,12 +232,12 @@ document.addEventListener("DOMContentLoaded", function() {
     const parameterURL = new URLSearchParams(window.location.search);
     let pasaranAktif = parameterURL.get('pasaran') ? parameterURL.get('pasaran').toUpperCase() : "SGP";
     
-    // Validasi daftar pasaran terdaftar
     const daftarPasaran = ['MACAU', 'CAMBODIA', 'SDY', 'CHINA', 'JAPAN', 'SGP', 'TAIWAN', 'HK'];
     if (!daftarPasaran.includes(pasaranAktif)) pasaranAktif = "SGP";
 
     // Update Judul Halaman Otomatis
-    document.getElementById('judul-pasaran').innerText = `PREDIKSI ANGKA STATISTIK ${pasaranAktif}`;
+    const elemenJudul = document.getElementById('judul-pasaran');
+    if (elemenJudul) elemenJudul.innerText = `PREDIKSI PAITO ${pasaranAktif}`;
 
     // Tandai Tombol Navigasi yang Sedang Aktif
     const tombolMenu = document.querySelector(`.nav-btn[data-id="${pasaranAktif}"]`);
@@ -241,54 +246,75 @@ document.addEventListener("DOMContentLoaded", function() {
         tombolMenu.scrollIntoView({ behavior: 'auto', block: 'nearest', inline: 'center' });
     }
 
-    // 2. EXTRAKSI DATA DARI DATA LOCALSTORAGE (ADMIN HP) ATAU VARIABEL GLOBAL CADANGAN
+    // 2. AMBIL DATA DARI LOCALSTORAGE ATAU VARIABEL GLOBAL (SUDAH MENDUKUNG 8 PASARAN)
     let dataPaitoDinamis = localStorage.getItem(`LOCAL_PAITO_${pasaranAktif}`);
     if (!dataPaitoDinamis) {
         if (pasaranAktif === "SGP") dataPaitoDinamis = DATA_PAITO_SGP;
         else if (pasaranAktif === "MACAU") dataPaitoDinamis = DATA_PAITO_MACAU;
         else if (pasaranAktif === "HK") dataPaitoDinamis = DATA_PAITO_HK;
-        else dataPaitoDinamis = "01,1111,2222,3333,4444,5555,6666,7777,"; // Cadangan pasaran lainnya
+        else if (pasaranAktif === "SDY") dataPaitoDinamis = DATA_PAITO_SDY;
+        else if (pasaranAktif === "CAMBODIA") dataPaitoDinamis = DATA_PAITO_CAMBODIA;
+        else if (pasaranAktif === "CHINA") dataPaitoDinamis = DATA_PAITO_CHINA;
+        else if (pasaranAktif === "JAPAN") dataPaitoDinamis = DATA_PAITO_JAPAN;
+        else if (pasaranAktif === "TAIWAN") dataPaitoDinamis = DATA_PAITO_TAIWAN;
+        else dataPaitoDinamis = "01,1111,2222,3333,4444,5555,6666,7777,";
     }
 
-    // 3. PROSES DATA DAN ATUR STRUKTUR HISTORI
-    if (dataPaitoDinamis && dataPaitoDinamis.trim() !== '') {
-        let containerHistori = document.getElementById('wrapper-histori');
+    // 3. PROSES DATA DAN PENYIAPAN WADAH HISTORI
+    let containerHistori = document.getElementById('wrapper-histori');
+    
+    if (containerHistori && dataPaitoDinamis && dataPaitoDinamis.trim() !== '') {
         containerHistori.innerHTML = '';
         
         let semuaPotongan = dataPaitoDinamis.split(',').map(item => item.trim()).filter(item => item !== "");
-        // Filter Ketat: Hanya meloloskan data 4 digit murni angka (Teks tanggal/bulan tereliminasi otomatis)
-        let semuaAngkaSah = semuaPotongan.filter(item => item.length === 4 && !isNaN(item));
         
-        // Macau 6x sehari potong 6, pasaran lain potong 7 harian
-        let jumlahAmbil = (pasaranAktif === "MACAU") ? -6 : -7;
+        // Penyaring Pintar: Hanya meloloskan data 4 digit murni angka
+        let semuaAngkaSah = semuaPotongan.filter(item => item.length === 4 && /^\d+$/.test(item));
+        
+        if (semuaAngkaSah.length === 0) {
+            containerHistori.innerText = `Belum ada angka result 4-digit yang sah untuk pasaran ${pasaranAktif}.`;
+            return;
+        }
+
+        // PENGATURAN JUMLAH HARI RESULT PASARAN
+        let jumlahAmbil = -7; // Default pasaran umum 7 hari harian
+        if (pasaranAktif === "MACAU") {
+            jumlahAmbil = -6; // Macau diambil 6 putaran sehari
+        } else if (pasaranAktif === "SGP") {
+            jumlahAmbil = -5; // SGP khusus diambil 5 hari aktif seminggu
+        }
+        
         arrayAngkaMentah = semuaAngkaSah.slice(jumlahAmbil);
 
+        // Tampilkan data terbalik (terbaru di atas) ke dalam wadah HTML otomatis
         let tampilanHistori = [...arrayAngkaMentah].reverse();
         tampilanHistori.forEach((nomor, indeks) => {
-            let labelResult = (pasaranAktif === "MACAU") ? `Putaran Ke-${6 - indeks}` : `Result Ke-${indeks + 1}`;
+            let labelResult = (pasaranAktif === "MACAU") ? `Putaran Ke-${tampilanHistori.length - indeks}` : `Result Ke-${indeks + 1}`;
             containerHistori.innerHTML += `
                 <div class="history-item">
                     <span>${labelResult}</span>
                     <strong>${nomor}</strong>
                 </div>`;
         });
-    } else {
-        document.getElementById('wrapper-histori').innerText = `Data paito ${pasaranAktif} kosong.`;
+    } else if (containerHistori) {
+        containerHistori.innerText = `Data paito ${pasaranAktif} kosong.`;
         return;
     }
 
     // 4. DAFTARKAN EVENT KLIK TOMBOL HITUNG PREDIKSI
-    document.getElementById('btn-hitung').addEventListener('click', function() {
-        let minimalData = (pasaranAktif === "MACAU") ? 6 : 7;
-        if(arrayAngkaMentah.length < Math.min(minimalData, arrayAngkaMentah.length)) { 
-            alert(`Data sah untuk pasaran ${pasaranAktif} belum mencukupi!`); 
-            return; 
-        }
-        jalankanMesinHitung(arrayAngkaMentah);
-    });
+    const btnHitung = document.getElementById('btn-hitung');
+    if (btnHitung) {
+        btnHitung.addEventListener('click', function() {
+            if(arrayAngkaMentah.length === 0) { 
+                alert(`Data patokan angka untuk pasaran ${pasaranAktif} masih kosong!`); 
+                return; 
+            }
+            jalankanMesinHitung(arrayAngkaMentah);
+        });
+    }
 });
 
-// 5. FUNGSI RUMUS INTI PREDIKSI PAITO (ANTI UNDEFINED)
+// 5. RUMUS INTI PREDIKSI PAITO
 function jalankanMesinHitung(arrayAngkaMentah) {
     let hitungDigit = Array(10).fill(0);
     let hitungKepala = Array(10).fill(0);
@@ -336,15 +362,20 @@ function jalankanMesinHitung(arrayAngkaMentah) {
     let kepalaKuat = dataKepala[0].angka;
     let ekorKuat = dataEkor[0].angka;
 
-    // Inject ke HTML DOM
-    document.getElementById('res-ai').innerText = hasilAI.join(" , ");
-    document.getElementById('res-kepala').innerText = kepalaKuat;
-    document.getElementById('res-ekor').innerText = ekorKuat;
-    
-    // Tampilkan & geser layar secara smooth ke box hasil paito
+    // Masukkan ke HTML DOM hasil paito
+    const resAi = document.getElementById('res-ai');
+    const resKepala = document.getElementById('res-kepala');
+    const resEkor = document.getElementById('res-ekor');
     const boxHasil = document.getElementById('box-hasil');
-    boxHasil.style.display = "block";
-    boxHasil.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+    if (resAi) resAi.innerText = hasilAI.join(" , ");
+    if (resKepala) resKepala.innerText = kepalaKuat;
+    if (resEkor) resEkor.innerText = ekorKuat;
+    
+    if (boxHasil) {
+        boxHasil.style.display = "block";
+        boxHasil.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
 }
 </script>
 
