@@ -1,5 +1,5 @@
 const LIVE_RESULT_JAPAN = {
-    latestResult: "3582"
+    latestResult: "2741"
 };
 
 const DATA_PAITO_JAPAN = `
@@ -20,4 +20,5 @@ const DATA_PAITO_JAPAN = `
   15,9727,6971,1396,0565,8443,9346,6639,
   16,7667,3438,9390,5493,2827,6414,1248,
   17,5586,1456,4087,2890,9637,2298,3582,
+  18,2741,
 `;
