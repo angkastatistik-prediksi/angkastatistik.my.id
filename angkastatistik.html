@@ -210,22 +210,9 @@
         </div>
     </div>
 </div>
-<script>
-    // 🎯 SEKARANG FORMAT DATA HK & SEMUA PASARAN SUDAH DISESUAIKAN AGAR PASTI MASUK
-    const DATA_PAITO_SGP = "01,7672,3361,1653,5479,7517,\n02,5066,0672,9876,2735,0368,\n12,9720,";
-    const DATA_PAITO_MACAU = "20 jul,7209,7123,2640,"; 
-    const DATA_PAITO_HK = "01,8888,9999,1111,2222,3333,4444,5555,";
-    const DATA_PAITO_SDY = "01,1111,2222,3333,4444,5555,6666,7777,";
-    const DATA_PAITO_CAMBODIA = "01,2222,3333,4444,5555,6666,7777,8888,";
-    const DATA_PAITO_CHINA = "01,3333,4444,5555,6666,7777,8888,9999,";
-    const DATA_PAITO_JAPAN = "01,4444,5555,6666,7777,8888,9999,0000,";
-    const DATA_PAITO_TAIWAN = "01,5555,6666,7777,8888,9999,0000,1111,";
-</script>
-
+<!-- KODE PANGGILAN OTOMATIS & RUMUS PAITO BEBAS BUG (8 PASARAN) -->
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-    let arrayAngkaMentah = [];
-
     // 1. DETEKSI PASARAN VIA URL PARAMETER (?pasaran=hk)
     const parameterURL = new URLSearchParams(window.location.search);
     let pasaranAktif = parameterURL.get('pasaran') ? parameterURL.get('pasaran').toUpperCase() : "SGP";
@@ -244,29 +231,62 @@ document.addEventListener("DOMContentLoaded", function() {
         tombolMenu.scrollIntoView({ behavior: 'auto', block: 'nearest', inline: 'center' });
     }
 
-    // 2. AMBIL DATA DARI LOCALSTORAGE ATAU VARIABEL GLOBAL
+    // 2. PEMETAAN JALUR FILE DATA UTK 8 PASARAN (EXPLICIT MAPPING)
+    let namaFileJS = "";
+    if (pasaranAktif === "MACAU") namaFileJS = "result/macau.js";
+    else if (pasaranAktif === "CAMBODIA") namaFileJS = "result/cambodia.js";
+    else if (pasaranAktif === "SDY") namaFileJS = "result/sdy.js";
+    else if (pasaranAktif === "CHINA") namaFileJS = "result/china.js";
+    else if (pasaranAktif === "JAPAN") namaFileJS = "result/japan.js";
+    else if (pasaranAktif === "SGP") namaFileJS = "result/sgp.js";
+    else if (pasaranAktif === "TAIWAN") namaFileJS = "result/taiwan.js";
+    else if (pasaranAktif === "HK") namaFileJS = "result/hk.js";
+    else namaFileJS = "result/sgp.js"; // Cadangan utama
+
+    // Membuat elemen script baru di memori browser
+    const scriptData = document.createElement('script');
+    scriptData.src = namaFileJS;
+    
+    // Ketika file eksternal dari folder result/ sukses dimuat, jalankan pemrosesan angka
+    scriptData.onload = function() {
+        prosesDanHitungPaito(pasaranAktif);
+    };
+
+    // Jika file gagal dimuat (misal file belum diupload), langsung eksekusi data lokal
+    scriptData.onerror = function() {
+        prosesDanHitungPaito(pasaranAktif);
+    };
+
+    document.head.appendChild(scriptData);
+});
+
+// 3. FUNGSI UNTUK MEMPROSES STRUKTUR DATA HISTORI RESULT
+function prosesDanHitungPaito(pasaranAktif) {
+    let arrayAngkaMentah = [];
     let dataPaitoDinamis = localStorage.getItem(`LOCAL_PAITO_${pasaranAktif}`);
+
+    // Jika di LocalStorage admin kosong, ambil isi variabel global dari file js luar yang dimuat tadi
     if (!dataPaitoDinamis) {
-        if (pasaranAktif === "SGP") dataPaitoDinamis = DATA_PAITO_SGP;
-        else if (pasaranAktif === "MACAU") dataPaitoDinamis = DATA_PAITO_MACAU;
-        else if (pasaranAktif === "HK") dataPaitoDinamis = DATA_PAITO_HK;
-        else if (pasaranAktif === "SDY") dataPaitoDinamis = DATA_PAITO_SDY;
-        else if (pasaranAktif === "CAMBODIA") dataPaitoDinamis = DATA_PAITO_CAMBODIA;
-        else if (pasaranAktif === "CHINA") dataPaitoDinamis = DATA_PAITO_CHINA;
-        else if (pasaranAktif === "JAPAN") dataPaitoDinamis = DATA_PAITO_JAPAN;
-        else if (pasaranAktif === "TAIWAN") dataPaitoDinamis = DATA_PAITO_TAIWAN;
-        else dataPaitoDinamis = "01,1111,2222,3333,4444,5555,6666,7777,";
+        try {
+            if (pasaranAktif === "MACAU" && typeof DATA_PAITO_MACAU !== 'undefined') dataPaitoDinamis = DATA_PAITO_MACAU;
+            else if (pasaranAktif === "CAMBODIA" && typeof DATA_PAITO_CAMBODIA !== 'undefined') dataPaitoDinamis = DATA_PAITO_CAMBODIA;
+            else if (pasaranAktif === "SDY" && typeof DATA_PAITO_SDY !== 'undefined') dataPaitoDinamis = DATA_PAITO_SDY;
+            else if (pasaranAktif === "CHINA" && typeof DATA_PAITO_CHINA !== 'undefined') dataPaitoDinamis = DATA_PAITO_CHINA;
+            else if (pasaranAktif === "JAPAN" && typeof DATA_PAITO_JAPAN !== 'undefined') dataPaitoDinamis = DATA_PAITO_JAPAN;
+            else if (pasaranAktif === "SGP" && typeof DATA_PAITO_SGP !== 'undefined') dataPaitoDinamis = DATA_PAITO_SGP;
+            else if (pasaranAktif === "TAIWAN" && typeof DATA_PAITO_TAIWAN !== 'undefined') dataPaitoDinamis = DATA_PAITO_TAIWAN;
+            else if (pasaranAktif === "HK" && typeof DATA_PAITO_HK !== 'undefined') dataPaitoDinamis = DATA_PAITO_HK;
+        } catch(e) {
+            dataPaitoDinamis = "";
+        }
     }
 
-    // 3. PROSES DATA DAN PENYIAPAN WADAH HISTORI
     let containerHistori = document.getElementById('wrapper-histori');
-    
     if (containerHistori && dataPaitoDinamis && dataPaitoDinamis.trim() !== '') {
         containerHistori.innerHTML = '';
         
         let semuaPotongan = dataPaitoDinamis.split(',').map(item => item.trim()).filter(item => item !== "");
-        
-        // Saring ketat: Hanya meloloskan potongan teks yang murni 4 angka
+        // Penyaring Ketat: Hanya meloloskan teks 4 digit murni angka (Anti-Crash Teks Tanggal)
         let semuaAngkaSah = semuaPotongan.filter(item => item.length === 4 && /^\d+$/.test(item));
         
         if (semuaAngkaSah.length === 0) {
@@ -274,17 +294,14 @@ document.addEventListener("DOMContentLoaded", function() {
             return;
         }
 
-        // Pengaturan jumlah hari aktif tarikan paito
+        // Aturan jumlah potong tarikan paito
         let jumlahAmbil = -7; 
-        if (pasaranAktif === "MACAU") {
-            jumlahAmbil = -6; 
-        } else if (pasaranAktif === "SGP") {
-            jumlahAmbil = -5; 
-        }
+        if (pasaranAktif === "MACAU") jumlahAmbil = -6; // Macau 6 putaran sehari
+        else if (pasaranAktif === "SGP") jumlahAmbil = -5; // SGP khusus 5 hari aktif
         
         arrayAngkaMentah = semuaAngkaSah.slice(jumlahAmbil);
 
-        // Munculkan nomor result terbalik (terbaru di paling atas wadah)
+        // Munculkan data terbalik (terbaru di atas) di wadah HTML otomatis
         let tampilanHistori = [...arrayAngkaMentah].reverse();
         tampilanHistori.forEach((nomor, indeks) => {
             let labelResult = (pasaranAktif === "MACAU") ? `Putaran Ke-${tampilanHistori.length - indeks}` : `Result Ke-${indeks + 1}`;
@@ -295,14 +312,18 @@ document.addEventListener("DOMContentLoaded", function() {
                 </div>`;
         });
     } else if (containerHistori) {
-        containerHistori.innerText = `Data paito ${pasaranAktif} kosong.`;
+        containerHistori.innerText = `Data paito ${pasaranAktif} kosong atau file di folder result/ belum terisi.`;
         return;
     }
 
     // 4. DAFTARKAN EVENT KLIK TOMBOL HITUNG PREDIKSI
     const btnHitung = document.getElementById('btn-hitung');
     if (btnHitung) {
-        btnHitung.addEventListener('click', function() {
+        // Hapus event lama jika ada agar tidak double-click eror
+        const btnBaru = btnHitung.cloneNode(true);
+        btnHitung.parentNode.replaceChild(btnBaru, btnHitung);
+        
+        btnBaru.addEventListener('click', function() {
             if(arrayAngkaMentah.length === 0) { 
                 alert(`Data patokan angka untuk pasaran ${pasaranAktif} masih kosong!`); 
                 return; 
@@ -310,9 +331,9 @@ document.addEventListener("DOMContentLoaded", function() {
             jalankanMesinHitung(arrayAngkaMentah);
         });
     }
-});
+}
 
-// 5. RUMUS INTI PREDIKSI PAITO (REVISI TOTAL BEBAS UNDEFINED & CRASH)
+// 5. RUMUS INTI PREDIKSI PAITO (MENGGUNAKAN INDEKS ARRAY FIXED)
 function jalankanMesinHitung(arrayAngkaMentah) {
     let hitungDigit = Array(10).fill(0);
     let hitungKepala = Array(10).fill(0);
@@ -321,7 +342,6 @@ function jalankanMesinHitung(arrayAngkaMentah) {
 
     arrayAngkaMentah.forEach(angka => {
         if (angka.length === 4) {
-            // 🔥 REVISI 1: Memisahkan urutan digit dengan akurat (As, Kop, Kepala, Ekor)
             let d1 = parseInt(angka[0]); 
             let d2 = parseInt(angka[1]); 
             let d3 = parseInt(angka[2]); 
@@ -339,7 +359,6 @@ function jalankanMesinHitung(arrayAngkaMentah) {
     let urutanHot = [...dataSkorDigit].sort((a, b) => b.skor - a.skor);
     let urutanCold = [...dataSkorDigit].sort((a, b) => a.skor - b.skor);
 
-    // 🔥 REVISI 2: Memperbaiki tanda kurung kotak array [0] agar tidak terjadi undefined
     let angkaHotUtama = urutanHot[0].angka; 
     let angkaColdUtama = urutanCold[0].angka; 
     if (angkaHotUtama === angkaColdUtama && urutanCold[1]) { 
@@ -362,7 +381,6 @@ function jalankanMesinHitung(arrayAngkaMentah) {
     let kepalaKuat = dataKepala[0].angka;
     let ekorKuat = dataEkor[0].angka;
 
-    // Suntikkan angka jadi ke kotak hasil paito website
     const resAi = document.getElementById('res-ai');
     const resKepala = document.getElementById('res-kepala');
     const resEkor = document.getElementById('res-ekor');
