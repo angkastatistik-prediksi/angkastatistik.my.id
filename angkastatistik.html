@@ -319,50 +319,30 @@
     </div>
 </div>
 <script>
+<!-- LOGIKA INTELIJEN PEMANGGIL DATA & HISTORI -->
+<script>
 document.addEventListener("DOMContentLoaded", function() {
-    // 1. DETEKSI PASARAN VIA URL PARAMETER
     const parameterURL = new URLSearchParams(window.location.search);
     let pasaranAktif = parameterURL.get('pasaran') ? parameterURL.get('pasaran').toUpperCase() : "SGP";
     
     const daftarPasaran = ['MACAU', 'CAMBODIA', 'SDY', 'CHINA', 'JAPAN', 'SGP', 'TAIWAN', 'HK'];
     if (!daftarPasaran.includes(pasaranAktif)) pasaranAktif = "SGP";
 
-    // Update Judul Halaman Otomatis
     const elemenJudul = document.getElementById('judul-pasaran');
     if (elemenJudul) elemenJudul.innerText = `PREDIKSI ANGKA STATISTIK ${pasaranAktif}`;
 
-    // Tandai Tombol Navigasi yang Sedang Aktif
     const tombolMenu = document.querySelector(`.nav-btn[data-id="${pasaranAktif}"]`);
-    if (tombolMenu) {
-        tombolMenu.classList.add('aktif');
-    }
+    if (tombolMenu) tombolMenu.classList.add('aktif');
 
-    // 2. PEMETAAN JALUR FILE DATA UTK 8 PASARAN
-    let namaFileJS = "";
-    if (pasaranAktif === "MACAU") namaFileJS = "result/macau.js";
-    else if (pasaranAktif === "CAMBODIA") namaFileJS = "result/cambodia.js";
-    else if (pasaranAktif === "SDY") namaFileJS = "result/sdy.js";
-    else if (pasaranAktif === "CHINA") namaFileJS = "result/china.js";
-    else if (pasaranAktif === "JAPAN") namaFileJS = "result/japan.js";
-    else if (pasaranAktif === "SGP") namaFileJS = "result/sgp.js";
-    else if (pasaranAktif === "TAIWAN") namaFileJS = "result/taiwan.js";
-    else if (pasaranAktif === "HK") namaFileJS = "result/hk.js";
-    else namaFileJS = "result/sgp.js";
-
+    // Tarik file otomatis dari folder result/
     const scriptData = document.createElement('script');
-    scriptData.src = namaFileJS;
-    
-    scriptData.onload = function() {
-        prosesDanHitungPaito(pasaranAktif);
-    };
-    scriptData.onerror = function() {
-        prosesDanHitungPaito(pasaranAktif);
-    };
-
+    scriptData.src = `result/${pasaranAktif.toLowerCase()}.js`;
+    scriptData.onload = function() { prosesMasukData(pasaranAktif); };
+    scriptData.onerror = function() { prosesMasukData(pasaranAktif); };
     document.head.appendChild(scriptData);
 });
 
-function prosesDanHitungPaito(pasaranAktif) {
+function prosesMasukData(pasaranAktif) {
     let arrayAngkaMentah = [];
     let dataPaitoDinamis = localStorage.getItem(`LOCAL_PAITO_${pasaranAktif}`);
 
@@ -376,20 +356,17 @@ function prosesDanHitungPaito(pasaranAktif) {
             else if (pasaranAktif === "SGP" && typeof DATA_PAITO_SGP !== 'undefined') dataPaitoDinamis = DATA_PAITO_SGP;
             else if (pasaranAktif === "TAIWAN" && typeof DATA_PAITO_TAIWAN !== 'undefined') dataPaitoDinamis = DATA_PAITO_TAIWAN;
             else if (pasaranAktif === "HK" && typeof DATA_PAITO_HK !== 'undefined') dataPaitoDinamis = DATA_PAITO_HK;
-        } catch(e) {
-            dataPaitoDinamis = "";
-        }
+        } catch(e) { dataPaitoDinamis = ""; }
     }
 
     let containerHistori = document.getElementById('wrapper-histori');
     if (containerHistori && dataPaitoDinamis && dataPaitoDinamis.trim() !== '') {
         containerHistori.innerHTML = '';
-        
         let semuaPotongan = dataPaitoDinamis.split(',').map(item => item.trim()).filter(item => item !== "");
         let semuaAngkaSah = semuaPotongan.filter(item => item.length === 4 && /^\d+$/.test(item));
         
         if (semuaAngkaSah.length === 0) {
-            containerHistori.innerText = `Belum ada angka result 4-digit yang sah untuk pasaran ${pasaranAktif}.`;
+            containerHistori.innerText = `Data result sah ${pasaranAktif} belum terisi.`;
             return;
         }
 
@@ -402,36 +379,27 @@ function prosesDanHitungPaito(pasaranAktif) {
         let tampilanHistori = [...arrayAngkaMentah].reverse();
         tampilanHistori.forEach((nomor, indeks) => {
             let labelResult = (pasaranAktif === "MACAU") ? `Putaran Ke-${tampilanHistori.length - indeks}` : `Result Ke-${indeks + 1}`;
-            containerHistori.innerHTML += `
-                <div class="history-item">
-                    <span>${labelResult}</span>
-                    <strong>${nomor}</strong>
-                </div>`;
+            containerHistori.innerHTML += `<div class="history-item"><span>${labelResult}</span><strong>${nomor}</strong></div>`;
         });
-    } else if (containerHistori) {
-        containerHistori.innerText = `Data paito ${pasaranAktif} kosong atau file di folder result/ belum terisi.`;
-        return;
     }
 
     const btnHitung = document.getElementById('btn-hitung');
     if (btnHitung) {
         const btnBaru = btnHitung.cloneNode(true);
         btnHitung.parentNode.replaceChild(btnBaru, btnHitung);
-        
         btnBaru.addEventListener('click', function() {
-            if(arrayAngkaMentah.length === 0) { 
-                alert(`Data patokan angka untuk pasaran ${pasaranAktif} masih kosong!`); 
-                return; 
-            }
-            jalankanMesinHitung(arrayAngkaMentah);
+            if(arrayAngkaMentah.length === 0) { alert('Data angka patokan kosong!'); return; }
+            mesinHitungPaitoJitu(arrayAngkaMentah);
         });
     }
 }
+</script>
 
 // 5. RUMUS INTELIJEN MESIN HITUNG PAITO UTUH SANGAT LOGIS
-function jalankanMesinHitung(arrayAngkaMentah) {
+<!-- MESIN RUMUS JITU & UNDUH FOTO PNG -->
+<script>
+function mesinHitungPaitoJitu(arrayAngkaMentah) {
     let hitungDigit = Array(10).fill(0);
-    
     const tabelMistikLama = { 0:1, 1:0, 2:5, 3:8, 4:7, 5:2, 6:9, 7:4, 8:3, 9:6 };
     const tabelMistikBaru = { 0:8, 1:7, 2:6, 3:9, 4:5, 5:4, 6:2, 7:1, 8:0, 9:3 };
     const tabelTaysen     = { 0:7, 1:4, 2:9, 3:0, 4:1, 5:8, 6:3, 7:2, 8:5, 9:6 };
@@ -441,11 +409,7 @@ function jalankanMesinHitung(arrayAngkaMentah) {
 
     arrayAngkaMentah.forEach(angka => {
         if (angka.length === 4) {
-            let d1 = parseInt(angka[0]); 
-            let d2 = parseInt(angka[1]); 
-            let d3 = parseInt(angka[2]); 
-            let d4 = parseInt(angka[3]); 
-
+            let d1 = parseInt(angka[0]), d2 = parseInt(angka[1]), d3 = parseInt(angka[2]), d4 = parseInt(angka[3]);
             if(!isNaN(d1) && !isNaN(d2) && !isNaN(d3) && !isNaN(d4)) {
                 hitungDigit[d1]++; hitungDigit[d2]++; hitungDigit[d3]++; hitungDigit[d4]++;
             }
@@ -461,7 +425,6 @@ function jalankanMesinHitung(arrayAngkaMentah) {
     
     let hasilAI = [angkaMain1, angkaMistikBaru, angkaTaysen];
     hasilAI = [...new Set(hasilAI)]; 
-
     while(hasilAI.length < 3) {
         let acakMurni = Math.floor(Math.random() * 10);
         if(!hasilAI.includes(acakMurni)) { hasilAI.push(acakMurni); }
@@ -472,66 +435,66 @@ function jalankanMesinHitung(arrayAngkaMentah) {
     let kepalaHariIni = parseInt(angkaLast4D[2]); 
     let ekorHariIni   = parseInt(angkaLast4D[3]); 
     
-    let kandidatKepala = Array(10).fill(0);
-    let kandidatEkor = Array(10).fill(0);
+    let kandidatKepala = Array(10).fill(0), kandidatEkor = Array(10).fill(0);
 
-    let k_ml = tabelMistikLama[kepalaHariIni];  if(k_ml !== undefined) kandidatKepala[k_ml]++;
-    let k_mb = tabelMistikBaru[kepalaHariIni];  if(k_mb !== undefined) kandidatKepala[k_mb]++;
-    let k_ty = tabelTaysen[kepalaHariIni];      if(k_ty !== undefined) kandidatKepala[k_ty]++;
-    let k_id = tabelIndeks[kepalaHariIni];      if(k_id !== undefined) kandidatKepala[k_id]++;
-    let k_nk = tabelNaik[kepalaHariIni];        if(k_nk !== undefined) kandidatKepala[k_nk]++; 
-    let k_tr = tabelTurun[kepalaHariIni];       if(k_tr !== undefined) kandidatKepala[k_tr]++; 
+    if(tabelMistikLama[kepalaHariIni] !== undefined) kandidatKepala[tabelMistikLama[kepalaHariIni]]++;
+    if(tabelMistikBaru[kepalaHariIni] !== undefined) kandidatKepala[tabelMistikBaru[kepalaHariIni]]++;
+    if(tabelTaysen[kepalaHariIni] !== undefined) kandidatKepala[tabelTaysen[kepalaHariIni]]++;
+    if(tabelIndeks[kepalaHariIni] !== undefined) kandidatKepala[tabelIndeks[kepalaHariIni]]++;
+    if(tabelNaik[kepalaHariIni] !== undefined) kandidatKepala[tabelNaik[kepalaHariIni]]++;
+    if(tabelTurun[kepalaHariIni] !== undefined) kandidatKepala[tabelTurun[kepalaHariIni]]++;
 
-    let e_ml = tabelMistikLama[ekorHariIni];    if(e_ml !== undefined) kandidatEkor[e_ml]++;
-    let e_mb = tabelMistikBaru[ekorHariIni];    if(e_mb !== undefined) kandidatEkor[e_mb]++;
-    let e_ty = tabelTaysen[ekorHariIni];        if(e_ty !== undefined) kandidatEkor[e_ty]++;
-    let e_id = tabelIndeks[ekorHariIni];        if(e_id !== undefined) kandidatEkor[e_id]++;
-    let e_nk = tabelNaik[ekorHariIni];          if(e_nk !== undefined) kandidatEkor[e_nk]++;   
-    let e_tr = tabelTurun[ekorHariIni];         if(e_tr !== undefined) kandidatEkor[e_tr]++;   
+    if(tabelMistikLama[ekorHariIni] !== undefined) kandidatEkor[tabelMistikLama[ekorHariIni]]++;
+    if(tabelMistikBaru[ekorHariIni] !== undefined) kandidatEkor[tabelMistikBaru[ekorHariIni]]++;
+    if(tabelTaysen[ekorHariIni] !== undefined) kandidatEkor[tabelTaysen[ekorHariIni]]++;
+    if(tabelIndeks[ekorHariIni] !== undefined) kandidatEkor[tabelIndeks[ekorHariIni]]++;
+    if(tabelNaik[ekorHariIni] !== undefined) kandidatEkor[tabelNaik[ekorHariIni]]++;
+    if(tabelTurun[ekorHariIni] !== undefined) kandidatEkor[tabelTurun[ekorHariIni]]++;
 
     let skorKepala = kandidatKepala.map((v, i) => ({ angka: i, skor: v })).sort((a, b) => b.skor - a.skor);
     let skorEkor   = kandidatEkor.map((v, i) => ({ angka: i, skor: v })).sort((a, b) => b.skor - a.skor);
 
     let listKepalaKuat = [skorKepala[0].angka, skorKepala[1].angka, skorKepala[2].angka];
     let listEkorKuat   = [skorEkor[0].angka, skorEkor[1].angka, skorEkor[2].angka];
-
     listKepalaKuat.sort((a, b) => a - b);
     listEkorKuat.sort((a, b) => a - b);
 
-    const resAi = document.getElementById('res-ai');
-    const resKepala = document.getElementById('res-kepala');
-    const resEkor = document.getElementById('res-ekor');
-    const boxHasil = document.getElementById('box-hasil');
-
-    if (resAi) resAi.innerText = hasilAI.join(" , ");
-    if (resKepala) resKepala.innerText = listKepalaKuat.join(" , "); 
-    if (resEkor) resEkor.innerText = listEkorKuat.join(" , ");     
+    document.getElementById('res-ai').innerText = hasilAI.join(" , ");
+    document.getElementById('res-kepala').innerText = listKepalaKuat.join(" , "); 
+    document.getElementById('res-ekor').innerText = listEkorKuat.join(" , ");     
     
+    const boxHasil = document.getElementById('box-hasil');
     if (boxHasil) {
         boxHasil.style.display = "block";
         boxHasil.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
 }
 
-// 📥 LOGIKA PENANGKAP GAMBAR PNG INSTAN
 function unduhGambarPaitoPng() {
     const parameterURL = new URLSearchParams(window.location.search);
     let namaPasaran = parameterURL.get('pasaran') ? parameterURL.get('pasaran').toUpperCase() : "SGP";
-    
     document.getElementById('judul-foto-pasaran').innerText = `PREDIKSI ${namaPasaran}`;
 
     const areaFoto = document.getElementById('area-foto-paito');
     const tombol = document.getElementById('btn-download-paito');
-    
     tombol.innerText = "⏳ Menyimpan Berkas...";
     tombol.disabled = true;
 
     html2canvas(areaFoto, { scale: 2 }).then(canvas => {
-<script>
-document.addEventListener("DOMContentLoaded",function(){const p=(new URLSearchParams(window.location.search)).get('pasaran')? (new URLSearchParams(window.location.search)).get('pasaran').toUpperCase():"SGP";const d=['MACAU','CAMBODIA','SDY','CHINA','JAPAN','SGP','TAIWAN','HK'];let a=d.includes(p)?p:"SGP";const ej=document.getElementById('judul-pasaran');if(ej)ej.innerText=`PREDIKSI ANGKA STATISTIK ${a}`;const tm=document.querySelector(`.nav-btn[data-id="${a}"]`);if(tm)tm.classList.add('aktif');let f=`result/${a.toLowerCase()}.js`;const s=document.createElement('script');s.src=f;s.onload=function(){pHit(a)};s.onerror=function(){pHit(a)};document.head.appendChild(s)});
-function pHit(a){let m=[];let dp=localStorage.getItem(`LOCAL_PAITO_${a}`);if(!dp){try{if(a==="MACAU"&&typeof DATA_PAITO_MACAU!=='undefined')dp=DATA_PAITO_MACAU;else if(a==="CAMBODIA"&&typeof DATA_PAITO_CAMBODIA!=='undefined')dp=DATA_PAITO_CAMBODIA;else if(a==="SDY"&&typeof DATA_PAITO_SDY!=='undefined')dp=DATA_PAITO_SDY;else if(a==="CHINA"&&typeof DATA_PAITO_CHINA!=='undefined')dp=DATA_PAITO_CHINA;else if(a==="JAPAN"&&typeof DATA_PAITO_JAPAN!=='undefined')dp=DATA_PAITO_JAPAN;else if(a==="SGP"&&typeof DATA_PAITO_SGP!=='undefined')dp=DATA_PAITO_SGP;else if(a==="TAIWAN"&&typeof DATA_PAITO_TAIWAN!=='undefined')dp=DATA_PAITO_TAIWAN;else if(a==="HK"&&typeof DATA_PAITO_HK!=='undefined')dp=DATA_PAITO_HK}catch(e){dp=""}}let c=document.getElementById('wrapper-histori');if(c&&dp&&dp.trim()!==''){c.innerHTML='';let sp=dp.split(',').map(i=>i.trim()).filter(i=>i!=="");let as=sp.filter(i=>i.length===4&&/^\d+$/.test(i));if(as.length===0){c.innerText=`Belum ada angka result sah untuk ${a}.`;return}let ja=(a==="MACAU")?-6:(a==="SGP")?-5:-7;m=as.slice(ja);let th=[...m].reverse();th.forEach((n,i)=>{let lbl=(a==="MACAU")?`Putaran Ke-${th.length-i}`:`Result Ke-${i+1}`;c.innerHTML+=`<div class="history-item"><span>${lbl}</span><strong>${n}</strong></div>`})}else if(c){c.innerText=`Data paito ${a} kosong.`;return}const bh=document.getElementById('btn-hitung');if(bh){const bBaru=bh.cloneNode(true);bh.parentNode.replaceChild(bBaru,bh);bBaru.addEventListener('click',function(){if(m.length===0){alert('Data patokan angka kosong!');return}runMesin(m)})}}
-function runMesin(m){let h=Array(10).fill(0);const ml={0:1,1:0,2:5,3:8,4:7,5:2,6:9,7:4,8:3,9:6},mb={0:8,1:7,2:6,3:9,4:5,5:4,6:2,7:1,8:0,9:3},ty={0:7,1:4,2:9,3:0,4:1,5:8,6:3,7:2,8:5,9:6},id={0:5,1:6,2:7,3:8,4:9,5:0,6:1,7:2,8:3,9:4},nk={0:1,1:2,2:3,3:4,4:5,5:6,6:7,7:8,8:9,9:0},tr={0:9,1:0,2:1,3:2,4:3,5:4,6:5,7:6,8:7,9:8};m.forEach(a=>{if(a.length===4){let d1=parseInt(a[0]),d2=parseInt(a[1]),d3=parseInt(a[2]),d4=parseInt(a[3]);if(!isNaN(d1)&&!isNaN(d2)&&!isNaN(d3)&&!isNaN(d4)){h[d1]++;h[d2]++;h[d3]++;h[d4]++}}});let sd=h.map((v,i)=>({angka:i,skor:v})).sort((x,y)=>x.skor-y.skor);let am1=sd[0].angka,amb=mb[am1]!==undefined?mb[am1]:8,aty=ty[am1]!==undefined?ty[am1]:4,ai=[am1,amb,aty];ai=[...new Set(ai)];while(ai.length<3){let r=Math.floor(Math.random()*10);if(!ai.includes(r))ai.push(r)}ai.sort(()=>Math.random()-0.5);let last=m[m.length-1],kH=parseInt(last[2]),eH=parseInt(last[3]),kK=Array(10).fill(0),eK=Array(10).fill(0);if(ml[kH]!==undefined)kK[ml[kH]]++;if(mb[kH]!==undefined)kK[mb[kH]]++;if(ty[kH]!==undefined)kK[ty[kH]]++;if(id[kH]!==undefined)kK[id[kH]]++;if(nk[kH]!==undefined)kK[nk[kH]]++;if(tr[kH]!==undefined)kK[tr[kH]]++;if(ml[eH]!==undefined)eK[ml[eH]]++;if(mb[eH]!==undefined)eK[mb[eH]]++;if(ty[eH]!==undefined)eK[ty[eH]]++;if(id[eH]!==undefined)eK[id[eH]]++;if(nk[eH]!==undefined)eK[nk[eH]]++;if(tr[eH]!==undefined)eK[tr[eH]]++;let sK=kK.map((v,i)=>({angka:i,skor:v})).sort((x,y)=>y.skor-x.skor),sE=eK.map((v,i)=>({angka:i,skor:v})).sort((x,y)=>y.skor-x.skor);let lK=[sK[0].angka,sK[1].angka,sK[2].angka],lE=[sE[0].angka,sE[1].angka,sE[2].angka];lK.sort((x,y)=>x-y);lE.sort((x,y)=>x-y);const rAi=document.getElementById('res-ai'),rKp=document.getElementById('res-kepala'),rEk=document.getElementById('res-ekor'),box=document.getElementById('box-hasil');if(rAi)rAi.innerText=ai.join(" , ");if(rKp)rKp.innerText=lK.join(" , ");if(rEk)rEk.innerText=lE.join(" , ");if(box){box.style.display="block";box.scrollIntoView({behavior:'smooth',block:'nearest'})}}
-function unduhGambarPaitoPng(){const p=(new URLSearchParams(window.location.search)).get('pasaran')? (new URLSearchParams(window.location.search)).get('pasaran').toUpperCase():"SGP";document.getElementById('judul-foto-pasaran').innerText=`PREDIKSI ${p}`;const area=document.getElementById('area-foto-paito');const btn=document.getElementById('btn-download-paito');btn.innerText="⏳ Menyimpan...";btn.disabled=true;html2canvas(area,{scale:2}).then(canvas=>{const url=canvas.toDataURL('image/png');const l=document.createElement('a');l.href=url;l.download=`PREDIKSI-${p}-ANGKA-STATISTIK.png`;document.body.appendChild(l);l.click();document.body.removeChild(l);btn.innerText="📥 Download Gambar Prediksi (.PNG)";btn.disabled=false}).catch(err=>{alert("Gagal mengunduh foto.");btn.innerText="📥 Download Gambar Prediksi (.PNG)";btn.disabled=false})}
+        const link = document.createElement('a');
+        link.href = canvas.toDataURL('image/png');
+        link.download = `PREDIKSI-${namaPasaran}-ANGKA-STATISTIK.png`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        tombol.innerText = "📥 Download Gambar Prediksi (.PNG)";
+        tombol.disabled = false;
+    }).catch(err => {
+        alert("Gagal mengunduh gambar.");
+        tombol.innerText = "📥 Download Gambar Prediksi (.PNG)";
+        tombol.disabled = false;
+    });
+}
 </script>
 </body>
 </html>
