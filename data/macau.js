@@ -1,7 +1,7 @@
 const DATA_MACAU = {
     senin: {
-    tanggal: "2026-07-13", 
-        angka_p1: ``, tunggal_p1: "",
+    tanggal: "2026-07-20", 
+        angka_p1: `3230 : 50`, tunggal_p1: "0",
         angka_p2: ``, tunggal_p2: "",
         angka_p3: ``, tunggal_p3: "",
         angka_p4: ``, tunggal_p4: "",
