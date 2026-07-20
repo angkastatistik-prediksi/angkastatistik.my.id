@@ -13,7 +13,22 @@
             --accent: #ffb703;
             --gradient: linear-gradient(135deg, #1e2235, #121420);
             --border-color: #2d3142;
+       }
+       html {
+      scroll-behavior: smooth;
+       }
+
+       /* Mematikan efek gerak jika pengunjung mengaktifkan fitur kurangi animasi di HP/PC mereka */
+       @media (prefers-reduced-motion: reduce) {
+       html {
+       scroll-behavior: auto;
+       }
+       }
+
+       #box-transformasi {
+        contain: content; /* Mengisolasi rendering DOM agar scroll di HP kentang tetap lancar */
         }
+
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
         body { background-color: var(--bg-dark); color: var(--text-main); padding: 10px; padding-bottom: 40px; }
         .container { max-width: 600px; margin: 0 auto; }
@@ -129,13 +144,6 @@ hs.src='//s10.histats.com/js15_as.js';
 })();
 </script>
 
-<noscript>
-<a href="/" target="_blank">
-<img src="//sstatic1.histats.com/0.gif?5037448&101" alt="" border="0">
-</a>
-</noscript>
-
-<!-- Histats.com END --><!-- MEMANGGIL DATABASE MANUAL SGP ANDA -->
 <script src="result/sgp.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function() {
@@ -245,6 +253,8 @@ function jalankanMesinHitung(arrayAngkaMentah) {
     document.getElementById('res-ekor').innerText = ekorKuat;
     document.getElementById('box-hasil').style.display = "block";
 }
+    </script>
+
 </script>
 
 </body>
