@@ -468,6 +468,7 @@ function jalankanMesinRumusMaster(arrayAngkaMentah) {
     }
 }
 
+<script src="https://cloudflare.com"></script>
 function unduhGambarPaitoPng() {
     const parameterURL = new URLSearchParams(window.location.search);
     let namaPasaran = parameterURL.get('pasaran') ? parameterURL.get('pasaran').toUpperCase() : "SGP";
@@ -477,10 +478,21 @@ function unduhGambarPaitoPng() {
     const areaFoto = document.getElementById('area-foto-paito');
     const tombol = document.getElementById('btn-download-paito');
     
+    // Validasi awal untuk memastikan elemen ada
+    if (!areaFoto || !tombol) {
+        alert("Elemen HTML tidak ditemukan! Periksa ID area-foto-paito atau btn-download-paito.");
+        return;
+    }
+    
     tombol.innerText = "⏳ Menyimpan Gambar...";
     tombol.disabled = true;
 
-    html2canvas(areaFoto, { scale: 2 }).then(canvas => {
+    // Menambahkan opsi useCORS dan allowTaint untuk mencegah macet akibat gambar eksternal
+    html2canvas(areaFoto, { 
+        scale: 2,
+        useCORS: true,
+        allowTaint: true
+    }).then(canvas => {
         const urlGambar = canvas.toDataURL('image/png');
         const triggerLink = document.createElement('a');
         triggerLink.href = urlGambar;
@@ -493,7 +505,8 @@ function unduhGambarPaitoPng() {
         tombol.innerText = "📥 Download Gambar Prediksi (.PNG)";
         tombol.disabled = false;
     }).catch(err => {
-        alert("Gagal memproses berkas gambar.");
+        console.error(err); // Melihat detail error di Inspect Element -> Console
+        alert("Gagal memproses berkas gambar: " + err.message);
         tombol.innerText = "📥 Download Gambar Prediksi (.PNG)";
         tombol.disabled = false;
     });
