@@ -396,15 +396,19 @@ document.getElementById('btn-bersih-pola').addEventListener('click', function() 
     <div class="box-modal">
         <span class="tutup-modal" onclick="tutupPopup()">&times;</span>
         <h3>Hai Bosku! 👋</h3>
-        <p>Simpan halaman live HK Angka Statistik, untuk memudahkan bosku cek dihari esok.</p>
+        <p id="teksPesan">Simpan halaman live HK Angka Statistik, untuk memudahkan bosku cek dihari esok.</p>
         
-        <!-- Tombol Utama untuk Simpan ke Layar HP -->
-        <button id="btnInstal" style="display:none;" onclick="aksiInstal()">+ Tambah ke Layar Utama</button>
+        <!-- Tombol Utama (Pasti Muncul) -->
+        <button id="btnInstal" onclick="tunjukkanPetunjuk()">+ Tambah ke Layar Utama</button>
+        
+        <!-- Gambar / Animasi Panah Petunjuk (Awalnya Tersembunyi) -->
+        <div id="petunjukChrome" style="display:none; margin-top: 15px; border-top: 1px dashed #ccc; padding-top: 15px;">
+            <p style="color: #ff4757; font-weight: bold; font-size: 14px; margin-bottom: 5px;">
+                Klik tombol <span style="font-size: 18px;">⋮</span> (Titik Tiga) di kanan atas Chrome HP Bosku, lalu pilih "Tambahkan ke Layar Utama" / "Add to Homescreen".
+            </p>
+        </div>
     </div>
 </div>
-
-<!-- Hubungkan ke Sistem Chrome -->
-<link rel="manifest" href="/manifest.json">
 
 <!-- ========================================== -->
 <!-- 2. GAYA TAMPILAN (CSS)                     -->
@@ -434,49 +438,34 @@ document.getElementById('btn-bersih-pola').addEventListener('click', function() 
 </style>
 
 <!-- ========================================== -->
-<!-- 3. FUNGSI LAYAR UTAMA (JAVASCRIPT)         -->
+<!-- 3. FUNGSI INTERAKSI (JAVASCRIPT)           -->
 <!-- ========================================== -->
 <script>
-let deferredPrompt;
-
 // Munculkan pop-up saat web dibuka
 window.addEventListener('load', () => {
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/sw.js');
-    }
     if (!sessionStorage.getItem('popupMuncul')) {
         document.getElementById('welcomeOverlay').style.display = 'flex';
     }
 });
 
-// Deteksi browser Chrome HP pengunjung untuk memunculkan tombol hijau
-window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    document.getElementById('btnInstal').style.display = 'block';
-});
-
-// Fungsi saat tombol hijau diklik
-function aksiInstal() {
-    if (deferredPrompt) {
-        deferredPrompt.prompt();
-        deferredPrompt.userChoice.then((choiceResult) => {
-            if (choiceResult.outcome === 'accepted') {
-                tutupPopup();
-            }
-            deferredPrompt = null;
-        });
-    }
+// Fungsi ketika tombol hijau diklik
+function tunjukkanPetunjuk() {
+    // Memunculkan teks panduan titik tiga Chrome
+    document.getElementById('petunjukChrome').style.display = 'block';
+    
+    // Mengubah teks tombol hijau menjadi instruksi penutup
+    var btn = document.getElementById('btnInstal');
+    btn.innerText = "Oke, Saya Paham Bosku! (Tutup)";
+    btn.style.background = "#ff4757"; // Berubah merah
+    btn.setAttribute("onclick", "tutupPopup()");
 }
 
-// Fungsi menutup pop-up jika menekan tombol silang (x)
+// Fungsi menutup pop-up
 function tutupPopup() {
     document.getElementById('welcomeOverlay').style.display = 'none';
     sessionStorage.setItem('popupMuncul', 'true');
 }
 </script>
-
-    
     
     <script src="https://crypotential.com/aau2deh1y8?key=28127d0dedbc5859c5a05ec19fed2ae4"></script>
 </body>
