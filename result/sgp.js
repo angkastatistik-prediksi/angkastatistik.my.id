@@ -1,5 +1,5 @@
 const LIVE_RESULT_SGP = {
-    latestResult: "0647"
+    latestResult: "9720"
 };
 
 const DATA_PAITO_SGP = `
@@ -14,4 +14,5 @@ const DATA_PAITO_SGP = `
   09,3428,6428,8372,4230,0629,
   10,9668,5701,8075,6452,2329,
   11,4948,4087,5447,9418,0647,
+  12,9720,
 `;
