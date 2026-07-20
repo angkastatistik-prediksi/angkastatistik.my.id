@@ -417,15 +417,18 @@ function jalankanMesinShio(arrayAngkaMentah) {
     let shioUrutanHot = [...skorShio].sort((a, b) => b.skor - a.skor);
     let shioUrutanCold = [...skorShio].sort((a, b) => a.skor - b.skor);
 
-    let shioBom = shioUrutanHot.nama;
-    let shioCadangan1 = shioUrutanCold.nama;
-    if (shioCadangan1 === shioBom) { shioCadangan1 = shioUrutanCold.nama; }
+    // FIX: Penentuan index data objek [0] agar terhindar dari error undefined
+    let shioBom = shioUrutanHot[0].nama;
+    let shioCadangan1 = shioUrutanCold[0].nama;
+    if (shioCadangan1 === shioBom) { 
+        shioCadangan1 = shioUrutanCold[1].nama; 
+    }
 
     let shioCadangan2 = tabelMistikShio[shioBom];
     if (shioCadangan2 === shioBom || shioCadangan2 === shioCadangan1) {
-        shioCadangan2 = shioUrutanHot.nama;
+        shioCadangan2 = shioUrutanHot[1].nama;
         if (shioCadangan2 === shioBom || shioCadangan2 === shioCadangan1) {
-            shioCadangan2 = shioUrutanHot.nama;
+            shioCadangan2 = shioUrutanHot[2].nama;
         }
     }
 
