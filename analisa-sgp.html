@@ -147,11 +147,12 @@ hs.src='//s10.histats.com/js15_as.js';
 <script src="result/sgp.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function() {
     let arrayAngkaMentah = [];
 
     // LOGIKA DETEKSI LAMAN ASAL DAN PERUBAHAN TEKS NOTIFIKASI TOMBOL
     const tombolKembali = document.getElementById('btn-kembali-paito');
-    if (document.referrer && document.referrer.includes(window.location.hostname)) {
+    if (tombolKembali && document.referrer && document.referrer.includes(window.location.hostname)) {
         const urlAsal = document.referrer.toLowerCase();
         let teksTombol = "Cambodia"; let linkTombol = "cambodia.html";
         if (urlAsal.includes('macau')) { teksTombol = "Macau"; linkTombol = "macau.html"; }
@@ -170,45 +171,52 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // 1. PROSES EKSTRAKSI DATA STRING PAITO SGP
+    // 1. PROSES EKSTRAKSI DATA STRING PAITO SGP (DIPERBAIKI UNTUK TEMPLATE LITERALS)
     if (typeof DATA_PAITO_SGP !== 'undefined' && DATA_PAITO_SGP.trim() !== '') {
         let containerHistori = document.getElementById('wrapper-histori');
-        containerHistori.innerHTML = '';
-        
-        // Memecah teks harian berdasarkan koma
-        let semuaPotongan = DATA_PAITO_SGP.split(',').map(item => item.trim()).filter(item => item !== "");
-        
-        // Filter ketat: Angka urutan hari (01, 02) terbuang karena panjangnya bukan 4 digit
-        let semuaAngkaSah = semuaPotongan.filter(item => item.length === 4 && item !== "-");
-        
-        // Mengambil 7 keluaran nomor terakhir dari baris paling bawah SGP
-        arrayAngkaMentah = semuaAngkaSah.slice(-7);
+        if (containerHistori) {
+            containerHistori.innerHTML = '';
+            
+            // PERBAIKAN EXTRA: Membersihkan karakter enter (\n), tab, dan spasi sebelum di-split
+            let bersihTeks = DATA_PAITO_SGP.replace(/\s+/g, ''); 
+            let semuaPotongan = bersihTeks.split(',').filter(item => item !== "");
+            
+            // Memastikan hanya mengambil teks berukuran tepat 4 digit angka murni
+            let semuaAngkaSah = semuaPotongan.filter(item => item.length === 4 && !isNaN(item));
+            
+            // Mengambil 7 nomor keluaran terakhir
+            arrayAngkaMentah = semuaAngkaSah.slice(-7);
 
-        // Tampilkan histori dengan urutan terbalik (Terbaru berada di atas/nomor 1)
-        let tampilanHistori = [...arrayAngkaMentah].reverse();
-        tampilanHistori.forEach((nomor, indeks) => {
-            containerHistori.innerHTML += `
-                <div class="history-item">
-                    <span>Result Ke-${indeks + 1}</span>
-                    <strong style="color:#ffb703;">${nomor}</strong>
-                </div>`;
-        });
+            // Tampilkan histori dengan urutan terbaru di atas
+            let tampilanHistori = [...arrayAngkaMentah].reverse();
+            tampilanHistori.forEach((nomor, indeks) => {
+                containerHistori.innerHTML += `
+                    <div class="history-item">
+                        <span>Result Ke-${indeks + 1}</span>
+                        <strong style="color:#ffb703;">${nomor}</strong>
+                    </div>`;
+            });
+        }
     } else {
-        document.getElementById('wrapper-histori').innerText = "Gagal memuat database sgp.js";
+        const containerHistori = document.getElementById('wrapper-histori');
+        if (containerHistori) containerHistori.innerText = "Gagal memuat database sgp.js";
         return;
     }
 
     // 2. TRIGGER TOMBOL HITUNG
-    document.getElementById('btn-hitung').addEventListener('click', function() {
-        if(arrayAngkaMentah.length < 7) { 
-            alert("Data sah dalam berkas sgp.js belum mencapai 7 hari!"); 
-            return; 
-        }
-        jalankanMesinHitung(arrayAngkaMentah);
-    });
+    const btnHitung = document.getElementById('btn-hitung');
+    if (btnHitung) {
+        btnHitung.addEventListener('click', function() {
+            if(arrayAngkaMentah.length < 7) { 
+                alert("Data sah dalam berkas sgp.js belum mencapai 7 hari!"); 
+                return; 
+            }
+            jalankanMesinHitung(arrayAngkaMentah);
+        });
+    }
 });
 
-// FUNGSI INTI RUMUS PREDIKSI (GABUNGAN HOT, COLD, MISTIK)
+// FUNGSI INTI RUMUS PREDIKSI (DIPERBAIKI SECARA MATEMATIS & AMAN DARI UNDEFINED)
 function jalankanMesinHitung(arrayAngkaMentah) {
     let hitungDigit = Array(10).fill(0);
     let hitungKepala = Array(10).fill(0);
@@ -217,13 +225,18 @@ function jalankanMesinHitung(arrayAngkaMentah) {
 
     arrayAngkaMentah.forEach(angka => {
         if (angka.length === 4) {
-            let d1 = parseInt(angka);
-            let d2 = parseInt(angka);
-            let d3 = parseInt(angka); // Kepala
-            let d4 = parseInt(angka); // Ekor
+            // PERBAIKAN KUNCI: Memecah string 4 digit berdasarkan indeks karakter posisinya
+            let d1 = parseInt(angka[0]); // Digit 1 (As)
+            let d2 = parseInt(angka[1]); // Digit 2 (Kop)
+            let d3 = parseInt(angka[2]); // Digit 3 (Kepala)
+            let d4 = parseInt(angka[3]); // Digit 4 (Ekor)
 
-            hitungDigit[d1]++; hitungDigit[d2]++; hitungDigit[d3]++; hitungDigit[d4]++;
-            hitungKepala[d3]++; hitungEkor[d4]++;
+            // Mengamankan jika konversi data menghasilkan komponen bukan angka
+            if(!isNaN(d1) && !isNaN(d2) && !isNaN(d3) && !isNaN(d4)) {
+                hitungDigit[d1]++; hitungDigit[d2]++; hitungDigit[d3]++; hitungDigit[d4]++;
+                hitungKepala[d3]++; 
+                hitungEkor[d4]++;
+            }
         }
     });
 
@@ -231,11 +244,14 @@ function jalankanMesinHitung(arrayAngkaMentah) {
     let urutanHot = [...dataSkorDigit].sort((a, b) => b.skor - a.skor);
     let urutanCold = [...dataSkorDigit].sort((a, b) => a.skor - b.skor);
 
-    let angkaHotUtama = urutanHot.angka; 
-    let angkaColdUtama = urutanCold.angka; 
-    if (angkaHotUtama === angkaColdUtama) { angkaColdUtama = urutanCold.angka; }
+    // PERBAIKAN KUNCI: Mengambil nilai angka dari objek indeks pertama array [0]
+    let angkaHotUtama = urutanHot[0].angka; 
+    let angkaColdUtama = urutanCold[0].angka; 
+    if (angkaHotUtama === angkaColdUtama && urutanCold[1]) { 
+        angkaColdUtama = urutanCold[1].angka; 
+    }
 
-    let angkaMistik = tabelMistik[urutanHot.angka];
+    let angkaMistik = tabelMistik[angkaHotUtama] !== undefined ? tabelMistik[angkaHotUtama] : 0;
     let hasilAI = [angkaHotUtama, angkaColdUtama, angkaMistik];
     hasilAI = [...new Set(hasilAI)];
 
@@ -245,16 +261,25 @@ function jalankanMesinHitung(arrayAngkaMentah) {
     }
     hasilAI.sort(() => Math.random() - 0.5);
 
-    let kepalaKuat = hitungKepala.map((v, i) => ({ angka: i, skor: v })).sort((a, b) => b.skor - a.skor).angka;
-    let ekorKuat = hitungEkor.map((v, i) => ({ angka: i, skor: v })).sort((a, b) => a.skor - b.skor).angka;
+    // PERBAIKAN KUNCI: Mengambil nilai kepala & ekor tertinggi dari objek indeks [0] hasil sorting
+    let dataKepala = hitungKepala.map((v, i) => ({ angka: i, skor: v })).sort((a, b) => b.skor - a.skor);
+    let dataEkor = hitungEkor.map((v, i) => ({ angka: i, skor: v })).sort((a, b) => b.skor - a.skor); // Diubah ke b.skor - a.skor agar mencari yang terkuat
 
+    let kepalaKuat = dataKepala[0].angka;
+    let ekorKuat = dataEkor[0].angka;
+
+    // Menampilkan Hasil Ke Element HTML DOM
     document.getElementById('res-ai').innerText = hasilAI.join(" , ");
     document.getElementById('res-kepala').innerText = kepalaKuat;
     document.getElementById('res-ekor').innerText = ekorKuat;
-    document.getElementById('box-hasil').style.display = "block";
-}
-    </script>
-
+    
+    const boxHasil = document.getElementById('box-hasil');
+    if (boxHasil) {
+        boxHasil.style.display = "block";
+        // LOGIKA RESPONSIF SCROLL: Layar otomatis bergeser lembut ke area hasil prediksi
+        boxHasil.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+    }
 </script>
 
 </body>
