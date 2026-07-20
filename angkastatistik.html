@@ -478,7 +478,6 @@ function unduhGambarPaitoPng() {
     const areaFoto = document.getElementById('area-foto-paito');
     const tombol = document.getElementById('btn-download-paito');
     
-    // Validasi awal untuk memastikan elemen ada
     if (!areaFoto || !tombol) {
         alert("Elemen HTML tidak ditemukan! Periksa ID area-foto-paito atau btn-download-paito.");
         return;
@@ -487,11 +486,14 @@ function unduhGambarPaitoPng() {
     tombol.innerText = "⏳ Menyimpan Gambar...";
     tombol.disabled = true;
 
-    // Menambahkan opsi useCORS dan allowTaint untuk mencegah macet akibat gambar eksternal
+    // Perbaikan Opsi: Hapus allowTaint, gunakan useCORS, dan kunci posisi scroll
     html2canvas(areaFoto, { 
         scale: 2,
-        useCORS: true,
-        allowTaint: true
+        useCORS: true,       // Mengizinkan gambar eksternal dengan header CORS yang valid
+        allowTaint: false,   // WAJIB FALSE agar fungsi toDataURL() tidak diblokir browser
+        logging: false,      // Mematikan log konsol internal agar performa lebih cepat
+        scrollX: 0,          // Mencegah gambar terpotong akibat posisi scroll horizontal
+        scrollY: -window.scrollY // Menyelaraskan offset scroll vertikal browser
     }).then(canvas => {
         const urlGambar = canvas.toDataURL('image/png');
         const triggerLink = document.createElement('a');
@@ -505,12 +507,13 @@ function unduhGambarPaitoPng() {
         tombol.innerText = "📥 Download Gambar Prediksi (.PNG)";
         tombol.disabled = false;
     }).catch(err => {
-        console.error(err); // Melihat detail error di Inspect Element -> Console
+        console.error("Detail Error:", err); 
         alert("Gagal memproses berkas gambar: " + err.message);
         tombol.innerText = "📥 Download Gambar Prediksi (.PNG)";
         tombol.disabled = false;
     });
 }
+
 </script>
 </body>
 </html>
