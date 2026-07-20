@@ -333,13 +333,19 @@ function prosesDanHitungPaito(pasaranAktif) {
     }
 }
 
-// 5. RUMUS INTI PREDIKSI PAITO (MENGGUNAKAN INDEKS ARRAY FIXED)
+// 5. RUMUS MASTER PAITO JITU (GABUNGAN LENGKAP 6 TABEL DATA RESMI)
 function jalankanMesinHitung(arrayAngkaMentah) {
     let hitungDigit = Array(10).fill(0);
-    let hitungKepala = Array(10).fill(0);
-    let hitungEkor = Array(10).fill(0);
-    const tabelMistik = { 0:5, 1:6, 2:7, 3:8, 4:9, 5:0, 6:1, 7:2, 8:3, 9:4 };
+    
+    // 🎯 SEKARANG SUDAH LENGKAP MENJADI 6 KELOMPOK TABEL DATA MASTER PAITO:
+    const tabelMistikLama = { 0:1, 1:0, 2:5, 3:8, 4:7, 5:2, 6:9, 7:4, 8:3, 9:6 };
+    const tabelMistikBaru = { 0:8, 1:7, 2:6, 3:9, 4:5, 5:4, 6:2, 7:1, 8:0, 9:3 };
+    const tabelTaysen     = { 0:7, 1:4, 2:9, 3:0, 4:1, 5:8, 6:3, 7:2, 8:5, 9:6 };
+    const tabelIndeks     = { 0:5, 1:6, 2:7, 3:8, 4:9, 5:0, 6:1, 7:2, 8:3, 9:4 };
+    const tabelNaik       = { 0:1, 1:2, 2:3, 3:4, 4:5, 5:6, 6:7, 7:8, 8:9, 9:0 };
+    const tabelTurun      = { 0:9, 1:0, 2:1, 3:2, 4:3, 5:4, 6:5, 7:6, 8:7, 9:8 };
 
+    // Membaca data angka mentah 4D seminggu terakhir
     arrayAngkaMentah.forEach(angka => {
         if (angka.length === 4) {
             let d1 = parseInt(angka[0]); 
@@ -349,25 +355,22 @@ function jalankanMesinHitung(arrayAngkaMentah) {
 
             if(!isNaN(d1) && !isNaN(d2) && !isNaN(d3) && !isNaN(d4)) {
                 hitungDigit[d1]++; hitungDigit[d2]++; hitungDigit[d3]++; hitungDigit[d4]++;
-                hitungKepala[d3]++; 
-                hitungEkor[d4]++;
             }
         }
     });
 
+    // =================================================================
+    // LOGIKA 1: ANGKA IKUT (AI 3 DIGIT)
+    // =================================================================
     let dataSkorDigit = hitungDigit.map((v, i) => ({ angka: i, skor: v }));
-    let urutanHot = [...dataSkorDigit].sort((a, b) => b.skor - a.skor);
     let urutanCold = [...dataSkorDigit].sort((a, b) => a.skor - b.skor);
-
-    let angkaHotUtama = urutanHot[0].angka; 
-    let angkaColdUtama = urutanCold[0].angka; 
-    if (angkaHotUtama === angkaColdUtama && urutanCold[1]) { 
-        angkaColdUtama = urutanCold[1].angka; 
-    }
-
-    let angkaMistik = tabelMistik[angkaHotUtama] !== undefined ? tabelMistik[angkaHotUtama] : 0;
-    let hasilAI = [angkaHotUtama, angkaColdUtama, angkaMistik];
-    hasilAI = [...new Set(hasilAI)];
+    let angkaMain1 = urutanCold[0].angka; 
+    
+    let angkaMistikBaru = tabelMistikBaru[angkaMain1] !== undefined ? tabelMistikBaru[angkaMain1] : 8;
+    let angkaTaysen     = tabelTaysen[angkaMain1] !== undefined ? tabelTaysen[angkaMain1] : 4;
+    
+    let hasilAI = [angkaMain1, angkaMistikBaru, angkaTaysen];
+    hasilAI = [...new Set(hasilAI)]; 
 
     while(hasilAI.length < 3) {
         let acakMurni = Math.floor(Math.random() * 10);
@@ -375,26 +378,65 @@ function jalankanMesinHitung(arrayAngkaMentah) {
     }
     hasilAI.sort(() => Math.random() - 0.5);
 
-    let dataKepala = hitungKepala.map((v, i) => ({ angka: i, skor: v })).sort((a, b) => b.skor - a.skor);
-    let dataEkor = hitungEkor.map((v, i) => ({ angka: i, skor: v })).sort((a, b) => b.skor - a.skor);
+    // =================================================================
+    // LOGIKA 2: PROSES 6 JALUR DATA RUMUS BERDASARKAN RESULT HARI INI
+    // =================================================================
+    let angkaLast4D = arrayAngkaMentah[arrayAngkaMentah.length - 1]; 
+    let kepalaHariIni = parseInt(angkaLast4D[2]); // Digit posisi Kepala
+    let ekorHariIni   = parseInt(angkaLast4D[3]); // Digit posisi Ekor
+    
+    // Tempat mencatat skor voting frekuensi angka tebakan
+    let kandidatKepala = Array(10).fill(0);
+    let kandidatEkor = Array(10).fill(0);
 
-    let kepalaKuat = dataKepala[0].angka;
-    let ekorKuat = dataEkor[0].angka;
+    // --- EKSEKUSI 6 RUMUS TABEL UNTUK POSISI KEPALA ---
+    let k_ml = tabelMistikLama[kepalaHariIni];  if(k_ml !== undefined) kandidatKepala[k_ml]++;
+    let k_mb = tabelMistikBaru[kepalaHariIni];  if(k_mb !== undefined) kandidatKepala[k_mb]++;
+    let k_ty = tabelTaysen[kepalaHariIni];      if(k_ty !== undefined) kandidatKepala[k_ty]++;
+    let k_id = tabelIndeks[kepalaHariIni];      if(k_id !== undefined) kandidatKepala[k_id]++;
+    let k_nk = tabelNaik[kepalaHariIni];        if(k_nk !== undefined) kandidatKepala[k_nk]++; // Jalur Tabel Naik
+    let k_tr = tabelTurun[kepalaHariIni];       if(k_tr !== undefined) kandidatKepala[k_tr]++; // Jalur Tabel Turun
 
+    // --- EKSEKUSI 6 RUMUS TABEL UNTUK POSISI EKOR ---
+    let e_ml = tabelMistikLama[ekorHariIni];    if(e_ml !== undefined) kandidatEkor[e_ml]++;
+    let e_mb = tabelMistikBaru[ekorHariIni];    if(e_mb !== undefined) kandidatEkor[e_mb]++;
+    let e_ty = tabelTaysen[ekorHariIni];        if(e_ty !== undefined) kandidatEkor[e_ty]++;
+    let e_id = tabelIndeks[ekorHariIni];        if(e_id !== undefined) kandidatEkor[e_id]++;
+    let e_nk = tabelNaik[ekorHariIni];          if(e_nk !== undefined) kandidatEkor[e_nk]++;   // Jalur Tabel Naik
+    let e_tr = tabelTurun[ekorHariIni];         if(e_tr !== undefined) kandidatEkor[e_tr]++;   // Jalur Tabel Turun
+
+    // =================================================================
+    // LOGIKA 3: SORTING FREKUENSI TERATAS (MEMILIH 3 KEPALA & 3 EKOR TERKUAT)
+    // =================================================================
+    let skorKepala = kandidatKepala.map((v, i) => ({ angka: i, skor: v })).sort((a, b) => b.skor - a.skor);
+    let skorEkor   = kandidatEkor.map((v, i) => ({ angka: i, skor: v })).sort((a, b) => b.skor - a.skor);
+
+    // Kunci 3 digit angka dengan total kemunculan/persetujuan rumus terbanyak
+    let listKepalaKuat = [skorKepala[0].angka, skorKepala[1].angka, skorKepala[2].angka];
+    let listEkorKuat   = [skorEkor[0].angka, skorEkor[1].angka, skorEkor[2].angka];
+
+    // Diurutkan terkecil ke terbesar biar manis dilihat pengunjung di tabel web
+    listKepalaKuat.sort((a, b) => a - b);
+    listEkorKuat.sort((a, b) => a - b);
+
+    // =================================================================
+    // LOGIKA 4: MENAMPILKAN HASIL KE MONITOR LAYAR WEB UTAMA
+    // =================================================================
     const resAi = document.getElementById('res-ai');
     const resKepala = document.getElementById('res-kepala');
     const resEkor = document.getElementById('res-ekor');
     const boxHasil = document.getElementById('box-hasil');
 
     if (resAi) resAi.innerText = hasilAI.join(" , ");
-    if (resKepala) resKepala.innerText = kepalaKuat;
-    if (resEkor) resEkor.innerText = ekorKuat;
+    if (resKepala) resKepala.innerText = listKepalaKuat.join(" , "); 
+    if (resEkor) resEkor.innerText = listEkorKuat.join(" , ");     
     
     if (boxHasil) {
         boxHasil.style.display = "block";
         boxHasil.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
-}
+  }
+    
 </script>
 
 <!-- ========================================== -->
