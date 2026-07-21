@@ -471,53 +471,30 @@ function jalankanMesinRumusMaster(arrayAngkaMentah) {
 }
 
 // Fungsi pembantu untuk mengubah gambar luar menjadi teks Base64 lokal
-function ubahKeBase64Lokal(urlSrc) {
-    return new Promise((resolve, reject) => {
-        const img = new Image();
-        img.crossOrigin = 'Anonymous'; // Meminta izin CORS secara halus
-        img.src = urlSrc;
-        img.onload = () => {
-            const canvas = document.createElement('canvas');
-            canvas.width = img.width;
-            canvas.height = img.height;
-            const ctx = canvas.getContext('2d');
-            ctx.drawImage(img, 0, 0);
-            resolve(canvas.toDataURL('image/png'));
-        };
-        img.onerror = () => {
-            // Jika gambar luar gagal karena proteksi ketat, abaikan agar tidak membuat macet seluruh fungsi
-            resolve(urlSrc); 
-        };
-    });
-}
-
-// Fungsi utama unduh gambar prediksi Anda
 function unduhGambarPaitoPng() {
-    const areaFoto = document.getElementById('area-foto-paito');
-    const tombol = document.getElementById('btn-download-paito');
     const parameterURL = new URLSearchParams(window.location.search);
     let namaPasaran = parameterURL.get('pasaran') ? parameterURL.get('pasaran').toUpperCase() : "SGP";
     
-    if (!areaFoto || !tombol) return alert("Elemen tidak ditemukan!");
+    // Mengambil teks angka hasil rumusan dari web Anda
+    const ai = document.getElementById('res-ai')?.innerText || "-";
+    const kepala = document.getElementById('res-kepala')?.innerText || "-";
+    const ekor = document.getElementById('res-ekor')?.innerText || "-";
     
-    tombol.innerText = "⏳ Menyimpan...";
-    tombol.disabled = true;
+    // Format teks rapi yang akan dikirim ke WhatsApp / Medsos
+    const teksPrediksi = `📊 PREDIKSI STATISTIK ${namaPasaran} 📊\n\n🔹 Angka Ikut (AI): ${ai}\n🔹 Kepala Kuat: ${kepala}\n🔹 Ekor Kuat: ${ekor}\n\nSalam JP Master! ✨`;
 
-    // Versi ringkas tanpa beban CORS gambar luar
-    html2canvas(areaFoto, { scale: 2 }).then(canvas => {
-        const triggerLink = document.createElement('a');
-        triggerLink.href = canvas.toDataURL('image/png');
-        triggerLink.download = `PREDIKSI-${namaPasaran}.png`;
-        triggerLink.click();
-        
-        tombol.innerText = "📥 Download Gambar Prediksi (.PNG)";
-        tombol.disabled = false;
-    }).catch(err => {
-        alert("Gagal: " + err.message);
-        tombol.disabled = false;
-    });
+    // Fitur share otomatis bawaan HP & Browser (Anti-blokir GitHub)
+    if (navigator.share) {
+        navigator.share({
+            title: `PREDIKSI ${namaPasaran}`,
+            text: teksPrediksi
+        }).catch(err => console.log("Batal membagikan"));
+    } else {
+        // Cadangan jika browser tidak mendukung share otomatis
+        navigator.clipboard.writeText(teksPrediksi);
+        alert(`Prediksi ${namaPasaran} berhasil disalin! Silakan tempel (paste) ke WhatsApp atau Catatan HP Anda.`);
+    }
 }
-
 </script>
 </body> 
 </html>
