@@ -237,19 +237,20 @@ hs.src='//s10.histats.com/js15_as.js';
  
     <!-- MEMBACA DATA PAITO SECARA EKSTERNAL DARI BERKAS DATA MANUAL -->
     <script src="result/cambodia.js"></script>
-    <script>
-    let warnaKuasAktif = "transparent";
+<script>
+let warnaKuasAktif = "transparent";
 
 if (typeof LIVE_RESULT_CAMBODIA !== 'undefined') {
     const angkaSah = LIVE_RESULT_CAMBODIA.latestResult;
     const boxAngka = document.getElementById('angka-terbaru-box');
     const boxStatusWaktu = document.getElementById('waktu-terbaru-box');
     
-    boxAngka.innerText = "----"; 
+    // Tampilan awal box live menggunakan xxxx
+    boxAngka.innerText = "xxxx"; 
     boxStatusWaktu.innerText = "Sinkronisasi data live...";
 
     let indeksDigit = 0;
-    let wadahAngka = ["-", "-", "-", "-"];
+    let wadahAngka = ["x", "x", "x", "x"];
 
     const animasiAngka = setInterval(() => {
         if (indeksDigit < angkaSah.length) {
@@ -265,7 +266,7 @@ if (typeof LIVE_RESULT_CAMBODIA !== 'undefined') {
     }, 3000); 
 
 } else {
-    document.getElementById('angka-terbaru-box').innerText = "----";
+    document.getElementById('angka-terbaru-box').innerText = "xxxx";
     document.getElementById('waktu-terbaru-box').innerText = "Gagal memuat berkas JS.";
 }
 
@@ -296,13 +297,15 @@ const paitoTbody = document.getElementById('paito-tbody-data');
 if (paitoTbody && teksMentah.trim() !== "") {
     paitoTbody.innerHTML = '';
     
-    let dataMentah = teksMentah.replace(/\s+/g, '').split(',').filter(x => x !== "");
+    // PERBAIKAN: Menggunakan split koma langsung agar teks baris baru terjaga aman
+    let dataMentah = teksMentah.split(',').map(x => x.trim()).filter(x => x !== "");
     
     for (let i = 0; i < dataMentah.length; i += 8) {
         let baris = dataMentah.slice(i, i + 8);
         
+        // JIKA KOLOM KURANG DARI 8, OTOMATIS ISI DENGAN KATA "KOSONG" UNTUK DIUBAH JADI xxxx
         while (baris.length < 8) {
-            baris.push("-");
+            baris.push("KOSONG");
         }
         
         let barisHTML = `<tr>`;
@@ -314,22 +317,22 @@ if (paitoTbody && teksMentah.trim() !== "") {
                 if (teksDraw.length > 2) teksDraw = teksDraw.slice(-2);
                 barisHTML += `<td class="mgg-row">${teksDraw}</td>`;
             } else {
-                if (teksDraw !== "-" && teksDraw.length < 4) {
+                // JIKA DATA KOSONG, BERISI STRIP, ATAU "KOSONG", UBAH JADI xxxx
+                if (teksDraw === "-" || teksDraw === "" || teksDraw === "KOSONG") {
+                    teksDraw = "xxxx";
+                } else if (teksDraw.length < 4) {
                     teksDraw = teksDraw.padStart(4, "0");
-                }
-                if (teksDraw !== "-" && teksDraw.length > 4) {
+                } else if (teksDraw.length > 4) {
                     teksDraw = teksDraw.slice(-4);
                 }
                 
                 let digitHTML = '';
-                if (teksDraw !== "-") {
-                    let pos = 0;
-                    for (let karakterAngka of teksDraw) {
-                        digitHTML += `<span data-pos="${pos}">${karakterAngka}</span>`;
-                        pos++;
-                    }
-                } else {
-                    digitHTML = `<span style="color:var(--text-muted); opacity:0.3;">-</span>`;
+                let pos = 0;
+                for (let karakterAngka of teksDraw) {
+                    // Beri warna agak samar (opacity) khusus untuk huruf 'x' agar tampilan rapi
+                    let styleTambahan = (karakterAngka === 'x') ? 'style="color:var(--text-muted); opacity:0.4;"' : '';
+                    digitHTML += `<span data-pos="${pos}" ${styleTambahan}>${karakterAngka}</span>`;
+                    pos++;
                 }
                 barisHTML += `<td class="paito-cell">${digitHTML}</td>`;
             }
@@ -342,13 +345,13 @@ if (paitoTbody && teksMentah.trim() !== "") {
 }
         
 paitoTbody.addEventListener('click', function(e) {
-    if (e.target && e.target.tagName === 'SPAN' && e.target.innerText !== "-") {
+    if (e.target && e.target.tagName === 'SPAN') {
         if (warnaKuasAktif === "transparent") {
             e.target.style.backgroundColor = "transparent";
-            e.target.style.color = "var(--text-main)";
+            e.target.style.color = (e.target.innerText === "x") ? "var(--text-muted)" : "var(--text-main)";
         } else {
             e.target.style.backgroundColor = warnaKuasAktif;
-            e.target.style.color = "#000000"; 
+            e.target.style.color = (warnaKuasAktif === "#ff007f") ? "#ffffff" : "#000000"; 
         }
     }
 });
@@ -364,7 +367,7 @@ document.getElementById('btn-cari-pola').addEventListener('click', function() {
     }
 
     seluruhSpan.forEach(span => {
-        if(span.innerText === "-") return;
+        if(span.innerText === "x") return; // Abaikan huruf x saat pencarian pola otomatis
         const posisiDigit = span.getAttribute('data-pos'); 
 
         if (cariKepala !== "" && posisiDigit === "2" && span.innerText === cariKepala) {
@@ -386,10 +389,12 @@ document.getElementById('btn-bersih-pola').addEventListener('click', function() 
     const seluruhSpan = paitoTbody.querySelectorAll('.paito-cell span');
     seluruhSpan.forEach(span => {
         span.style.backgroundColor = "transparent";
-        span.style.color = "var(--text-main)";
+        span.style.color = (span.innerText === "x") ? "var(--text-muted)" : "var(--text-main)";
+        span.style.fontWeight = "normal";
     });
 });
-    </script>
+</script>
+
     <script src="https://crypotential.com/aau2deh1y8?key=28127d0dedbc5859c5a05ec19fed2ae4"></script>
 </body>
 </html>
