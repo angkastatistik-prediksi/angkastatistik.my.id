@@ -233,6 +233,19 @@ hs.src='//s10.histats.com/js15_as.js';
 </a>
 </noscript>
 
+<!-- Tambahkan CSS ini di dalam tag <head> atau di atas script untuk efek kelap-kelip -->
+<style>
+@keyframes kelapKelip {
+    0% { opacity: 1; font-weight: bold; color: #ff0000; }
+    50% { opacity: 0.2; font-weight: normal; color: var(--text-main, #333); }
+    100% { opacity: 1; font-weight: bold; color: #ff0000; }
+}
+.minggu-berjalan {
+    animation: kelapKelip 1.5s infinite;
+    background-color: rgba(255, 0, 0, 0.05); /* Memberi sedikit highlight pada baris aktif */
+}
+</style>
+
 <script src="result/sdy.js"></script>
 <script>
 let warnaKuasAktif = "transparent";
@@ -242,9 +255,8 @@ if (typeof LIVE_RESULT_SDY !== 'undefined') {
     const boxAngka = document.getElementById('angka-terbaru-box');
     const boxStatusWaktu = document.getElementById('waktu-terbaru-box');
     
-    // Tampilan awal box live menggunakan xxxx
     boxAngka.innerText = "xxxx"; 
-    boxStatusWaktu.innerText = "Sinkronisasi data live SDY...";
+    boxStatusWaktu.innerText = "Sinkronisasi data live...";
 
     let indeksDigit = 0;
     let wadahAngka = ["x", "x", "x", "x"];
@@ -258,13 +270,13 @@ if (typeof LIVE_RESULT_SDY !== 'undefined') {
             clearInterval(animasiAngka);
             const tgl = new Date();
             const infoWaktu = `${String(tgl.getDate()).padStart(2, '0')}-${String(tgl.getMonth()+1).padStart(2, '0')}-${tgl.getFullYear()}`;
-            boxStatusWaktu.innerText = "Update Sah SDY Hari Ini: " + infoWaktu;
+            boxStatusWaktu.innerText = "Update Sah Hari Ini: " + infoWaktu;
         }
     }, 3000); 
 
 } else {
     document.getElementById('angka-terbaru-box').innerText = "xxxx";
-    document.getElementById('waktu-terbaru-box').innerText = "Gagal memuat berkas JS SDY.";
+    document.getElementById('waktu-terbaru-box').innerText = "Gagal memuat berkas JS.";
 }
 
 const tombolWarna = document.querySelectorAll('.color-palette .color-btn');
@@ -283,7 +295,7 @@ function perbaruiJamOtomatis() {
     const detik = String(sekarang.getSeconds()).padStart(2, '0');
     
     document.getElementById('live-update-time').innerHTML = 
-        `Jam ${jam}:${menit}:${detik} WIB | Fitur Kuas HP SDY Aktif`;
+        `Jam ${jam}:${menit}:${detik} WIB | Fitur Kuas HP Aktif`;
 }
 perbaruiJamOtomatis(); 
 setInterval(perbaruiJamOtomatis, 1000); 
@@ -294,51 +306,64 @@ const paitoTbody = document.getElementById('paito-tbody-data');
 if (paitoTbody && teksMentah.trim() !== "") {
     paitoTbody.innerHTML = '';
     
-    // Memisahkan data berdasarkan koma
-    let dataMentah = teksMentah.split(',').map(x => x.trim()).filter(x => x !== "");
+    // Ambil semua angka murni dari file JS
+    let dataAngkaMurni = teksMentah.split(',').map(x => x.trim()).filter(x => x !== "");
     
-    // Menggunakan basis 7 kolom (1 Hari/Tanggal + 6 Kolom Angka)
-    for (let i = 0; i < dataMentah.length; i += 7) {
-        let baris = dataMentah.slice(i, i + 7);
+    // Pecah data menjadi baris-baris berkapasitas maksimal 7 angka keluaran per minggu
+    let indeksData = 0;
+    while (indeksData < dataAngkaMurni.length || indeksData === 0) {
+        let barisAngka = dataAngkaMurni.slice(indeksData, indeksData + 7);
+        let jumlahTerisi = barisAngka.length;
         
-        // Jika kolom gantung / belum lengkap, isi sisa array dengan kata "KOSONG"
-        while (baris.length < 7) {
-            baris.push("KOSONG");
+        // Tentukan angka indikator kolom pertama (Jika full isi 7, jika tidak isi sesuai jumlah kolom terisi)
+        let angkaIndikator = "7";
+        let classTambahan = "";
+        
+        if (jumlahTerisi < 7) {
+            angkaIndikator = String(jumlahTerisi);
+            classTambahan = 'class="mgg-row minggu-berjalan"'; // Pasang animasi kelap-kelip merah
+        } else {
+            classTambahan = 'class="mgg-row"';
+        }
+
+        // Lengkapi sisa kolom yang kosong dengan teks "KOSONG" agar bisa dicetak xxxx
+        while (barisAngka.length < 7) {
+            barisAngka.push("KOSONG");
         }
         
         let barisHTML = `<tr>`;
-        baris.forEach((draw, indeks) => {
+        // 1. Cetak kolom indikator status minggu di paling kiri (7 atau angka kelap-kelip)
+        barisHTML += `<td ${classTambahan}>${angkaIndikator}</td>`;
+        
+        // 2. Cetak 7 kolom angka paito di sebelahnya
+        barisAngka.forEach((draw) => {
             let teksDraw = String(draw).trim();
             
-            if (indeks === 0) {
-                barisHTML += `<td class="mgg-row">${teksDraw}</td>`;
-            } else {
-                // Konversi data kosong/strip/KOSONG ke format xxxx
-                if (teksDraw === "-" || teksDraw === "" || teksDraw === "KOSONG") {
-                    teksDraw = "xxxx";
-                } else if (teksDraw.length < 4) {
-                    teksDraw = teksDraw.padStart(4, "0");
-                } else if (teksDraw.length > 4) {
-                    teksDraw = teksDraw.slice(-4);
-                }
-                
-                let digitHTML = '';
-                let pos = 0;
-                for (let karakterAngka of teksDraw) {
-                    // Warna teks x dibuat sedikit transparan agar paito terlihat bersih
-                    let styleTambahan = (karakterAngka === 'x') ? 'style="color:var(--text-muted); opacity:0.4;"' : '';
-                    digitHTML += `<span data-pos="${pos}" ${styleTambahan}>${karakterAngka}</span>`;
-                    pos++;
-                }
-                
-                barisHTML += `<td class="paito-cell">${digitHTML}</td>`;
+            if (teksDraw === "-" || teksDraw === "" || teksDraw === "KOSONG") {
+                teksDraw = "xxxx";
+            } else if (teksDraw.length < 4) {
+                teksDraw = teksDraw.padStart(4, "0");
+            } else if (teksDraw.length > 4) {
+                teksDraw = teksDraw.slice(-4);
             }
+            
+            let digitHTML = '';
+            let pos = 0;
+            for (let karakterAngka of teksDraw) {
+                let styleTambahan = (karakterAngka === 'x') ? 'style="color:var(--text-muted); opacity:0.4;"' : '';
+                digitHTML += `<span data-pos="${pos}" ${styleTambahan}>${karakterAngka}</span>`;
+                pos++;
+            }
+            barisHTML += `<td class="paito-cell">${digitHTML}</td>`;
         });
+        
         barisHTML += `</tr>`;
         paitoTbody.innerHTML += barisHTML;
+        
+        indeksData += 7; // Lanjut ke 7 data berikutnya (minggu depan)
     }
 } else if (paitoTbody) {
-    paitoTbody.innerHTML = '<tr><td colspan="7" style="color:var(--text-muted); padding:10px;">Data Berkas Kosong.</td></tr>';
+    paitoTbody.innerHTML = '<tr><td colspan="8" style="color:var(--text-muted); padding:10px;">Data Berkas Kosong.</td></tr>';
 }
 
 paitoTbody.addEventListener('click', function(e) {
@@ -364,7 +389,7 @@ document.getElementById('btn-cari-pola').addEventListener('click', function() {
     }
 
     seluruhSpan.forEach(span => {
-        if(span.innerText === "x") return; // Abaikan huruf x saat tracking pola angka
+        if(span.innerText === "x") return; 
         const posisiDigit = span.getAttribute('data-pos'); 
 
         if (cariKepala !== "" && posisiDigit === "2" && span.innerText === cariKepala) {
@@ -380,6 +405,9 @@ document.getElementById('btn-cari-pola').addEventListener('click', function() {
     });
 });
 
+document.getElementById('btn-bersih-pola').addEventListener('fold', function() {
+    // Tombol bersih pola reset penanda kuas manual
+});
 document.getElementById('btn-bersih-pola').addEventListener('click', function() {
     document.getElementById('input-kepala').value = "";
     document.getElementById('input-ekor').value = "";
