@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Angka Statistik Bola</title>
+
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+<style>
+body{
+background:#111;
+color:#fff;
+font-family:Arial,sans-serif;
+padding:15px;
+display:flex;
+flex-direction:column;
+align-items:center;
+}
+
+textarea,button,select{
+width:100%;
+max-width:360px;
+padding:10px;
+margin:5px 0;
+border:none;
+border-radius:8px;
+box-sizing:border-box;
+}
+
+button{
+background:#ffcc00;
+font-weight:bold;
+cursor:pointer;
+}
+
+textarea{
+height:160px;
+}
+
+#capture{
+width:100%;
+max-width:450px;
+padding:10px;
+text-align:center;
+}
+
+.row{
+background:#000;
+padding:10px;
+margin:8px 0;
+border-radius:10px;
+display:flex;
+justify-content:center;
+align-items:center;
+gap:6px;
+flex-wrap:wrap;
+}
+
+.ball{
+width:32px;
+height:32px;
+border-radius:50%;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:22px;
+font-weight:900;
+}
+
+.red{background:red;color:white;}
+.white{background:white;color:black;}
+
+.colon{
+font-size:28px;
+font-weight:bold;
+}
+
+#tanggal{
+display:block;
+width:fit-content;
+min-width:260px;
+max-width:90%;
+margin:0 auto 10px auto;
+text-align:center;
+font-weight:bold;
+font-size:16px;
+color:#00ff66;
+background:#000;
+border:1px solid #00ff66;
+border-radius:25px;
+padding:8px 20px;
+box-sizing:border-box;
+}
+
+.footer{
+margin-top:15px;
+font-size:14px;
+font-weight:bold;
+color:lime;
+text-shadow:0 0 3px lime;
+opacity:1;
+}
+</style>
+</head>
+<body>
+
+<select id="flag" onchange="setFlag()">
+<option value="🇭🇰">🇭🇰 Hong Kong</option>
+<option value="🇳🇿">🇳🇿 New Zealand</option>
+<option value="🇸🇬">🇸🇬 Singapore</option>
+</select>
+
+<textarea id="input" placeholder="Contoh:
+0933:02
+1521:08
+5537:15
+2560:8̶9̶"></textarea>
+
+<button onclick="generate()">✔ Proses</button>
+<button onclick="resetData()">🔄 Reset</button>
+<button onclick="downloadImage()">📥 Download Gambar</button>
+
+<div id="capture">
+
+<h2 contenteditable="true">Angka Statistik </h2>
+
+<input id="tanggal" type="text" placeholder="Hari dan tanggal bisa diubah manual">
+
+<div id="bendera" style="font-size:30px;margin:8px 0;"></div>
+
+<div id="output"></div>
+
+<div id="followText" style="display:none;margin-top:15px;padding:10px;font-size:16px;font-weight:bold;color:#ffd700;text-align:center;">
+<br>
+Follow, Like & Share 🔰
+</div>
+
+<div class="footer">© Angka Statistik</div>
+
+</div>
+
+<script>
+
+function updateTanggal(){
+let d=new Date();
+document.getElementById("tanggal").value =
+d.toLocaleDateString("id-ID",{
+weekday:"long",
+year:"numeric",
+month:"long",
+day:"numeric"
+});
+}
+updateTanggal();
+
+function setFlag(){
+document.getElementById("bendera").innerText=
+document.getElementById("flag").value;
+}
+
+setFlag();
+
+let data=[];
+
+function makeBalls(text,color){
+
+let html="";
+const chars=[...text];
+
+for(let i=0;i<chars.length;i++){
+
+let item=chars[i];
+
+if(chars[i+1]==="̶"){
+item+=chars[i+1];
+i++;
+}
+
+html+=`<div class="ball ${color}">${item}</div>`;
+}
+
+return html;
+}
+
+function ambilDigit(txt,jumlah){
+
+let hasil="";
+let hitung=0;
+
+for(let i=0;i<txt.length;i++){
+
+hasil+=txt[i];
+
+if(/[0-9]/.test(txt[i])){
+hitung++;
+}
+
+if(txt[i+1]==="̶"){
+hasil+=txt[i+1];
+i++;
+}
+
+if(hitung>=jumlah) break;
+}
+
+return hasil;
+}
+
+function generate(){
+
+let lines=document.getElementById("input").value
+.split("\n")
+.filter(x=>x.trim()!="");
+
+data=lines.map(line=>{
+
+let parts=line.split(":");
+
+let red=(parts[0]||"").replace(/\s+/g,"");
+let white=(parts[1]||"").replace(/\s+/g,"");
+
+return{
+red:ambilDigit(red,4),
+white:ambilDigit(white,4)
+};
+
+});
+
+render();
+document.getElementById("followText").style.display="block";
+}
+
+function render(){
+
+let html="";
+
+data.forEach(d=>{
+
+html+=`
+<div class="row">
+${makeBalls(d.red,"red")}
+<div class="colon">:</div>
+${makeBalls(d.white,"white")}
+</div>
+`;
+
+});
+
+document.getElementById("output").innerHTML=html;
+}
+
+function resetData(){
+document.getElementById("input").value="";
+document.getElementById("output").innerHTML="";
+document.getElementById("followText").style.display="none";
+}
+
+function downloadImage(){
+
+html2canvas(document.getElementById("capture"),{
+backgroundColor:"#111",
+scale:2,
+useCORS:true
+}).then(function(canvas){
+
+let a=document.createElement("a");
+a.download="angka-statistik.png";
+a.href=canvas.toDataURL("image/png");
+a.click();
+
+});
+
+}
+</script>
+
+</body>
+</html>
