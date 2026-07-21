@@ -26,11 +26,11 @@ tunggal: ""
 },
 
 selasa: {
-tanggal: "2026-07-14", 
+tanggal: "2026-07-21", 
 angka: `
-
+4332 : 936
 `,
-tunggal: ""
+tunggal: "3"
 },
 
 rabu: {
