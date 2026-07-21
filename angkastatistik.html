@@ -168,12 +168,8 @@
             animation: efekMuncul 0.4s ease-out;
             margin-top: 20px;
         }
-        #area-foto-paito {
-    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); /* Warna biru premium */
-    color: #ffffff;
-    padding: 20px;
-    border-radius: 8px;
-    }
+
+      
         }
         .judul-foto {
             color: #ffcc00;
@@ -475,57 +471,32 @@ function unduhGambarPaitoPng() {
     const parameterURL = new URLSearchParams(window.location.search);
     let namaPasaran = parameterURL.get('pasaran') ? parameterURL.get('pasaran').toUpperCase() : "SGP";
     
+    document.getElementById('judul-foto-pasaran').innerText = `PREDIKSI ${namaPasaran}`;
+
+    const areaFoto = document.getElementById('area-foto-paito');
     const tombol = document.getElementById('btn-download-paito');
-    if (tombol) {
-        tombol.innerText = "⏳ Membuat Gambar...";
-        tombol.disabled = true;
-    }
-
-    // Ambil data angka hasil rumusan asli dari web Anda
-    const ai = document.getElementById('res-ai')?.innerText || "-";
-    const kepala = document.getElementById('res-kepala')?.innerText || "-";
-    const ekor = document.getElementById('res-ekor')?.innerText || "-";
     
-    // Susun pesan teks yang akan digenerate menjadi gambar profesional
-    const isiTeks = `PREDIKSI STATISTIK ${namaPasaran}\n\nANGKA IKUT (AI) :  ${ai}\nKEPALA KUAT     :  ${kepala}\nEKOR KUAT         :  ${ekor}\n\nangkastatistik.my.id`;
+    tombol.innerText = "⏳ Menyimpan Gambar...";
+    tombol.disabled = true;
 
-    // Menggunakan API eksternal gratis untuk mengubah teks langsung menjadi gambar PNG matang
-    // Cara ini 100% kebal dari aturan CORS browser karena yang mengirim file adalah server backend
-    const urlApiGambar = "https://quickchart.io" + encodeURIComponent(JSON.stringify({
-        type: 'radialGauge', // Format background premium
-        data: {
-            datasets: [{
-                data:,
-                backgroundColor: '#1e3c72'
-            }]
-        },
-        options: {
-            title: {
-                display: true,
-                text: isiTeks,
-                fontColor: '#ffffff',
-                fontSize: 22,
-                fontStyle: 'bold'
-            },
-            legend: { display: false }
-        }
-    }));
-
-    // Eksekusi download file PNG murni langsung dari server
-    const pemicuUnduh = document.createElement('a');
-    pemicuUnduh.href = urlApiGambar;
-    pemicuUnduh.download = `PREDIKSI-${namaPasaran}-ANGKA-STATISTIK.png`;
-    document.body.appendChild(pemicuUnduh);
-    pemicuUnduh.click();
-    document.body.removeChild(pemicuUnduh);
-
-    if (tombol) {
-        setTimeout(() => {
-            tombol.innerText = "📥 Download Gambar Prediksi (.PNG)";
-            tombol.disabled = false;
-        }, 1500);
+    html2canvas(areaFoto, { scale: 2 }).then(canvas => {
+        const urlGambar = canvas.toDataURL('image/png');
+        const triggerLink = document.createElement('a');
+        triggerLink.href = urlGambar;
+        triggerLink.download = `PREDIKSI-${namaPasaran}-ANGKA-STATISTIK.png`;
+        
+        document.body.appendChild(triggerLink);
+        triggerLink.click();
+        document.body.removeChild(triggerLink);
+        
+        tombol.innerText = "📥 Download Gambar Prediksi (.PNG)";
+        tombol.disabled = false;
+    }).catch(err => {
+        alert("Gagal memproses berkas gambar.");
+        tombol.innerText = "📥 Download Gambar Prediksi (.PNG)";
+        tombol.disabled = false;
+    });
     }
-}
-</script>
-</body> 
+    </script>
+</body>
 </html>
