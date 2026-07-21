@@ -9,13 +9,11 @@ tunggal: "2"
 },
 
 selasa: {
-tanggal: "2026-07-14", 
+tanggal: "2026-07-21", 
 angka: `
-4504 : 23
-8093 : 52
-4272 : 98
+5554 : 174
 `,
-tunggal: "8"
+tunggal: "1"
 },
 
 rabu: {
