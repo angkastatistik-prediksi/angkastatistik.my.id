@@ -8,7 +8,7 @@ tunggal: ""
 },
 
 selasa: {
-tanggal: "2026-07-14", 
+tanggal: "2026-07-21", 
 angka: `
 2065 : 37
 1207 : 64
