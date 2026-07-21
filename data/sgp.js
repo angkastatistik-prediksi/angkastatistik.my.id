@@ -24,11 +24,11 @@ tunggal: ""
 },
 
 rabu: {
-tanggal: "2026-07-15", 
+tanggal: "2026-07-22", 
 angka: `
-
+9720 : 903
 `,
-tunggal: ""
+tunggal: "3"
 },
 
 kamis: {
