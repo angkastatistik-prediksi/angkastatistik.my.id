@@ -3,57 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel Simpel</title>
+    <title>Admin Panel Premium</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
-        body { background-color: #f1f2f6; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-        .admin-container { background: #fff; width: 100%; max-width: 400px; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: center; }
-        h2 { color: #0066cc; margin-bottom: 25px; font-size: 22px; font-weight: bold; }
-        .btn-menu { display: block; text-decoration: none; padding: 15px; margin-bottom: 15px; border-radius: 8px; font-weight: bold; font-size: 16px; color: #fff; transition: 0.2s; box-shadow: 0 3px 6px rgba(0,0,0,0.1); }
-        .utama { background: #00b894; }
-        .utama:hover { background: #009473; }
-        .statistik { background: #0066cc; margin-bottom: 0; }
-        .statistik:hover { background: #0052a3; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background: linear-gradient(135deg, #0f172a, #1e293b); color: #f8fafc; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .admin-container { background: #1e293b; width: 100%; max-width: 850px; padding: 25px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); border: 1px solid #334155; }
+        
+        .header { text-align: center; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 2px solid #334155; }
+        h2 { color: #38bdf8; font-size: 24px; font-weight: 800; letter-spacing: 1px; margin-bottom: 15px; text-transform: uppercase; }
+        
+        .btn-utama { display: inline-flex; align-items: center; justify-content: center; text-decoration: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; font-size: 14px; color: #fff; background: #00b894; transition: 0.2s; box-shadow: 0 4px 10px rgba(0,184,148,0.2); }
+        .btn-utama:hover { background: #009473; transform: translateY(-2px); }
+        .btn-stat { background: #6366f1; margin-left: 10px; }
+        .btn-stat:hover { background: #4f46e5; }
+
+        .section-title { font-size: 13px; font-weight: bold; color: #94a3b8; text-transform: uppercase; letter-spacing: 1.5px; text-align: left; margin: 20px 0 10px 5px; display: flex; align-items: center; }
+        .section-title::after { content: ""; flex: 1; height: 1px; background: #334155; margin-left: 10px; }
+
+        .grid-menu { display: grid; grid-template-columns: repeat(auto-fit, minmax(95px, 1fr)); gap: 8px; }
+        
+        .btn-sub { display: flex; align-items: center; justify-content: center; text-decoration: none; padding: 8px 5px; border-radius: 6px; font-size: 11px; font-weight: 700; color: #fff; text-align: center; transition: all 0.2s ease; text-transform: uppercase; border: 1px solid rgba(255,255,255,0.05); }
+        .btn-sub:hover { transform: translateY(-2px); filter: brightness(1.2); box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
+        
+        /* Tema Warna per Kategori */
+        .c-result { background: #0284c7; }
+        .c-prediksi { background: #b45309; }
+        .c-top2d { background: #6d28d9; }
+        .c-live { background: #be123c; }
     </style>
 </head>
 <body>
 
 <div class="admin-container">
-    <h2>HALAMAN ADMIN</h2>
+    <div class="header">
+        <h2>⚡ PANEL ADMIN STATISTIK</h2>
+        <a href="index.html" class="btn-utama">🏠 MENU UTAMA</a>
+        <a href="https://angkastatistik.my.id/angkastatistik.html" class="btn-utama btn-stat">📊 ANGKA STATISTIK</a>
+    </div>
 
-    <!-- Tombol Menu Utama -->
-    <a href="index.html" class="btn-menu utama">
-        🏠 MENU UTAMA
-    </a>
+    <!-- KATEGORI 1: RESULT -->
+    <div class="section-title">📌DATA RESULT</div>
+    <div class="grid-menu">
+        <a href="https://github.com/angkastatistik-prediksi/angkastatistik.my.id/blob/main/result/macau.js" class="btn-sub c-result">Macau</a>
+        <a href="https://github.com/angkastatistik-prediksi/angkastatistik.my.id/blob/main/result/cambodia.js" class="btn-sub c-result">Cambodia</a>
+        <a href="https://github.com/angkastatistik-prediksi/angkastatistik.my.id/blob/main/result/sdy.js" class="btn-sub c-result">SDY</a>
+        <a href="https://github.com/angkastatistik-prediksi/angkastatistik.my.id/blob/main/result/china.js" class="btn-sub c-result">China</a>
+        <a href="https://github.com/angkastatistik-prediksi/angkastatistik.my.id/blob/main/result/japan.js" class="btn-sub c-result">Japan</a>
+        <a href="https://github.com/angkastatistik-prediksi/angkastatistik.my.id/blob/main/result/sgp.js" class="btn-sub c-result">SGP</a>
+        <a href="https://github.com/angkastatistik-prediksi/angkastatistik.my.id/blob/main/result/taiwan.js" class="btn-sub c-result">Taiwan</a>
+        <a href="https://github.com/angkastatistik-prediksi/angkastatistik.my.id/blob/main/result/hk.js" class="btn-sub c-result">HK</a>
+    </div>
 
-    <!-- Tombol Angka Statistik -->
-    <a href="https://angkastatistik.my.id/angkastatistik.html" class="btn-menu statistik">
-        ANGKA STATISTIK
-    </a><br>
-    <a href="https://github.com/angkastatistik-prediksi/angkastatistik.my.id/blob/main/result/macau.js" class="btn-menu statistik">
-        RESULT MACAU
-    </a><br>
-    <a href="https://github.com/angkastatistik-prediksi/angkastatistik.my.id/blob/main/result/cambodia.js" class="btn-menu statistik">
-        RESULT CAMBODIA
-    </a> <br>
-    <a href="https://github.com/angkastatistik-prediksi/angkastatistik.my.id/blob/main/result/sdy.js" class="btn-menu statistik">
-        RESULT SDY
-    </a><br>
-    <a href="https://github.com/angkastatistik-prediksi/angkastatistik.my.id/blob/main/result/china.js" class="btn-menu statistik">
-        RESULT CHINA
-    </a><br>
-    <a href="https://github.com/angkastatistik-prediksi/angkastatistik.my.id/blob/main/result/japan.js" class="btn-menu statistik">
-        RESULT JAPAN
-    </a><br>
-    <a href="https://github.com/angkastatistik-prediksi/angkastatistik.my.id/blob/main/result/sgp.js" class="btn-menu statistik">
-        RESULT SGP
-        </a><br>
-    <a href="https://github.com/angkastatistik-prediksi/angkastatistik.my.id/blob/main/result/taiwan.js" class="btn-menu statistik">
-        RESULT TAIWAN
-            </a><br>
-    <a href="https://github.com/angkastatistik-prediksi/angkastatistik.my.id/blob/main/result/hk.js" class="btn-menu statistik">
-        RESULT HK
-    </a>
+    <!-- KATEGORI 2: PREDIKSI -->
+    <div class="section-title">🔮DATA PREDIKSI</div>
+    <div class="grid-menu">
+        <a href="https://github.com/angkastatistik-prediksi/angkastatistik.my.id/blob/main/data/macau.js" class="btn-sub c-prediksi">Macau</a>
+        <a href="https://github.com" class="btn-sub c-prediksi">Cambodia</a>
+        <a href="https://github.com" class="btn-sub c-prediksi">SDY</a>
+        <a href="https://github.com" class="btn-sub c-prediksi">China</a>
+        <a href="https://github.com" class="btn-sub c-prediksi">Japan</a>
+        <a href="https://github.com" class="btn-sub c-prediksi">SGP</a>
+        <a href="https://github.com" class="btn-sub c-prediksi">Taiwan</a>
+        <a href="https://github.com" class="btn-sub c-prediksi">HK</a>
+    </div>
+
+    <!-- KATEGORI 3: TOP 2D -->
+    <div class="section-title">⭐TOP 2D</div>
+    <div class="grid-menu">
+        <a href="https://angkastatistik.my.id/analisa-macau.html" class="btn-sub c-top2d">Macau</a>
+        <a href="https://angkastatistik.my.id" class="btn-sub c-top2d">Cambodia</a>
+        <a href="https://angkastatistik.my.id" class="btn-sub c-top2d">SDY</a>
+        <a href="https://angkastatistik.my.id" class="btn-sub c-top2d">China</a>
+        <a href="https://angkastatistik.my.id" class="btn-sub c-top2d">Japan</a>
+        <a href="https://angkastatistik.my.id" class="btn-sub c-top2d">SGP</a>
+        <a href="https://angkastatistik.my.id" class="btn-sub c-top2d">Taiwan</a>
+        <a href="https://angkastatistik.my.id" class="btn-sub c-top2d">HK</a>
+    </div>
+
+    <!-- KATEGORI 4: LIVE 4D -->
+    <div class="section-title">🔴LIVE 4D</div>
+    <div class="grid-menu">
+        <a href="https://angkastatistik.my.id/result-macau.html" class="btn-sub c-live">Macau</a>
+        <a href="https://angkastatistik.my.id" class="btn-sub c-live">Cambodia</a>
+        <a href="https://angkastatistik.my.id" class="btn-sub c-live">SDY</a>
+        <a href="https://angkastatistik.my.id" class="btn-sub c-live">China</a>
+        <a href="https://angkastatistik.my.id" class="btn-sub c-live">Japan</a>
+        <a href="https://angkastatistik.my.id" class="btn-sub c-live">SGP</a>
+        <a href="https://angkastatistik.my.id" class="btn-sub c-live">Taiwan</a>
+        <a href="https://angkastatistik.my.id" class="btn-sub c-live">HK</a>
+    </div>
 </div>
 
 </body>
