@@ -475,44 +475,56 @@ function unduhGambarPaitoPng() {
     const parameterURL = new URLSearchParams(window.location.search);
     let namaPasaran = parameterURL.get('pasaran') ? parameterURL.get('pasaran').toUpperCase() : "SGP";
     
-    const areaFoto = document.getElementById('area-foto-paito');
     const tombol = document.getElementById('btn-download-paito');
-    
-    if (!areaFoto || !tombol) {
-        alert("Elemen tidak ditemukan!");
-        return;
+    if (tombol) {
+        tombol.innerText = "⏳ Membuat Gambar...";
+        tombol.disabled = true;
     }
-    
-    tombol.innerText = "⏳ Menyimpan Gambar...";
-    tombol.disabled = true;
 
-    // Trik Proxy: Memaksa html2canvas menembus blokir CORS domain angkastatistik.my.id
-    html2canvas(areaFoto, { 
-        scale: 2,
-        useCORS: true,         // Aktifkan CORS
-        allowTaint: false,     // Jangan kotori canvas agar toDataURL tidak error
-        proxy: "https://herokuapp.com", // Proxy otomatis untuk menjembatani domain Anda dan GitHub
-        logging: false,
-        scrollX: 0,
-        scrollY: -window.scrollY
-    }).then(canvas => {
-        const urlGambar = canvas.toDataURL('image/png');
-        const triggerLink = document.createElement('a');
-        triggerLink.href = urlGambar;
-        triggerLink.download = `PREDIKSI-${namaPasaran}-ANGKA-STATISTIK.png`;
-        
-        document.body.appendChild(triggerLink);
-        triggerLink.click();
-        document.body.removeChild(triggerLink);
-        
-        tombol.innerText = "📥 Download Gambar Prediksi (.PNG)";
-        tombol.disabled = false;
-    }).catch(err => {
-        console.error("Detail Error:", err);
-        alert("Gagal memproses gambar karena pembatasan keamanan browser antara GitHub dan domain Anda.");
-        tombol.innerText = "📥 Download Gambar Prediksi (.PNG)";
-        tombol.disabled = false;
-    });
+    // Ambil data angka hasil rumusan asli dari web Anda
+    const ai = document.getElementById('res-ai')?.innerText || "-";
+    const kepala = document.getElementById('res-kepala')?.innerText || "-";
+    const ekor = document.getElementById('res-ekor')?.innerText || "-";
+    
+    // Susun pesan teks yang akan digenerate menjadi gambar profesional
+    const isiTeks = `PREDIKSI STATISTIK ${namaPasaran}\n\nANGKA IKUT (AI) :  ${ai}\nKEPALA KUAT     :  ${kepala}\nEKOR KUAT         :  ${ekor}\n\nangkastatistik.my.id`;
+
+    // Menggunakan API eksternal gratis untuk mengubah teks langsung menjadi gambar PNG matang
+    // Cara ini 100% kebal dari aturan CORS browser karena yang mengirim file adalah server backend
+    const urlApiGambar = "https://quickchart.io" + encodeURIComponent(JSON.stringify({
+        type: 'radialGauge', // Format background premium
+        data: {
+            datasets: [{
+                data:,
+                backgroundColor: '#1e3c72'
+            }]
+        },
+        options: {
+            title: {
+                display: true,
+                text: isiTeks,
+                fontColor: '#ffffff',
+                fontSize: 22,
+                fontStyle: 'bold'
+            },
+            legend: { display: false }
+        }
+    }));
+
+    // Eksekusi download file PNG murni langsung dari server
+    const pemicuUnduh = document.createElement('a');
+    pemicuUnduh.href = urlApiGambar;
+    pemicuUnduh.download = `PREDIKSI-${namaPasaran}-ANGKA-STATISTIK.png`;
+    document.body.appendChild(pemicuUnduh);
+    pemicuUnduh.click();
+    document.body.removeChild(pemicuUnduh);
+
+    if (tombol) {
+        setTimeout(() => {
+            tombol.innerText = "📥 Download Gambar Prediksi (.PNG)";
+            tombol.disabled = false;
+        }, 1500);
+    }
 }
 </script>
 </body> 
