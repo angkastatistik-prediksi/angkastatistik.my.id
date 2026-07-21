@@ -15,7 +15,7 @@ const DATA_MACAU = {
         angka_p2: `0674 : 085`, tunggal_p2: "5",
         angka_p3: `8159 : 782`, tunggal_p3: "2",
         angka_p4: `3493 : 127`, tunggal_p4: "2",
-        angka_p5: ``, tunggal_p5: "",
+        angka_p5: `4948 : 178`, tunggal_p5: "7",
         angka_p6: ``, tunggal_p6: ""
     },
 
