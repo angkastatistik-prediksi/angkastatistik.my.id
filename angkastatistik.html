@@ -168,13 +168,12 @@
             animation: efekMuncul 0.4s ease-out;
             margin-top: 20px;
         }
-        .area-capture-foto {
-            background: linear-gradient(135deg, #171f2c 0%, #0a0e14 100%);
-            border: 3px solid #ffcc00;
-            border-radius: 12px;
-            padding: 22px;
-            text-align: center;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+        #area-foto-paito {
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); /* Warna biru premium */
+    color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    }
         }
         .judul-foto {
             color: #ffcc00;
@@ -255,6 +254,8 @@
             from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        
     </style>
 </head>
 <body>
@@ -492,64 +493,31 @@ function ubahKeBase64Lokal(urlSrc) {
 
 // Fungsi utama unduh gambar prediksi Anda
 function unduhGambarPaitoPng() {
+    const areaFoto = document.getElementById('area-foto-paito');
+    const tombol = document.getElementById('btn-download-paito');
     const parameterURL = new URLSearchParams(window.location.search);
     let namaPasaran = parameterURL.get('pasaran') ? parameterURL.get('pasaran').toUpperCase() : "SGP";
     
-    // Ambil elemen area foto yang ingin disimpan
-    const areaFoto = document.getElementById('area-foto-paito');
-    const tombol = document.getElementById('btn-download-paito');
+    if (!areaFoto || !tombol) return alert("Elemen tidak ditemukan!");
     
-    if (!areaFoto || !tombol) {
-        alert("Elemen gambar tidak ditemukan! Periksa ID area-foto-paito atau btn-download-paito.");
-        return;
-    }
-
-    tombol.innerText = "⏳ Menyiapkan Dokumen...";
+    tombol.innerText = "⏳ Menyimpan...";
     tombol.disabled = true;
 
-    // Buat jendela cetak tiruan di latar belakang
-    const jendelaCetak = window.open('', '_blank', 'height=600,width=800');
-    
-    // Salin gaya desain (CSS) agar tampilan di gambar cetak tidak berantakan
-    let gayaDesain = '';
-    const semuaStyle = document.querySelectorAll('style, link[rel="stylesheet"]');
-    semuaStyle.forEach(style => {
-        gayaDesain += style.outerHTML;
-    });
-
-    // Susun dokumen baru khusus untuk area foto saja
-    jendelaCetak.document.write(`
-        <html>
-        <head>
-            <title>PREDIKSI-${namaPasaran}-ANGKA-STATISTIK</title>
-            \${gayaDesain}
-            <style>
-                body { margin: 0; padding: 20px; display: flex; justify-content: center; align-items: center; background: #fff; }
-                #area-foto-paito { box-shadow: none !important; border: none !important; display: block !important; }
-                @page { size: auto; margin: 0mm; }
-            </style>
-        </head>
-        <body>
-            <div id="area-foto-paito">\${areaFoto.innerHTML}</div>
-            <script>
-                // Tunggu semua gambar luar selesai dimuat sempurna oleh browser baru, lalu eksekusi
-                window.onload = function() {
-                    window.print();
-                    setTimeout(function() { window.close(); }, 500);
-                };
-            <\/script>
-        </body>
-        </html>
-    `);
-
-    jendelaCetak.document.close();
-    
-    // Kembalikan status tombol setelah jendela cetak terbuka
-    setTimeout(() => {
+    // Versi ringkas tanpa beban CORS gambar luar
+    html2canvas(areaFoto, { scale: 2 }).then(canvas => {
+        const triggerLink = document.createElement('a');
+        triggerLink.href = canvas.toDataURL('image/png');
+        triggerLink.download = `PREDIKSI-${namaPasaran}.png`;
+        triggerLink.click();
+        
         tombol.innerText = "📥 Download Gambar Prediksi (.PNG)";
         tombol.disabled = false;
-    }, 1000);
+    }).catch(err => {
+        alert("Gagal: " + err.message);
+        tombol.disabled = false;
+    });
 }
+
 </script>
 </body> 
 </html>
