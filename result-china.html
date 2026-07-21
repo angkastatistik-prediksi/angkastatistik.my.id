@@ -239,6 +239,21 @@ hs.src='//s10.histats.com/js15_as.js';
 <script>
 let warnaKuasAktif = "transparent";
 
+// LANGSUNG MENYUNTIKKAN CSS ANIMASI KELAP-KELIP KE HEAD HTML VIA JAVASCRIPT
+document.head.insertAdjacentHTML('beforeend', `
+    <style>
+    @keyframes blinkIndikator {
+        0% { opacity: 1; font-weight: bold; color: #ff0000; }
+        50% { opacity: 0.1; font-weight: normal; color: #ffb703; }
+        100% { opacity: 1; font-weight: bold; color: #ff0000; }
+    }
+    .minggu-berjalan {
+        animation: blinkIndikator 1.2s infinite;
+        background-color: rgba(255, 0, 0, 0.08) !important;
+    }
+    </style>
+`);
+
 // 1. LOGIKA ANIMASI BOX LIVE RESULT CHINA (ATAS)
 if (typeof LIVE_RESULT_CHINA !== 'undefined') {
     const angkaSah = LIVE_RESULT_CHINA.latestResult;
@@ -301,7 +316,6 @@ const paitoTbody = document.getElementById('paito-tbody-data');
 if (paitoTbody && teksMentah.trim() !== "") {
     paitoTbody.innerHTML = '';
     
-    // Memfilter data agar hanya mendeteksi murni susunan angka 4 digit
     let dataAngkaMurni = teksMentah.split(',')
         .map(x => x.replace(/\s+/g, '').trim())
         .filter(x => x !== "" && x.length === 4);
@@ -321,7 +335,6 @@ if (paitoTbody && teksMentah.trim() !== "") {
         let angkaIndikator = "7";
         let classTambahan = "";
         
-        // Pengecekan dinamis: Jika kolom belum full 7, angka disesuaikan dan berkedip
         if (jumlahTerisi < 7) {
             angkaIndikator = String(jumlahTerisi); 
             classTambahan = 'class="mgg-row minggu-berjalan"'; 
@@ -329,16 +342,13 @@ if (paitoTbody && teksMentah.trim() !== "") {
             classTambahan = 'class="mgg-row"';
         }
 
-        // Cetak sisa kolom kosong hari ini sebagai xxxx
         while (barisAngka.length < 7) {
             barisAngka.push("KOSONG");
         }
         
         let barisHTML = `<tr>`;
-        // Menyuntik kolom angka indikator paling kiri
         barisHTML += `<td ${classTambahan}>${angkaIndikator}</td>`;
         
-        // Menyuntik elemen span angka 4 digit paito
         barisAngka.forEach((draw) => {
             let teksDraw = String(draw).trim();
             
