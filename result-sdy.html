@@ -307,7 +307,10 @@ if (paitoTbody && teksMentah.trim() !== "") {
     paitoTbody.innerHTML = '';
     
     // Ambil semua angka murni dari file JS
-    let dataAngkaMurni = teksMentah.split(',').map(x => x.trim()).filter(x => x !== "");
+   let dataAngkaMurni = teksMentah.split(',')
+    .map(x => x.replace(/\s+/g, '').trim()) // Menghapus spasi enter tersembunyi
+    .filter(x => x !== "" && x.length >= 4); // Hanya mengambil data yang murni berupa angka 4 digit
+
     
     // Pecah data menjadi baris-baris berkapasitas maksimal 7 angka keluaran per minggu
     let indeksData = 0;
