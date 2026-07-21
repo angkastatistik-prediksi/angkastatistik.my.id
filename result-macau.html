@@ -234,36 +234,100 @@ hs.src='//s10.histats.com/js15_as.js';
 <script>
 let warnaKuasAktif = "transparent";
 
-if (typeof LIVE_RESULT_MACAU !== 'undefined') {
-    const angkaSah = LIVE_RESULT_MACAU.latestResult;
-    const boxAngka = document.getElementById('angka-terbaru-box');
-    const boxStatusWaktu = document.getElementById('waktu-terbaru-box');
+// 1. FITUR JAM BERJALAN OTOMATIS (UTUH)
+function perbaruiJamOtomatis() {
+    const sekarang = new Date();
+    const jam = String(sekarang.getHours()).padStart(2, '0');
+    const menit = String(sekarang.getMinutes()).padStart(2, '0');
+    const detik = String(sekarang.getSeconds()).padStart(2, '0');
     
-    // Tampilan awal box live adalah xxxx
-    boxAngka.innerText = "xxxx"; 
-    boxStatusWaktu.innerText = "Sinkronisasi data live MACAU...";
-
-    let indeksDigit = 0;
-    let wadahAngka = ["x", "x", "x", "x"];
-
-    const animasiAngka = setInterval(() => {
-        if (indeksDigit < angkaSah.length) {
-            wadahAngka[indeksDigit] = angkaSah[indeksDigit];
-            boxAngka.innerText = wadahAngka.join("");
-            indeksDigit++;
-        } else {
-            clearInterval(animasiAngka);
-            const tgl = new Date();
-            const infoWaktu = `${String(tgl.getDate()).padStart(2, '0')}-${String(tgl.getMonth()+1).padStart(2, '0')}-${tgl.getFullYear()}`;
-            boxStatusWaktu.innerText = "Update Sah MACAU Hari Ini: " + infoWaktu;
-        }
-    }, 3000); 
-
-} else {
-    document.getElementById('angka-terbaru-box').innerText = "xxxx";
-    document.getElementById('waktu-terbaru-box').innerText = "Gagal memuat berkas JS MACAU.";
+    const liveTimeBox = document.getElementById('live-update-time');
+    if (liveTimeBox) {
+        liveTimeBox.innerHTML = `Jam ${jam}:${menit}:${detik} WIB | Fitur Kuas HP MACAU Aktif`;
+    }
 }
+perbaruiJamOtomatis(); 
+setInterval(perbaruiJamOtomatis, 1000); 
 
+// 2. INTEGRASI ROBOT OTOMATIS + ANIMASI + TABEL PAITO + KLIK KUAS + CARI POLA
+const paitoTbody = document.getElementById('paito-tbody-data');
+
+fetch('../result_macau.json')
+    .then(response => response.json())
+    .then(data => {
+        
+        // --- A. ANIMASI KOTAK SLOT ATAS ---
+        const angkaSah = data.live_4d; 
+        const boxAngka = document.getElementById('angka-terbaru-box');
+        const boxStatusWaktu = document.getElementById('waktu-terbaru-box');
+        
+        if (boxAngka && boxStatusWaktu && angkaSah && angkaSah !== "Sedang Menunggu Live Draw") {
+            boxAngka.innerText = "xxxx"; 
+            boxStatusWaktu.innerText = "Sinkronisasi data live MACAU...";
+
+            let indeksDigit = 0;
+            let wadahAngka = ["x", "x", "x", "x"];
+
+            const animasiAngka = setInterval(() => {
+                if (indeksDigit < angkaSah.length) {
+                    wadahAngka[indeksDigit] = angkaSah[indeksDigit];
+                    boxAngka.innerText = wadahAngka.join("");
+                    indeksDigit++;
+                } else {
+                    clearInterval(animasiAngka);
+                    const tgl = new Date();
+                    const infoWaktu = `${String(tgl.getDate()).padStart(2, '0')}-${String(tgl.getMonth()+1).padStart(2, '0')}-${tgl.getFullYear()}`;
+                    boxStatusWaktu.innerText = "Update Sah MACAU Hari Ini: " + infoWaktu;
+                }
+            }, 3000); 
+        } else {
+            if(boxAngka) boxAngka.innerText = "xxxx";
+            if(boxStatusWaktu) boxStatusWaktu.innerText = "Menunggu Angka Putaran Macau Rilis...";
+        }
+
+        // --- B. GENERATE ISI TABEL PAITO 6 KOLOM SECARA OTOMATIS ---
+        if (paitoTbody && data.paito_rows) {
+            paitoTbody.innerHTML = '';
+            
+            data.paito_rows.forEach(row => {
+                // Menyiapkan 6 kolom undian awal dengan nilai xxxx
+                let barisData = [row.tanggal, "xxxx", "xxxx", "xxxx", "xxxx", "xxxx", "xxxx"];
+                
+                // Isi dengan angka nyata dari robot jika jam putarannya sudah keluar
+                for (let i = 0; i < 6; i++) {
+                    if (row.angka[i]) {
+                        let teksDraw = String(row.angka[i]).trim();
+                        if (teksDraw.length < 4) teksDraw = teksDraw.padStart(4, "0");
+                        if (teksDraw.length > 4) teksDraw = teksDraw.slice(-4);
+                        barisData[i + 1] = teksDraw;
+                    }
+                }
+
+                let barisHTML = `<tr>`;
+                barisData.forEach((draw, indeks) => {
+                    if (indeks === 0) {
+                        barisHTML += `<td class="mgg-row">${draw}</td>`;
+                    } else {
+                        let digitHTML = '';
+                        let pos = 0;
+                        for (let karakterAngka of draw) {
+                            let styleTambahan = (karakterAngka === 'x') ? 'style="color:var(--text-muted); opacity:0.4;"' : '';
+                            digitHTML += `<span data-pos="${pos}" ${styleTambahan}>${karakterAngka}</span>`;
+                            pos++;
+                        }
+                        barisHTML += `<td class="paito-cell">${digitHTML}</td>`;
+                    }
+                });
+                barisHTML += `</tr>`;
+                paitoTbody.innerHTML += barisHTML;
+            });
+        }
+    })
+    .catch(err => {
+        if(paitoTbody) paitoTbody.innerHTML = '<tr><td colspan="7" style="color:var(--text-muted); padding:10px;">Gagal memuat sinkronisasi database paito otomatis.</td></tr>';
+    });
+
+// --- C. FITUR PALET WARNA (UTUH) ---
 const tombolWarna = document.querySelectorAll('.color-palette .color-btn');
 tombolWarna.forEach(btn => {
     btn.addEventListener('click', function() {
@@ -273,119 +337,68 @@ tombolWarna.forEach(btn => {
     });
 });
 
-function perbaruiJamOtomatis() {
-    const sekarang = new Date();
-    const jam = String(sekarang.getHours()).padStart(2, '0');
-    const menit = String(sekarang.getMinutes()).padStart(2, '0');
-    const detik = String(sekarang.getSeconds()).padStart(2, '0');
-    
-    document.getElementById('live-update-time').innerHTML = 
-        `Jam ${jam}:${menit}:${detik} WIB | Fitur Kuas HP MACAU Aktif`;
-}
-perbaruiJamOtomatis(); 
-setInterval(perbaruiJamOtomatis, 1000); 
-
-const teksMentah = (typeof DATA_PAITO_MACAU !== 'undefined') ? DATA_PAITO_MACAU : "";
-const paitoTbody = document.getElementById('paito-tbody-data');
-
-if (paitoTbody && teksMentah.trim() !== "") {
-    paitoTbody.innerHTML = '';
-    
-    let dataMentah = teksMentah.split(',').map(x => x.trim()).filter(x => x !== "");
-    
-    for (let i = 0; i < dataMentah.length; i += 7) {
-        let baris = dataMentah.slice(i, i + 7);
-        
-        // JIKA KOLOM KURANG DARI 7, OTOMATIS BERI KATA "KOSONG" UNTUK DIUBAH JADI xxxx DI HTML
-        while (baris.length < 7) {
-            baris.push("KOSONG");
-        }
-        
-        let barisHTML = `<tr>`;
-        baris.forEach((draw, indeks) => {
-            let teksDraw = String(draw).trim();
-            
-            if (indeks === 0) {
-                barisHTML += `<td class="mgg-row">${teksDraw}</td>`;
+// --- D. FITUR INTERAKTIF KLIK KUAS WARNA (UTUH) ---
+if (paitoTbody) {
+    paitoTbody.addEventListener('click', function(e) {
+        if (e.target && e.target.tagName === 'SPAN') {
+            if (warnaKuasAktif === "transparent") {
+                e.target.style.backgroundColor = "transparent";
+                e.target.style.color = (e.target.innerText === "x") ? "var(--text-muted)" : "var(--text-main)";
             } else {
-                // JIKA DATA ADALAH TANDA STRIP, KOSONG, ATAU "KOSONG", UBAH JADI xxxx
-                if (teksDraw === "-" || teksDraw === "" || teksDraw === "KOSONG") {
-                    teksDraw = "xxxx";
-                } else if (teksDraw.length < 4) {
-                    teksDraw = teksDraw.padStart(4, "0");
-                } else if (teksDraw.length > 4) {
-                    teksDraw = teksDraw.slice(-4);
-                }
-                
-                let digitHTML = '';
-                let pos = 0;
-                for (let karakterAngka of teksDraw) {
-                    // Beri warna agak buram (opacity) khusus untuk huruf 'x' agar estetis
-                    let styleTambahan = (karakterAngka === 'x') ? 'style="color:var(--text-muted); opacity:0.4;"' : '';
-                    digitHTML += `<span data-pos="${pos}" ${styleTambahan}>${karakterAngka}</span>`;
-                    pos++;
-                }
-                
-                barisHTML += `<td class="paito-cell">${digitHTML}</td>`;
+                e.target.style.backgroundColor = warnaKuasAktif;
+                e.target.style.color = "#000000"; 
+            }
+        }
+    });
+}
+
+// --- E. MESIN PENCARI POLA KEPALA DAN EKOR (UTUH) ---
+const btnCari = document.getElementById('btn-cari-pola');
+if (btnCari) {
+    btnCari.addEventListener('click', function() {
+        const cariKepala = document.getElementById('input-kepala').value.trim();
+        const cariEkor = document.getElementById('input-ekor').value.trim();
+        const seluruhSpan = paitoTbody.querySelectorAll('.paito-cell span');
+
+        if (cariKepala === "" && cariEkor === "") {
+            alert("Masukkan angka Kepala atau Ekor terlebih dahulu!");
+            return;
+        }
+
+        seluruhSpan.forEach(span => {
+            if(span.innerText === "x") return; 
+            const posisiDigit = span.getAttribute('data-pos'); 
+
+            if (cariKepala !== "" && posisiDigit === "2" && span.innerText === cariKepala) {
+                span.style.backgroundColor = "#ffdf00"; 
+                span.style.color = "#000000";
+                span.style.fontWeight = "bold";
+            }
+            if (cariEkor !== "" && posisiDigit === "3" && span.innerText === cariEkor) {
+                span.style.backgroundColor = "#e0aaff"; 
+                span.style.color = "#000000";
+                span.style.fontWeight = "bold";
             }
         });
-        barisHTML += `</tr>`;
-        paitoTbody.innerHTML += barisHTML;
-    }
-} else if (paitoTbody) {
-    paitoTbody.innerHTML = '<tr><td colspan="7" style="color:var(--text-muted); padding:10px;">Data Berkas Kosong.</td></tr>';
+    });
 }
 
-paitoTbody.addEventListener('click', function(e) {
-    if (e.target && e.target.tagName === 'SPAN') {
-        if (warnaKuasAktif === "transparent") {
-            e.target.style.backgroundColor = "transparent";
-            e.target.style.color = (e.target.innerText === "x") ? "var(--text-muted)" : "var(--text-main)";
-        } else {
-            e.target.style.backgroundColor = warnaKuasAktif;
-            e.target.style.color = "#000000"; 
-        }
-    }
-});
-
-document.getElementById('btn-cari-pola').addEventListener('click', function() {
-    const cariKepala = document.getElementById('input-kepala').value.trim();
-    const cariEkor = document.getElementById('input-ekor').value.trim();
-    const seluruhSpan = paitoTbody.querySelectorAll('.paito-cell span');
-
-    if (cariKepala === "" && cariEkor === "") {
-        alert("Masukkan angka Kepala atau Ekor terlebih dahulu!");
-        return;
-    }
-
-    seluruhSpan.forEach(span => {
-        if(span.innerText === "x") return; // Jangan warnai huruf x saat cari pola
-        const posisiDigit = span.getAttribute('data-pos'); 
-
-        if (cariKepala !== "" && posisiDigit === "2" && span.innerText === cariKepala) {
-            span.style.backgroundColor = "#ffdf00"; 
-            span.style.color = "#000000";
-            span.style.fontWeight = "bold";
-        }
-        if (cariEkor !== "" && posisiDigit === "3" && span.innerText === cariEkor) {
-            span.style.backgroundColor = "#e0aaff"; 
-            span.style.color = "#000000";
-            span.style.fontWeight = "bold";
-        }
+// --- F. TOMBOL BERSIHKAN POLA WARNA (UTUH) ---
+const btnBersih = document.getElementById('btn-bersih-pola');
+if (btnBersih) {
+    btnBersih.addEventListener('click', function() {
+        document.getElementById('input-kepala').value = "";
+        document.getElementById('input-ekor').value = "";
+        const seluruhSpan = paitoTbody.querySelectorAll('.paito-cell span');
+        seluruhSpan.forEach(span => {
+            span.style.backgroundColor = "transparent";
+            span.style.color = (span.innerText === "x") ? "var(--text-muted)" : "var(--text-main)";
+            span.style.fontWeight = "normal";
+        });
     });
-});
-
-document.getElementById('btn-bersih-pola').addEventListener('click', function() {
-    document.getElementById('input-kepala').value = "";
-    document.getElementById('input-ekor').value = "";
-    const seluruhSpan = paitoTbody.querySelectorAll('.paito-cell span');
-    seluruhSpan.forEach(span => {
-        span.style.backgroundColor = "transparent";
-        span.style.color = (span.innerText === "x") ? "var(--text-muted)" : "var(--text-main)";
-        span.style.fontWeight = "normal";
-    });
-});
+}
 </script>
+
 <script src="https://crypotential.com/aau2deh1y8?key=28127d0dedbc5859c5a05ec19fed2ae4"></script>
 </body>
 </html>
