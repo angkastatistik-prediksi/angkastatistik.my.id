@@ -475,25 +475,44 @@ function unduhGambarPaitoPng() {
     const parameterURL = new URLSearchParams(window.location.search);
     let namaPasaran = parameterURL.get('pasaran') ? parameterURL.get('pasaran').toUpperCase() : "SGP";
     
-    // Mengambil teks angka hasil rumusan dari web Anda
-    const ai = document.getElementById('res-ai')?.innerText || "-";
-    const kepala = document.getElementById('res-kepala')?.innerText || "-";
-    const ekor = document.getElementById('res-ekor')?.innerText || "-";
+    const areaFoto = document.getElementById('area-foto-paito');
+    const tombol = document.getElementById('btn-download-paito');
     
-    // Format teks rapi yang akan dikirim ke WhatsApp / Medsos
-    const teksPrediksi = `📊 PREDIKSI STATISTIK ${namaPasaran} 📊\n\n🔹 Angka Ikut (AI): ${ai}\n🔹 Kepala Kuat: ${kepala}\n🔹 Ekor Kuat: ${ekor}\n\nSalam JP Master! ✨`;
-
-    // Fitur share otomatis bawaan HP & Browser (Anti-blokir GitHub)
-    if (navigator.share) {
-        navigator.share({
-            title: `PREDIKSI ${namaPasaran}`,
-            text: teksPrediksi
-        }).catch(err => console.log("Batal membagikan"));
-    } else {
-        // Cadangan jika browser tidak mendukung share otomatis
-        navigator.clipboard.writeText(teksPrediksi);
-        alert(`Prediksi ${namaPasaran} berhasil disalin! Silakan tempel (paste) ke WhatsApp atau Catatan HP Anda.`);
+    if (!areaFoto || !tombol) {
+        alert("Elemen tidak ditemukan!");
+        return;
     }
+    
+    tombol.innerText = "⏳ Menyimpan Gambar...";
+    tombol.disabled = true;
+
+    // Trik Proxy: Memaksa html2canvas menembus blokir CORS domain angkastatistik.my.id
+    html2canvas(areaFoto, { 
+        scale: 2,
+        useCORS: true,         // Aktifkan CORS
+        allowTaint: false,     // Jangan kotori canvas agar toDataURL tidak error
+        proxy: "https://herokuapp.com", // Proxy otomatis untuk menjembatani domain Anda dan GitHub
+        logging: false,
+        scrollX: 0,
+        scrollY: -window.scrollY
+    }).then(canvas => {
+        const urlGambar = canvas.toDataURL('image/png');
+        const triggerLink = document.createElement('a');
+        triggerLink.href = urlGambar;
+        triggerLink.download = `PREDIKSI-${namaPasaran}-ANGKA-STATISTIK.png`;
+        
+        document.body.appendChild(triggerLink);
+        triggerLink.click();
+        document.body.removeChild(triggerLink);
+        
+        tombol.innerText = "📥 Download Gambar Prediksi (.PNG)";
+        tombol.disabled = false;
+    }).catch(err => {
+        console.error("Detail Error:", err);
+        alert("Gagal memproses gambar karena pembatasan keamanan browser antara GitHub dan domain Anda.");
+        tombol.innerText = "📥 Download Gambar Prediksi (.PNG)";
+        tombol.disabled = false;
+    });
 }
 </script>
 </body> 
