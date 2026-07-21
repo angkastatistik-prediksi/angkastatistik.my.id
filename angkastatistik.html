@@ -169,7 +169,19 @@
             margin-top: 20px;
         }
 
-      
+        #area-foto-paito {
+    /* Mengembalikan setelan gambar latar belakang asli Anda */
+    background-image: url('result/background.png'); /* Sesuaikan dengan nama file gambar asli Anda jika berbeda */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+        
         }
         .judul-foto {
             color: #ffcc00;
@@ -471,15 +483,79 @@ function unduhGambarPaitoPng() {
     const parameterURL = new URLSearchParams(window.location.search);
     let namaPasaran = parameterURL.get('pasaran') ? parameterURL.get('pasaran').toUpperCase() : "SGP";
     
-    document.getElementById('judul-foto-pasaran').innerText = `PREDIKSI ${namaPasaran}`;
-
-    const areaFoto = document.getElementById('area-foto-paito');
     const tombol = document.getElementById('btn-download-paito');
-    
-    tombol.innerText = "⏳ Menyimpan Gambar...";
-    tombol.disabled = true;
+    if (tombol) {
+        tombol.innerText = "⏳ Menyimpan Gambar...";
+        tombol.disabled = true;
+    }
 
-    html2canvas(areaFoto, { scale: 2 }).then(canvas => {
+    // Mengambil teks angka rumusan dari layar web Anda
+    const ai = document.getElementById('res-ai')?.innerText || "-";
+    const kepala = document.getElementById('res-kepala')?.innerText || "-";
+    const ekor = document.getElementById('res-ekor')?.innerText || "-";
+
+    // Membuat papan gambar (canvas) baru di memori browser
+    const canvas = document.createElement('canvas');
+    canvas.width = 500;
+    canvas.height = 400;
+    const ctx = canvas.getContext('2d');
+
+    // 1. Latar Belakang Kotak (Warna Gelap Premium)
+    const gradien = ctx.createLinearGradient(0, 0, 0, 400);
+    gradien.addColorStop(0, '#111827');
+    gradien.addColorStop(1, '#1f2937');
+    ctx.fillStyle = gradien;
+    ctx.fillRect(0, 0, 500, 400);
+
+    // 2. Bingkai Emas
+    ctx.strokeStyle = '#f59e0b';
+    ctx.lineWidth = 6;
+    ctx.strokeRect(15, 15, 470, 370);
+
+    // 3. Judul Pasaran
+    ctx.fillStyle = '#ffffff';
+    ctx.font = 'bold 24px Arial, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(`PREDIKSI STATISTIK ${namaPasaran}`, 250, 60);
+
+    // Garis pembatas judul
+    ctx.strokeStyle = '#f59e0b';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(40, 80);
+    ctx.lineTo(460, 80);
+    ctx.stroke();
+
+    // 4. Menggambar Ulang Teks Angka Prediksi
+    ctx.textAlign = 'left';
+    ctx.font = 'bold 20px Arial';
+    
+    // Baris AI
+    ctx.fillStyle = '#f59e0b'; ctx.fillText("ANGKA IKUT (AI) :", 50, 140);
+    ctx.fillStyle = '#ffffff'; ctx.fillText(ai, 260, 140);
+    
+    // Baris Kepala
+    ctx.fillStyle = '#f59e0b'; ctx.fillText("KEPALA KUAT     :", 50, 200);
+    ctx.fillStyle = '#ffffff'; ctx.fillText(kepala, 260, 200);
+    
+    // Baris Ekor
+    ctx.fillStyle = '#f59e0b'; ctx.fillText("EKOR KUAT         :", 50, 260);
+    ctx.fillStyle = '#ffffff'; ctx.fillText(ekor, 260, 260);
+
+    // 5. Watermark Domain Anda
+    ctx.strokeStyle = '#374151';
+    ctx.beginPath();
+    ctx.moveTo(40, 310);
+    ctx.lineTo(460, 310);
+    ctx.stroke();
+
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#9ca3af';
+    ctx.font = 'italic 16px Arial';
+    ctx.fillText("angkastatistik.my.id", 250, 345);
+
+    // 6. Jalankan Proses Download File PNG
+    try {
         const urlGambar = canvas.toDataURL('image/png');
         const triggerLink = document.createElement('a');
         triggerLink.href = urlGambar;
@@ -488,15 +564,17 @@ function unduhGambarPaitoPng() {
         document.body.appendChild(triggerLink);
         triggerLink.click();
         document.body.removeChild(triggerLink);
-        
-        tombol.innerText = "📥 Download Gambar Prediksi (.PNG)";
-        tombol.disabled = false;
-    }).catch(err => {
-        alert("Gagal memproses berkas gambar.");
-        tombol.innerText = "📥 Download Gambar Prediksi (.PNG)";
-        tombol.disabled = false;
-    });
+    } catch (e) {
+        alert("Gagal mengunduh: " + e.message);
     }
-    </script>
-</body>
+
+    if (tombol) {
+        setTimeout(() => {
+            tombol.innerText = "📥 Download Gambar Prediksi (.PNG)";
+            tombol.disabled = false;
+        }, 1000);
+    }
+}
+</script>
+</body> 
 </html>
