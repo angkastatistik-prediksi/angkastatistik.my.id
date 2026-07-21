@@ -1,66 +1,57 @@
 import json
+import os
 import re
 from datetime import datetime
 import requests
 
-# DAFTAR SITUS (Bisa Anda tambah jika punya link cadangan lain)
 SITUS_UTAMA = "https://prediksijitu.io"
-SITUS_CADANGAN = "https://kesehatan.dinkeslahat.com/"  # Contoh web alternatif pemuat data macau
-
 headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
 }
 
+nama_file = "result_macau.json"
+paito_history = []
 
-def ambil_data(url):
-    """Fungsi mendownload dan mencari 4 angka undian"""
-    response = requests.get(url, headers=headers, timeout=15)
-    html_content = response.text
-    # Mencari semua pola 4 angka di dalam dokumen HTML
-    results = re.findall(r"(\d{4})", html_content)
-    return results
-
-
-# --- PROSES UTAMA ---
-data_angka = []
-situs_terpakai = ""
-
-# Cobaan Pertama: Lari ke situs utama
-try:
-    print(f"Robot mencoba mengambil data dari situs utama: {SITUS_UTAMA}")
-    data_angka = ambil_data(SITUS_UTAMA)
-    situs_terpakai = "Situs Utama"
-
-# JIKA SUTUS UTAMA GANGGUAN / BLOKIR, OTOMATIS LARI KE SINI:
-except Exception as error_utama:
-    print(
-        f"Situs utama gangguan ({error_utama}). Robot otomatis lari ke situs cadangan!"
-    )
-
+if os.path.exists(nama_file):
     try:
-        print(f"Mencoba situs cadangan: {SITUS_CADANGAN}")
-        data_angka = ambil_data(SITUS_CADANGAN)
-        situs_terpakai = "Situs Cadangan (Failover)"
+        with open(nama_file, "r") as f:
+            data_lama = json.load(f)
+            paito_history = data_lama.get("paito_rows", [])
+    except:
+        paito_history = []
 
-    except Exception as error_cadangan:
-        print(f"Semua situs gangguan: {error_cadangan}")
-        data_angka = []
+try:
+    response = requests.get(SITUS_UTAMA, headers=headers, timeout=15)
+    all_numbers = re.findall(r"\b\d{4}\b", response.text)
 
-# --- MENYIMPAN HASIL AKHIR ---
-if len(data_angka) > 0:
-    data_siap_simpan = {
-        "updated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-        "latest_result": data_angka,
-        "sumber_data": situs_terpakai,
-    }
-else:
-    data_siap_simpan = {
-        "updated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-        "latest_result": "Sedang Update / Gangguan Masal",
-        "sumber_data": "Gagal Semua",
-    }
+    if len(all_numbers) > 0:
+        angka_hari_ini = all_numbers[:6]
+        live_terakhir = angka_hari_ini[-1] 
 
-with open("result_macau.json", "w") as f:
-    json.dump(data_siap_simpan, f, indent=4)
+        bulan_list = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"]
+        now = datetime.now()
+        tgl_label = f"{now.day:02d} {bulan_list[now.month - 1]}"
 
-print("Proses selesai dengan aman!")
+        posisi_ada = -1
+        for idx, row in enumerate(paito_history):
+            if row["tanggal"] == tgl_label:
+                posisi_ada = idx
+                break
+
+        if posisi_ada != -1:
+            paito_history[posisi_ada]["angka"] = angka_hari_ini
+        else:
+            paito_history.insert(0, {"tanggal": tgl_label, "angka": angka_hari_ini})
+
+        data_akhir = {
+            "live_4d": live_terakhir,
+            "updated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "paito_rows": paito_history
+        }
+
+        with open(nama_file, "w") as f:
+            json.dump(data_akhir, f, indent=4)
+        print("Data Paito Macau Berhasil Diperbarui!")
+
+except Exception as e:
+    print(f"Error scraping paito: {e}")
