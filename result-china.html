@@ -234,21 +234,22 @@ hs.src='//s10.histats.com/js15_as.js';
 </noscript>
 
 <!-- Histats.com END -->
-    <!-- MEMBACA DATA PAITO SECARA EKSTERNAL DARI BERKAS DATA MANUAL -->
+    
     <script src="result/china.js"></script>
-    <script>
-    let warnaKuasAktif = "transparent";
+<script>
+let warnaKuasAktif = "transparent";
 
+// 1. LOGIKA ANIMASI BOX LIVE RESULT CHINA (ATAS)
 if (typeof LIVE_RESULT_CHINA !== 'undefined') {
     const angkaSah = LIVE_RESULT_CHINA.latestResult;
     const boxAngka = document.getElementById('angka-terbaru-box');
     const boxStatusWaktu = document.getElementById('waktu-terbaru-box');
     
-    boxAngka.innerText = "----"; 
-    boxStatusWaktu.innerText = "Sinkronisasi data live...";
+    boxAngka.innerText = "xxxx"; 
+    boxStatusWaktu.innerText = "Sinkronisasi data live CHINA...";
 
     let indeksDigit = 0;
-    let wadahAngka = ["-", "-", "-", "-"];
+    let wadahAngka = ["x", "x", "x", "x"];
 
     const animasiAngka = setInterval(() => {
         if (indeksDigit < angkaSah.length) {
@@ -259,15 +260,16 @@ if (typeof LIVE_RESULT_CHINA !== 'undefined') {
             clearInterval(animasiAngka);
             const tgl = new Date();
             const infoWaktu = `${String(tgl.getDate()).padStart(2, '0')}-${String(tgl.getMonth()+1).padStart(2, '0')}-${tgl.getFullYear()}`;
-            boxStatusWaktu.innerText = "Update Sah Hari Ini: " + infoWaktu;
+            boxStatusWaktu.innerText = "Update Sah CHINA Hari Ini: " + infoWaktu;
         }
     }, 3000); 
 
 } else {
-    document.getElementById('angka-terbaru-box').innerText = "----";
-    document.getElementById('waktu-terbaru-box').innerText = "Gagal memuat berkas JS.";
+    if(document.getElementById('angka-terbaru-box')) document.getElementById('angka-terbaru-box').innerText = "xxxx";
+    if(document.getElementById('waktu-terbaru-box')) document.getElementById('waktu-terbaru-box').innerText = "Gagal memuat berkas JS CHINA.";
 }
 
+// 2. LOGIKA TOMBOL PALET WARNA KUAS
 const tombolWarna = document.querySelectorAll('.color-palette .color-btn');
 tombolWarna.forEach(btn => {
     btn.addEventListener('click', function() {
@@ -277,118 +279,152 @@ tombolWarna.forEach(btn => {
     });
 });
 
+// 3. LOGIKA RUNNING TEXT JAM LIVE WIB
 function perbaruiJamOtomatis() {
     const sekarang = new Date();
     const jam = String(sekarang.getHours()).padStart(2, '0');
     const menit = String(sekarang.getMinutes()).padStart(2, '0');
     const detik = String(sekarang.getSeconds()).padStart(2, '0');
     
-    document.getElementById('live-update-time').innerHTML = 
-        `Jam ${jam}:${menit}:${detik} WIB | Fitur Kuas HP Aktif`;
+    const elJam = document.getElementById('live-update-time');
+    if(elJam) {
+        elJam.innerHTML = `Jam ${jam}:${menit}:${detik} WIB | Fitur Kuas HP CHINA Aktif`;
+    }
 }
 perbaruiJamOtomatis(); 
 setInterval(perbaruiJamOtomatis, 1000); 
 
+// 4. LOGIKA UTAMA PEMBENTUKAN TABEL PAITO HARIAN (KELIPATAN 7 KOLOM DATA)
 const teksMentah = (typeof DATA_PAITO_CHINA !== 'undefined') ? DATA_PAITO_CHINA : "";
 const paitoTbody = document.getElementById('paito-tbody-data');
 
 if (paitoTbody && teksMentah.trim() !== "") {
     paitoTbody.innerHTML = '';
     
-    let dataMentah = teksMentah.replace(/\s+/g, '').split(',').filter(x => x !== "");
+    // Memfilter data agar hanya mendeteksi murni susunan angka 4 digit
+    let dataAngkaMurni = teksMentah.split(',')
+        .map(x => x.replace(/\s+/g, '').trim())
+        .filter(x => x !== "" && x.length === 4);
     
-    for (let i = 0; i < dataMentah.length; i += 8) {
-        let baris = dataMentah.slice(i, i + 8);
+    let indeksData = 0;
+    
+    if (dataAngkaMurni.length === 0) {
+        dataAngkaMurni = ["KOSONG"];
+    }
+
+    while (indeksData < dataAngkaMurni.length) {
+        let barisAngka = dataAngkaMurni.slice(indeksData, indeksData + 7);
+        let jumlahTerisi = barisAngka.length;
         
-        while (baris.length < 8) {
-            baris.push("-");
+        if (barisAngka === "KOSONG") jumlahTerisi = 0;
+
+        let angkaIndikator = "7";
+        let classTambahan = "";
+        
+        // Pengecekan dinamis: Jika kolom belum full 7, angka disesuaikan dan berkedip
+        if (jumlahTerisi < 7) {
+            angkaIndikator = String(jumlahTerisi); 
+            classTambahan = 'class="mgg-row minggu-berjalan"'; 
+        } else {
+            classTambahan = 'class="mgg-row"';
+        }
+
+        // Cetak sisa kolom kosong hari ini sebagai xxxx
+        while (barisAngka.length < 7) {
+            barisAngka.push("KOSONG");
         }
         
         let barisHTML = `<tr>`;
-        baris.forEach((draw, indeks) => {
+        // Menyuntik kolom angka indikator paling kiri
+        barisHTML += `<td ${classTambahan}>${angkaIndikator}</td>`;
+        
+        // Menyuntik elemen span angka 4 digit paito
+        barisAngka.forEach((draw) => {
             let teksDraw = String(draw).trim();
             
-            if (indeks === 0) {
-                if (teksDraw.length === 1) teksDraw = "0" + teksDraw;
-                if (teksDraw.length > 2) teksDraw = teksDraw.slice(-2);
-                barisHTML += `<td class="mgg-row">${teksDraw}</td>`;
-            } else {
-                if (teksDraw !== "-" && teksDraw.length < 4) {
-                    teksDraw = teksDraw.padStart(4, "0");
-                }
-                if (teksDraw !== "-" && teksDraw.length > 4) {
-                    teksDraw = teksDraw.slice(-4);
-                }
-                
-                let digitHTML = '';
-                if (teksDraw !== "-") {
-                    let pos = 0;
-                    for (let karakterAngka of teksDraw) {
-                        digitHTML += `<span data-pos="${pos}">${karakterAngka}</span>`;
-                        pos++;
-                    }
-                } else {
-                    digitHTML = `<span style="color:var(--text-muted); opacity:0.3;">-</span>`;
-                }
-                barisHTML += `<td class="paito-cell">${digitHTML}</td>`;
+            if (teksDraw === "-" || teksDraw === "" || teksDraw === "KOSONG") {
+                teksDraw = "xxxx";
             }
+            
+            let digitHTML = '';
+            let pos = 0;
+            for (let karakterAngka of teksDraw) {
+                let styleTambahan = (karakterAngka === 'x') ? 'style="color:var(--text-muted); opacity:0.4;"' : '';
+                digitHTML += `<span data-pos="${pos}" ${styleTambahan}>${karakterAngka}</span>`;
+                pos++;
+            }
+            barisHTML += `<td class="paito-cell">${digitHTML}</td>`;
         });
+        
         barisHTML += `</tr>`;
         paitoTbody.innerHTML += barisHTML;
+        
+        indeksData += 7; 
     }
 } else if (paitoTbody) {
-    paitoTbody.innerHTML = '<tr><td colspan="8" style="color:var(--text-muted); padding:10px;">Data Berkas Kosong.</td></tr>';
+    paitoTbody.innerHTML = '<tr><td colspan="8" style="color:var(--text-muted); padding:10px; text-align:center;">Data Berkas Kosong.</td></tr>';
 }
 
-paitoTbody.addEventListener('click', function(e) {
-    if (e.target && e.target.tagName === 'SPAN' && e.target.innerText !== "-") {
-        if (warnaKuasAktif === "transparent") {
-            e.target.style.backgroundColor = "transparent";
-            e.target.style.color = "var(--text-main)";
-        } else {
-            e.target.style.backgroundColor = warnaKuasAktif;
-            e.target.style.color = "#000000"; 
-        }
-    }
-});
-
-document.getElementById('btn-cari-pola').addEventListener('click', function() {
-    const cariKepala = document.getElementById('input-kepala').value.trim();
-    const cariEkor = document.getElementById('input-ekor').value.trim();
-    const seluruhSpan = paitoTbody.querySelectorAll('.paito-cell span');
-
-    if (cariKepala === "" && cariEkor === "") {
-        alert("Masukkan angka Kepala atau Ekor terlebih dahulu!");
-        return;
-    }
-
-    seluruhSpan.forEach(span => {
-        if(span.innerText === "-") return;
-        const posisiDigit = span.getAttribute('data-pos'); 
-
-        if (cariKepala !== "" && posisiDigit === "2" && span.innerText === cariKepala) {
-            span.style.backgroundColor = "#ffcdb2"; 
-            span.style.color = "#000000";
-            span.style.fontWeight = "bold";
-        }
-        if (cariEkor !== "" && posisiDigit === "3" && span.innerText === cariEkor) {
-            span.style.backgroundColor = "#b5e2fa"; 
-            span.style.color = "#000000";
-            span.style.fontWeight = "bold";
+// 5. FITUR MEWARNAI KUAS MANUAL SAAT SPAN DIKLIK
+if(paitoTbody) {
+    paitoTbody.addEventListener('click', function(e) {
+        if (e.target && e.target.tagName === 'SPAN') {
+            if (warnaKuasAktif === "transparent") {
+                e.target.style.backgroundColor = "transparent";
+                e.target.style.color = (e.target.innerText === "x") ? "var(--text-muted)" : "var(--text-main)";
+            } else {
+                e.target.style.backgroundColor = warnaKuasAktif;
+                e.target.style.color = "#000000"; 
+            }
         }
     });
-});
+}
 
-document.getElementById('btn-bersih-pola').addEventListener('click', function() {
-    document.getElementById('input-kepala').value = "";
-    document.getElementById('input-ekor').value = "";
-    const seluruhSpan = paitoTbody.querySelectorAll('.paito-cell span');
-    seluruhSpan.forEach(span => {
-        span.style.backgroundColor = "transparent";
-        span.style.color = "var(--text-main)";
+// 6. FITUR CARI POLA ANGKA KEPALA & EKOR OTOMATIS
+if(document.getElementById('btn-cari-pola')) {
+    document.getElementById('btn-cari-pola').addEventListener('click', function() {
+        const cariKepala = document.getElementById('input-kepala').value.trim();
+        const cariEkor = document.getElementById('input-ekor').value.trim();
+        const seluruhSpan = paitoTbody.querySelectorAll('.paito-cell span');
+
+        if (cariKepala === "" && cariEkor === "") {
+            alert("Masukkan angka Kepala atau Ekor terlebih dahulu!");
+            return;
+        }
+
+        seluruhSpan.forEach(span => {
+            if(span.innerText === "x") return; 
+            const posisiDigit = span.getAttribute('data-pos'); 
+
+            if (cariKepala !== "" && posisiDigit === "2" && span.innerText === cariKepala) {
+                span.style.backgroundColor = "#ffb703"; 
+                span.style.color = "#000000";
+                span.style.fontWeight = "bold";
+            }
+            if (cariEkor !== "" && posisiDigit === "3" && span.innerText === cariEkor) {
+                span.style.backgroundColor = "#ff007f"; 
+                span.style.color = "#ffffff";
+                span.style.fontWeight = "bold";
+            }
+        });
     });
-});
-    </script>
+}
+
+// 7. FITUR BERSIHKAN POLA WARNA (RESET)
+if(document.getElementById('btn-bersih-pola')) {
+    document.getElementById('btn-bersih-pola').addEventListener('click', function() {
+        document.getElementById('input-kepala').value = "";
+        document.getElementById('input-ekor').value = "";
+        const seluruhSpan = paitoTbody.querySelectorAll('.paito-cell span');
+        seluruhSpan.forEach(span => {
+            span.style.backgroundColor = "transparent";
+            span.style.color = (span.innerText === "x") ? "var(--text-muted)" : "var(--text-main)";
+            span.style.fontWeight = "normal";
+        });
+    });
+}
+</script>
+
     <script src="https://crypotential.com/aau2deh1y8?key=28127d0dedbc5859c5a05ec19fed2ae4"></script>
 </body>
 </html>
