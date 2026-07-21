@@ -10,9 +10,9 @@ const DATA_MACAU = {
     },
 
     selasa: {
-    tanggal: "2026-07-14", 
+    tanggal: "2026-07-21", 
         angka_p1: ``, tunggal_p1: "",
-        angka_p2: ``, tunggal_p2: "",
+        angka_p2: `0674 : 085`, tunggal_p2: "5",
         angka_p3: ``, tunggal_p3: "",
         angka_p4: ``, tunggal_p4: "",
         angka_p5: ``, tunggal_p5: "",
