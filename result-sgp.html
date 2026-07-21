@@ -234,19 +234,35 @@ hs.src='//s10.histats.com/js15_as.js';
 <!-- Histats.com END -->
     <!-- MEMBACA DATA PAITO SECARA EKSTERNAL DARI BERKAS DATA MANUAL -->
     <script src="result/sgp.js"></script>
-    <script>
-    let warnaKuasAktif = "transparent";
+<script>
+let warnaKuasAktif = "transparent";
 
+// SEPERTI PASARAN SEBELUMNYA, CSS ANIMASI KELAP-KELIP LANGSUNG DISUNTIKKAN VIA SCRIPT
+document.head.insertAdjacentHTML('beforeend', `
+    <style>
+    @keyframes blinkIndikator {
+        0% { opacity: 1; font-weight: bold; color: #ff0000; }
+        50% { opacity: 0.1; font-weight: normal; color: #ffb703; }
+        100% { opacity: 1; font-weight: bold; color: #ff0000; }
+    }
+    .minggu-berjalan {
+        animation: blinkIndikator 1.2s infinite;
+        background-color: rgba(255, 0, 0, 0.08) !important;
+    }
+    </style>
+`);
+
+// 1. LOGIKA ANIMASI BOX LIVE RESULT SGP (ATAS)
 if (typeof LIVE_RESULT_SGP !== 'undefined') {
     const angkaSah = LIVE_RESULT_SGP.latestResult;
     const boxAngka = document.getElementById('angka-terbaru-box');
     const boxStatusWaktu = document.getElementById('waktu-terbaru-box');
     
-    boxAngka.innerText = "----"; 
+    boxAngka.innerText = "xxxx"; 
     boxStatusWaktu.innerText = "Sinkronisasi data live SGP...";
 
     let indeksDigit = 0;
-    let wadahAngka = ["-", "-", "-", "-"];
+    let wadahAngka = ["x", "x", "x", "x"];
 
     const animasiAngka = setInterval(() => {
         if (indeksDigit < angkaSah.length) {
@@ -262,10 +278,11 @@ if (typeof LIVE_RESULT_SGP !== 'undefined') {
     }, 3000); 
 
 } else {
-    document.getElementById('angka-terbaru-box').innerText = "----";
-    document.getElementById('waktu-terbaru-box').innerText = "Gagal memuat berkas JS SGP.";
+    if(document.getElementById('angka-terbaru-box')) document.getElementById('angka-terbaru-box').innerText = "xxxx";
+    if(document.getElementById('waktu-terbaru-box')) document.getElementById('waktu-terbaru-box').innerText = "Gagal memuat berkas JS SGP.";
 }
 
+// 2. LOGIKA TOMBOL PALET WARNA KUAS
 const tombolWarna = document.querySelectorAll('.color-palette .color-btn');
 tombolWarna.forEach(btn => {
     btn.addEventListener('click', function() {
@@ -275,118 +292,149 @@ tombolWarna.forEach(btn => {
     });
 });
 
+// 3. LOGIKA RUNNING TEXT JAM LIVE WIB
 function perbaruiJamOtomatis() {
     const sekarang = new Date();
     const jam = String(sekarang.getHours()).padStart(2, '0');
     const menit = String(sekarang.getMinutes()).padStart(2, '0');
     const detik = String(sekarang.getSeconds()).padStart(2, '0');
     
-    document.getElementById('live-update-time').innerHTML = 
-        `Jam ${jam}:${menit}:${detik} WIB | Fitur Kuas HP SGP Aktif`;
+    const elJam = document.getElementById('live-update-time');
+    if(elJam) {
+        elJam.innerHTML = `Jam ${jam}:${menit}:${detik} WIB | Fitur Kuas HP SGP Aktif`;
+    }
 }
 perbaruiJamOtomatis(); 
 setInterval(perbaruiJamOtomatis, 1000); 
 
+// 4. LOGIKA UTAMA PEMBENTUKAN TABEL PAITO HARIAN (KELIPATAN 5 KOLOM DATA UNTUK SGP)
 const teksMentah = (typeof DATA_PAITO_SGP !== 'undefined') ? DATA_PAITO_SGP : "";
 const paitoTbody = document.getElementById('paito-tbody-data');
 
 if (paitoTbody && teksMentah.trim() !== "") {
     paitoTbody.innerHTML = '';
     
-    let dataMentah = teksMentah.replace(/\s+/g, '').split(',').filter(x => x !== "");
+    let dataAngkaMurni = teksMentah.split(',')
+        .map(x => x.replace(/\s+/g, '').trim())
+        .filter(x => x !== "" && x.length === 4);
     
-    for (let i = 0; i < dataMentah.length; i += 6) {
-        let baris = dataMentah.slice(i, i + 6);
+    let indeksData = 0;
+    
+    if (dataAngkaMurni.length === 0) {
+        dataAngkaMurni = ["KOSONG"];
+    }
+
+    // Loop data dipotong per 5 kolom murni angka
+    while (indeksData < dataAngkaMurni.length) {
+        let barisAngka = dataAngkaMurni.slice(indeksData, indeksData + 5);
+        let jumlahTerisi = barisAngka.length;
         
-        while (baris.length < 6) {
-            baris.push("-");
+        if (barisAngka === "KOSONG") jumlahTerisi = 0;
+
+        let angkaIndikator = "5"; // Maksimal indikator full adalah 5 hari untuk SGP
+        let classTambahan = "";
+        
+        // Pengecekan dinamis kelipatan 5 hari kerja SGP
+        if (jumlahTerisi < 5) {
+            angkaIndikator = String(jumlahTerisi); 
+            classTambahan = 'class="mgg-row minggu-berjalan"'; 
+        } else {
+            classTambahan = 'class="mgg-row"';
+        }
+
+        while (barisAngka.length < 5) {
+            barisAngka.push("KOSONG");
         }
         
         let barisHTML = `<tr>`;
-        baris.forEach((draw, indeks) => {
+        barisHTML += `<td ${classTambahan}>${angkaIndikator}</td>`;
+        
+        barisAngka.forEach((draw) => {
             let teksDraw = String(draw).trim();
             
-            if (indeks === 0) {
-                if (teksDraw.length === 1) teksDraw = "0" + teksDraw;
-                if (teksDraw.length > 2) teksDraw = teksDraw.slice(-2);
-                barisHTML += `<td class="mgg-row">${teksDraw}</td>`;
-            } else {
-                if (teksDraw !== "-" && teksDraw.length < 4) {
-                    teksDraw = teksDraw.padStart(4, "0");
-                }
-                if (teksDraw !== "-" && teksDraw.length > 4) {
-                    teksDraw = teksDraw.slice(-4);
-                }
-                
-                let digitHTML = '';
-                if (teksDraw !== "-") {
-                    let pos = 0;
-                    for (let karakterAngka of teksDraw) {
-                        digitHTML += `<span data-pos="${pos}">${karakterAngka}</span>`;
-                        pos++;
-                    }
-                } else {
-                    digitHTML = `<span style="color:var(--text-muted); opacity:0.3;">-</span>`;
-                }
-                barisHTML += `<td class="paito-cell">${digitHTML}</td>`;
+            if (teksDraw === "-" || teksDraw === "" || teksDraw === "KOSONG") {
+                teksDraw = "xxxx";
             }
+            
+            let digitHTML = '';
+            let pos = 0;
+            for (let karakterAngka of teksDraw) {
+                let styleTambahan = (karakterAngka === 'x') ? 'style="color:var(--text-muted); opacity:0.4;"' : '';
+                digitHTML += `<span data-pos="${pos}" ${styleTambahan}>${karakterAngka}</span>`;
+                pos++;
+            }
+            barisHTML += `<td class="paito-cell">${digitHTML}</td>`;
         });
+        
         barisHTML += `</tr>`;
         paitoTbody.innerHTML += barisHTML;
+        
+        indeksData += 5; // Lompat ke 5 data minggu berikutnya
     }
 } else if (paitoTbody) {
-    paitoTbody.innerHTML = '<tr><td colspan="6" style="color:var(--text-muted); padding:10px;">Data Berkas Kosong.</td></tr>';
+    paitoTbody.innerHTML = '<tr><td colspan="6" style="color:var(--text-muted); padding:10px; text-align:center;">Data Berkas Kosong.</td></tr>';
 }
 
-paitoTbody.addEventListener('click', function(e) {
-    if (e.target && e.target.tagName === 'SPAN' && e.target.innerText !== "-") {
-        if (warnaKuasAktif === "transparent") {
-            e.target.style.backgroundColor = "transparent";
-            e.target.style.color = "var(--text-main)";
-        } else {
-            e.target.style.backgroundColor = warnaKuasAktif;
-            e.target.style.color = "#000000"; 
-        }
-    }
-});
-
-document.getElementById('btn-cari-pola').addEventListener('click', function() {
-    const cariKepala = document.getElementById('input-kepala').value.trim();
-    const cariEkor = document.getElementById('input-ekor').value.trim();
-    const seluruhSpan = paitoTbody.querySelectorAll('.paito-cell span');
-
-    if (cariKepala === "" && cariEkor === "") {
-        alert("Masukkan angka Kepala atau Ekor terlebih dahulu!");
-        return;
-    }
-
-    seluruhSpan.forEach(span => {
-        if(span.innerText === "-") return;
-        const posisiDigit = span.getAttribute('data-pos'); 
-
-        if (cariKepala !== "" && posisiDigit === "2" && span.innerText === cariKepala) {
-            span.style.backgroundColor = "#fceade"; 
-            span.style.color = "#000000";
-            span.style.fontWeight = "bold";
-        }
-        if (cariEkor !== "" && posisiDigit === "3" && span.innerText === cariEkor) {
-            span.style.backgroundColor = "#def3f6"; 
-            span.style.color = "#000000";
-            span.style.fontWeight = "bold";
+// 5. FITUR MEWARNAI KUAS MANUAL SAAT SPAN DIKLIK
+if(paitoTbody) {
+    paitoTbody.addEventListener('click', function(e) {
+        if (e.target && e.target.tagName === 'SPAN') {
+            if (warnaKuasAktif === "transparent") {
+                e.target.style.backgroundColor = "transparent";
+                e.target.style.color = (e.target.innerText === "x") ? "var(--text-muted)" : "var(--text-main)";
+            } else {
+                e.target.style.backgroundColor = warnaKuasAktif;
+                e.target.style.color = "#000000"; 
+            }
         }
     });
-});
+}
 
-document.getElementById('btn-bersih-pola').addEventListener('click', function() {
-    document.getElementById('input-kepala').value = "";
-    document.getElementById('input-ekor').value = "";
-    const seluruhSpan = paitoTbody.querySelectorAll('.paito-cell span');
-    seluruhSpan.forEach(span => {
-        span.style.backgroundColor = "transparent";
-        span.style.color = "var(--text-main)";
+// 6. FITUR CARI POLA ANGKA KEPALA & EKOR OTOMATIS
+if(document.getElementById('btn-cari-pola')) {
+    document.getElementById('btn-cari-pola').addEventListener('click', function() {
+        const cariKepala = document.getElementById('input-kepala').value.trim();
+        const cariEkor = document.getElementById('input-ekor').value.trim();
+        const seluruhSpan = paitoTbody.querySelectorAll('.paito-cell span');
+
+        if (cariKepala === "" && cariEkor === "") {
+            alert("Masukkan angka Kepala atau Ekor terlebih dahulu!");
+            return;
+        }
+
+        seluruhSpan.forEach(span => {
+            if(span.innerText === "x") return; 
+            const posisiDigit = span.getAttribute('data-pos'); 
+
+            if (cariKepala !== "" && posisiDigit === "2" && span.innerText === cariKepala) {
+                span.style.backgroundColor = "#ffb703"; 
+                span.style.color = "#000000";
+                span.style.fontWeight = "bold";
+            }
+            if (cariEkor !== "" && posisiDigit === "3" && span.innerText === cariEkor) {
+                span.style.backgroundColor = "#ff007f"; 
+                span.style.color = "#ffffff";
+                span.style.fontWeight = "bold";
+            }
+        });
     });
-});
-    </script>
+}
+
+// 7. FITUR BERSIHKAN POLA WARNA (RESET)
+if(document.getElementById('btn-bersih-pola')) {
+    document.getElementById('btn-bersih-pola').addEventListener('click', function() {
+        document.getElementById('input-kepala').value = "";
+        document.getElementById('input-ekor').value = "";
+        const seluruhSpan = paitoTbody.querySelectorAll('.paito-cell span');
+        seluruhSpan.forEach(span => {
+            span.style.backgroundColor = "transparent";
+            span.style.color = (span.innerText === "x") ? "var(--text-muted)" : "var(--text-main)";
+            span.style.fontWeight = "normal";
+        });
+    });
+}
+</script>
+
     <script src="https://crypotential.com/aau2deh1y8?key=28127d0dedbc5859c5a05ec19fed2ae4"></script>
 </body>
 </html>
