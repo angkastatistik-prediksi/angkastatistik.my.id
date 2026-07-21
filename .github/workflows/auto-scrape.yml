@@ -1,11 +1,11 @@
-name: Auto Update Data Taiwan Pools
+name: Auto Update Data Pasaran Pools
 
 on:
   schedule:
-    # Menggunakan zona waktu UTC. 14:00 UTC = 21:00 WIB
-    # Sistem akan otomatis mengecek pada jam 21:00, 21:15, 21:30, dan 21:45 WIB
-    - cron: '0,15,30,45 14 * * *'
-  workflow_dispatch: # Memunculkan tombol khusus agar Anda bisa update manual kapan saja
+    # Menggunakan zona waktu UTC (WIB dikurang 7 jam)
+    # Cron ini berjalan setiap jam pada menit ke :01, :15, :30 (Menangkap update jam 13:00, 16:00, 19:00, 21:00, 22:00, 23:00, 00:01 WIB)
+    - cron: '1,15,30 * * * *'
+  workflow_dispatch: 
 
 jobs:
   scrape:
@@ -22,14 +22,16 @@ jobs:
     - name: Pasang Library Pendukung
       run: pip install requests
 
-    - name: Jalankan Skrip Scraper
+    - name: Jalankan Scraper Taiwan
       run: python scraper.py
 
-    - name: Simpan Data Terbaru ke GitHub
+    - name: Jalankan Scraper Macau
+      run: python scraper_macau.py
+
+    - name: Simpan Semua Data Terbaru
       run: |
         git config --global user.name "Sistem Otomatisasi"
         git config --global user.email "actions@github.com"
-        git add result.json
-        git commit -m "Update hasil undian: $(date)" || exit 0
+        git add result.json result_macau.json
+        git commit -m "Update hasil pasaran otomatis: $(date)" || exit 0
         git push
-
