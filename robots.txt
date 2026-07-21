@@ -1,6 +1,5 @@
 User-agent: *
 Allow: /
-Disallow: /data/
 
-# Tautkan langsung lokasi peta situs Anda agar robot Google mendeteksinya otomatis
+# Tautkan langsung lokasi peta situs prediksi Anda agar robot Google mendeteksinya otomatis
 Sitemap: https://angkastatistik.my.id
