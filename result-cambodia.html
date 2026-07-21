@@ -81,6 +81,16 @@
         .seo-footer-text { font-size: 0.75rem; color: var(--text-muted); text-align: justify; margin-top: 15px; line-height: 1.4; }
         footer { text-align: center; padding: 15px 0; margin-top: 25px; border-top: 1px solid var(--border-color); color: var(--text-muted); font-size: 0.75rem; }
         footer span { color: var(--accent); }
+        @keyframes blinkIndikator {
+    0% { opacity: 1; font-weight: bold; color: #ff0000; }
+    50% { opacity: 0.1; font-weight: normal; color: #ffb703; }
+    100% { opacity: 1; font-weight: bold; color: #ff0000; }
+}
+.minggu-berjalan {
+    animation: blinkIndikator 1.2s infinite;
+    background-color: rgba(255, 0, 0, 0.08) !important;
+}
+
     </style>
 </head>
 <body>
