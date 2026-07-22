@@ -34,11 +34,11 @@ tunggal: "3"
 },
 
 rabu: {
-tanggal: "2026-07-15", 
+tanggal: "2026-07-22", 
 angka: `
-
+4120 : 936
 `,
-tunggal: ""
+tunggal: "3"
 },
 
 kamis: {
