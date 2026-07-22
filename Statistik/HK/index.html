@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mesin Pintar Pangkas 4D HK</title>
+    
+    <!-- LANGSUNG MEMBACA FILE DATA DATA ANDA -->
+    <script src="result/hk.js"></script>
+
     <style>
         body {
             background-color: #0d0118;
@@ -163,10 +167,10 @@
 
 <div class="container">
     <h1>Mesin Pintar HK</h1>
-    <div class="subtitle">Logika Urutan Paito Bottom-Up</div>
+    <div class="subtitle">Logika Urutan Paito Bottom-Up Eksternal</div>
 
     <div class="data-monitor">
-        <div class="data-title">3 Result Terbawah di DATA_PAITO_HK:</div>
+        <div class="data-title">3 Result Terbawah dari hk.js:</div>
         <div class="badge-container">
             <div class="badge" id="viewRes1">----</div>
             <div class="badge" id="viewRes2">----</div>
@@ -190,49 +194,40 @@
             <span class="val-res highlight-tunggal" id="outTunggal">-</span>
         </div>
         <div style="margin-top: 15px; text-align: left;">
-            <span class="label-res" style="font-size: 11px;">Alur Deret Mundur Frekuensi (Paito Bottom-Up):</span>
+            <span class="label-res" style="font-size: 11px;">Alur Deret Mundur Frekuensi:</span>
             <div class="debug-text" id="outDeret">-</div>
         </div>
     </div>
 </div>
-<script>
-    // Database Paito langsung ditanam di sini agar tidak terkendala CORS browser
-    const DATA_PAITO_HK = `
-      6960,4854,9978,3106,4278,7412,4583,
-      7802,8143,9498,8943,7591,0983,7754,
-      9123,4874,6881,4915,5767,6284,3754,
-      5909,9138,1679,3268,6327,0091,6516,
-      0735,5802,1093,9114,0827,7021,1893,
-      0933,1521,5537,6253,9815,3372,0365,
-      9907,1064,2560,7644,4029,6768,6959,
-      9467,5790,9978,0109,7895,2066,8172,
-      4679,0188,6358,2079,3951,3924,4193,
-      8178,8961,5054,4152,0161,5490,6416,
-      9392,9206,0655,9064,8809,0882,0447,
-      4610,2177,1694,
-    `;
 
+<script>
     const INDEX_MAP = {'0':'5', '1':'6', '2':'7', '3':'8', '4':'9', '5':'0', '6':'1', '7':'2', '8':'3', '9':'4'};
     const ML_MAP    = {'1':'0', '0':'1', '2':'5', '5':'2', '3':'8', '8':'3', '4':'7', '7':'4', '6':'9', '9':'6'};
 
     let arrayPaito = [];
 
     window.onload = function() {
-        let paitoClean = DATA_PAITO_HK.replace(/\s+/g, ''); 
-        arrayPaito = paitoClean.split(',').filter(item => item.length === 4);
+        // Memastikan variabel DATA_PAITO_HK dari file result/hk.js terbaca
+        if (typeof DATA_PAITO_HK !== 'undefined') {
+            let paitoClean = DATA_PAITO_HK.replace(/\s+/g, ''); 
+            arrayPaito = paitoClean.split(',').filter(item => item.length === 4);
 
-        if (arrayPaito.length >= 3) {
-            let r3 = arrayPaito[arrayPaito.length - 1]; 
-            let r2 = arrayPaito[arrayPaito.length - 2]; 
-            let r1 = arrayPaito[arrayPaito.length - 3]; 
+            if (arrayPaito.length >= 3) {
+                // Mengambil 3 data terbawah dari urutan string paito
+                let r3 = arrayPaito[arrayPaito.length - 1]; 
+                let r2 = arrayPaito[arrayPaito.length - 2]; 
+                let r1 = arrayPaito[arrayPaito.length - 3]; 
 
-            document.getElementById('viewRes3').innerText = r3 + " (Baru)";
-            document.getElementById('viewRes2').innerText = r2;
-            document.getElementById('viewRes1').innerText = r1 + " (Lama)";
-            
-            prosesMesinOtomatis();
+                document.getElementById('viewRes3').innerText = r3 + " (Baru)";
+                document.getElementById('viewRes2').innerText = r2;
+                document.getElementById('viewRes1').innerText = r1 + " (Lama)";
+                
+                prosesMesinOtomatis();
+            } else {
+                alert("Data di dalam DATA_PAITO_HK kurang dari 3 hari!");
+            }
         } else {
-            alert("Data paito tidak cukup!");
+            alert("Gagal membaca DATA_PAITO_HK. Pastikan letak folder 'result/hk.js' sudah benar!");
         }
     };
 
@@ -257,6 +252,7 @@
 
         let am_mentah = [angka_dasar, angka_index, angka_ml];
 
+        // Membentuk deret mundur dari bawah ke atas paito
         let deretMundur = "";
         for (let i = arrayPaito.length - 1; i >= 0; i--) {
             let res = arrayPaito[i];
@@ -285,4 +281,3 @@
 </script>
 </body>
 </html>
-
