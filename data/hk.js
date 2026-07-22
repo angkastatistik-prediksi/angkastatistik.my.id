@@ -37,11 +37,11 @@ tunggal: "0"
 },
 
 rabu: {
-tanggal: "2026-07-15", 
+tanggal: "2026-07-22", 
 angka: `
-
+2177 : 930
 `,
-tunggal: ""
+tunggal: "0"
 },
 
 kamis: {
