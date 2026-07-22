@@ -3,11 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mesin Otomatis Pangkas 4D HK</title>
-    
-    <!-- PANGGIL FILE DATA RESULT ANDA DI SINI -->
-    <script src="result/hk.js"></script>
-
+    <title>Mesin Pintar Pangkas 4D HK</title>
     <style>
         body {
             background-color: #0d0118;
@@ -166,9 +162,8 @@
 
 <div class="container">
     <h1>Mesin Pintar HK</h1>
-    <div class="subtitle">Pembaca String Paito &amp; Live Result</div>
+    <div class="subtitle">Logika Frekuensi &amp; Pangkas Mundur</div>
 
-    <!-- Panel Monitor Pembacaan Data -->
     <div class="data-monitor">
         <div class="data-title">3 Result Terakhir Terdeteksi:</div>
         <div class="badge-container">
@@ -180,7 +175,6 @@
 
     <button onclick="prosesMesinOtomatis()">Hitung Angka Prediksi</button>
 
-    <!-- Panel Output Hasil Hitungan -->
     <div class="result-panel">
         <div class="result-row">
             <span class="label-res">Angka Main (AM):</span>
@@ -202,40 +196,49 @@
 </div>
 
 <script>
+    // DATA DILETAK KAN LANGSUNG DI SINI AGAR TIDAK EROR LAGI
+    const LIVE_RESULT_HK = {
+        latestResult: "1694"
+    };
+
+    const DATA_PAITO_HK = `
+      6960,4854,9978,3106,4278,7412,4583,
+      7802,8143,9498,8943,7591,0983,7754,
+      9123,4874,6881,4915,5767,6284,3754,
+      5909,9138,1679,3268,6327,0091,6516,
+      0735,5802,1093,9114,0827,7021,1893,
+      0933,1521,5537,6253,9815,3372,0365,
+      9907,1064,2560,7644,4029,6768,6959,
+      9467,5790,9978,0109,7895,2066,8172,
+      4679,0188,6358,2079,3951,3924,4193,
+      8178,8961,5054,4152,0161,5490,6416,
+      9392,9206,0655,9064,8809,0882,0447,
+      4610,2177,1694,
+    `;
+
     const INDEX_MAP = {'0':'5', '1':'6', '2':'7', '3':'8', '4':'9', '5':'0', '6':'1', '7':'2', '8':'3', '9':'4'};
     const ML_MAP    = {'1':'0', '0':'1', '2':'5', '5':'2', '3':'8', '8':'3', '4':'7', '7':'4', '6':'9', '9':'6'};
 
     let r1 = "", r2 = "", r3 = "";
 
     window.onload = function() {
-        // Cek apakah kedua variabel dari result/hk.js sudah termuat
-        if (typeof LIVE_RESULT_HK !== 'undefined' && typeof DATA_PAITO_HK !== 'undefined') {
-            
-            // 1. Bersihkan string DATA_PAITO_HK dari spasi, enter, lalu pecah berdasarkan koma
-            let paitoClean = DATA_PAITO_HK.replace(/\s+/g, ''); 
-            let arrayPaito = paitoClean.split(',').filter(item => item.length === 4);
+        let paitoClean = DATA_PAITO_HK.replace(/\s+/g, ''); 
+        let arrayPaito = paitoClean.split(',').filter(item => item.length === 4);
 
-            // 2. Ambil data sesuai susunan urutan mundur waktu
-            r3 = LIVE_RESULT_HK.latestResult;           // Paling Baru (Contoh: 1694)
-            r2 = arrayPaito[arrayPaito.length - 1];      // Tengah (Contoh: 2177)
-            r1 = arrayPaito[arrayPaito.length - 2];      // Terlama (Contoh: 4610)
+        r3 = LIVE_RESULT_HK.latestResult;           
+        r2 = arrayPaito[arrayPaito.length - 1];      
+        r1 = arrayPaito[arrayPaito.length - 2];      
 
-            // Tampilkan angka pangkas di monitor atas
-            document.getElementById('viewRes3').innerText = r3 + " (Baru)";
-            document.getElementById('viewRes2').innerText = r2;
-            document.getElementById('viewRes1').innerText = r1 + " (Lama)";
-            
-            // Eksekusi kalkulator otomatis
-            prosesMesinOtomatis();
-        } else {
-            alert("Gagal membaca struktur 'LIVE_RESULT_HK' atau 'DATA_PAITO_HK'. Periksa kembali file 'result/hk.js' Anda!");
-        }
+        document.getElementById('viewRes3').innerText = r3 + " (Baru)";
+        document.getElementById('viewRes2').innerText = r2;
+        document.getElementById('viewRes1').innerText = r1 + " (Lama)";
+        
+        prosesMesinOtomatis();
     };
 
     function prosesMesinOtomatis() {
         if (!r1 || !r2 || !r3) return;
 
-        // Logika hitung selisih kelompok angka dari result terbaru (r3)
         const as3 = parseInt(r3[0]);
         const cop3 = parseInt(r3[1]);
         const kep3 = parseInt(r3[2]);
@@ -252,29 +255,23 @@
 
         let am_mentah = [angka_dasar, angka_index, angka_ml];
 
-        // Susun deret kombinasi frekuensi mundur (Satuan -> Puluhan -> Ratusan -> Ribuan)
         let deretMundur = [];
-        
-        // Urutan mundur: r3, lalu r2, lalu r1
         deretMundur.push(r3[3], r3[2], r3[1], r3[0]);
         deretMundur.push(r2[3], r2[2], r2[1], r2[0]);
         deretMundur.push(r1[3], r1[2], r1[1], r1[0]);
 
-        // Cari urutan berdasarkan prinsip "belum naik terakhir"
         let am_skor = [];
         am_mentah.forEach(angka => {
             let posisi = deretMundur.indexOf(angka);
-            if(posisi === -1) { posisi = 99; } // Jika angka tidak ada sama sekali di 3 hari terakhir
+            if(posisi === -1) { posisi = 99; } 
             am_skor.push({ angka: angka, indexTerkecil: posisi });
         });
 
-        // Urutkan angka: indeks paling besar (paling lambat naik) ditaruh di depan
         am_skor.sort((a, b) => b.indexTerkecil - a.indexTerkecil);
 
         let am_final = am_skor.map(item => item.angka);
         let am_bersih = [...new Set(am_final)];
 
-        // Cetak output ke panel ungu neon
         document.getElementById('outAM').innerText = am_bersih.join(", ");
         document.getElementById('outKuat').innerText = am_bersih.slice(0, 2).join(", ");
         document.getElementById('outTunggal').innerText = am_bersih[0] || "-";
@@ -284,3 +281,4 @@
 
 </body>
 </html>
+
