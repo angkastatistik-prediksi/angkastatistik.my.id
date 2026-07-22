@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mesin Pintar Pangkas 4D HK</title>
+    
+    <!-- LANGSUNG MEMBACA FILE DATA DATA ANDA -->
+    <script src="result/hk.js"></script>
+
+    <style>
+        body {
+            background-color: #0d0118;
+            color: #e0d5f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .container {
+            background: linear-gradient(135deg, #1e0b36 0%, #0f051d 100%);
+            border: 2px solid #00d2ff;
+            border-radius: 16px;
+            padding: 30px;
+            width: 100%;
+            max-width: 480px;
+            box-shadow: 0 0 25px rgba(0, 210, 255, 0.3), inset 0 0 15px rgba(155, 38, 182, 0.4);
+            text-align: center;
+        }
+
+        h1 {
+            color: #00d2ff;
+            font-size: 24px;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(0, 210, 255, 0.6);
+        }
+
+        .subtitle {
+            font-size: 12px;
+            color: #b992ff;
+            margin-bottom: 25px;
+            letter-spacing: 1px;
+        }
+
+        .data-monitor {
+            background: #140627;
+            border: 1px solid #9b26b6;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .data-title {
+            font-size: 11px;
+            color: #00d2ff;
+            text-transform: uppercase;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .badge-container {
+            display: flex;
+            gap: 8px;
+            justify-content: space-between;
+        }
+
+        .badge {
+            background: #250c46;
+            border: 1px solid #00d2ff;
+            padding: 6px 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #fff;
+            flex: 1;
+            text-align: center;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(90deg, #8a2be2, #00d2ff);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            cursor: pointer;
+            text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(0, 210, 255, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(0, 210, 255, 0.6);
+        }
+
+        .result-panel {
+            margin-top: 25px;
+            padding: 20px;
+            background-color: #120422;
+            border: 1px dashed #00d2ff;
+            border-radius: 10px;
+            text-align: left;
+        }
+
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(155, 38, 182, 0.2);
+        }
+
+        .result-row:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .label-res {
+            font-size: 14px;
+            color: #b992ff;
+        }
+
+        .val-res {
+            font-size: 16px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .highlight-blue {
+            color: #00d2ff;
+            text-shadow: 0 0 8px rgba(0, 210, 255, 0.5);
+        }
+        
+        .highlight-tunggal {
+            color: #ff00ff;
+            text-shadow: 0 0 8px rgba(255, 0, 255, 0.5);
+            font-size: 18px;
+        }
+
+        .debug-text {
+            font-size: 11px;
+            color: #7a63a5;
+            word-break: break-all;
+            background: #090113;
+            padding: 8px;
+            border-radius: 4px;
+            margin-top: 5px;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Mesin Pintar HK</h1>
+    <div class="subtitle">Logika Urutan Paito Bottom-Up Eksternal</div>
+
+    <div class="data-monitor">
+        <div class="data-title">3 Result Terbawah dari hk.js:</div>
+        <div class="badge-container">
+            <div class="badge" id="viewRes1">----</div>
+            <div class="badge" id="viewRes2">----</div>
+            <div class="badge" id="viewRes3">----</div>
+        </div>
+    </div>
+
+    <button onclick="prosesMesinOtomatis()">Hitung Angka Prediksi</button>
+
+    <div class="result-panel">
+        <div class="result-row">
+            <span class="label-res">Angka Main (AM):</span>
+            <span class="val-res highlight-blue" id="outAM">-</span>
+        </div>
+        <div class="result-row">
+            <span class="label-res">Angka Kuat (2D):</span>
+            <span class="val-res highlight-blue" id="outKuat">-</span>
+        </div>
+        <div class="result-row">
+            <span class="label-res">Angka Tunggal:</span>
+            <span class="val-res highlight-tunggal" id="outTunggal">-</span>
+        </div>
+        <div style="margin-top: 15px; text-align: left;">
+            <span class="label-res" style="font-size: 11px;">Alur Deret Mundur Frekuensi:</span>
+            <div class="debug-text" id="outDeret">-</div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const INDEX_MAP = {'0':'5', '1':'6', '2':'7', '3':'8', '4':'9', '5':'0', '6':'1', '7':'2', '8':'3', '9':'4'};
+    const ML_MAP    = {'1':'0', '0':'1', '2':'5', '5':'2', '3':'8', '8':'3', '4':'7', '7':'4', '6':'9', '9':'6'};
+
+    let arrayPaito = [];
+
+    window.onload = function() {
+        // Memastikan variabel DATA_PAITO_HK dari file result/hk.js terbaca
+        if (typeof DATA_PAITO_HK !== 'undefined') {
+            let paitoClean = DATA_PAITO_HK.replace(/\s+/g, ''); 
+            arrayPaito = paitoClean.split(',').filter(item => item.length === 4);
+
+            if (arrayPaito.length >= 3) {
+                // Mengambil 3 data terbawah dari urutan string paito
+                let r3 = arrayPaito[arrayPaito.length - 1]; 
+                let r2 = arrayPaito[arrayPaito.length - 2]; 
+                let r1 = arrayPaito[arrayPaito.length - 3]; 
+
+                document.getElementById('viewRes3').innerText = r3 + " (Baru)";
+                document.getElementById('viewRes2').innerText = r2;
+                document.getElementById('viewRes1').innerText = r1 + " (Lama)";
+                
+                prosesMesinOtomatis();
+            } else {
+                alert("Data di dalam DATA_PAITO_HK kurang dari 3 hari!");
+            }
+        } else {
+            alert("Gagal membaca DATA_PAITO_HK. Pastikan letak folder 'result/hk.js' sudah benar!");
+        }
+    };
+
+    function prosesMesinOtomatis() {
+        if (arrayPaito.length < 3) return;
+
+        let r3 = arrayPaito[arrayPaito.length - 1]; 
+
+        const as3 = parseInt(r3.charAt(0));
+        const cop3 = parseInt(r3.charAt(1));
+        const kep3 = parseInt(r3.charAt(2));
+        const ekr3 = parseInt(r3.charAt(3));
+
+        const kelompok_as_cop = as3 + cop3;
+        const kelompok_kep_ekr = kep3 + ekr3;
+
+        let selisih = Math.abs(kelompok_as_cop - kelompok_kep_ekr);
+        let angka_dasar = (selisih % 10).toString(); 
+        
+        let angka_index = INDEX_MAP[angka_dasar];
+        let angka_ml = ML_MAP[angka_index] || "0"; 
+
+        let am_mentah = [angka_dasar, angka_index, angka_ml];
+
+        // Membentuk deret mundur dari bawah ke atas paito
+        let deretMundur = "";
+        for (let i = arrayPaito.length - 1; i >= 0; i--) {
+            let res = arrayPaito[i];
+            let resTerbalik = res.charAt(3) + res.charAt(2) + res.charAt(1) + res.charAt(0);
+            deretMundur += resTerbalik;
+        }
+
+        let am_skor = [];
+        am_mentah.forEach(angka => {
+            let posisi = deretMundur.indexOf(angka);
+            if(posisi === -1) { posisi = 999; } 
+            am_skor.push({ angka: angka, indexTerkecil: posisi });
+        });
+
+        am_skor.sort((a, b) => b.indexTerkecil - a.indexTerkecil);
+
+        let am_final = am_skor.map(item => item.angka);
+        let am_bersih = [...new Set(am_final)];
+
+        document.getElementById('outAM').innerText = am_bersih.join(", ");
+        document.getElementById('outKuat').innerText = am_bersih.slice(0, 2).join(", ");
+        document.getElementById('outTunggal').innerText = am_bersih[0] || "-";
+        
+        document.getElementById('outDeret').innerText = deretMundur.substring(0, 32) + "...";
+    }
+</script>
+</body>
+</html>
