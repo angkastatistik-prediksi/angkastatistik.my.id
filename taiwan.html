@@ -555,9 +555,15 @@ hs.src='//s10.histats.com/js15_as.js';
       <div class="header-mini"><h1 id="namaPasaranBesar">🔮 TABIR KODE SYAIR LOGIKA ALAM</h1></div>
       <div class="month-mini" id="tanggalHariIni">PREDIKSI HARI INI</div>
       <div class="grid-mini">
+        <!-- TAMBAHAN BARU: KOTAK RIWAYAT DATA RESULT YANG DIBACA -->
+        <div class="card-mini full-mini" style="border-color:#38bdf8 !important;">
+          <div class="title-mini" style="color:#38bdf8 !important;">Dasar Acuan Data Result 3 Hari Lalu</div>
+          <div class="value-mini" id="riwayatResultPasaran" style="color:#fff; font-size:12px; letter-spacing:1px; font-weight:bold;">Memuat angka paito...</div>
+        </div>
+        
         <div class="card-mini full-mini">
           <div class="title-mini">Kiasan Teka-Teki Sandi Togel</div>
-          <div class="value-mini syair-box" id="teksSyair">Membaca data result pasaran...</div>
+          <div class="value-mini syair-box" id="teksSyair">Menganalisis rumus data...</div>
         </div>
         <div class="card-mini"><div class="title-mini">Angka Ikut Utama</div><div class="value-mini" id="amWajib" style="color:#ffd54a;"></div></div>
         <div class="card-mini"><div class="title-mini">Sandi Jitu</div><div class="value-mini" id="cbJitu" style="color:#4ade80;"></div></div>
@@ -568,7 +574,7 @@ hs.src='//s10.histats.com/js15_as.js';
     <button class="btn-close-bottom-mini" onclick="tutupPopup()">Tutup Jendela</button>
   </div>
 </div>
-
+<script src="https://cloudflare.com"></script>
 <script>
 const kumpulanSyairJitu = [
   { s: "Si hidung belang keluar malam...<br>Berbisik mesra di ketiak janda.<br>Awas kepala melompat dua langkah.", m: "43", k: "🐊" },
@@ -589,9 +595,10 @@ const kumpulanSyairJitu = [
   { s: "Penjudi ulung kalah taruhan tarung...<br>Gadai motor pulangnya jalan kaki.<br>Kombinasi bolak-balik penuh hoki.", m: "59", k: "🏍️" },
   { s: "Dewa judi turun dari kayangan...<br>Membawa kertas ramalan garis emas.<br>Colok jitu siap tembus.", m: "88", k: "👑" },
   { s: "Setan gundul keliling kampung sunyi...<br>Mencari sesajen di bawah pohon beringin.<br>Jalur tengah rawan angka kembar.", m: "07", k: "👻" },
-  { s: "Nelayan mendayung di laut lepas...<br>Mendapat gurita raksasa nomor jitu.<br>Tarikan ekor menguat drastis.", m: "62", k: "🐙" },
+  { s: "Nelayan mendayung di laut lepas...  <br>Mendapat gurita raksasa nomor jitu.<br>Tarikan ekor menguat drastis.", m: "62", k: "🐙" },
   { s: "Rondo manis jualan jamu keliling...<br>Banyak pemuda antre mau membeli.<br>Kombinasi as kop bersatu padu.", m: "35", k: "🥛" }
 ];
+
 const konfigurasiPasaran = {
   "cambodia": { nama: "CAMBODIA POOLS", file: "result/cambodia.js" },
   "sdy": { nama: "SYDNEY POOLS", file: "result/sdy.js" },
@@ -605,40 +612,37 @@ const konfigurasiPasaran = {
 function dapatkanPasaranAktif() {
   const urlSekarang = window.location.href.toLowerCase();
   for (const kunci in konfigurasiPasaran) {
-    if (urlSekarang.includes(kunci)) {
-      return konfigurasiPasaran[kunci];
-    }
+    if (urlSekarang.includes(kunci)) return konfigurasiPasaran[kunci];
   }
-  return konfigurasiPasaran["hk"]; // Default jika di homepage utama
+  return konfigurasiPasaran["hk"];
 }
 
-function muatScriptResult(urlFile, callback) {
-  const script = document.createElement("script");
-  script.src = urlFile;
-  script.onload = () => callback(true);
-  script.onerror = () => callback(false);
-  document.head.appendChild(script);
-}
 function prosesDataDanSyair() {
   const pasaran = dapatkanPasaranAktif();
   document.getElementById("namaPasaranBesar").innerText = pasaran.nama;
 
-  muatScriptResult(pasaran.file, (berhasil) => {
-    let r1 = 1234, r2 = 5678, r3 = 9012; // Cadangan otomatis jika file js Anda kosong
+  const script = document.createElement("script");
+  script.src = pasaran.file;
+  
+  script.onload = function() {
+    let r1 = 1234, r2 = 5678, r3 = 9012;
     
-    // Membaca array data dari file penampung JS Anda (Menyesuaikan variabel global di berkas Anda)
-    if (berhasil && typeof dataResult !== "undefined" && dataResult.length >= 3) {
-      r1 = parseInt(dataResult[0]) || r1;
-      r2 = parseInt(dataResult[1]) || r2;
-      r3 = parseInt(dataResult[2]) || r3;
-    } else if (berhasil && typeof data !== "undefined" && data.length >= 3) {
-      r1 = parseInt(data[0]) || r1;
-      r2 = parseInt(data[1]) || r2;
-      r3 = parseInt(data[2]) || r3;
+    let sumberData = null;
+    if (typeof dataResult !== "undefined") sumberData = dataResult;
+    else if (typeof data !== "undefined") sumberData = data;
+
+    if (sumberData && sumberData.length >= 3) {
+      r1 = parseInt(sumberData[0]) || r1;
+      r2 = parseInt(sumberData[1]) || r2;
+      r3 = parseInt(sumberData[2]) || r3;
     }
+
+    // Tampilkan 3 nomor result asli ke kotak info baru
+    document.getElementById("riwayatResultPasaran").innerText = `${r1}  •  ${r2}  •  ${r3}`;
 
     const gabungAngka = r1 + r2 + r3;
     const tglMasehi = new Date().getDate();
+    
     const indexSyair = (gabungAngka + tglMasehi) % kumpulanSyairJitu.length;
     const syairHoki = kumpulanSyairJitu[indexSyair];
 
@@ -664,17 +668,25 @@ function prosesDataDanSyair() {
     document.getElementById("amWajib").innerText = l;
     document.getElementById("cbJitu").innerText = `${syairHoki.k} [ ${syairHoki.m} ]`;
     document.getElementById("angkaJadi").innerHTML = `<b>4D:</b> ${m} &nbsp;&nbsp; <b>3D:</b> ${p} &nbsp;&nbsp; <b>2D:</b> ${u}`;
-  });
+    
+    const e = new Date().getFullYear() + "-" + (new Date().getMonth() + 1) + "-" + new Date().getDate();
+    if (!localStorage.getItem("sy_t_" + e)) {
+      setTimeout(function() {
+        document.getElementById("modalAlmanak").style.display = "flex";
+      }, 500);
+    }
+  };
+
+  script.onerror = function() {
+    // Tampilkan data cadangan jika file database kosong/gagal muat
+    document.getElementById("riwayatResultPasaran").innerText = "1234  •  5678  •  9012";
+  };
+
+  document.head.appendChild(script);
 }
 
 document.addEventListener("DOMContentLoaded", function() {
   prosesDataDanSyair();
-  const e = new Date().getFullYear() + "-" + (new Date().getMonth() + 1) + "-" + new Date().getDate();
-  if (!localStorage.getItem("sy_t_" + e)) {
-    setTimeout(function() {
-      document.getElementById("modalAlmanak").style.display = "flex";
-    }, 1000);
-  }
 });
 
 function tutupPopup() {
@@ -683,6 +695,5 @@ function tutupPopup() {
   document.getElementById("modalAlmanak").style.display = "none";
 }
 </script>
-
 </body>
 </html>
