@@ -4,10 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mesin Pintar Pangkas 4D HK</title>
-    
-    <!-- LANGSUNG MEMBACA FILE DATA DATA ANDA -->
-    <script src="result/hk.js"></script>
-
     <style>
         body {
             background-color: #0d0118;
@@ -31,6 +27,7 @@
             max-width: 480px;
             box-shadow: 0 0 25px rgba(0, 210, 255, 0.3), inset 0 0 15px rgba(155, 38, 182, 0.4);
             text-align: center;
+            position: relative;
         }
 
         h1 {
@@ -47,6 +44,15 @@
             color: #b992ff;
             margin-bottom: 25px;
             letter-spacing: 1px;
+        }
+
+        .status-loading {
+            font-size: 14px;
+            color: #ff00ff;
+            font-style: italic;
+            text-shadow: 0 0 8px rgba(255, 0, 255, 0.6);
+            margin-bottom: 15px;
+            display: block;
         }
 
         .data-monitor {
@@ -84,26 +90,32 @@
             text-align: center;
         }
 
-        button {
+        /* Desain Tombol Hasilkan Angka Main */
+        .btn-proses {
             width: 100%;
-            padding: 14px;
+            padding: 15px;
             background: linear-gradient(90deg, #8a2be2, #00d2ff);
             border: none;
             border-radius: 8px;
             color: white;
             font-size: 16px;
             font-weight: bold;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
             cursor: pointer;
             text-transform: uppercase;
             box-shadow: 0 4px 15px rgba(0, 210, 255, 0.4);
             transition: all 0.3s ease;
+            margin-bottom: 10px;
         }
 
-        button:hover {
-            opacity: 0.9;
-            transform: translateY(-1px);
-            box-shadow: 0 6px 20px rgba(0, 210, 255, 0.6);
+        .btn-proses:hover {
+            opacity: 0.95;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(0, 210, 255, 0.7);
+        }
+
+        .btn-proses:active {
+            transform: translateY(0);
         }
 
         .result-panel {
@@ -113,6 +125,7 @@
             border: 1px dashed #00d2ff;
             border-radius: 10px;
             text-align: left;
+            display: none; /* Disembunyikan dulu, muncul setelah tombol diklik */
         }
 
         .result-row {
@@ -167,7 +180,10 @@
 
 <div class="container">
     <h1>Mesin Pintar HK</h1>
-    <div class="subtitle">Logika Urutan Paito Bottom-Up Eksternal</div>
+    <div class="subtitle">Logika Urutan Paito Bottom-Up Async Fetch</div>
+
+    <!-- Teks Status Memuat File Real -->
+    <div id="loadingStatus" class="status-loading">Menghubungkan ke hk.js...</div>
 
     <div class="data-monitor">
         <div class="data-title">3 Result Terbawah dari hk.js:</div>
@@ -178,9 +194,11 @@
         </div>
     </div>
 
-    <button onclick="prosesMesinOtomatis()">Hitung Angka Prediksi</button>
+    <!-- TOMBOL KHUSUS UNTUK MEMPROSES LOGIKA -->
+    <button class="btn-proses" onclick="hitungLogikaMesin()">Hasilkan Angka Main</button>
 
-    <div class="result-panel">
+    <!-- Panel Hasil Prediksi Angka -->
+    <div class="result-panel" id="panelHasil">
         <div class="result-row">
             <span class="label-res">Angka Main (AM):</span>
             <span class="val-res highlight-blue" id="outAM">-</span>
@@ -199,40 +217,70 @@
         </div>
     </div>
 </div>
-
 <script>
     const INDEX_MAP = {'0':'5', '1':'6', '2':'7', '3':'8', '4':'9', '5':'0', '6':'1', '7':'2', '8':'3', '9':'4'};
     const ML_MAP    = {'1':'0', '0':'1', '2':'5', '5':'2', '3':'8', '8':'3', '4':'7', '7':'4', '6':'9', '9':'6'};
 
     let arrayPaito = [];
+    let dataSiap = false;
 
+    // Saat dibuka, sistem langsung mengambil data real tanpa memproses angka main terlebih dahulu
     window.onload = function() {
-        // Memastikan variabel DATA_PAITO_HK dari file result/hk.js terbaca
-        if (typeof DATA_PAITO_HK !== 'undefined') {
-            let paitoClean = DATA_PAITO_HK.replace(/\s+/g, ''); 
-            arrayPaito = paitoClean.split(',').filter(item => item.length === 4);
-
-            if (arrayPaito.length >= 3) {
-                // Mengambil 3 data terbawah dari urutan string paito
-                let r3 = arrayPaito[arrayPaito.length - 1]; 
-                let r2 = arrayPaito[arrayPaito.length - 2]; 
-                let r1 = arrayPaito[arrayPaito.length - 3]; 
-
-                document.getElementById('viewRes3').innerText = r3 + " (Baru)";
-                document.getElementById('viewRes2').innerText = r2;
-                document.getElementById('viewRes1').innerText = r1 + " (Lama)";
-                
-                prosesMesinOtomatis();
-            } else {
-                alert("Data di dalam DATA_PAITO_HK kurang dari 3 hari!");
-            }
-        } else {
-            alert("Gagal membaca DATA_PAITO_HK. Pastikan letak folder 'result/hk.js' sudah benar!");
-        }
+        ambilDataReal();
     };
 
-    function prosesMesinOtomatis() {
-        if (arrayPaito.length < 3) return;
+    function ambilDataReal() {
+        const loadingText = document.getElementById('loadingStatus');
+        loadingText.innerText = "Sedang mengambil data real...";
+        loadingText.style.color = "#ff00ff";
+
+        fetch('result/hk.js?v=' + new Date().getTime())
+            .then(response => {
+                if (!response.ok) throw new Error("Gagal memuat file.");
+                return response.text();
+            })
+            .then(textData => {
+                const paitoRegex = /DATA_PAITO_HK\s*=\s*`([\s\S]*?)`/;
+                const match = textData.match(paitoRegex);
+
+                if (match && match[1]) {
+                    let paitoRaw = match[1];
+                    let paitoClean = paitoRaw.replace(/[\r\n\s\t]+/g, ''); 
+                    arrayPaito = paitoClean.split(',').filter(item => item.trim().length === 4);
+
+                    if (arrayPaito.length >= 3) {
+                        let r3 = arrayPaito[arrayPaito.length - 1]; 
+                        let r2 = arrayPaito[arrayPaito.length - 2]; 
+                        let r1 = arrayPaito[arrayPaito.length - 3]; 
+
+                        document.getElementById('viewRes3').innerText = r3 + " (Baru)";
+                        document.getElementById('viewRes2').innerText = r2;
+                        document.getElementById('viewRes1').innerText = r1 + " (Lama)";
+                        
+                        dataSiap = true;
+                        
+                        setTimeout(() => {
+                            loadingText.innerText = "Data real siap diproses!";
+                            loadingText.style.color = "#00d2ff";
+                        }, 400);
+                    } else {
+                        loadingText.innerText = "Gagal: Data paito kurang!";
+                        loadingText.style.color = "#ff0000";
+                    }
+                }
+            })
+            .catch(error => {
+                loadingText.innerText = "Gagal memuat data dari result/hk.js";
+                loadingText.style.color = "#ff0000";
+            });
+    }
+
+    // Fungsi ini hanya berjalan ketika tombol "Hasilkan Angka Main" diklik
+    function hitungLogikaMesin() {
+        if (!dataSiap || arrayPaito.length < 3) {
+            alert("Data belum siap atau gagal dimuat dari file hk.js!");
+            return;
+        }
 
         let r3 = arrayPaito[arrayPaito.length - 1]; 
 
@@ -250,9 +298,8 @@
         let angka_index = INDEX_MAP[angka_dasar];
         let angka_ml = ML_MAP[angka_index] || "0"; 
 
-        let am_mentah = [angka_dasar, angka_index, angka_ml];
+        let am_mentah = [angka_dasar, angka_index, engine_ml = angka_ml];
 
-        // Membentuk deret mundur dari bawah ke atas paito
         let deretMundur = "";
         for (let i = arrayPaito.length - 1; i >= 0; i--) {
             let res = arrayPaito[i];
@@ -272,11 +319,14 @@
         let am_final = am_skor.map(item => item.angka);
         let am_bersih = [...new Set(am_final)];
 
+        // Mengisi data ke elemen HTML
         document.getElementById('outAM').innerText = am_bersih.join(", ");
         document.getElementById('outKuat').innerText = am_bersih.slice(0, 2).join(", ");
         document.getElementById('outTunggal').innerText = am_bersih[0] || "-";
+        document.getElementById('outDeret').innerText = deretMundur.substring(0, 36) + "...";
         
-        document.getElementById('outDeret').innerText = deretMundur.substring(0, 32) + "...";
+        // Memunculkan panel hasil dengan efek transisi display
+        document.getElementById('panelHasil').style.display = 'block';
     }
 </script>
 </body>
