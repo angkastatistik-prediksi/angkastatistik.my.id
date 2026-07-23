@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabel Shio Lengkap & Angka Keberuntungan</title>
+    <style>
+        :root {
+            --bg-color: #0b0c10;
+            --card-bg: #1f2833;
+            --purple: #2b1055;
+            --blue: #7597de;
+            --text-color: #ffffff;
+            --text-muted: #c5c6c7;
+            --neon-blue: #00ffcc;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            background: linear-gradient(135deg, #0b0c10 0%, #1f2833 100%);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            width: 100%;
+            max-width: 650px;
+            background-color: rgba(31, 40, 51, 0.9);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-sizing: border-box;
+        }
+        h2 {
+            text-align: center;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 25px;
+            font-size: 1.5rem;
+            text-shadow: 0 0 10px rgba(117, 151, 222, 0.3);
+        }
+        /* Navigasi Pasar */
+        .nav-links {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+        .nav-links a {
+            background: linear-gradient(45deg, var(--purple), var(--blue));
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .nav-links a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(117, 151, 222, 0.4);
+        }
+        /* Style Tabel Ringkas & Jelas */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background-color: rgba(11, 12, 16, 0.6);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: center;
+        }
+        th {
+            background-color: var(--purple);
+            color: #fff;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+        tr {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        tr:last-child {
+            border-bottom: none;
+        }
+        tr:nth-child(even) {
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+        .shio-name {
+            font-weight: bold;
+            color: #fff;
+            text-align: left;
+            padding-left: 20px;
+            width: 30%;
+        }
+        .shio-number {
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            color: var(--neon-blue);
+            font-size: 1.05rem;
+            letter-spacing: 1px;
+            text-align: left;
+            line-height: 1.4;
+        }
+        /* Tombol Kembali & Footer */
+        .btn-back {
+            display: block;
+            width: 100%;
+            background-color: #c5c6c7;
+            color: #0b0c10;
+            text-align: center;
+            padding: 12px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            cursor: pointer;
+            border: none;
+            transition: background 0.2s;
+        }
+        .btn-back:hover {
+            background-color: #ffffff;
+        }
+        footer {
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 15px;
+        }
+        .stats {
+            font-style: italic;
+            color: #888;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Prediksi Shio<br>Angka Statistik</h2>
+
+    <!-- Pilihan Pasar Lainnya -->
+    <div class="nav-links">
+        <a href="macau.html">MACAU</a>
+        <a href="cambodia.html">CAMBODIA</a>
+        <a href="sdy.html">SYDNEY</a>
+        <a href="china.html">CHINA</a>
+        <a href="japan.html">JAPAN</a>
+        <a href="sgp.html">SGP</a>
+        <a href="hk.html">HONGKONG</a>
+    </div>
+
+    <!-- Tabel Nama Shio & Nomor Lengkap (00-99) Urutan Kuda 2026 -->
+    <table>
+        <thead>
+            <tr>
+                <th style="text-align: left; padding-left: 20px;">Nama Shio</th>
+                <th style="text-align: left;">Angka Shio</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="shio-name">Kuda</td>
+                <td class="shio-number">01, 13, 25, 37, 49, 61, 73, 85, 97</td>
+            </tr>
+            <tr>
+                <td class="shio-name">Ular</td>
+                <td class="shio-number">02, 14, 26, 38, 50, 62, 74, 86, 98</td>
+            </tr>
+            <tr>
+                <td class="shio-name">Naga</td>
+                <td class="shio-number">03, 15, 27, 39, 51, 63, 75, 87, 99</td>
+            </tr>
+            <tr>
+                <td class="shio-name">Kelinci</td>
+                <td class="shio-number">04, 16, 28, 40, 52, 64, 76, 88</td>
+            </tr>
+            <tr>
+                <td class="shio-name">Macan</td>
+                <td class="shio-number">05, 17, 29, 41, 53, 65, 77, 89</td>
+            </tr>
+            <tr>
+                <td class="shio-name">Kerbau</td>
+                <td class="shio-number">06, 18, 30, 42, 54, 66, 78, 90</td>
+            </tr>
+            <tr>
+                <td class="shio-name">Tikus</td>
+                <td class="shio-number">07, 19, 31, 43, 55, 67, 79, 91</td>
+            </tr>
+            <tr>
+                <td class="shio-name">Babi</td>
+                <td class="shio-number">08, 20, 32, 44, 56, 68, 80, 92</td>
+            </tr>
+            <tr>
+                <td class="shio-name">Anjing</td>
+                <td class="shio-number">09, 21, 33, 45, 57, 69, 81, 93</td>
+            </tr>
+            <tr>
+                <td class="shio-name">Ayam</td>
+                <td class="shio-number">10, 22, 34, 46, 58, 70, 82, 94</td>
+            </tr>
+            <tr>
+                <td class="shio-name">Monyet</td>
+                <td class="shio-number">11, 22, 35, 47, 59, 71, 83, 95</td>
+            </tr>
+            <tr>
+                <td class="shio-name">Kambing</td>
+                <td class="shio-number">12, 24, 36, 48, 60, 72, 84, 96</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Tombol Manual Kembali -->
+    <button class="btn-back" onclick="goBack()">Kembali Ke Halaman Sebelumnya</button>
+
+    <!-- Footer Copyright & Statistik -->
+<footer>
+
+<p>&copy; 2026 <span>ANGKA STATISTIK</span>. All Rights Reserved.</p>
+<div style="text-align:center; margin:20px 0;">
+    <script async="async" data-cfasync="false"
+    src="https://pl30187165.effectivecpmnetwork.com/285abe3dfa3645b0c5001d78494f7ebb/invoke.js"></script>
+
+    <div id="container-285abe3dfa3645b0c5001d78494f7ebb"></div>
+</div><script src="https://pl30187164.effectivecpmnetwork.com/27/ba/bd/27babd93febcd37a091303b95048fdf4.js"></script><script src="https://crypotential.com/aau2deh1y8?key=28127d0dedbc5859c5a05ec19fed2ae4"></script>
+<!-- Histats Counter -->
+<div id="histats_counter" style="
+display:flex;
+justify-content:center;
+align-items:center;
+height:18px;
+overflow:hidden;
+transform:scale(.55);
+transform-origin:center;
+opacity:.85;
+">
+</div>
+
+</footer>
+
+
+<!-- Histats.com START -->
+<script type="text/javascript">
+var _Hasync= _Hasync || [];
+
+_Hasync.push(['Histats.start',
+'1,5037448,4,600,110,30,00001001'
+]);
+
+_Hasync.push(['Histats.fasi','1']);
+
+_Hasync.push(['Histats.track_hits','']);
+
+(function(){
+
+var hs=document.createElement('script');
+hs.type='text/javascript';
+hs.async=true;
+hs.src='//s10.histats.com/js15_as.js';
+
+(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0])
+.appendChild(hs);
+
+})();
+</script>
+
+<noscript>
+<a href="/" target="_blank">
+<img src="//sstatic1.histats.com/0.gif?5037448&101" alt="" border="0">
+</a>
+</noscript>
+
+<!-- Histats.com END -->
+</div>
+
+<script>
+    // Fungsi Otomatis Kembali Ke Halaman Terakhir Pengunjung
+    window.onload = function() {
+        // Cek halaman rujukan (referrer) yang valid
+        if (document.referrer && document.referrer !== window.location.href) {
+            // Mencegah loop pengalihan berulang menggunakan sessionStorage
+            if (!sessionStorage.getItem('autoRedirected')) {
+                sessionStorage.setItem('autoRedirected', 'true');
+                
+                // Menunggu 4 detik memberikan waktu pengunjung melihat tabel, lalu otomatis dialihkan kembali
+                setTimeout(function() {
+                    window.location.href = document.referrer;
+                }, 4000); 
+            }
+        }
+    };
+
+    // Fungsi klik tombol manual jika otomatis gagal/batal
+    function goBack() {
+        if (document.referrer) {
+            window.location.href = document.referrer;
+        } else {
+            window.history.back();
+        }
+    }
+</script>
+
+</body>
+</html>
