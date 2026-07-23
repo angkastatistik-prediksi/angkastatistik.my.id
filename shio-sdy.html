@@ -241,9 +241,14 @@
     <button id="btn-hitung" class="btn-main">Mulai Hitung Rumus Shio</button>
 
     <div style="text-align: center; gap: 8px; display: flex; justify-content: center; margin: 15px 0;">
+    <!-- Tombol Bagikan FB Kecil -->
+    <button onclick="window.open('https://facebook.com', '_blank', 'width=600,height=400')" style="background-color: #1877f2; color: white; padding: 6px 12px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 0.85rem;">
+    ↪️ Masuk ke FB untuk Paste
+    </button>
+
     <!-- Tombol Salin Teks Kecil -->
-    <button onclick="var txt = 'Prediksi shio ini semoga membantu, selengkapnya silahkan klick ' + window.location.href; navigator.clipboard.writeText(txt); alert('Teks berhasil disalin!');" style="background-color: #28a745; color: white; padding: 6px 12px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 0.85rem;">
-        Salin Tautan & Prediksi
+    <button onclick="var txt = 'Prediksi shio ini semoga membantu, selengkapnya silahkan klick ' + window.location.href; navigator.clipboard.writeText(txt); alert('Teks prediksi berhasil disalin!');" style="background-color: #28a745; color: white; padding: 6px 12px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 0.85rem;">
+        📋 Salin Teks & Link
     </button>
     </div>
 
@@ -344,11 +349,6 @@ hs.src='//s10.histats.com/js15_as.js';
 <script>
 document.addEventListener("DOMContentLoaded", function() {
     let arrayAngkaMentah = [];
-
-    // Tanam URL Share FB yang Benar Menggunakan Format Resmi Facebook Dialog Link
-    let urlWebsiteIni = window.location.href;
-    let linkShareFB = "https://facebook.com" + encodeURIComponent(urlWebsiteIni);
-    document.getElementById('btn-share-facebook').setAttribute('href', linkShareFB);
 
     // 1. EKSTRAKSI DATA STRING PAITO SDY
     if (typeof DATA_PAITO_SDY !== 'undefined' && DATA_PAITO_SDY.trim() !== '') {
