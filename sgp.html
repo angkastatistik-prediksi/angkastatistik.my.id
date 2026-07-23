@@ -384,7 +384,7 @@ hs.src='//s10.histats.com/js15_as.js';
             let dataSudahKedaluwarsa = false;
 
             // =========================================================================
-            // MESIN OTOMATISASI PREDIKSI BERDASARKAN DATA RESULT/SGP.JS
+            // REFAKTOR FINAL: MESIN OTOMATIS MEMBACA FORMAT KOMA MURNI ANDA
             // =========================================================================
             if (typeof DATA_PAITO_SGP !== 'undefined') {
                 const MistikLama = {0:1, 1:0, 2:5, 5:2, 3:8, 8:3, 4:7, 7:4, 6:9, 9:6};
@@ -393,16 +393,17 @@ hs.src='//s10.histats.com/js15_as.js';
                 const Index      = {0:5, 5:0, 1:6, 6:1, 2:7, 7:2, 3:8, 8:3, 4:9, 9:4};
 
                 let deret4D = [];
-                const barisDataPaito = DATA_PAITO_SGP.trim().split('\n');
-                barisDataPaito.forEach(baris => {
-                    let segmen = baris.split(',');
-                    for(let i = 1; i < segmen.length; i++) {
-                        let item = segmen[i].trim();
-                        if(item.length === 4) deret4D.push(item);
+                
+                // Memotong setiap angka berdasarkan tanda koma murni milik Anda
+                const semuaSegmen = DATA_PAITO_SGP.split(',');
+                semuaSegmen.forEach(item => {
+                    let bersih = item.replace(/\s+/g, ''); // Bersihkan spasi dan enter
+                    if (bersih.length === 4) {
+                        deret4D.push(bersih);
                     }
                 });
 
-                // Ambil 11 data untuk meracik review trek 10 hari ke belakang
+                // Ambil 11 data untuk meracik histori review trek 10 hari ke belakang
                 let kumpulanResult = deret4D.slice(-11);
                 let kumpulanBarisOtomatis = [];
 
@@ -410,7 +411,6 @@ hs.src='//s10.histats.com/js15_as.js';
                     let nomorSblm = kumpulanResult[i-1];
                     let nomorSkrg = kumpulanResult[i];
                     
-                    // Pecah digit untuk bahan rumus malam ini
                     let p_sblm = parseInt(nomorSblm.substr(2, 1));
                     let s_sblm = parseInt(nomorSblm.substr(3, 1));
 
@@ -424,16 +424,15 @@ hs.src='//s10.histats.com/js15_as.js';
 
                     let hasilSaring = [...new Set(wadah)].filter(x => x !== undefined && !isNaN(x));
                     
-                    // Ambil 3 digit AM dan 2 digit angka kuat khusus
                     let am3D = hasilSaring.slice(0, 3).join('');
                     let kuat2D = hasilSaring.slice(0, 2).join('');
 
-                    // Output teks: "1234 : 5 6 7 - 5 6"
+                    // Output format: "RESULT : AM_3DIGIT - KUAT_2DIGIT"
                     let formatTeksBawaan = `${nomorSkrg} : ${am3D.split('').join(' ')} - ${kuat2D.split('').join(' ')}`;
                     kumpulanBarisOtomatis.push(formatTeksBawaan);
                 }
 
-                // Hitung angka tunggal putaran besok dari result paling akhir/bawah
+                // Ambil 1 digit tunggal harian dari ujung result terbaru untuk dipasang besok
                 if (kumpulanResult.length > 0) {
                     let nomorTerakhir = kumpulanResult[kumpulanResult.length - 1];
                     let p_akhir = parseInt(nomorTerakhir.substr(2, 1));
@@ -450,7 +449,7 @@ hs.src='//s10.histats.com/js15_as.js';
 
                 teksData = kumpulanBarisOtomatis.join('\n');
 
-                // Deteksi Macet 3x Berturut-turut dari data asli result
+                // Deteksi otomatis jika angka 2D belakang macet kembar 3x berturut-turut
                 if (deret4D.length >= 3) {
                     let nomor1 = deret4D[deret4D.length - 1].substr(2, 2);
                     let nomor2 = deret4D[deret4D.length - 2].substr(2, 2);
@@ -487,7 +486,7 @@ hs.src='//s10.histats.com/js15_as.js';
                 barisData.forEach(item => {
                     if (!item.trim() || !item.includes(':')) return;
                     
-                    // Memotong format "RESULT : AM3D - KUAT2D"
+                    // Memotong format "RESULT : AM3D - KUAT2D" dengan indeks array [0] dan [1] yang valid
                     const bagianUtama = item.split(':');
                     const angkaKiri = bagianUtama[0].trim();  // 4 Digit Result asli
                     const sisaKanan = bagianUtama[1].trim();  // Teks "AM3D - KUAT2D"
