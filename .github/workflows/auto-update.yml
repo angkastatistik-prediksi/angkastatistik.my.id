@@ -1,0 +1,38 @@
+name: Auto Update Data Togel
+
+on:
+  schedule:
+    # 1. Berjalan jam 12:15 WIB (05:15 UTC) -> Untuk Cambodia
+    - cron: '15 5 * * *'
+    # 2. Berjalan jam 14:15 WIB (07:15 UTC) -> Untuk Sydney
+    - cron: '15 7 * * *'
+  workflow_dispatch: # Tombol manual untuk tes lewat HP kapan saja
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+
+    - name: Install Dependencies
+      run: npm install
+
+    - name: Run Scraper Bots
+      run: |
+        node bot/cambodia.js
+        node bot/sydney.js
+
+    - name: Commit and Push Changes
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@://github.com"
+        git add result/*.html
+        git diff-index --quiet HEAD || git commit -m "Auto Update Data Pasaran"
+        git push
