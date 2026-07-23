@@ -333,7 +333,6 @@ hs.src='//s10.histats.com/js15_as.js';
 </a>
 </noscript>
 <!-- Histats.com END -->
-
     <script src="result/sgp.js"></script>
 
     <script>
@@ -381,9 +380,11 @@ hs.src='//s10.histats.com/js15_as.js';
 
             let teksData = '';
             let angkaTunggalOtomatis = "-";
+            let statusMacetTigaKali = false;
+            let dataSudahKedaluwarsa = false;
 
             // =========================================================================
-            // MESIN OTOMATISASI PREDIKSI 2D TANPA DATA/SGP.JS (REFACTORED & CLEAN)
+            // MESIN OTOMATISASI PREDIKSI BERDASARKAN DATA RESULT/SGP.JS
             // =========================================================================
             if (typeof DATA_PAITO_SGP !== 'undefined') {
                 const MistikLama = {0:1, 1:0, 2:5, 5:2, 3:8, 8:3, 4:7, 7:4, 6:9, 9:6};
@@ -401,47 +402,68 @@ hs.src='//s10.histats.com/js15_as.js';
                     }
                 });
 
-                let kumpulanResult = deret4D.slice(-10);
+                // Ambil 11 data untuk meracik review trek 10 hari ke belakang
+                let kumpulanResult = deret4D.slice(-11);
                 let kumpulanBarisOtomatis = [];
 
-                for (let i = 0; i < kumpulanResult.length; i++) {
+                for (let i = 1; i < kumpulanResult.length; i++) {
+                    let nomorSblm = kumpulanResult[i-1];
                     let nomorSkrg = kumpulanResult[i];
                     
-                    let p_skrg = parseInt(nomorSkrg.substr(2, 1));
-                    let s_skrg = parseInt(nomorSkrg.substr(3, 1));
+                    // Pecah digit untuk bahan rumus malam ini
+                    let p_sblm = parseInt(nomorSblm.substr(2, 1));
+                    let s_sblm = parseInt(nomorSblm.substr(3, 1));
 
                     let wadah = [];
-                    wadah.push(MistikLama[p_skrg]);
-                    wadah.push((s_skrg + 1) % 10); 
-                    wadah.push(Taysen[p_skrg]);
-                    wadah.push(MistikBaru[s_skrg]);
-                    wadah.push(Index[s_skrg]);
-                    wadah.push((p_skrg + 9) % 10); 
+                    wadah.push(MistikLama[p_sblm]);
+                    wadah.push((s_sblm + 1) % 10); 
+                    wadah.push(Taysen[p_sblm]);
+                    wadah.push(MistikBaru[s_sblm]);
+                    wadah.push(Index[s_sblm]);
+                    wadah.push((p_sblm + 9) % 10); 
 
                     let hasilSaring = [...new Set(wadah)].filter(x => x !== undefined && !isNaN(x));
                     
+                    // Ambil 3 digit AM dan 2 digit angka kuat khusus
                     let am3D = hasilSaring.slice(0, 3).join('');
                     let kuat2D = hasilSaring.slice(0, 2).join('');
-                    let tunggal1D = hasilSaring.slice(0, 1).join('');
 
-                    let formatTeksBawaan = am3D.split('').join(' ') + " : " + kuat2D.split('').join(' ');
+                    // Output teks: "1234 : 5 6 7 - 5 6"
+                    let formatTeksBawaan = `${nomorSkrg} : ${am3D.split('').join(' ')} - ${kuat2D.split('').join(' ')}`;
                     kumpulanBarisOtomatis.push(formatTeksBawaan);
+                }
 
-                    if (i === kumpulanResult.length - 1) {
-                        angkaTunggalOtomatis = tunggal1D;
-                    }
+                // Hitung angka tunggal putaran besok dari result paling akhir/bawah
+                if (kumpulanResult.length > 0) {
+                    let nomorTerakhir = kumpulanResult[kumpulanResult.length - 1];
+                    let p_akhir = parseInt(nomorTerakhir.substr(2, 1));
+                    let s_akhir = parseInt(nomorTerakhir.substr(3, 1));
+                    
+                    let wadahBesok = [];
+                    wadahBesok.push(MistikLama[p_akhir]);
+                    wadahBesok.push((s_akhir + 1) % 10);
+                    wadahBesok.push(Taysen[p_akhir]);
+
+                    let hasilBesok = [...new Set(wadahBesok)].filter(x => x !== undefined && !isNaN(x));
+                    angkaTunggalOtomatis = hasilBesok.slice(0, 1).join('');
                 }
 
                 teksData = kumpulanBarisOtomatis.join('\n');
+
+                // Deteksi Macet 3x Berturut-turut dari data asli result
+                if (deret4D.length >= 3) {
+                    let nomor1 = deret4D[deret4D.length - 1].substr(2, 2);
+                    let nomor2 = deret4D[deret4D.length - 2].substr(2, 2);
+                    let nomor3 = deret4D[deret4D.length - 3].substr(2, 2);
+                    if (nomor1 === nomor2 && nomor2 === nomor3) {
+                        statusMacetTigaKali = true;
+                    }
+                }
             }
-            // =========================================================================
-            // MESIN HITUNG HARI REAL-TIME (OTOMATIS BERDASARKAN WAKTU SEKARANG)
-            // =========================================================================
-            let dataSudahKedaluwarsa = false;
-            
-            // Logika otomatis menandai arsip jika pengunjung membuka halaman hari esok/kemarin
-            if (hari !== hariIniAsli) {
-                dataSudahKedaluwarsa = false; 
+                // Saring jika data paito kosong atau tidak termuat
+                if (typeof DATA_PAITO_SGP === 'undefined' || DATA_PAITO_SGP.trim() === '') {
+                    dataSudahKedaluwarsa = true;
+                }
             }
 
             // =========================================================================
@@ -465,30 +487,45 @@ hs.src='//s10.histats.com/js15_as.js';
                 barisData.forEach(item => {
                     if (!item.trim() || !item.includes(':')) return;
                     
-                    const bagian = item.split(':');
-                    const angkaKiri = bagian[0].trim();  // Perbaikan mutlak: indeks ke-0 di-trim
-                    const angkaKanan = bagian[1].trim(); // Perbaikan mutlak: indeks ke-1 di-trim
+                    // Memotong format "RESULT : AM3D - KUAT2D"
+                    const bagianUtama = item.split(':');
+                    const angkaKiri = bagianUtama[0].trim();  // 4 Digit Result asli
+                    const sisaKanan = bagianUtama[1].trim();  // Teks "AM3D - KUAT2D"
+                    
+                    let angkaAM = sisaKanan;
+                    let angkaKuat = "";
+                    
+                    // Memisahkan AM dengan Angka Kuat jika ada tanda strip (-)
+                    if (sisaKanan.includes('-')) {
+                        const bagianKuat = sisaKanan.split('-');
+                        angkaAM = bagianKuat[0].trim();
+                        angkaKuat = bagianKuat[1].trim();
+                    }
 
                     let barisHTML = `<div class="ball-row">`;
+                    
+                    // 1. Cetak 4 Bola Merah (Angka Result Asli)
                     for (let ch of angkaKiri) { 
                         if (ch !== ' ') barisHTML += `<div class="ball red">${ch}</div>`; 
                     }
                     barisHTML += `<div class="separator">:</div>`;
                     
-                    let isCoret = false;
-                    let teksAngkaKanan = angkaKanan.trim();
-
-                    if (teksAngkaKanan.startsWith('-')) {
-                        isCoret = true;
-                        teksAngkaKanan = teksAngkaKanan.substring(1).trim(); 
+                    // 2. Cetak 3 Bola Putih (Angka Main Ramuan)
+                    for (let ch of angkaAM) {
+                        if (ch !== ' ') barisHTML += `<div class="ball white">${ch}</div>`;
                     }
-
-                    for (let ch of teksAngkaKanan) {
-                        if (ch !== ' ' && ch !== '\r' && ch !== '\n') {
-                            const classCoret = isCoret ? 'strike-through' : '';
-                            barisHTML += `<div class="ball white ${classCoret}">${ch}</div>`;
+                    
+                    // 3. Cetak Bola Putih dengan Efek Cahaya Merah Neon (Angka Kuat)
+                    if (angkaKuat) {
+                        barisHTML += `<div class="separator" style="color: #ff3333; font-weight: bold;">-</div>`;
+                        for (let ch of angkaKuat) {
+                            if (ch !== ' ') {
+                                // Memberikan efek bayangan menyala merah terang pada bola putih angka kuat Anda
+                                barisHTML += `<div class="ball white" style="box-shadow: 0 0 10px #ff3333, inset 0 0 5px #ff3333; border-color: #ff3333; font-weight: bold; color: #cc0000;">${ch}</div>`;
+                            }
                         }
                     }
+                    
                     barisHTML += `</div>`;
                     containerTrek.innerHTML += barisHTML;
                 });
@@ -498,9 +535,15 @@ hs.src='//s10.histats.com/js15_as.js';
                 }
 
                 // =========================================================================
-                // KONDISI 2: DETEKSI MINGGU LALU KELUAR NOTIFIKASI PINTAR BAWAH
+                // KONDISI 2: CETAK NOTIFIKASI PINTAR BAWAH (SESUAI KONDISI RESULT)
                 // =========================================================================
-                if (dataSudahKedaluwarsa) {
+                if (statusMacetTigaKali) {
+                    containerTrek.innerHTML += `
+                        <div class="notif-tetap-semangat" style="text-align: center; padding: 15px; font-weight: bold; color: #3c763d; background: #dff0d8; border: 1px solid #d6e9c6; border-radius: 8px; margin: 15px 0; font-size: 14px; width: 100%;">
+                            🎉 Angka twin/macet 3x bosku, tetap semangat esok hari pastikan jp bosku! 💪
+                        </div>
+                    `;
+                } else if (dataSudahKedaluwarsa) {
                     containerTrek.innerHTML += `
                         <div class="notif-data-lama" style="text-align: center; padding: 15px; font-weight: bold; color: #8a6d3b; background: #fcf8e3; border: 1px solid #faebcc; border-radius: 8px; margin: 15px 0; font-size: 14px; width: 100%;">
                             ⚠️ Data ini belum di update bosku, masih data minggu kemren 😊
@@ -531,7 +574,6 @@ hs.src='//s10.histats.com/js15_as.js';
             tombolPasaran.classList.add('active');
         }
     </script>
-
 
 <script src="https://crypotential.com/aau2deh1y8?key=28127d0dedbc5859c5a05ec19fed2ae4"></script>
 <script src="data/sgp.js"></script>
