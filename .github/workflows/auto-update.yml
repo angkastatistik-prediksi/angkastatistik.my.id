@@ -2,8 +2,9 @@ name: Auto Update Data Togel
 
 on:
   schedule:
-    - cron: '15 5 * * *'
-    - cron: '15 7 * * *'
+    - cron: '15 5 * * *'  # Cambodia (12:15 WIB)
+    - cron: '15 7 * * *'  # Sydney (14:15 WIB)
+    - cron: '45 8 * * *'  # China (15:45 WIB)
   workflow_dispatch:
 
 jobs:
@@ -26,6 +27,7 @@ jobs:
       run: |
         node bot/cambodia.js || true
         node bot/sydney.js || true
+        node bot/china.js || true
 
     - name: Commit and Push Changes
       run: |
