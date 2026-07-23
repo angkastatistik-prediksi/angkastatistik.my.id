@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mesin Rumus Otomatis Cambodia - Neon Purple Edition</title>
+    <style>
+        /* Gaya Dasar & Latar Belakang Ungu Gelap */
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #0b071e; /* Ungu super gelap */
+            color: #e0dbf5; /* Teks putih keunguan lembut */
+            margin: 0;
+            padding: 20px;
+        }
+        
+        /* Wadah Utama dengan Efek Cahaya Biru */
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            background: #160f38; /* Ungu gelap pekat */
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 0 25px rgba(0, 212, 255, 0.15); /* Glow biru neon halus */
+            border: 1px solid rgba(0, 212, 255, 0.2);
+        }
+        
+        /* Judul Utama */
+        h2 {
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.6), 0 0 20px rgba(155, 89, 182, 0.4); 
+            border-bottom: 2px solid #00d4ff; /* Garis bawah biru neon */
+            padding-bottom: 12px;
+            margin-top: 0;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        
+        /* Kotak Status Informasi */
+        .status-box {
+            background-color: #21164f;
+            border-left: 4px solid #00d4ff; 
+            padding: 12px 15px;
+            margin-bottom: 25px;
+            font-size: 14px;
+            border-radius: 0 8px 8px 0;
+            box-shadow: inset 0 0 10px rgba(0, 212, 255, 0.05);
+            color: #b3a7e6;
+        }
+        .status-box code, .status-box b {
+            color: #00d4ff; 
+        }
+        
+        /* Pengaturan Tabel */
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-top: 15px;
+            font-size: 13px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid rgba(155, 89, 182, 0.2);
+        }
+        
+        /* Kepala Tabel (Header) */
+        th {
+            background: linear-gradient(135deg, #492c85, #23124d); /* Gradasi ungu */
+            color: #ffffff;
+            font-weight: 600;
+            padding: 14px 10px;
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid #00d4ff;
+        }
+        
+        /* Isi Tabel (Rows) */
+        td {
+            border-bottom: 1px solid rgba(155, 89, 182, 0.15);
+            border-right: 1px solid rgba(155, 89, 182, 0.1);
+            padding: 12px 10px;
+            text-align: center;
+            background-color: #19113e; 
+            transition: all 0.2s ease;
+        }
+        
+        /* Efek Belang-belang (Zebra) */
+        tr:nth-child(even) td {
+            background-color: #1d1449;
+        }
+        
+        /* Efek Sorot (Hover) dengan Glow Biru */
+        tr:hover td {
+            background-color: #25195c !important;
+            color: #ffffff;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.4);
+        }
+        
+        .text-left { text-align: left; }
+        .highlight { font-weight: bold; }
+        
+        .result-cell {
+            font-weight: bold;
+            color: #00d4ff; 
+            text-shadow: 0 0 5px rgba(0, 212, 255, 0.4);
+            font-size: 14px;
+        }
+        
+        /* Desain Lencana (Badges) */
+        .badge {
+            display: inline-block;
+            padding: 3px 7px;
+            background: #d32f2f; 
+            color: white;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: bold;
+            margin-left: 5px;
+            box-shadow: 0 0 5px rgba(211, 47, 47, 0.4);
+        }
+        
+        /* Lencana Angka Tunggal Kuat */
+        .badge-success {
+            background: linear-gradient(135deg, #00b4db, #0083b0); 
+            color: #ffffff;
+            font-size: 14px !important;
+            padding: 4px 10px;
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.6);
+            border: 1px solid #00f0ff;
+        }
+        
+        td b { color: #00d4ff; }
+        td i { color: #bda8ff; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Mesin Logika Transparan - Paito Cambodia</h2>
+    
+    <div id="status" class="status-box">
+        Sedang memuat data dari <code>result/cambodia.js</code>...
+    </div>
+
+    <table id="resultTable">
+        <thead>
+            <tr>
+                <th style="width: 50px;">No</th>
+                <th style="width: 90px;">Result</th>
+                <th style="width: 100px;">AM 4 Digit</th>
+                <th style="width: 130px;">Pangkas 3D (AS)</th>
+                <th style="width: 140px;">Angka Kuat 2D (Kep)</th>
+                <th style="width: 110px;">Tunggal</th>
+                <th>Keterangan Pelacakan Logika</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+            <!-- Data diproses lewat JavaScript di Bagian 2 -->
+        </tbody>
+    </table>
+</div>
+
+<!-- MEMANGGIL DATA RESULT DARI FILE EKSTERNAL -->
+<script src="result/cambodia.js"></script>
+<script>
+    // Tabel Master Mistik
+    const mistikBaru = { '0':8, '1':7, '2':6, '3':9, '4':5, '5':4, '6':2, '7':1, '8':0, '9':3 };
+    const mistikLama = { '1':0, '0':1, '2':5, '5':2, '3':8, '8':3, '4':7, '7':4, '6':9, '9':6 };
+
+    function prosesData() {
+        const statusEl = document.getElementById('status');
+        const tbody = document.getElementById('tableBody');
+
+        if (typeof DATA_PAITO_CAMBODIA === 'undefined') {
+            statusEl.innerHTML = "<span style='color:#ff4d4d;'>Gagal memuat! File <b>result/cambodia.js</b> tidak ditemukan.</span>";
+            return;
+        }
+
+        let rawEntries = DATA_PAITO_CAMBODIA.replace(/[\s\n\r]/g, '').split(',');
+        let cleanResults = [];
+
+        for (let entry of rawEntries) {
+            if (entry.length === 4 && !isNaN(entry)) {
+                cleanResults.push(entry);
+            }
+        }
+
+        if (cleanResults.length === 0) {
+            statusEl.innerHTML = "<span style='color:#ff4d4d;'>Data paito kosong atau format salah.</span>";
+            return;
+        }
+
+        statusEl.innerHTML = `Berhasil memuat <b>${cleanResults.length}</b> data paito. Menampilkan data terbaru (paling bawah)...`;
+
+        let barisData = [];
+
+        // Langkah 1 & 2: Kalkulasi Dasar per Baris
+        for (let i = 0; i < cleanResults.length; i++) {
+            let res = cleanResults[i];
+            let as = parseInt(res[0]);
+            let cop = parseInt(res[1]);
+            let kepala = parseInt(res[2]);
+            let ekor = parseInt(res[3]);
+
+            let selisihAsKep = Math.abs(as - kepala);
+            let selisihCopEkor = Math.abs(cop - ekor);
+            let totalUtama = selisihAsKep + selisihCopEkor;
+
+            if (totalUtama >= 10) {
+                let str = totalUtama.toString();
+                totalUtama = parseInt(str[0]) + parseInt(str[1]);
+                if (totalUtama >= 10) {
+                    let str2 = totalUtama.toString();
+                    totalUtama = parseInt(str2[0]) + parseInt(str2[1]);
+                }
+            }
+
+            let n1 = totalUtama;
+            let n2 = mistikBaru[n1.toString()];
+            let n3 = mistikLama[n2.toString()];
+            let n4 = (n3 + 4) % 10;
+
+            barisData.push({
+                result: res,
+                as: res[0],
+                kepala: res[2],
+                am4: [n1, n2, n3, n4].map(String)
+            });
+        }
+
+        let htmlContent = "";
+
+        // Langkah 3, 4, & 5: Pelacakan Riwayat Mundur dari Bawah ke Atas
+        for (let i = barisData.length - 1; i >= 0; i--) {
+            let current = barisData[i];
+            let am3 = [...current.am4];
+            let am2 = [];
+            let tunggal = "";
+            let logText = [];
+
+            // A. PANGKAS 3 DIGIT (Lacak AS ke atas)
+            let angkaOff3D = "";
+            let ketemuAS = false;
+            
+            for (let j = i - 1; j >= 0; j--) {
+                let targetAS = barisData[j].as;
+                if (am3.includes(targetAS)) {
+                    angkaOff3D = targetAS;
+                    let idx = am3.indexOf(targetAS);
+                    am3.splice(idx, 1);
+                    logText.push(`AS terdekat ditemukan angka <b>${targetAS}</b> (pada result ${barisData[j].result}), dipangkas.`);
+                    ketemuAS = true;
+                    break;
+                }
+            }
+            if (!ketemuAS) {
+                angkaOff3D = am3.pop();
+                logText.push(`Riwayat AS habis. Otomatis membuang ekor AM asli yaitu angka <b>${angkaOff3D}</b>.`);
+            }
+
+            // B. PANGKAS 2 DIGIT / ANGKA KUAT (Lacak Kepala ke atas)
+            am2 = [...am3];
+            let angkaOff2D = "";
+            let ketemuKepala = false;
+
+            for (let j = i - 1; j >= 0; j--) {
+                let targetKepala = barisData[j].kepala;
+                if (am2.includes(targetKepala)) {
+                    angkaOff2D = targetKepala;
+                    let idx = am2.indexOf(targetKepala);
+                    am2.splice(idx, 1);
+                    logText.push(`Kepala terdekat ditemukan angka <b>${targetKepala}</b> (pada result ${barisData[j].result}), jadi OFF.`);
+                    ketemuKepala = true;
+                    break;
+                }
+            }
+            if (!ketemuKepala) {
+                angkaOff2D = am2.pop();
+                logText.push(`Riwayat Kepala tidak ada yang cocok. Otomatis memangkas angka belakang <b>${angkaOff2D}</b>.`);
+            }
+
+            // C. ANGKA TUNGGAL (Adu Kembar)
+            if (i > 0) {
+                let am4Atas = barisData[i - 1].am4;
+                let cocok = am2.filter(num => am4Atas.includes(num));
+                
+                if (cocok.length > 0) {
+                    tunggal = cocok[0]; 
+                    logText.push(`Kuat [${am2.join(',')}] vs AM atas [${am4Atas.join(',')}] ➔ Kembar di angka <b>${tunggal}</b>.`);
+                } else {
+                    tunggal = am2[0];
+                    logText.push(`Tidak cocok dengan AM atas [${am4Atas.join(',')}]. Otomatis ambil angka kuat terdepan <b>${tunggal}</b>.`);
+                }
+            } else {
+                tunggal = "-";
+                logText.push("Data awal batas riwayat atas, angka tunggal ditiadakan.");
+            }
+
+            htmlContent += `
+                <tr>
+                    <td class="highlight" style="color: #b3a7e6;">${i + 1}</td>
+                    <td class="result-cell">${current.result}</td>
+                    <td style="letter-spacing: 1px;">${current.am4.join('')}</td>
+                    <td style="color: #e0dbf5;">${am3.join('')} <span class="badge">${angkaOff3D}</span></td>
+                    <td style="color: #e0dbf5;">${am2.join('')} <span class="badge">${angkaOff2D}</span></td>
+                    <td><span class="badge badge-success">${tunggal}</span></td>
+                    <td class="text-left" style="color: #b3a7e6; line-height: 1.6;">${logText.join(' <br>➔ ')}</td>
+                </tr>
+            `;
+        }
+
+        tbody.innerHTML = htmlContent;
+    }
+
+    window.onload = prosesData;
+</script>
+</body>
+</html>
