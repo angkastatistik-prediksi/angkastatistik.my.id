@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main # Ganti ke 'master' jika itu nama branch utama Anda
+      - main
 
 permissions:
   contents: read
@@ -28,18 +28,13 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
-          node-version: 22 # Diperbarui ke Node LTS versi 22 terbaru stabil
+          node-version: 22 # <-- Ini yang dimaksud Update Node.js version
 
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build
-        run: npm run build # Ganti jika perintah build Anda berbeda
-
+      # Bagian install & build dihapus jika Anda tidak memakai npm / framework, langsung upload saja:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist # Ganti ke '.' jika repositori Anda murni file HTML/JS biasa tanpa proses build
+          path: . # <-- Ini yang dimaksud Update artifact path (Folder Utama)
 
       - name: Deploy to GitHub Pages
         id: deployment
