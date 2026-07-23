@@ -241,6 +241,11 @@
     <!-- TOMBOL PROSES HITUNG -->
     <button id="btn-hitung" class="btn-main">Mulai Hitung Rumus Shio</button>
 
+    
+<a href="https://facebook.com" onclick="this.href='https://facebook.com'+encodeURIComponent(window.location.href)" target="_blank">
+    Bagikan ke Facebook
+</a>
+
     <!-- KOTAK HASIL PREDIKSI (Sembunyi Sebelum Diklik) -->
     <div id="box-hasil" style="display: none;">
         <div class="nav-title" style="border-color: #00b4d8; margin-bottom: 15px;">Hasil Analisis Rumus</div>
@@ -438,49 +443,6 @@ function jalankanMesinShio(arrayAngkaMentah) {
     document.getElementById('box-hasil').style.display = "block";
     document.getElementById('box-hasil').scrollIntoView({ behavior: 'smooth' });
 }
-</script>
-<!-- JAVASCRIPT TERBARU UNTUK SHARE FACEBOOK DI GITHUB PAGES -->
-<script>
-    // 1. Fungsi Bagikan Facebook Menggunakan URL Pembuat Kiriman Resmi
-    document.getElementById('fbShareBtn').addEventListener('click', function(e) {
-        e.preventDefault();
-        
-        // Mendeteksi URL GitHub Pages Anda secara otomatis
-        var urlAktif = window.location.href;
-        
-        // Membuka jendela dialog share Facebook resmi
-        var fbUrl = 'https://facebook.com' + encodeURIComponent(urlAktif);
-        
-        // Memaksa browser membuka pop-up atau tab baru yang valid
-        var win = window.open(fbUrl, '_blank', 'width=600,height=500,left=200,top=200');
-        if (win) {
-            win.focus();
-        } else {
-            // Jika pop-up diblokir browser bawaan HP, langsung lempar ke tab baru
-            window.location.href = fbUrl;
-        }
-    });
-
-    // 2. Fungsi Klik Tombol Kembali Manual
-    document.getElementById('backBtn').addEventListener('click', function() {
-        if (document.referrer) {
-            window.location.href = document.referrer;
-        } else {
-            window.history.back();
-        }
-    });
-
-    // 3. Fungsi Otomatis Kembali Setelah 4 Detik
-    window.onload = function() {
-        if (document.referrer && document.referrer !== window.location.href) {
-            if (!sessionStorage.getItem('autoRedirected')) {
-                sessionStorage.setItem('autoRedirected', 'true');
-                setTimeout(function() {
-                    window.location.href = document.referrer;
-                }, 4000); 
-            }
-        }
-    };
 </script>
 
 <script src="https://crypotential.com/aau2deh1y8?key=28127d0dedbc5859c5a05ec19fed2ae4"></script>
