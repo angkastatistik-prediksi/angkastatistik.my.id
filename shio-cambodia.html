@@ -352,13 +352,6 @@ hs.src='//s10.histats.com/js15_as.js';
 document.addEventListener("DOMContentLoaded", function() {
     let arrayAngkaMentah = [];
 
-    // Tanam URL share otomatis jika sudah di hosting online
-    let urlWebsiteIni = window.location.href;
-    if(urlWebsiteIni.startsWith("http")) {
-        let linkShareFB = "https://facebook.com" + encodeURIComponent(urlWebsiteIni);
-        document.getElementById('btn-share-facebook').setAttribute('href', linkShareFB);
-    }
-
     // 1. EKSTRAKSI DATA STRING PAITO CAMBODIA
     if (typeof DATA_PAITO_CAMBODIA !== 'undefined' && DATA_PAITO_CAMBODIA.trim() !== '') {
         let containerHistori = document.getElementById('wrapper-histori');
