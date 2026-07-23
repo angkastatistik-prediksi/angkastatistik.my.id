@@ -240,14 +240,26 @@
     <!-- TOMBOL PROSES HITUNG -->
     <button id="btn-hitung" class="btn-main">Mulai Hitung Rumus Shio</button>
 
-    <!-- TOMBOL SHARE FB -->
-    <a href="#" 
-       target="_blank" 
-       rel="noopener noreferrer" 
-       class="btn-share-fb" 
-       id="btn-share-facebook">
-        🔵 Bagikan Laman Ini ke Facebook
-    </a>
+    <!-- Tombol Share FB Otomatis Akurat -->
+<div style="text-align: center; margin-bottom: 20px;">
+    <button onclick="shareKeFacebook()" style="background-color: #1877f2; color: white; padding: 12px 20px; font-weight: bold; border-radius: 8px; border: none; cursor: pointer; width: 100%; font-size: 0.95rem;">
+        📘 Bagikan Tautan ke Facebook
+    </button>
+</div>
+
+<script>
+function shareKeFacebook() {
+    // Mengambil URL aktif saat ini secara otomatis
+    var urlAktif = window.location.href;
+    
+    // Mengubah format URL agar aman dibaca oleh sistem Facebook
+    var urlAman = encodeURIComponent(urlAktif);
+    
+    // Membuka jendela pop-up share resmi Facebook
+    window.open('https://facebook.com' + urlAman, '_blank', 'width=600,height=400');
+}
+</script>
+
 
     <!-- KOTAK HASIL PREDIKSI (Sembunyi Sebelum Diklik) -->
     <div id="box-hasil" style="display: none;">
@@ -272,6 +284,7 @@
     <!-- TOMBOL PILIHAN SHIO PASARAN LAIN -->
     <div class="nav-title">Pilihan Shio Pasaran Lain</div>
     <div class="grid-nav">
+        <a href="shio-macau.html">Macau</a>
         <a href="shio-cambodia.html">Cambodia</a>
         <a href="shio-sdy.html">Sydney</a>
         <a href="shio-china.html">China</a>
@@ -279,7 +292,7 @@
         <a href="shio-sgp.html">Singapore</a>
         <a href="shio-taiwan.html">Taiwan</a>
         <a href="shio-hk.html" class="active">Hongkong</a>
-        <a href="shio-macau.html">Macau</a>
+        <a href="shio.html" class="active">Tahun Shio</a>
     </div>
 
 <footer>
