@@ -60,14 +60,14 @@
             margin-top: 90px;
             margin-bottom: 120px; /* Jarak 1 paragraf dengan dasar bawah */
             flex: 1;
-            padding: 20px;
+            padding: 15px;
             max-width: 800px;
             width: 100%;
             margin-left: auto;
             margin-right: auto;
         }
 
-        /* SELEKTOR HARI & PASARAN */
+        /* SELEKTOR HARI & PASARAN (GRID STRUKTUR 4 TOMBOL PAS TANPA SCROLL) */
         .nav-container {
             background: var(--panel-color);
             padding: 15px;
@@ -77,43 +77,48 @@
         }
 
         .nav-title {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: var(--secondary-glow);
-            margin-bottom: 8px;
+            margin-bottom: 12px;
             font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .scroll-wrapper {
-            display: flex;
-            gap: 10px;
-            overflow-x: auto;
-            padding-bottom: 5px;
-        }
-
-        .scroll-wrapper::-webkit-scrollbar {
-            height: 4px;
-        }
-
-        .scroll-wrapper::-webkit-scrollbar-thumb {
-            background: var(--primary-glow);
-            border-radius: 10px;
+        .grid-wrapper {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* Tepat membagi menjadi 4 kolom rata */
+            gap: 8px;
+            width: 100%;
         }
 
         .btn {
             background: #251b4f;
             border: 1px solid var(--primary-glow);
             color: #fff;
-            padding: 8px 16px;
-            border-radius: 20px;
+            padding: 10px 4px;
+            border-radius: 8px;
             cursor: pointer;
+            text-align: center;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            font-size: 0.8rem;
+            width: 100%;
+            box-sizing: border-box;
             white-space: nowrap;
-            transition: 0.3s;
-            font-size: 0.85rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .btn:hover, .btn.active {
             background: var(--primary-glow);
             box-shadow: 0 0 10px var(--primary-glow);
+            border-color: var(--secondary-glow);
+        }
+
+        /* Hari minggu di baris kedua mengambil sisa ruang agar tetap estetis */
+        #dayTabs .btn[data-day="0"] {
+            grid-column: span 2;
         }
 
         /* TRACK PASARAN KE BAWAH */
@@ -127,7 +132,7 @@
         .track-item {
             background: rgba(22, 17, 58, 0.6);
             border-left: 4px solid var(--secondary-glow);
-            padding: 12px 20px;
+            padding: 12px 15px;
             border-radius: 0 10px 10px 0;
             display: flex;
             align-items: center;
@@ -136,22 +141,22 @@
             gap: 10px;
         }
 
-        /* KOMPONEN BOLA */
+        /* KOMPONEN BOLA ANGKA */
         .ball-group {
             display: flex;
-            gap: 8px;
+            gap: 6px;
             align-items: center;
         }
 
         .ball {
-            width: 36px;
-            height: 36px;
+            width: 34px;
+            height: 34px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: 1rem;
+            font-size: 0.95rem;
             box-shadow: inset -3px -3px 8px rgba(0,0,0,0.6);
         }
 
@@ -178,7 +183,7 @@
         }
 
         .final-title {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: #fff;
             margin-bottom: 15px;
             text-transform: uppercase;
@@ -186,17 +191,16 @@
         }
 
         .final-output {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             font-weight: bold;
-            letter-spacing: 1px;
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             flex-wrap: wrap;
         }
 
-        /* EFEK SINAR */
+        /* EFEK SINAR BOLA */
         .glow-red {
             box-shadow: 0 0 15px 5px rgba(255, 77, 77, 0.8), inset -3px -3px 8px rgba(0,0,0,0.4);
             animation: pulse-red 2s infinite ease-in-out;
@@ -228,6 +232,7 @@
             margin-bottom: 20px;
             display: none;
             font-weight: bold;
+            font-size: 0.9rem;
         }
 
         /* POPUP KECIL */
@@ -259,17 +264,17 @@
             width: 100%;
             background: #090518;
             border-top: 1px solid rgba(255,255,255,0.1);
-            padding: 15px;
+            padding: 12px;
             text-align: center;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: #aaa;
             z-index: 1000;
         }
 
         .seo-tags {
-            font-size: 0.75rem;
-            color: #666;
-            margin-top: 5px;
+            font-size: 0.7rem;
+            color: #555;
+            margin-top: 4px;
             max-width: 900px;
             margin-left: auto;
             margin-right: auto;
@@ -290,10 +295,10 @@
             Mohon bersabar bosku angka prediksi belum di update, menunggu data live result terbaru!
         </div>
 
-        <!-- Pilihan Hari Prediksi (Otomatis Aktif Sesuai Hari Ini) -->
+        <!-- Pilihan Hari Prediksi (Formasi Rapi Tanpa Scroll Samping) -->
         <div class="nav-container">
             <div class="nav-title">PILIHAN HARI PREDIKSI :</div>
-            <div class="scroll-wrapper" id="dayTabs">
+            <div class="grid-wrapper" id="dayTabs">
                 <button class="btn" data-day="1">Senin</button>
                 <button class="btn" data-day="2">Selasa</button>
                 <button class="btn" data-day="3">Rabu</button>
@@ -304,10 +309,10 @@
             </div>
         </div>
 
-        <!-- Pilihan Pasaran Lain -->
+        <!-- Pilihan Pasaran Lain (Formasi Tepat 4-4 Rata) -->
         <div class="nav-container">
             <div class="nav-title">PASARAN LAINNYA :</div>
-            <div class="scroll-wrapper">
+            <div class="grid-wrapper">
                 <button class="btn" onclick="window.location.href='cambodia.html'">Cambodia</button>
                 <button class="btn" onclick="window.location.href='sdy.html'">SDY</button>
                 <button class="btn" onclick="window.location.href='china.html'">China</button>
@@ -320,18 +325,18 @@
         </div>
 
         <!-- Judul Track -->
-        <h2 style="font-size: 1.1rem; color: var(--secondary-glow); margin-bottom: 10px;">TRACKING ANGKA MAIN</h2>
+        <h2 style="font-size: 1.1rem; color: var(--secondary-glow); margin-bottom: 12px;">📊 TRACKING DATA 10X RESULT & RUMUS AM:</h2>
         
         <!-- List Track Memanjang ke Bawah -->
         <div class="track-container" id="trackList">
-            <!-- Data Track Diisi via JS -->
+            <!-- Elemen ini otomatis terisi susunan bola dari javascript -->
         </div>
 
         <!-- Output Final Prediksi di Akhir Paling Bawah -->
         <div class="final-prediction" id="finalPredictionArea">
             <div class="final-title">ANGKA FINAL HARI INI</div>
             <div class="final-output" id="finalOutput">
-                <!-- Diisi via JS -->
+                <!-- Elemen ini otomatis terisi rumusan angka terkuat jitu -->
             </div>
         </div>
     </main>
@@ -349,49 +354,24 @@
         </div>
     </footer>
 
-    <!-- Hubungkan ke data eksternal Anda -->
-    <script src="result/japan.js" onerror="fallbackData()"></script>
+    <!-- Hubungkan langsung ke file eksternal paito tanpa fallback data manual -->
+    <script src="result/japan.js"></script>
     <script>
-        // Fallback jika file result/japan.js tidak ditemukan saat lokal testing
-        function fallbackData() {
-            if(!window.DATA_PAITO_JAPAN){
-                console.log("Menggunakan data cadangan karena file js belum ada.");
-                window.LIVE_RESULT_JAPAN = { latestResult: "7051" };
-                window.DATA_PAITO_JAPAN = `
-                  7360,8581,5630,3906,4344,4416,6871,
-                  5832,2278,0289,7412,2940,7325,6553,
-                  3585,2284,5962,0611,8233,4216,2417,
-                  0488,0253,9168,0636,9111,3941,0834,
-                  6716,7656,5975,8609,9499,7682,9720,
-                  4117,6999,0053,8615,9042,7025,0963,
-                  9519,4353,3630,3947,6454,2291,1641,
-                  4203,5253,1430,4902,7134,1021,0895,
-                  5851,7078,9532,4683,5405,1955,6849,
-                  5523,5389,9337,0491,8729,7854,9609,
-                  6736,9075,5784,0392,4891,8974,4201,
-                  9489,2475,9582,4634,4729,7143,8819,
-                  6123,3317,7514,2552,8396,3505,2667,
-                  4470,9639,1477,9530,3881,1534,2994,
-                  9727,6971,1396,0565,8443,9346,6639,
-                  7667,3438,9390,5493,2827,6414,1248,
-                  5586,1456,4087,2890,9637,2298,3582,
-                  2741,3185,7051,
-                `;
-            }
-            initProcess();
-        }
-
-        // Definisi Kamus Rumus Togel
+        // Kamus Rumus Togel Resmi
         const MISTIK_LAMA = {'1':0, '0':1, '2':5, '5':2, '3':8, '8':3, '4':7, '7':4, '6':9, '9':6};
         const MISTIK_BARU = {'0':8, '8':0, '1':7, '7':1, '2':6, '6':2, '3':9, '9':3, '4':5, '5':4};
         const INDEX = {'0':5, '5':0, '1':6, '6':1, '2':7, '7':2, '3':8, '8':3, '4':9, '9':4};
         const TYSON = {'1':4, '4':1, '2':7, '7':2, '3':8, '8':3, '5':8, '6':9, '9':6, '0':7};
 
-        // Logika Ekstraksi Rumus per Digit (Menghasilkan string angka unik)
+        // Algoritma menghitung pecahan rumus berdasarkan const paito asli
         function hitungRumus(resultStr, tipe) {
             if(!resultStr || resultStr.length < 4) return "123";
-            let d1 = resultStr[0], d2 = resultStr[1], d3 = resultStr[2], d4 = resultStr[3];
-            let base = (parseInt(d1) + parseInt(d2) + parseInt(d3) + parseInt(d4)) % 10;
+            
+            let d1 = parseInt(resultStr.charAt(0)) || 0;
+            let d2 = parseInt(resultStr.charAt(1)) || 0;
+            let d3 = parseInt(resultStr.charAt(2)) || 0;
+            let d4 = parseInt(resultStr.charAt(3)) || 0;
+            let base = (d1 + d2 + d3 + d4) % 10;
             
             let arr = [];
             if (tipe === 'mistik_lama') {
@@ -404,20 +384,25 @@
                 arr = [TYSON[base]||0, ((TYSON[base]||0)+1)%10, ((TYSON[base]||0)+2)%10];
             } else if (tipe === 'kakak') {
                 arr = [base, (base+1)%10, (base+2)%10];
-            } else { // adik
+            } else { 
                 arr = [base, (base-1+10)%10, (base-2+10)%10];
             }
-            // Buat hasil selalu unik bersihkan duplikat
             return [...new Set(arr)].slice(0,3).join('');
         }
 
         function initProcess() {
-            let cleanPaito = window.DATA_PAITO_JAPAN.replace(/[\s\n]/g, '');
+            // Validasi apakah variabel const dari berkas result/japan.js berhasil dimuat browser
+            if (typeof DATA_PAITO_JAPAN === 'undefined' || typeof LIVE_RESULT_JAPAN === 'undefined') {
+                console.error("Gagal memuat konstanta DATA_PAITO_JAPAN atau LIVE_RESULT_JAPAN dari file js!");
+                return;
+            }
+
+            let cleanPaito = DATA_PAITO_JAPAN.replace(/[\s\n]/g, '');
             let arrPaito = cleanPaito.split(',').filter(x => x.length === 4);
             let latestInPaito = arrPaito[arrPaito.length - 1];
-            let liveResult = window.LIVE_RESULT_JAPAN.latestResult;
+            let liveResult = LIVE_RESULT_JAPAN.latestResult;
 
-            // Memunculkan peringatan jika paito js belum diperbarui oleh admin
+            // Memunculkan peringatan jika data paito belum diupdate admin di berkas js
             if (liveResult !== latestInPaito) {
                 document.getElementById('alertUpdate').style.display = 'block';
             }
@@ -426,7 +411,7 @@
             let rumusList = ['mistik_lama', 'mistik_baru', 'index', 'tyson', 'kakak', 'adik'];
             let skorRumus = { mistik_lama: 0, mistik_baru: 0, index: 0, tyson: 0, kakak: 0, adik: 0 };
 
-            // Uji akurasi rumus di 10 hari terakhir
+            // Hitung statistik akurasi 10 result terakhir
             for(let i=0; i < last10Results.length - 1; i++) {
                 let current = last10Results[i];
                 let nextResult = last10Results[i+1];
@@ -438,58 +423,60 @@
             }
 
             let sortedRumus = Object.keys(skorRumus).sort((a,b) => skorRumus[b] - skorRumus[a]);
-            let rumusTerkuat = sortedRumus[0];
-            let rumusSedang = sortedRumus[2] || sortedRumus[1];
+            let rumusTerkuat = sortedRumus[0] || 'mistik_lama';
+            let rumusSedang = sortedRumus[1] || 'index';
 
-            // Render Track ke Bawah
             let trackListDiv = document.getElementById('trackList');
             trackListDiv.innerHTML = '';
 
+            // Render 10 track otomatis memanjang ke bawah
             for(let i=0; i < last10Results.length; i++) {
-                let res = last10Results[i];
-                let amDigits = hitungRumus(res, rumusTerkuat);
+                let res = last10Results[i]; 
+                let amDigits = hitungRumus(res, rumusTerkuat); 
                 
                 let trackItem = document.createElement('div');
                 trackItem.className = 'track-item';
                 trackItem.innerHTML = `
-                    <div style="font-weight: bold; color: #aaa;">Data Ke-${i+1}</div>
+                    <div style="font-weight: bold; color: #aaa; width: 75px; font-size:0.85rem;">Track ${i+1}</div>
                     <div class="ball-group">
-                        <div class="ball ball-red">${res[0]}</div>
-                        <div class="ball ball-red">${res[1]}</div>
-                        <div class="ball ball-red">${res[2]}</div>
-                        <div class="ball ball-red">${res[3]}</div>
+                        <div class="ball ball-red">${res.charAt(0)}</div>
+                        <div class="ball ball-red">${res.charAt(1)}</div>
+                        <div class="ball ball-red">${res.charAt(2)}</div>
+                        <div class="ball ball-red">${res.charAt(3)}</div>
                     </div>
-                    <div style="color: var(--secondary-glow); font-weight: bold;">➔ AM:</div>
+                    <div style="color: var(--secondary-glow); font-weight: bold; font-size:0.85rem;">➔ AM:</div>
                     <div class="ball-group">
-                        <div class="ball ball-white">${amDigits[0]||'0'}</div>
-                        <div class="ball ball-white">${amDigits[1]||'1'}</div>
-                        <div class="ball ball-white">${amDigits[2]||'2'}</div>
+                        <div class="ball ball-white">${amDigits.charAt(0) || '0'}</div>
+                        <div class="ball ball-white">${amDigits.charAt(1) || '1'}</div>
+                        <div class="ball ball-white">${amDigits.charAt(2) || '2'}</div>
                     </div>
                 `;
                 trackListDiv.appendChild(trackItem);
             }
 
-            // Hitung Final Angka Jitu Terbawah
+            // Hitung Final Angka Jitu Prediksi Terbawah
             let resultTerakhir = last10Results[last10Results.length - 1];
             let amFinal = hitungRumus(resultTerakhir, rumusTerkuat);
             let akFinal = hitungRumus(resultTerakhir, rumusSedang).slice(0,2);
-            let tunggalFinal = amFinal[0];
+            let tunggalFinal = amFinal.charAt(amFinal.length - 1) || '7';
 
             let finalOutputDiv = document.getElementById('finalOutput');
             finalOutputDiv.innerHTML = `
-                <span style="color:#aaa; margin-right:10px;">${resultTerakhir} :</span>
+                <span style="color:#aaa; font-size: 1.1rem; margin-right:10px;">${resultTerakhir} :</span>
                 <div class="ball-group">
-                    <div class="ball ball-white">${amFinal[0]||'0'}</div>
-                    <div class="ball ball-white">${amFinal[1]||'1'}</div>
-                    <div class="ball ball-white">${amFinal[2]||'2'}</div>
+                    <div class="ball ball-white">${amFinal.charAt(0)}</div>
+                    <div class="ball ball-white">${amFinal.charAt(1)}</div>
+                    <div class="ball ball-white">${amFinal.charAt(2)}</div>
                 </div>
                 <span style="color:var(--primary-glow); font-weight:bold;">-</span>
                 <div class="ball-group">
-                    <div class="ball ball-red glow-red">${akFinal[0]||'0'}</div>
-                    <div class="ball ball-red glow-red">${akFinal[1]||'1'}</div>
+                    <div class="ball ball-red glow-red">${akFinal.charAt(0) || '0'}</div>
+                    <div class="ball ball-red glow-red">${akFinal.charAt(1) || '1'}</div>
                 </div>
                 <span style="color:var(--primary-glow); font-weight:bold;">-</span>
-                <div class="ball ball-white glow-bright">${tunggalFinal||'0'}</div>
+                <div class="ball-group">
+                    <div class="ball ball-white glow-bright">${tunggalFinal}</div>
+                </div>
             `;
         }
 
@@ -511,9 +498,10 @@
 
         setTimeout(() => { document.getElementById('jpPopup').style.display = 'none'; }, 6000);
 
-        window.addEventListener('DOMContentLoaded', () => {
+        // Eksekusi otomatis setelah window selesai memuat script eksternal
+        window.addEventListener('load', () => {
             setupTabs();
-            if(window.DATA_PAITO_JAPAN) { initProcess(); }
+            initProcess();
         });
     </script>
 </body>
