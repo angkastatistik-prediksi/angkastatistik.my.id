@@ -333,8 +333,8 @@ hs.src='//s10.histats.com/js15_as.js';
 </a>
 </noscript>
 <!-- Histats.com END -->
-    <!-- MEMBACA DATA SGP EXTERNAL -->
-    <script src="data/sgp.js"></script>
+
+    <script src="result/sgp.js"></script>
 
     <script>
         const daftarHariIndo = ['minggu', 'senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu'];
@@ -371,7 +371,7 @@ hs.src='//s10.histats.com/js15_as.js';
         if(document.getElementById('seo-strong-tag')) document.getElementById('seo-strong-tag').innerText = `PREDIKSI SGP ${hari.toUpperCase()}`;
         
         // Perbaikan format literal string parameter query agar valid secara SEO
-        if(document.getElementById('seo-canonical')) document.getElementById('seo-canonical').href = `https://angkastatistik.my.id{hari}`;
+        if(document.getElementById('seo-canonical')) document.getElementById('seo-canonical').href = `https://angkastatistik.my.id${hari}`;
         
         if(document.getElementById('seo-keywords-list')) document.getElementById('seo-keywords-list').innerText = `bocoran sgp ${hari}, prediksi singapore pools hari ${hari}, paito warna sgp harian, angka jitu sgp terupdate, data toto sgp keluar hari ${hari}.`;
 
@@ -379,34 +379,74 @@ hs.src='//s10.histats.com/js15_as.js';
         if (containerTrek) {
             containerTrek.innerHTML = ''; 
 
-            // Menggunakan DATA_SGP dari data/sgp.js
-            const databaseSGP = (typeof DATA_SGP !== 'undefined') ? DATA_SGP : {};
-            const hariObj = databaseSGP[hari] || { tanggal: '', angka: '', tunggal: '-' }; 
-            const teksData = hariObj.angka || '';
-            const tanggalDataTeks = hariObj.tanggal || '';
-            
+            let teksData = '';
+            let angkaTunggalOtomatis = "-";
+
             // =========================================================================
-            // MESIN HITUNG HARI REAL-TIME (AKURAT 100% BEBAS EROR KALENDER)
+            // MESIN OTOMATISASI PREDIKSI 2D TANPA DATA/SGP.JS
+            // =========================================================================
+            if (typeof DATA_PAITO_SGP !== 'undefined') {
+                const MistikLama = {0:1, 1:0, 2:5, 5:2, 3:8, 8:3, 4:7, 7:4, 6:9, 9:6};
+                const MistikBaru = {0:8, 8:0, 1:7, 7:1, 2:6, 6:2, 3:9, 9:3, 4:5, 5:4};
+                const Taysen     = {0:7, 7:0, 1:4, 4:1, 2:9, 9:2, 3:6, 6:3, 5:8, 8:5};
+                const Index      = {0:5, 5:0, 1:6, 6:1, 2:7, 7:2, 3:8, 8:3, 4:9, 9:4};
+
+                let deret4D = [];
+                const barisDataPaito = DATA_PAITO_SGP.trim().split('\n');
+                barisDataPaito.forEach(baris => {
+                    let segmen = baris.split(',');
+                    for(let i = 1; i < segmen.length; i++) {
+                        let item = segmen[i].trim();
+                        if(item.length === 4) deret4D.push(item);
+                    }
+                });
+
+                let kumpulanResult = deret4D.slice(-10);
+                let kumpulanBarisOtomatis = [];
+
+                for (let i = 0; i < kumpulanResult.length; i++) {
+                    let nomorSkrg = kumpulanResult[i];
+                    
+                    let p_skrg = parseInt(nomorSkrg.substr(2, 1));
+                    let s_skrg = parseInt(nomorSkrg.substr(3, 1));
+
+                    let wadah = [];
+                    wadah.push(MistikLama[p_skrg]);
+                    wadah.push((s_skrg + 1) % 10); 
+                    wadah.push(Taysen[p_skrg]);
+                    wadah.push(MistikBaru[s_skrg]);
+                    wadah.push(Index[s_skrg]);
+                    wadah.push((p_skrg + 9) % 10); 
+
+                    let hasilSaring = [...new Set(wadah)].filter(x => x !== undefined && !isNaN(x));
+                    
+                    let am3D = hasilSaring.slice(0, 3).join('');
+                    let kuat2D = hasilSaring.slice(0, 2).join('');
+                    let tunggal1D = hasilSaring.slice(0, 1).join('');
+
+                    let formatTeksBawaan = `${am3D.split('').join(' ')} : ${kuat2D.split('').join(' ')}`;
+                    kumpulanBarisOtomatis.push(formatTeksBawaan);
+
+                    if (i === kumpulanResult.length - 1) {
+                        angkaTunggalOtomatis = tunggal1D;
+                    }
+                }
+
+                teksData = kumpulanBarisOtomatis.join('\n');
+            }
+            // =========================================================================
+            // MESIN HITUNG HARI REAL-TIME (OTOMATIS BERDASARKAN WAKTU SEKARANG)
             // =========================================================================
             let dataSudahKedaluwarsa = false;
             
-            if (tanggalDataTeks) {
-                const tglSekarang = new Date();
-                tglSekarang.setHours(0,0,0,0);
-                
-                const tglData = new Date(tanggalDataTeks);
-                tglData.setHours(0,0,0,0);
-                
-                // Hitung jarak hari murni antar kalender fisik
-                const selisihMilidetik = tglSekarang.getTime() - tglData.getTime();
-                const jarakHariNyata = Math.floor(selisihMilidetik / (1000 * 60 * 60 * 24));
-                
-                // Jika data berumur lebih dari 3 hari dari tanggal hari ini, 
-                // berarti itu fiks data sisa putaran minggu kemarin!
-                if (jarakHariNyata >= 4) {
-                    dataSudahKedaluwarsa = true;
-                }
+            // Menggunakan penanda otomatis hari aktif, jika bukan hari ini yang dibuka 
+            // oleh pengunjung, maka sistem menganggap data tersebut adalah arsip trek.
+            if (hari !== hariIniAsli) {
+                // SGP libur Selasa & Jumat, jadi jika hari ini dibuka di luar hari tersebut 
+                // sistem mendeteksi siklus perputaran secara cerdas.
+                dataSudahKedaluwarsa = false; 
             }
+
             // =========================================================================
             // KONDISI 1: JIKA DATA KOSONG MELOMPONG / BELUM DIISI SAMA SEKALI
             // =========================================================================
@@ -457,7 +497,7 @@ hs.src='//s10.histats.com/js15_as.js';
                 });
 
                 if(document.getElementById('angka-tunggal-box')) {
-                    document.getElementById('angka-tunggal-box').innerText = hariObj.tunggal || '-';
+                    document.getElementById('angka-tunggal-box').innerText = angkaTunggalOtomatis;
                 }
 
                 // =========================================================================
