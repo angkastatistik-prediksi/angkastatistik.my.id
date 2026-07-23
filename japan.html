@@ -325,18 +325,18 @@
         </div>
 
         <!-- Judul Track -->
-        <h2 style="font-size: 1.1rem; color: var(--secondary-glow); margin-bottom: 12px;">📊 TRACKING DATA 10X RESULT & RUMUS AM:</h2>
+        <h2 style="font-size: 1.1rem; color: var(--secondary-glow); margin-bottom: 12px; text-align: center;">TREK ANGKA MAIN:</h2>
         
-        <!-- List Track Memanjang ke Bawah -->
+        <!-- List Track Memanjang ke Bawah (Posisi Bola Tidak Sejajar) -->
         <div class="track-container" id="trackList">
-            <!-- Elemen ini otomatis terisi susunan bola dari javascript -->
+            <!-- Elemen bola otomatis dibuat berkelok oleh javascript -->
         </div>
 
         <!-- Output Final Prediksi di Akhir Paling Bawah -->
         <div class="final-prediction" id="finalPredictionArea">
             <div class="final-title">ANGKA FINAL HARI INI</div>
             <div class="final-output" id="finalOutput">
-                <!-- Elemen ini otomatis terisi rumusan angka terkuat jitu -->
+                <!-- Elemen ini otomatis terisi rumusan angka jitu terbawah -->
             </div>
         </div>
     </main>
@@ -354,7 +354,7 @@
         </div>
     </footer>
 
-    <!-- Hubungkan langsung ke file eksternal paito tanpa fallback data manual -->
+    <!-- Hubungkan langsung ke file eksternal paito -->
     <script src="result/japan.js"></script>
     <script>
         // Kamus Rumus Togel Resmi
@@ -363,7 +363,7 @@
         const INDEX = {'0':5, '5':0, '1':6, '6':1, '2':7, '7':2, '3':8, '8':3, '4':9, '9':4};
         const TYSON = {'1':4, '4':1, '2':7, '7':2, '3':8, '8':3, '5':8, '6':9, '9':6, '0':7};
 
-        // Algoritma menghitung pecahan rumus berdasarkan const paito asli
+        // Algoritma menghitung pecahan rumus paito
         function hitungRumus(resultStr, tipe) {
             if(!resultStr || resultStr.length < 4) return "123";
             
@@ -391,7 +391,6 @@
         }
 
         function initProcess() {
-            // Validasi apakah variabel const dari berkas result/japan.js berhasil dimuat browser
             if (typeof DATA_PAITO_JAPAN === 'undefined' || typeof LIVE_RESULT_JAPAN === 'undefined') {
                 console.error("Gagal memuat konstanta DATA_PAITO_JAPAN atau LIVE_RESULT_JAPAN dari file js!");
                 return;
@@ -402,7 +401,6 @@
             let latestInPaito = arrPaito[arrPaito.length - 1];
             let liveResult = LIVE_RESULT_JAPAN.latestResult;
 
-            // Memunculkan peringatan jika data paito belum diupdate admin di berkas js
             if (liveResult !== latestInPaito) {
                 document.getElementById('alertUpdate').style.display = 'block';
             }
@@ -411,7 +409,6 @@
             let rumusList = ['mistik_lama', 'mistik_baru', 'index', 'tyson', 'kakak', 'adik'];
             let skorRumus = { mistik_lama: 0, mistik_baru: 0, index: 0, tyson: 0, kakak: 0, adik: 0 };
 
-            // Hitung statistik akurasi 10 result terakhir
             for(let i=0; i < last10Results.length - 1; i++) {
                 let current = last10Results[i];
                 let nextResult = last10Results[i+1];
@@ -429,22 +426,31 @@
             let trackListDiv = document.getElementById('trackList');
             trackListDiv.innerHTML = '';
 
-            // Render 10 track otomatis memanjang ke bawah
+            // Render 10 baris bola berkelok / tidak sejajar secara dinamis
             for(let i=0; i < last10Results.length; i++) {
                 let res = last10Results[i]; 
                 let amDigits = hitungRumus(res, rumusTerkuat); 
                 
+                // Membuat variasi pergeseran posisi bola (kiri, tengah, kanan) agar tidak sejajar lurus
+                let offsetShift = "margin-left: 0px;";
+                if (i % 3 === 1) {
+                    offsetShift = "margin-left: 35px; border-left-color: var(--primary-glow);";
+                } else if (i % 3 === 2) {
+                    offsetShift = "margin-left: 15px; border-left-color: #ff4d4d;";
+                }
+
                 let trackItem = document.createElement('div');
                 trackItem.className = 'track-item';
+                // Menghilangkan teks track bawaan, fokus penuh ke bola harian
+                trackItem.style = offsetShift; 
                 trackItem.innerHTML = `
-                    <div style="font-weight: bold; color: #aaa; width: 75px; font-size:0.85rem;">Track ${i+1}</div>
                     <div class="ball-group">
                         <div class="ball ball-red">${res.charAt(0)}</div>
                         <div class="ball ball-red">${res.charAt(1)}</div>
                         <div class="ball ball-red">${res.charAt(2)}</div>
                         <div class="ball ball-red">${res.charAt(3)}</div>
                     </div>
-                    <div style="color: var(--secondary-glow); font-weight: bold; font-size:0.85rem;">➔ AM:</div>
+                    <div style="color: var(--secondary-glow); font-weight: bold; font-size:0.85rem; padding: 0 5px;">➔</div>
                     <div class="ball-group">
                         <div class="ball ball-white">${amDigits.charAt(0) || '0'}</div>
                         <div class="ball ball-white">${amDigits.charAt(1) || '1'}</div>
@@ -498,7 +504,6 @@
 
         setTimeout(() => { document.getElementById('jpPopup').style.display = 'none'; }, 6000);
 
-        // Eksekusi otomatis setelah window selesai memuat script eksternal
         window.addEventListener('load', () => {
             setupTabs();
             initProcess();
