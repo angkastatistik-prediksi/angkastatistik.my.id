@@ -28,7 +28,7 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20 # Sesuaikan dengan versi Node Anda
+          node-version: 22 # Diperbarui ke Node LTS versi 22 terbaru stabil
 
       - name: Install dependencies
         run: npm ci
@@ -39,7 +39,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist # Ganti ke './build' atau '.' sesuai output folder Anda
+          path: ./dist # Ganti ke '.' jika repositori Anda murni file HTML/JS biasa tanpa proses build
 
       - name: Deploy to GitHub Pages
         id: deployment
