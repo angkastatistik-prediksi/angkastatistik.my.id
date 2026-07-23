@@ -5,338 +5,448 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PREDIKSI ANGKA STATISTIK - Analisis Data &amp; Bocoran Angka Jitu Terakurat</title>
     <meta name="description" content="Platform prediksi angka statistik terupdate untuk pasaran Macau, Cambodia, SDY, China, Japan, SGP, Taiwan, dan HK. Analisis data matematis berbasis algoritma terbaik.">
-    <meta name="keywords" content="prediksi angka statistik, bocoran togel harian, statistik macau, prediksi hk jitu, bocoran sgp pools, rumus sdy akurat, angka jitu cambodia, algoritma angka">
+    <meta name="keywords" content="prediksi angka statistik, bocoran togel harian, statistik macau, prediksi hk jitu, bocoran sgp pools, rumus sdy akurat, angka jitu cambodia, algoritma angka, paito warna sdy, live draw hk, toto macau pools">
     <link rel="canonical" href="https://angkastatistik.my.id">
     <style>
         :root {
-    --bg-dark: #0f111a;
-    --bg-card: #1a1d29;
-    --text-main: #f0f2f5;
-    --text-muted: #a0aec0;
-    --accent: #ffb703; 
-    --accent-glow: rgba(255, 183, 3, 0.3);
-    --gradient: linear-gradient(135deg, #1e2235, #121420);
-}
+            --bg-dark: #080417;        
+            --bg-card: #16103c;        
+            --text-main: #f0f2f5;      
+            --text-muted: #b5a9df;     
+            --accent: #00e5ff;         
+            --accent-glow: rgba(0, 229, 255, 0.4);
+            --gradient: linear-gradient(135deg, #1b0d46, #0b0521);
+            --border-glow: rgba(155, 89, 182, 0.25);
+        }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-body {
-    background-color: var(--bg-dark);
-    color: var(--text-main);
-    line-height: 1.6;
-    padding-bottom: 40px;
-}
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.5;
+            padding-bottom: 0px; 
+            overflow-x: hidden;
+            width: 100vw;
+        }
 
-/* HEADER DIATUR STICKY (MENEMPEL DI ATAS) */
-header {
-    position: sticky;
-    top: 0;
-    z-index: 9999;
-    background: var(--gradient);
-    padding: 30px 20px 75px; /* Ruang awal untuk logo */
-    text-align: center;
-    border-bottom: 2px solid var(--accent);
-    box-shadow: 0 4px 20px rgba(0,0,0,.5);
-    transition: all 0.3s ease; /* Transisi saat mengecil */
-}
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 9999;
+            background: var(--gradient);
+            padding: 12px 20px 40px; 
+            text-align: center;
+            border-bottom: 2px solid var(--accent);
+            box-shadow: 0 4px 25px rgba(0, 229, 255, 0.25);
+            transition: all 0.3s ease;
+        }
 
-/* KETIKA DI-SCROLL, HEADER MENJADI LEBIH RAMPING */
-header.shrink {
-    padding: 15px 20px 45px;
-}
+        header.shrink {
+            padding: 6px 20px 25px;
+            box-shadow: 0 4px 15px rgba(0, 229, 255, 0.3);
+        }
 
-header h1 {
-    font-size: 1.8rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    transition: all 0.3s ease;
-}
+        header h1 {
+            font-size: 1.15rem; 
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #ffffff;
+            text-shadow: 0 0 10px var(--accent-glow);
+            transition: all 0.3s ease;
+            line-height: 1.3;
+        }
 
-/* UKURAN TEKS IKUT MENGECEIL SEDIKIT SAAT SCROLL */
-header.shrink h1 {
-    font-size: 1.4rem;
-}
+        header.shrink h1 {
+            font-size: 0.95rem; 
+        }
 
-header h1 span {
-    color: var(--accent);
-    text-shadow: 0 0 10px var(--accent-glow);
-}
+        header h1 span {
+            color: var(--accent);
+            text-shadow: 0 0 10px var(--accent), 0 0 20px rgba(0, 229, 255, 0.5);
+        }
 
-.logo-container {
-    position: absolute;
-    left: 50%;
-    bottom: -50px;
-    transform: translateX(-50%);
-    z-index: 10000;
-    transition: all 0.3s ease;
-}
+        .logo-container {
+            position: absolute;
+            left: 50%;
+            bottom: -35px;
+            transform: translateX(-50%);
+            z-index: 10000;
+            transition: all 0.3s ease;
+        }
 
-/* JIKA HEADER MENGALAMI SHRINK, POSISI CONTAINER LOGO MENYESUAIKAN */
-header.shrink .logo-container {
-    bottom: -30px;
-}
+        header.shrink .logo-container {
+            bottom: -22px;
+        }
 
-.logo-img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    object-fit: cover;
-    background: #000;
-    box-shadow: 0 0 10px rgba(255,183,3,.6), 0 0 20px rgba(255,183,3,.4);
-    transition: all 0.3s ease; /* Efek animasi saat mengecil */
-}
+        .logo-img {
+            width: 70px; 
+            height: 70px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #000;
+            border: 2.5px solid var(--accent);
+            box-shadow: 0 0 12px rgba(0, 229, 255, 0.6), 0 0 20px rgba(155, 89, 182, 0.3);
+            transition: all 0.3s ease;
+        }
 
-/* UKURAN FOTO SAAT MENGECEIL (DI-SCROLL) */
-header.shrink .logo-img {
-    width: 60px;
-    height: 60px;
-    border: 3px solid #ffb703;
+        header.shrink .logo-img {
+            width: 45px;
+            height: 45px;
+            border: 1.5px solid var(--accent);
+            box-shadow: 0 0 8px rgba(0, 229, 255, 0.5);
         }
         
-.container {
-    max-width: 800px;
-    margin: 60px auto 30px;
-    padding: 0 20px;
-}
+        .container {
+            max-width: 800px;
+            margin: 45px auto 0px; 
+            padding: 0 20px;
+        }
 
-/* Sisa kode CSS lainnya tetap dipertahankan */
-.section-title { font-size: 1.4rem; margin-bottom: 25px; text-align: center; text-transform: uppercase; letter-spacing: 1px; color: var(--accent); }
-.list-pasaran { display: flex; flex-direction: column; gap: 25px; margin-bottom: 40px; }
-.group-pasaran { background-color: var(--bg-card); border: 1px solid #2d3142; border-radius: 12px; padding: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
-.group-title { font-size: 1.2rem; color: #ffffff; border-bottom: 2px solid #2d3142; padding-bottom: 8px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; }
-.group-title span { font-size: 0.75rem; background-color: var(--accent); color: #000; padding: 3px 8px; border-radius: 20px; font-weight: bold; }
-.grid-hari { display: grid; gap: 10px; }
-@media (min-width: 480px) { .grid-hari { grid-template-columns: repeat(7, 1fr); } }
-@media (max-width: 479px) { .grid-hari { grid-template-columns: repeat(4, 1fr); } }
-.btn-hari { display: block; text-align: center; background-color: #222638; color: var(--text-main); text-decoration: none; padding: 10px 5px; border-radius: 6px; font-size: 0.85rem; font-weight: 500; border: 1px solid transparent; transition: all 0.2s ease; }
-.btn-hari:hover { background-color: var(--accent); color: #000; border-color: var(--accent); transform: translateY(-2px); }
-.btn-libur { display: block; text-align: center; background-color: #2a1b1b; color: #ef4444; padding: 10px 5px; border-radius: 6px; font-size: 0.85rem; border: 1px solid #442323; cursor: not-allowed; }
-.seo-article { background-color: var(--bg-card); border-radius: 12px; padding: 30px; border: 1px solid #2d3142; margin-top: 40px; }
-.seo-article h2 { color: var(--accent); margin-bottom: 15px; font-size: 1.5rem; }
-.seo-article p { color: var(--text-muted); margin-bottom: 15px; text-align: justify; font-size: 0.95rem; }
-footer { text-align: center; padding: 20px; margin-top: 40px; border-top: 1px solid #2d3142; color: var(--text-muted); font-size: 0.85rem; }
-footer span { color: var(--accent); }
+        .section-title { 
+            font-size: 1.25rem; 
+            margin-bottom: 20px; 
+            text-align: center; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+            color: var(--accent);
+            text-shadow: 0 0 8px var(--accent-glow);
+        }
 
+        .list-pasaran { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 15px; 
+            margin-bottom: 15px; 
+        }
+
+        .group-pasaran { 
+            background-color: var(--bg-card); 
+            border: 1px solid rgba(0, 229, 255, 0.2); 
+            border-radius: 10px; 
+            padding: 15px; 
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .group-title { 
+            font-size: 1.05rem; 
+            color: #ffffff; 
+            border-bottom: 1px solid rgba(155, 89, 182, 0.2); 
+            padding-bottom: 6px; 
+            margin-bottom: 12px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            font-weight: 700;
+        }
+
+        .group-title span { 
+            font-size: 0.7rem; 
+            background: linear-gradient(135deg, #00b4db, #0083b0); 
+            color: #fff; 
+            padding: 2px 8px; 
+            border-radius: 20px; 
+            font-weight: bold; 
+            border: 1px solid var(--accent);
+            text-transform: uppercase;
+        }
+
+        /* UKURAN TOMBOL DAN KOTAK HARI DISERAGAMKAN 100% SAMA */
+        .grid-hari { display: grid; gap: 8px; }
+        @media (min-width: 480px) { .grid-hari { grid-template-columns: repeat(7, 1fr); } }
+        @media (max-width: 479px) { .grid-hari { grid-template-columns: repeat(4, 1fr); } }
+
+        .btn-hari, .btn-libur { 
+            display: block; 
+            text-align: center; 
+            padding: 8px 2px; 
+            border-radius: 5px; 
+            font-size: 0.8rem; 
+            font-weight: bold; 
+            width: 100%;
+            height: 34px; /* Tinggi dikunci sama rata */
+            line-height: 16px;
+        }
+
+        .btn-hari {
+            background-color: #21164e; 
+            color: var(--text-main); 
+            text-decoration: none; 
+            border: 1px solid rgba(155, 89, 182, 0.3); 
+            transition: all 0.2s ease; 
+        }
+
+        .btn-hari:hover { 
+            background: linear-gradient(135deg, #00e5ff, #0083b0); 
+            color: #000; 
+            border-color: #ffffff; 
+            box-shadow: 0 0 10px var(--accent);
+        }
+
+        .btn-libur { 
+            background-color: #340c1c; 
+            color: #ff4d4d; 
+            border: 1px solid #7a162b; 
+            cursor: not-allowed; 
+            text-shadow: 0 0 4px rgba(255, 77, 77, 0.4);
+        }
+
+        .seo-article { 
+            background-color: var(--bg-card); 
+            border-radius: 10px; 
+            padding: 20px; 
+            border: 1px solid rgba(155, 89, 182, 0.15); 
+            margin-top: 15px; 
+        }
+
+        .seo-article h2 { 
+            color: var(--accent); 
+            margin-bottom: 10px; 
+            font-size: 1.25rem; 
+        }
+
+        .seo-article p { 
+            color: var(--text-muted); 
+            margin-bottom: 8px; 
+            text-align: justify; 
+            font-size: 0.9rem; 
+        }
+
+        .seo-tags-section {
+            text-align: left;
+            padding: 10px 5px 0px 5px; 
+            border-top: 1px solid rgba(155, 89, 182, 0.15);
+            margin-top: 15px; 
+        }
+
+        .seo-tags-section h3 {
+            font-size: 11px;
+            color: var(--accent);
+            margin-bottom: 4px;
+        }
+
+        .seo-tags-section p {
+            font-size: 10px;
+            color: #6a5d93;
+        }
+
+        /* FOOTER DIKOMPAK KETAT TANPA MARGIN BERLEBIH */
+        footer { 
+            position: relative; 
+            text-align: center; 
+            padding: 12px 20px; 
+            margin-top: 12px; 
+            border-top: 1px solid rgba(155, 89, 182, 0.15); 
+            color: #7d70b3; 
+            font-size: 0.8rem; 
+            background: #0d0624;
+            width: 100%;
+        }
+
+        footer span { 
+            color: var(--accent); 
+        }
     </style>
 </head>
 <body>
 
 <header>
     <div class="logo-container">
-        <img src="logo.png"
-             alt="Logo Angka Statistik"
-             class="logo-img">
+        <img src="logo.png" alt="Logo Angka Statistik" class="logo-img">
+    </div>
+    <h1>PREDIKSI <span>ANGKA STATISTIK</span></h1>
+</header>
+
+<main class="container">
+    <h2 class="section-title">Jadwal &amp; Link Prediksi Harian</h2>
+    
+    <div class="list-pasaran">
+        <!-- MACAU -->
+        <div class="group-pasaran">
+            <div class="group-title">MACAU <span>Senin - Minggu</span></div>
+            <div class="grid-hari">
+                <a href="prediksi/macau.html?hari=senin" class="btn-hari">Senin</a>
+                <a href="prediksi/macau.html?hari=selasa" class="btn-hari">Selasa</a>
+                <a href="prediksi/macau.html?hari=rabu" class="btn-hari">Rabu</a>
+                <a href="prediksi/macau.html?hari=kamis" class="btn-hari">Kamis</a>
+                <a href="prediksi/macau.html?hari=jumat" class="btn-hari">Jumat</a>
+                <a href="prediksi/macau.html?hari=sabtu" class="btn-hari">Sabtu</a>
+                <a href="prediksi/macau.html?hari=minggu" class="btn-hari">Minggu</a>
+            </div>
+        </div>
+
+        <!-- CAMBODIA -->
+        <div class="group-pasaran">
+            <div class="group-title">CAMBODIA <span>Senin - Minggu</span></div>
+            <div class="grid-hari">
+                <a href="prediksi/cambodia.html?hari=senin" class="btn-hari">Senin</a>
+                <a href="prediksi/cambodia.html?hari=selasa" class="btn-hari">Selasa</a>
+                <a href="prediksi/cambodia.html?hari=rabu" class="btn-hari">Rabu</a>
+                <a href="prediksi/cambodia.html?hari=kamis" class="btn-hari">Kamis</a>
+                <a href="prediksi/cambodia.html?hari=jumat" class="btn-hari">Jumat</a>
+                <a href="prediksi/cambodia.html?hari=sabtu" class="btn-hari">Sabtu</a>
+                <a href="prediksi/cambodia.html?hari=minggu" class="btn-hari">Minggu</a>
+            </div>
+        </div>
+
+        <!-- SDY -->
+        <div class="group-pasaran">
+            <div class="group-title">SDY (SYDNEY) <span>Senin - Minggu</span></div>
+            <div class="grid-hari">
+                <a href="prediksi/sdy.html?hari=senin" class="btn-hari">Senin</a>
+                <a href="prediksi/sdy.html?hari=selasa" class="btn-hari">Selasa</a>
+                <a href="prediksi/sdy.html?hari=rabu" class="btn-hari">Rabu</a>
+                <a href="prediksi/sdy.html?hari=kamis" class="btn-hari">Kamis</a>
+                <a href="prediksi/sdy.html?hari=jumat" class="btn-hari">Jumat</a>
+                <a href="prediksi/sdy.html?hari=sabtu" class="btn-hari">Sabtu</a>
+                <a href="prediksi/sdy.html?hari=minggu" class="btn-hari">Minggu</a>
+            </div>
+        </div>
+
+        <!-- CHINA -->
+        <div class="group-pasaran">
+            <div class="group-title">CHINA <span>Senin - Minggu</span></div>
+            <div class="grid-hari">
+                <a href="prediksi/china.html?hari=senin" class="btn-hari">Senin</a>
+                <a href="prediksi/china.html?hari=selasa" class="btn-hari">Selasa</a>
+                <a href="prediksi/china.html?hari=rabu" class="btn-hari">Rabu</a>
+                <a href="prediksi/china.html?hari=kamis" class="btn-hari">Kamis</a>
+                <a href="prediksi/china.html?hari=jumat" class="btn-hari">Jumat</a>
+                <a href="prediksi/china.html?hari=sabtu" class="btn-hari">Sabtu</a>
+                <a href="prediksi/china.html?hari=minggu" class="btn-hari">Minggu</a>
+            </div>
+        </div>
+
+        <!-- JAPAN -->
+        <div class="group-pasaran">
+            <div class="group-title">JAPAN <span>Senin - Minggu</span></div>
+            <div class="grid-hari">
+                <a href="prediksi/japan.html?hari=senin" class="btn-hari">Senin</a>
+                <a href="prediksi/japan.html?hari=selasa" class="btn-hari">Selasa</a>
+                <a href="prediksi/japan.html?hari=rabu" class="btn-hari">Rabu</a>
+                <a href="prediksi/japan.html?hari=kamis" class="btn-hari">Kamis</a>
+                <a href="prediksi/japan.html?hari=jumat" class="btn-hari">Jumat</a>
+                <a href="prediksi/japan.html?hari=sabtu" class="btn-hari">Sabtu</a>
+                <a href="prediksi/japan.html?hari=minggu" class="btn-hari">Minggu</a>
+            </div>
+        </div>
+        <!-- SGP (KOTAK SERAGAM SAMA RATA HARI SELASA & JUMAT LIBUR TEKS MERAH) -->
+        <div class="group-pasaran">
+            <div class="group-title">SGP (SINGAPORE) <span style="background: linear-gradient(135deg, #d32f2f, #990000); border-color: #ff4d4d;">Selasa &amp; Jumat Libur</span></div>
+            <div class="grid-hari">
+                <a href="prediksi/sgp.html?hari=senin" class="btn-hari">Senin</a>
+                <div class="btn-libur">Selasa</div>
+                <a href="prediksi/sgp.html?hari=rabu" class="btn-hari">Rabu</a>
+                <a href="prediksi/sgp.html?hari=kamis" class="btn-hari">Kamis</a>
+                <div class="btn-libur">Jumat</div>
+                <a href="prediksi/sgp.html?hari=sabtu" class="btn-hari">Sabtu</a>
+                <a href="prediksi/sgp.html?hari=minggu" class="btn-hari">Minggu</a>
+            </div>
+        </div>
+
+        <!-- TAIWAN -->
+        <div class="group-pasaran">
+            <div class="group-title">TAIWAN <span>Senin - Minggu</span></div>
+            <div class="grid-hari">
+                <a href="prediksi/taiwan.html?hari=senin" class="btn-hari">Senin</a>
+                <a href="prediksi/taiwan.html?hari=selasa" class="btn-hari">Selasa</a>
+                <a href="prediksi/taiwan.html?hari=rabu" class="btn-hari">Rabu</a>
+                <a href="prediksi/taiwan.html?hari=kamis" class="btn-hari">Kamis</a>
+                <a href="prediksi/taiwan.html?hari=jumat" class="btn-hari">Jumat</a>
+                <a href="prediksi/taiwan.html?hari=sabtu" class="btn-hari">Sabtu</a>
+                <a href="prediksi/taiwan.html?hari=minggu" class="btn-hari">Minggu</a>
+            </div>
+        </div>
+
+        <!-- HK -->
+        <div class="group-pasaran">
+            <div class="group-title">HK (HONGKONG) <span>Senin - Minggu</span></div>
+            <div class="grid-hari">
+                <a href="prediksi/hk.html?hari=senin" class="btn-hari">Senin</a>
+                <a href="prediksi/hk.html?hari=selasa" class="btn-hari">Selasa</a>
+                <a href="prediksi/hk.html?hari=rabu" class="btn-hari">Rabu</a>
+                <a href="prediksi/hk.html?hari=kamis" class="btn-hari">Kamis</a>
+                <a href="prediksi/hk.html?hari=jumat" class="btn-hari">Jumat</a>
+                <a href="prediksi/hk.html?hari=sabtu" class="btn-hari">Sabtu</a>
+                <a href="prediksi/hk.html?hari=minggu" class="btn-hari">Minggu</a>
+            </div>
+        </div>
+
+    </div> <!-- Penutup list-pasaran -->
+
+    <div style="text-align: center; margin: 15px auto 10px auto; border-top: 1px dashed rgba(255, 255, 255, 0.1); padding-top: 8px;">
+        <a href="privacy-policy.html" style="color: var(--text-muted); text-decoration: none; font-size: 0.8rem; font-weight: bold;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-muted)'">
+             KEBIJAKAN PRIVASI SITES ANGKA STATISTIK
+        </a>
     </div>
 
-    <h1>PREDIKSI<br> <span>ANGKA STATISTIK</span></h1>
-</header>
-    <br>
-    <main class="container">
-        <h2 class="section-title">Jadwal &amp; Link Prediksi Harian</h2>
-        
-        <div class="list-pasaran">
-            <!-- MACAU -->
-            <div class="group-pasaran">
-                <div class="group-title">MACAU <span>Senin - Minggu</span></div>
-                <div class="grid-hari">
-                    <a href="macau.html?hari=senin" class="btn-hari">Senin</a>
-                    <a href="macau.html?hari=selasa" class="btn-hari">Selasa</a>
-                    <a href="macau.html?hari=rabu" class="btn-hari">Rabu</a>
-                    <a href="macau.html?hari=kamis" class="btn-hari">Kamis</a>
-                    <a href="macau.html?hari=jumat" class="btn-hari">Jumat</a>
-                    <a href="macau.html?hari=sabtu" class="btn-hari">Sabtu</a>
-                    <a href="macau.html?hari=minggu" class="btn-hari">Minggu</a>
-                </div>
-            </div>
-
-            <!-- CAMBODIA -->
-            <div class="group-pasaran">
-                <div class="group-title">CAMBODIA <span>Senin - Minggu</span></div>
-                <div class="grid-hari">
-                    <a href="cambodia.html?hari=senin" class="btn-hari">Senin</a>
-                    <a href="cambodia.html?hari=selasa" class="btn-hari">Selasa</a>
-                    <a href="cambodia.html?hari=rabu" class="btn-hari">Rabu</a>
-                    <a href="cambodia.html?hari=kamis" class="btn-hari">Kamis</a>
-                    <a href="cambodia.html?hari=jumat" class="btn-hari">Jumat</a>
-                    <a href="cambodia.html?hari=sabtu" class="btn-hari">Sabtu</a>
-                    <a href="cambodia.html?hari=minggu" class="btn-hari">Minggu</a>
-                </div>
-            </div>
-
-            <!-- SDY -->
-            <div class="group-pasaran">
-                <div class="group-title">SDY (SYDNEY) <span>Senin - Minggu</span></div>
-                <div class="grid-hari">
-                    <a href="sdy.html?hari=senin" class="btn-hari">Senin</a>
-                    <a href="sdy.html?hari=selasa" class="btn-hari">Selasa</a>
-                    <a href="sdy.html?hari=rabu" class="btn-hari">Rabu</a>
-                    <a href="sdy.html?hari=kamis" class="btn-hari">Kamis</a>
-                    <a href="sdy.html?hari=jumat" class="btn-hari">Jumat</a>
-                    <a href="sdy.html?hari=sabtu" class="btn-hari">Sabtu</a>
-                    <a href="sdy.html?hari=minggu" class="btn-hari">Minggu</a>
-                </div>
-            </div>
-
-            <!-- CHINA -->
-            <div class="group-pasaran">
-                <div class="group-title">CHINA <span>Senin - Minggu</span></div>
-                <div class="grid-hari">
-                    <a href="china.html?hari=senin" class="btn-hari">Senin</a>
-                    <a href="china.html?hari=selasa" class="btn-hari">Selasa</a>
-                    <a href="china.html?hari=rabu" class="btn-hari">Rabu</a>
-                    <a href="china.html?hari=kamis" class="btn-hari">Kamis</a>
-                    <a href="china.html?hari=jumat" class="btn-hari">Jumat</a>
-                    <a href="china.html?hari=sabtu" class="btn-hari">Sabtu</a>
-                    <a href="china.html?hari=minggu" class="btn-hari">Minggu</a>
-                </div>
-            </div>
-
-            <!-- JAPAN -->
-            <div class="group-pasaran">
-                <div class="group-title">JAPAN <span>Senin - Minggu</span></div>
-                <div class="grid-hari">
-                    <a href="japan.html?hari=senin" class="btn-hari">Senin</a>
-                    <a href="japan.html?hari=selasa" class="btn-hari">Selasa</a>
-                    <a href="japan.html?hari=rabu" class="btn-hari">Rabu</a>
-                    <a href="japan.html?hari=kamis" class="btn-hari">Kamis</a>
-                    <a href="japan.html?hari=jumat" class="btn-hari">Jumat</a>
-                    <a href="japan.html?hari=sabtu" class="btn-hari">Sabtu</a>
-                    <a href="japan.html?hari=minggu" class="btn-hari">Minggu</a>
-                </div>
-            </div>
-
-            <!-- SGP -->
-            <div class="group-pasaran">
-                <div class="group-title">SGP (SINGAPORE) <span style="background-color: #ef4444; color: white;">Selasa &amp; Jumat Libur</span></div>
-                <div class="grid-hari">
-                    <a href="sgp.html?hari=senin" class="btn-hari">Senin</a>
-                    <div class="btn-libur">Selasa</div>
-                    <a href="sgp.html?hari=rabu" class="btn-hari">Rabu</a>
-                    <a href="sgp.html?hari=kamis" class="btn-hari">Kamis</a>
-                    <div class="btn-libur">Jumat</div>
-                    <a href="sgp.html?hari=sabtu" class="btn-hari">Sabtu</a>
-                    <a href="sgp.html?hari=minggu" class="btn-hari">Minggu</a>
-                </div>
-            </div>
-
-            <!-- TAIWAN -->
-            <div class="group-pasaran">
-                <div class="group-title">TAIWAN <span>Senin - Minggu</span></div>
-                <div class="grid-hari">
-                    <a href="taiwan.html?hari=senin" class="btn-hari">Senin</a>
-                    <a href="taiwan.html?hari=selasa" class="btn-hari">Selasa</a>
-                    <a href="taiwan.html?hari=rabu" class="btn-hari">Rabu</a>
-                    <a href="taiwan.html?hari=kamis" class="btn-hari">Kamis</a>
-                    <a href="taiwan.html?hari=jumat" class="btn-hari">Jumat</a>
-                    <a href="taiwan.html?hari=sabtu" class="btn-hari">Sabtu</a>
-                    <a href="taiwan.html?hari=minggu" class="btn-hari">Minggu</a>
-                </div>
-            </div>
-
-            <!-- HK -->
-            <div class="group-pasaran">
-                <div class="group-title">HK (HONGKONG) <span>Senin - Minggu</span></div>
-                <div class="grid-hari">
-                    <a href="hk.html?hari=senin" class="btn-hari">Senin</a>
-                    <a href="hk.html?hari=selasa" class="btn-hari">Selasa</a>
-                    <a href="hk.html?hari=rabu" class="btn-hari">Rabu</a>
-                    <a href="hk.html?hari=kamis" class="btn-hari">Kamis</a>
-                    <a href="hk.html?hari=jumat" class="btn-hari">Jumat</a>
-                    <a href="hk.html?hari=sabtu" class="btn-hari">Sabtu</a>
-                    <a href="hk.html?hari=minggu" class="btn-hari">Minggu</a>
-                </div>
-            </div>
-
-        </div> <!-- Penutup list-pasaran -->
-<!-- KODE LINK KEBIJAKAN PRIVASI RAMAH SEO -->
-<div style="text-align: center; margin: 25px auto 10px auto; border-top: 1px dashed rgba(255, 255, 255, 0.1); padding-top: 15px;">
-    <a href="privacy-policy.html" style="color: #a0aec0; text-decoration: none; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.5px; transition: color 0.2s;" onmouseover="this.style.color='#ffb703'" onmouseout="this.style.color='#a0aec0'">
-         KEBIJAKAN PRIVASI SITES ANGKA STATISTIK
-    </a>
-</div>
-
-        <section class="seo-article">
-            <h2>Mengenal Sistem Prediksi Angka Statistik Berbasis Algoritma</h2>
-            <p>Selamat datang di <strong>angkastatistik.my.id</strong>, platform digital terdepan yang menyajikan analisis data terukur untuk berbagai pasaran populer dunia. Kami memahami bahwa dalam dunia pengolahan nomor harian, ketepatan data dan kecepatan pembaruan informasi adalah kunci utama. Oleh karena itu, platform ini dibangun menggunakan optimasi <strong>SEO Google</strong> tingkat tinggi guna memastikan para pengguna dapat mengakses situs kami secara cepat, stabil, dan responsif langsung dari mesin pencari.</p>
-            <p>Sistem pengolahan data pada web <strong>PREDIKSI ANGKA STATISTIK</strong> tidak dilakukan secara acak. Kami menerapkan pemodelan matematika data historis dan integrasi <strong>algoritma</strong> pemfilteran nomor otomatis. Algoritma ini bekerja dengan cara memindai tren keluaran terdahulu dari pasaran populer seperti Macau, Cambodia, SDY, China, Japan, SGP, Taiwan, hingga HK. Melalui metode komputasi yang matang, probabilitas grafik paito warna dianalisis secara mendalam untuk menghasilkan rangkuman bocoran nomor jitu harian yang rapi.</p>
+    <section class="seo-article">
+        <h2>Mengenal Sistem Prediksi Angka Statistik Berbasis Algoritma</h2>
+        <p>Selamat datang di <strong>angkastatistik.my.id</strong>, platform digital terdepan yang menyajikan analisis data terukur untuk berbagai pasaran populer dunia. Kami memahami bahwa dalam dunia pengolahan nomor harian, ketepatan data dan kecepatan pembaruan informasi adalah kunci utama. Oleh karena itu, platform ini dibangun menggunakan optimasi <strong>SEO Google</strong> tingkat tinggi guna memastikan para pengguna dapat mengakses situs kami secara cepat, stabil, dan responsif langsung dari mesin pencari.</p>
+        <p>Sistem pengolahan data pada web <strong>PREDIKSI ANGKA STATISTIK</strong> tidak dilakukan secara acak. Kami menerapkan pemodelan matematika data historis dan integrasi <strong>algoritma</strong> pemfilteran nomor otomatis. Algoritma ini bekerja dengan cara memindai tren keluaran terdahulu dari pasaran populer seperti Macau, Cambodia, SDY, China, Japan, SGP, Taiwan, hingga HK. Melalui metode komputasi yang matang, probabilitas grafik paito warna dianalisis secara mendalam untuk menghasilkan rangkuman bocoran nomor jitu harian yang rapi.</p>
+    </section>
+        <!-- TAG PENCARIAN POPULER BOOSTER SEO GOOGLE (Lengkap Panjang Padat) -->
+        <section class="seo-tags-section">
+            <h3>Tag Pencarian Populer:</h3>
+            <p>prediksi angka statistik, angka statistik pilihan, bocoran togel harian, statistik macau, prediksi hk jitu, bocoran sgp pools, rumus sdy akurat, angka jitu cambodia, algoritma angka, paito warna sdy, live draw hk, toto macau pools pro, statistik paito china, rumus jitu japan, angka main taiwan terbaru, mesin rumus otomatis, paito harian sydney, bocoran hk jitu malam ini, ai 3 digit sdy, angka kuat 2d hk, angka tunggal macau, prediksi toto jitu hari ini, kalkulator rumus togel, live result cambodia tercepat, data keluaran hongkong, nomor sdy keluar hari ini, singapore pools generator, prediksi macau premium, logikahistori paito warna, bbfs abadi hk, angka mati total pasaran, mistik lama mistik baru toto, index angka jitu pasaran, bbfs generator jitu, master prediksi angka harian, bocoran sgp rabu kamis, toto macau jam 13 jam 16 jam 19 jam 22, live draw sdy result harian terbaru.</p>
         </section>
-
     </main>
 
+    <!-- FOOTER MENETAP DIAM RAPAT DI BAWAH -->
     <footer>
+        <p>&copy; 2026 <span>ANGKA STATISTIK</span>. All Rights Reserved.</p>
+        
+        <!-- WIDGET INTEGRASI ADS JARINGAN -->
+        <div style="text-align:center; margin:10px 0 0 0;">
+            <script async="async" data-cfasync="false" src="https://effectivecpmnetwork.com"></script>
+            <div id="container-285abe3dfa3645b0c5001d78494f7ebb"></div>
+        </div>
+        
+        <script src="https://effectivecpmnetwork.com"></script>
+        <script src="https://crypotential.com"></script>
 
-<p>&copy; 2026 <span>ANGKA STATISTIK</span>. All Rights Reserved.</p>
-<div style="text-align:center; margin:20px 0;">
-    <script async="async" data-cfasync="false"
-    src="https://pl30187165.effectivecpmnetwork.com/285abe3dfa3645b0c5001d78494f7ebb/invoke.js"></script>
+        <!-- Histats Counter Monitor -->
+        <div id="histats_counter" style="display:flex; justify-content:center; align-items:center; height:18px; overflow:hidden; transform:scale(.55); transform-origin:center; opacity:.85; margin-top:5px;"></div>
+    </footer>
 
-    <div id="container-285abe3dfa3645b0c5001d78494f7ebb"></div>
-</div><script src="https://pl30187164.effectivecpmnetwork.com/27/ba/bd/27babd93febcd37a091303b95048fdf4.js"></script><script src="https://crypotential.com/aau2deh1y8?key=28127d0dedbc5859c5a05ec19fed2ae4"></script>
-<!-- Histats Counter -->
-<div id="histats_counter" style="
-display:flex;
-justify-content:center;
-align-items:center;
-height:18px;
-overflow:hidden;
-transform:scale(.55);
-transform-origin:center;
-opacity:.85;
-">
-</div>
-
-</footer>
-
-
-<!-- Histats.com START -->
-<script type="text/javascript">
-var _Hasync= _Hasync || [];
-
-_Hasync.push(['Histats.start',
-'1,5037448,4,600,110,30,00001001'
-]);
-
-_Hasync.push(['Histats.fasi','1']);
-
-_Hasync.push(['Histats.track_hits','']);
-
-(function(){
-
-var hs=document.createElement('script');
-hs.type='text/javascript';
-hs.async=true;
-hs.src='//s10.histats.com/js15_as.js';
-
-(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0])
-.appendChild(hs);
-
-})();
-</script>
-
-<noscript>
-<a href="/" target="_blank">
-<img src="//sstatic1.histats.com/0.gif?5037448&101" alt="" border="0">
-</a>
-</noscript>
-
-<!-- Histats.com END -->
+    <!-- Histats.com START TRACKING -->
+    <script type="text/javascript">
+        var _Hasync= _Hasync || [];
+        _Hasync.push(['Histats.start', '1,5037448,4,600,110,30,00001001']);
+        _Hasync.push(['Histats.fasi','1']);
+        _Hasync.push(['Histats.track_hits','']);
+        (function(){
+            var hs=document.createElement('script'); hs.type='text/javascript'; hs.async=true;
+            hs.src='//://histats.com';
+            (document.getElementsByTagName('head') || document.getElementsByTagName('body')).appendChild(hs);
+        })();
+    </script>
+    <noscript>
+        <a href="/" target="_blank"><img src="//://histats.com" alt="Histats Tracker" border="0"></a>
+    </noscript>
+    <!-- Histats.com END -->
     
-<script>
-    window.onscroll = function() {
-        // Mendeteksi jika halaman digulir ke bawah lebih dari 50 piksel
-        const header = document.querySelector("header");
-        if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
-            header.classList.add("shrink"); // Menambahkan efek mengecil
-        } else {
-            header.classList.remove("shrink"); // Mengembalikan ke ukuran semula
-        }
-    };
-</script>
+    <script>
+        // 1. SKRIP POPUP SAMBUTAN SINGKAT
+        window.addEventListener('DOMContentLoaded', (event) => {
+            alert("Hai bosku selamat datang di website angka statistik - semoga anda beruntung dan hoky selalu");
+        });
+
+        // 2. SKRIP PENGENDALI EFEK SHRINK PADA HEADER
+        window.onscroll = function() {
+            const header = document.querySelector("header");
+            if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+                header.classList.add("shrink"); 
+            } else {
+                header.classList.remove("shrink"); 
+            }
+        };
+    </script>
 
 </body>
 </html>
