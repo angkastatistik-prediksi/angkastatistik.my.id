@@ -1,0 +1,44 @@
+name: Auto Update Data Togel
+
+on:
+  schedule:
+    # 1. Jam 12:15 WIB (05:15 UTC) -> Untuk Cambodia
+    - cron: '15 5 * * *'
+    # 2. Jam 14:15 WIB (07:15 UTC) -> Untuk Sydney
+    - cron: '15 7 * * *'
+  workflow_dispatch: # Tombol manual untuk tes lewat HP kapan saja
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Menggunakan v4 yang sudah mendukung penuh Node.js 24 terbaru
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    # Menggunakan v4 yang sudah mendukung penuh Node.js 24 terbaru
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 24
+
+     Tarik pustaka pendukung
+    - name: Install Dependencies
+      run: npm install
+
+    # Eksekusi bot dengan toleransi eror agar tidak gampang mogok
+    - name: Run Scraper Bots
+      run: |
+        node bot/cambodia.js || true
+        node bot/sydney.js || true
+
+     Simpan kembali semua perubahan tabel ke dalam folder result
+    - name: Commit and Push Changes
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@://github.com"
+        git add result/*.html
+        git diff-index --quiet HEAD || git commit -m "Auto Update Data Pasaran Node24"
+        git push
+
