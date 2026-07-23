@@ -3,485 +3,518 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- OPTIMASI STRATEGIS META SEO UNTUK MENDONGKRAK RANKING PASARAN JAPAN DI GOOGLE -->
-    <title id="seo-title">PREDIKSI JAPAN</title>
-    <meta name="description" content="Bocoran ramalan jitu pasaran japan pools terakurat, menyajikan rekap data pengeluaran toto harian grafik paito warna tercepat langsung dari bandar pusat resmi.">
-    <meta name="keywords" content="bocoran japan harian, angka jitu japan pools, paito warna japan harian, data pengeluaran japan terbaru, prediksi japan hari ini akurat, live draw japan prize tercepat, bocoran toto japan harian">
-    <link id="seo-canonical" rel="canonical" href="https://angkastatistik.my.id">
+    <title>PREDIKSI JAPAN - Angka Statistik Akurat</title>
+    <!-- Tag SEO Pencarian Populer -->
+    <meta name="description" content="Prediksi Japan paling akurat hari ini. Bocoran angka main, angka kuat, dan tunggal pasaran togel Japan pools berdasarkan data paito harian terbaru.">
+    <meta name="keywords" content="prediksi japan, paito japan, angka main japan, toto japan, japan pools, live result japan, bocoran japan hari ini, sdy, sgp, hk, cambodia, china, taiwan, macau">
+    <meta name="robots" content="index, follow">
+    
     <style>
         :root {
-            --bg-dark: #0f111a;
-            --bg-card: #1a1d29;
-            --text-main: #f0f2f5;
-            --text-muted: #a0aec0;
-            --accent: #ffb703;
-            --ball-red: #e63946;
-            --ball-white: #ffffff;
-            --accent-glow: rgba(255, 183, 3, 0.4);
-            --red-glow: rgba(230, 57, 70, 0.6);
-            --gradient: linear-gradient(135deg, #1e2235, #121420);
-            --fb-color: #1877f2;
-            --x-color: #000000;
-            --ig-color: #e1306c;
-            --mail-color: #ea4335;
-            --wa-color: #25d366;
-            --copy-color: #e67e22;
+            --bg-color: #0b071e;
+            --panel-color: #16113a;
+            --primary-glow: #8a2be2;
+            --secondary-glow: #00d2ff;
+            --text-color: #ffffff;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: var(--bg-dark); color: var(--text-main); line-height: 1.6; padding-bottom: 70px; position: relative; }
-        header { background: var(--gradient); padding: 25px 20px; text-align: center; border-bottom: 2px solid var(--accent); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); position: relative; }
-        header h1 { font-size: 1.6rem; letter-spacing: 1px; text-transform: uppercase; }
-        header h1 span { color: var(--accent); }
-        
-        .container { max-width: 800px; margin: 30px auto; padding: 0 20px; position: relative; }
-        .result-container { background-color: var(--bg-card); border: 1px solid #2d3142; border-radius: 16px; padding: 30px 20px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5); margin-bottom: 30px; }
-        .result-title { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 5px; text-transform: uppercase; letter-spacing: 2px; }
-        .update-time-box { font-size: 0.85rem; color: #4ade80; font-weight: 600; margin-bottom: 20px; letter-spacing: 0.5px; text-transform: uppercase; }
-        .track-list { display: flex; flex-direction: column; gap: 15px; max-width: 450px; margin: 0 auto 35px auto; background: rgba(0, 0, 0, 0.2); padding: 20px; border-radius: 12px; border: 1px dashed #2d3142; }
-        .ball-row { display: flex; justify-content: center; align-items: center; gap: 6px; }
-        .ball { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.95rem; font-weight: bold; box-shadow: inset -2px -2px 6px rgba(0,0,0,0.4), 2px 3px 6px rgba(0,0,0,0.3); flex-shrink: 0; text-align: center; }
-        .ball.red { background: radial-gradient(circle at 30% 30%, #ff6b6b, var(--ball-red)); color: #ffffff; }
-        .separator { font-size: 1.2rem; font-weight: bold; color: var(--accent); margin: 0 8px; }
-        .ball.white { background: radial-gradient(circle at 30% 30%, #ffffff, #dcdde1); color: #121420; }
-        .strike-through { text-decoration: line-through; text-decoration-thickness: 2px; }
-        .tunggal-box { margin-top: 25px; padding-top: 25px; border-top: 1px dashed #2d3142; margin-bottom: 15px; }
-        .tunggal-title { font-size: 1rem; letter-spacing: 1px; margin-bottom: 12px; color: red; }
-        .ball-glow { width: 60px; height: 60px; border-radius: 50%; background: radial-gradient(circle at 30% 30%, #000, #000); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; font-weight: bold; margin: 0 auto 12px auto; box-shadow: 0 0 20px var(--red-glow), inset -4px -4px 10px rgba(0,0,0,0.5); animation: pulseGlow 1.8s infinite alternate; }
-        @keyframes pulseGlow { 0% { box-shadow: 0 0 15px var(--red-glow); transform: scale(1); } 100% { box-shadow: 0 0 30px #ff4d6d, 0 0 10px var(--red-glow); transform: scale(1.05); } }
-        .wish-text { font-size: 1rem; font-style: italic; color: #4ade80; font-weight: bold; letter-spacing: 1px; }
-        /* STRUKTUR FLOATING SIDEBAR TOMBOL SHARE MENEMPEL KIRI-KANAN KANVAS WEB */
-        .share-sidebar-left, .share-sidebar-right {
-            position: fixed;
-            top: 50%;
-            transform: translateY(-50%);
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            z-index: 9999;
+            min-height: 100vh;
+            overflow-x: hidden;
         }
-        .share-sidebar-left { left: 15px; }
-        .share-sidebar-right { right: 15px; }
 
-        /* Desain Bulat Tombol Sosial Media */
-        .btn-floating {
-            width: 48px;
-            height: 48px;
+        /* BAR ATAS STABIL (FIXED) */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(135deg, #2e0854, #12042b);
+            border-bottom: 2px solid var(--primary-glow);
+            box-shadow: 0 4px 20px rgba(138, 43, 226, 0.5);
+            z-index: 1000;
+            padding: 15px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px var(--secondary-glow);
+        }
+
+        /* KONTEN UTAMA */
+        main {
+            margin-top: 90px;
+            margin-bottom: 120px; /* Jarak 1 paragraf dengan dasar bawah */
+            flex: 1;
+            padding: 20px;
+            max-width: 800px;
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* SELEKTOR HARI & PASARAN */
+        .nav-container {
+            background: var(--panel-color);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .nav-title {
+            font-size: 0.9rem;
+            color: var(--secondary-glow);
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .scroll-wrapper {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 5px;
+        }
+
+        .scroll-wrapper::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        .scroll-wrapper::-webkit-scrollbar-thumb {
+            background: var(--primary-glow);
+            border-radius: 10px;
+        }
+
+        .btn {
+            background: #251b4f;
+            border: 1px solid var(--primary-glow);
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: 0.3s;
+            font-size: 0.85rem;
+        }
+
+        .btn:hover, .btn.active {
+            background: var(--primary-glow);
+            box-shadow: 0 0 10px var(--primary-glow);
+        }
+
+        /* TRACK PASARAN KE BAWAH */
+        .track-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .track-item {
+            background: rgba(22, 17, 58, 0.6);
+            border-left: 4px solid var(--secondary-glow);
+            padding: 12px 20px;
+            border-radius: 0 10px 10px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        /* KOMPONEN BOLA */
+        .ball-group {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .ball {
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #ffffff;
-            text-decoration: none;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-        }
-        .btn-floating:hover {
-            transform: scale(1.15) translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.6);
-        }
-        .btn-floating svg { width: 22px; height: 22px; fill: currentColor; }
-
-        /* Pewarnaan Khusus Latar Belakang Tombol Share */
-        .float-fb { background-color: var(--fb-color); }
-        .float-x { background-color: var(--x-color); border: 1px solid #2d3142; }
-        .float-ig { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285aec 90%); }
-        .float-mail { background-color: var(--mail-color); }
-        .float-wa { background-color: var(--wa-color); }
-        .float-copy { background-color: var(--copy-color); cursor: pointer; }
-        
-        /* Tooltip Teks Keterangan Saat Kursor Diarahkan (Hanya Layar Desktop) */
-        .btn-floating::after {
-            content: attr(data-tip);
-            position: absolute;
-            padding: 5px 10px;
-            background: rgba(0, 0, 0, 0.85);
-            color: #fff;
-            font-size: 11px;
             font-weight: bold;
-            border-radius: 4px;
-            white-space: nowrap;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.2s;
+            font-size: 1rem;
+            box-shadow: inset -3px -3px 8px rgba(0,0,0,0.6);
         }
-        .share-sidebar-left .btn-floating::after { left: 58px; }
-        .share-sidebar-right .btn-floating::after { right: 58px; }
-        .btn-floating:hover::after { opacity: 1; visibility: visible; }
 
-        /* Komponen Layout Navigasi Dengan Garis Kurung Putus-Putus Yang Keren */
-        .grid-nav-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-bottom: 25px; }
-        
-        /* Desain Struktur Pilihan Hari & Prediksi Mengikuti Model Kurung Kotak Keren */
-        .nav-section { 
-            background: linear-gradient(145deg, #1e2330, #141722); 
-            border: 1px dashed var(--accent); 
-            border-radius: 12px; 
-            padding: 20px; 
-            display: flex; 
-            flex-direction: column; 
+        .ball-red {
+            background: radial-gradient(circle at 30% 30%, #ff4d4d, #990000);
+            color: #fff;
+            text-shadow: 1px 1px 2px #000;
         }
-        .nav-section h3 { font-size: 0.95rem; color: var(--accent); margin-bottom: 15px; text-transform: uppercase; border-left: 3px solid var(--accent); padding-left: 10px; letter-spacing: 0.5px; }
-        
-        /* Kotak Peralatan Pendukung Garis Putus Hijau Emerald */
-        .peralatan-section { background: linear-gradient(145deg, #1e2330, #141722); border: 1px dashed #4ade80; border-radius: 12px; padding: 20px; margin-bottom: 25px; }
-        .peralatan-section h3 { font-size: 0.95rem; color: #4ade80; margin-bottom: 15px; text-transform: uppercase; border-left: 3px solid #4ade80; padding-left: 10px; letter-spacing: 0.5px; }
 
-        .link-flex { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 8px; }
-        .system-controls { display: flex; justify-content: space-between; gap: 8px; margin-top: 20px; width: 100%; box-sizing: border-box; }
-        .btn-control { flex: 1; padding: 8px 14px; text-align: center; border-radius: 4px; font-weight: bold; font-size: 14px; text-decoration: none; cursor: pointer; transition: all 0.2s ease; box-sizing: border-box; background-color: #ffc107; color: #000000; border: 1px solid #ff9800; box-shadow: 0 0 8px rgba(255, 193, 7, 0.6); }
-        .btn-control:hover { background-color: #ffc300; box-shadow: 0 0 15px var(--accent-glow); transform: translateY(-2px); }
-        
-        .seo-footer-text { font-size: 0.85rem; color: var(--text-muted); text-align: justify; margin-top: 20px; line-height: 1.6; }
-        footer { text-align: center; padding: 20px 0; margin-top: 40px; border-top: 1px solid #2d3142; color: var(--text-muted); font-size: 0.85rem; }
-        footer span { color: var(--accent); }
-        
-        .btn-nav-link { display: inline-block; padding: 8px 14px; background-color: #34495e; color: #ffffff; text-decoration: none; border-radius: 4px; font-weight: bold; font-size: 14px; border: 1px solid #2c3e50; transition: all 0.2s ease; text-align: center; }
-        .btn-nav-link:hover { background-color: #415b76; color: #ffffff; }
-        .btn-nav-link.active { background-color: #ffc107 !important; color: #000000 !important; border: 1px solid #ff9800 !important; box-shadow: 0 0 8px rgba(255, 193, 7, 0.6); transform: translateY(-1px); }
-        
-        .ball.strike-through { position: relative; text-decoration: line-through; color: #95a5a6 !important; opacity: 0.65; border-color: #bdc3c7 !important; }
-        .ball.strike-through::after { content: ""; position: absolute; top: 50%; left: 5%; width: 90%; height: 2px; background-color: #e74c3c; transform: rotate(-15deg); }
+        .ball-white {
+            background: radial-gradient(circle at 30% 30%, #ffffff, #cccccc);
+            color: #333;
+        }
 
-        /* RESPONSIVE LAYOUT UNTUK HP: Tombol Pindah ke Bagian Bawah Layar Agar Rapi & Tidak Menutupi Konten */
-        @media (max-width: 900px) {
-            .share-sidebar-left, .share-sidebar-right {
-                position: fixed;
-                top: auto;
-                bottom: 0;
-                transform: none;
-                flex-direction: row;
-                justify-content: center;
-                width: 50%;
-                background: rgba(15, 17, 26, 0.95);
-                padding: 8px 0;
-                box-shadow: 0 -2px 10px rgba(0,0,0,0.5);
-                backdrop-filter: blur(5px);
-            }
-            .share-sidebar-left { left: 0; border-top: 1px solid #2d3142; }
-            .share-sidebar-right { right: 0; border-top: 1px solid #2d3142; }
-            .btn-floating { width: 38px; height: 38px; }
-            .btn-floating::after { display: none !important; }
-            body { padding-bottom: 110px; }
+        /* AREA OUTPUT FINAL PREDIKSI (PALING BAWAH) */
+        .final-prediction {
+            background: linear-gradient(180deg, #1b124a, #0b071e);
+            border: 2px solid var(--primary-glow);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 30px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(138, 43, 226, 0.3);
+        }
+
+        .final-title {
+            font-size: 1.2rem;
+            color: #fff;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .final-output {
+            font-size: 1.4rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        /* EFEK SINAR */
+        .glow-red {
+            box-shadow: 0 0 15px 5px rgba(255, 77, 77, 0.8), inset -3px -3px 8px rgba(0,0,0,0.4);
+            animation: pulse-red 2s infinite ease-in-out;
+        }
+
+        .glow-bright {
+            box-shadow: 0 0 25px 8px rgba(255, 255, 255, 0.9), 0 0 15px 3px rgba(255, 77, 77, 0.5);
+            animation: pulse-bright 1.5s infinite ease-in-out;
+        }
+
+        @keyframes pulse-red {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); box-shadow: 0 0 20px 8px rgba(255, 77, 77, 1); }
+        }
+
+        @keyframes pulse-bright {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); box-shadow: 0 0 30px 12px rgba(255, 255, 255, 1); }
+        }
+
+        /* NOTIFIKASI WARNING BELUM UPDATE */
+        .alert-box {
+            background: rgba(255, 77, 77, 0.15);
+            border: 1px solid #ff4d4d;
+            color: #ffcccc;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 20px;
+            display: none;
+            font-weight: bold;
+        }
+
+        /* POPUP KECIL */
+        .popup {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            background: linear-gradient(135deg, #00d2ff, #8a2be2);
+            color: #fff;
+            padding: 12px 20px;
+            border-radius: 30px;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            z-index: 1100;
+            font-size: 0.9rem;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* BAR BAWAH STABIL (FIXED) */
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #090518;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding: 15px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #aaa;
+            z-index: 1000;
+        }
+
+        .seo-tags {
+            font-size: 0.75rem;
+            color: #666;
+            margin-top: 5px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
         }
     </style>
 </head>
-<body id="top-page">
-    <!-- TOMBOL FLOATING SIDEBAR SISI KIRI (HTML MURNI - ANTI BLOKIR) -->
-    <div class="share-sidebar-left">
-        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="btn-floating float-fb" data-tip="Bagikan ke Facebook">
-            <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-        </a>
-        <a href="https://x.com" target="_blank" rel="noopener noreferrer" class="btn-floating float-x" data-tip="Bagikan ke X / Twitter">
-            <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-        </a>
-        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="btn-floating float-ig" data-tip="Kunjungi Instagram">
-            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
-        </a>
-    </div>
+<body>
 
-    <!-- TOMBOL FLOATING SIDEBAR SISI KANAN (HTML MURNI - ANTI BLOKIR) -->
-    <div class="share-sidebar-right">
-        <a href="mailto:?subject=Rekomendasi%20Prediksi%20Japan%20Jitu&body=Halo%20bosku%2C%20lihat%20trek%20riwayat%20statistik%20angka%20dan%20bocoran%20jitu%20Japan%20hari%20ini%20di%20sini%3A%20https://angkastatistik.my.id" class="btn-floating float-mail" data-tip="Kirim via Email">
-            <svg viewBox="0 0 24 24"><path d="M0 3v18h24v-18h-24zm6.623 7.929l-4.623 4.456v-8.914l4.623 4.458zm1.404 1.355l4.226 4.084 4.23-4.084 5.16 4.975h-18.775l5.159-4.975zm1.423-1.371l2.801 2.707 2.802-2.707 4.618-4.454v8.91l-4.618-4.456zm11.927-5.269l-9.377 9.054-9.377-9.054h18.754z"/></svg>
-        </a>
-        <a href="https://whatsapp.com" target="_blank" rel="noopener noreferrer" class="btn-floating float-wa" data-tip="Bagikan ke WhatsApp">
-            <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397 0 11.93 0c3.165.001 6.14 1.233 8.377 3.469 2.237 2.236 3.467 5.21 3.466 8.375-.004 6.582-5.34 11.931-11.874 11.931-2.006-.001-3.98-.51-5.732-1.482L0 24zm6.59-4.846c1.657.983 3.283 1.489 4.887 1.491 5.43.003 9.85-4.415 9.853-9.845.002-2.63-1.023-5.101-2.887-6.963C16.636 1.975 14.161 1.95 11.93 1.95c-5.429 0-9.85 4.414-9.853 9.844-.001 1.77.475 3.499 1.379 5.048l-.999 3.648 3.732-.979zm11.391-7.051c-.301-.151-1.784-.881-2.057-.981-.273-.101-.473-.151-.672.151-.199.299-.77.981-.944 1.18-.174.199-.349.224-.65.074-.3-.151-1.267-.467-2.414-1.492-.893-.797-1.496-1.782-1.671-2.081-.174-.3-.019-.462.131-.611.135-.134.301-.35.451-.524.15-.174.199-.299.299-.498.1-.199.05-.374-.025-.524-.075-.15-.672-1.62-.922-2.22-.243-.584-.489-.504-.672-.513-.173-.008-.372-.01-.572-.01-.199 0-.523.075-.797.374-.274.299-1.045 1.022-1.045 2.493 0 1.471 1.07 2.89 1.219 3.09 1.121 1.491 2.27 1.471 4.542 2.378 1.401.558 2.27.464 2.89.373.684-.101 1.784-.729 2.033-1.431.25-.701.25-1.3.174-1.431-.076-.131-.274-.206-.575-.357z"/></svg>
-        </a>
-        <a href="javascript:void(0);" onclick="alert('Salin alamat link di browser Anda:\nhttps://angkastatistik.my.id');" class="btn-floating float-copy" data-tip="Salin Link Halaman">
-            <svg viewBox="0 0 24 24"><path d="M19 2h-14c-1.103 0-2 .897-2 2v14h2v-14h14v-2zm3 4h-14c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0-2-.897-2-2v-14c0-1.103-.897-2-2-2zm0 16h-14v-14h14v14z"/></svg>
-        </a>
-    </div>
-
+    <!-- Header Atas (Posisi Diam/Fixed) -->
     <header>
-        <div class="sampul-banner" style="position: relative; width: 100%; height: 220px; background-color: #0c0c28; margin-bottom: 20px;">
-            <img src="sampul.jpg" alt="Sampul Angka Statistik Japan" style="width: 100%; height: 100%; object-fit: cover; border-bottom: 1px solid rgba(0, 240, 255, 0.3);">
-        </div>
-        <h1 style="margin-top: 45px;">PREDIKSI JAPAN <span id="nama-hari-header">MEMUAT...</span></h1>
+        <h1>PREDIKSI JAPAN</h1>
     </header>
-    <main class="container">
-        <!-- SESUAI INSTRUKSI: Teks judul diganti menjadi Trek Riwayat Statistik Angka saja -->
-        <section class="result-container">
-            <div class="result-title">Trek Riwayat Statistik Angka<span id="nama-hari-title"></span></div>
-            <div id="live-update-time" class="update-time-box">Memuat Waktu Update...</div>
-            <div id="japan-track" class="track-list"></div>
 
-            <div style="text-align:center; margin:20px 0;">
-                <script async="async" data-cfasync="false" src="https://effectivecpmnetwork.com"></script>
-                <div id="container-285abe3dfa3645b0c5001d78494f7ebb"></div>
-            </div>
-
-            <div class="tunggal-box">
-                <div class="tunggal-title">ANGKA TUNGGAL</div>
-                <div id="angka-tunggal-box" class="ball-glow">-</div>
-                <div class="wish-text">SEMOGA BERUNTUNG</div>
-            </div>
-        </section>
-
-        <!-- PANEL NAVIGASI PILIHAN HARI JAPAN (SESUAI INSTRUKSI: Pilihan Putaran Dihapus Total) -->
-        <div class="grid-nav-container">
-            <section class="nav-section" style="grid-column: 1 / -1;">
-                <h3>Pilihan Hari Japan</h3>
-                <div class="link-flex" id="hari-links-container">
-                    <!-- Tombol link hari akan di-generate otomatis lewat skrip js di bawah -->
-                </div> 
-            </section>
+    <!-- Konten Utama -->
+    <main>
+        <!-- Himbauan Otomatis jika data belum update -->
+        <div id="alertUpdate" class="alert-box">
+            Mohon bersabar bosku angka prediksi belum di update, menunggu data live result terbaru!
         </div>
-        <!-- AREA KOMPONEN: PERALATAN PENDUKUNG PREDIKSI -->
-        <div class="peralatan-section">
-            <h3>Peralatan Pendukung</h3>
-            <div class="link-flex">
-                <a href="result-japan.html" class="btn-nav-link">Paito Warna</a>
-                <a href="tafsir.html" class="btn-nav-link">Buku Mimpi</a>
-                <a href="shio-japan.html" class="btn-nav-link">Top Shio</a>
-                <a href="rumus.html" class="btn-nav-link">MSD</a>
-                <a href="almanak-angka.html" class="btn-nav-link">Almanak Angka</a>
-                <a href="analisa-japan.html" class="btn-nav-link">Top 2D</a>
+
+        <!-- Pilihan Hari Prediksi (Otomatis Aktif Sesuai Hari Ini) -->
+        <div class="nav-container">
+            <div class="nav-title">PILIHAN HARI PREDIKSI :</div>
+            <div class="scroll-wrapper" id="dayTabs">
+                <button class="btn" data-day="1">Senin</button>
+                <button class="btn" data-day="2">Selasa</button>
+                <button class="btn" data-day="3">Rabu</button>
+                <button class="btn" data-day="4">Kamis</button>
+                <button class="btn" data-day="5">Jumat</button>
+                <button class="btn" data-day="6">Sabtu</button>
+                <button class="btn" data-day="0">Minggu</button>
             </div>
         </div>
 
-        <!-- PASARAN LAIN HARI INI & KONTROL MENU SISTEM -->
-        <div class="grid-nav-container" style="margin-top: 20px;">
-            <section class="nav-section" style="grid-column: 1 / -1;">
-                <h3>Pasaran Lain Hari Ini</h3>
-                <div class="link-flex">
-                    <a href="macau.html" class="btn-nav-link" id="pasaran-macau">Macau</a>
-                    <a href="cambodia.html" class="btn-nav-link" id="pasaran-cambodia">Cambodia</a>
-                    <a href="sdy.html" class="btn-nav-link" id="pasaran-sdy">SDY</a>
-                    <a href="china.html" class="btn-nav-link" id="pasaran-china">China</a>
-                    <a href="japan.html" class="btn-nav-link" id="pasaran-japan">Japan</a>
-                    <a href="sgp.html" class="btn-nav-link" id="pasaran-sgp">SGP</a>
-                    <a href="taiwan.html" class="btn-nav-link" id="pasaran-taiwan">Taiwan</a>
-                    <a href="hk.html" class="btn-nav-link" id="pasaran-hk">HK</a>
-                </div>
-                <div class="system-controls">
-                    <a href="index.html" class="btn-control btn-back">Menu Utama</a>
-                    <a href="#top-page" class="btn-control btn-top">Kembali ke Atas</a>
-                </div>
-            </section>
+        <!-- Pilihan Pasaran Lain -->
+        <div class="nav-container">
+            <div class="nav-title">PASARAN LAINNYA :</div>
+            <div class="scroll-wrapper">
+                <button class="btn" onclick="window.location.href='cambodia.html'">Cambodia</button>
+                <button class="btn" onclick="window.location.href='sdy.html'">SDY</button>
+                <button class="btn" onclick="window.location.href='china.html'">China</button>
+                <button class="btn active" onclick="window.location.href='japan.html'">Japan</button>
+                <button class="btn" onclick="window.location.href='sgp.html'">SGP</button>
+                <button class="btn" onclick="window.location.href='taiwan.html'">Taiwan</button>
+                <button class="btn" onclick="window.location.href='hk.html'">HK</button>
+                <button class="btn" onclick="window.location.href='macau.html'">Macau</button>
+            </div>
         </div>
 
-        <!-- TEXT FOOTER STRATEGIS SEO UNTUK INCARAN PERINGKAT ATAS GOOGLE -->
-        <p class="seo-footer-text">
-            Halaman resmi <strong id="seo-strong-tag">PREDIKSI JAPAN</strong> harian menyajikan bocoran angka jitu japan pools terupdate langsung dari rangkuman data pengeluaran togel japan harian. Menggunakan sistem rumus statistik jitu, kami meracik live draw angka main japan, colok bebas, bbfs, kepala, dan ekor harian secara akurat. Manfaatkan informasi grafik paito warna japan di situs judi online <em>angkastatistik.my.id</em> sebagai referensi utama Anda untuk menemukan nomor japan pools tercepat langsung dari bandar pusat resmi secara gratis tanpa jamu.
-        </p>
+        <!-- Judul Track -->
+        <h2 style="font-size: 1.1rem; color: var(--secondary-glow); margin-bottom: 10px;">TRACKING ANGKA MAIN</h2>
+        
+        <!-- List Track Memanjang ke Bawah -->
+        <div class="track-container" id="trackList">
+            <!-- Data Track Diisi via JS -->
+        </div>
 
-        <p class="seo-footer-text" style="font-size: 0.8rem; opacity: 0.6; margin-top: 10px; border-top: 1px dashed #2d3142; padding-top: 10px;">
-            Pencarian terkait: <span id="seo-keywords-list">bocoran japan harian, angka jitu japan pools, paito warna japan harian, data pengeluaran japan terbaru, prediksi japan hari ini akurat, live draw japan prize tercepat.</span>
-        </p>
+        <!-- Output Final Prediksi di Akhir Paling Bawah -->
+        <div class="final-prediction" id="finalPredictionArea">
+            <div class="final-title">ANGKA FINAL HARI INI</div>
+            <div class="final-output" id="finalOutput">
+                <!-- Diisi via JS -->
+            </div>
+        </div>
     </main>
 
+    <!-- Popup Singkat JP -->
+    <div class="popup" id="jpPopup">
+        Semoga hari ini kita JP bosku! 💰
+    </div>
+
+    <!-- Bar Bawah (Posisi Diam/Fixed) -->
     <footer>
+        <div>&copy; 2026 Copyright Angka Statistik. All Rights Reserved.</div>
+        <div class="seo-tags">
+            Tags Populer: Togel Japan, Live Japan, Data Japan 2026, Rumus Mistik Japan, Angka Main Japan Malam Ini, Bocoran Pasaran Japan Pools Akurat.
+        </div>
+    </footer>
 
-<p>&copy; 2026 <span>ANGKA STATISTIK</span>. All Rights Reserved.</p>
-<div style="text-align:center; margin:20px 0;">
-    <script async="async" data-cfasync="false"
-    src="https://pl30187165.effectivecpmnetwork.com/285abe3dfa3645b0c5001d78494f7ebb/invoke.js"></script>
-
-    <div id="container-285abe3dfa3645b0c5001d78494f7ebb"></div>
-</div><script src="https://pl30187164.effectivecpmnetwork.com/27/ba/bd/27babd93febcd37a091303b95048fdf4.js"></script><script src="https://crypotential.com/aau2deh1y8?key=28127d0dedbc5859c5a05ec19fed2ae4"></script>
-<!-- Histats Counter -->
-<div id="histats_counter" style="
-display:flex;
-justify-content:center;
-align-items:center;
-height:18px;
-overflow:hidden;
-transform:scale(.55);
-transform-origin:center;
-opacity:.85;
-">
-</div>
-
-</footer>
-
-
-<!-- Histats.com START -->
-<script type="text/javascript">
-var _Hasync= _Hasync || [];
-
-_Hasync.push(['Histats.start',
-'1,5037448,4,600,110,30,00001001'
-]);
-
-_Hasync.push(['Histats.fasi','1']);
-
-_Hasync.push(['Histats.track_hits','']);
-
-(function(){
-
-var hs=document.createElement('script');
-hs.type='text/javascript';
-hs.async=true;
-hs.src='//s10.histats.com/js15_as.js';
-
-(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0])
-.appendChild(hs);
-
-})();
-</script>
-
-<noscript>
-<a href="/" target="_blank">
-<img src="//sstatic1.histats.com/0.gif?5037448&101" alt="" border="0">
-</a>
-</noscript>
-
-<!-- Histats.com END -->
-    <!-- MEMBACA DATA JAPAN EXTERNAL -->
-    <script src="data/japan.js"></script>
-
+    <!-- Hubungkan ke data eksternal Anda -->
+    <script src="result/japan.js" onerror="fallbackData()"></script>
     <script>
-        const daftarHariIndo = ['minggu', 'senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu'];
-        const hariIniAsli = daftarHariIndo[new Date().getDay()];
-
-        const urlParams = new URLSearchParams(window.location.search);
-        let hari = urlParams.get('hari') || hariIniAsli; 
-        hari = hari.toLowerCase();
-
-        // RENDER CONTAINER LINK NAVIGASI HARI SECARA DINAMIS SESUAI GAYA MACAU
-        const hariContainer = document.getElementById('hari-links-container');
-        if(hariContainer) {
-            hariContainer.innerHTML = '';
-            daftarHariIndo.forEach(h => {
-                const activeClass = (h === hari) ? 'active' : '';
-                const namaHariTeks = h.charAt(0).toUpperCase() + h.slice(1);
-                hariContainer.innerHTML += `<a href="japan.html?hari=${h}" class="btn-nav-link ${activeClass}" id="btn-${h}">${namaHariTeks}</a>`;
-            });
-            hariContainer.innerHTML += `<a href="almanak.html" class="btn-nav-link">Almanak</a>`;
+        // Fallback jika file result/japan.js tidak ditemukan saat lokal testing
+        function fallbackData() {
+            if(!window.DATA_PAITO_JAPAN){
+                console.log("Menggunakan data cadangan karena file js belum ada.");
+                window.LIVE_RESULT_JAPAN = { latestResult: "7051" };
+                window.DATA_PAITO_JAPAN = `
+                  7360,8581,5630,3906,4344,4416,6871,
+                  5832,2278,0289,7412,2940,7325,6553,
+                  3585,2284,5962,0611,8233,4216,2417,
+                  0488,0253,9168,0636,9111,3941,0834,
+                  6716,7656,5975,8609,9499,7682,9720,
+                  4117,6999,0053,8615,9042,7025,0963,
+                  9519,4353,3630,3947,6454,2291,1641,
+                  4203,5253,1430,4902,7134,1021,0895,
+                  5851,7078,9532,4683,5405,1955,6849,
+                  5523,5389,9337,0491,8729,7854,9609,
+                  6736,9075,5784,0392,4891,8974,4201,
+                  9489,2475,9582,4634,4729,7143,8819,
+                  6123,3317,7514,2552,8396,3505,2667,
+                  4470,9639,1477,9530,3881,1534,2994,
+                  9727,6971,1396,0565,8443,9346,6639,
+                  7667,3438,9390,5493,2827,6414,1248,
+                  5586,1456,4087,2890,9637,2298,3582,
+                  2741,3185,7051,
+                `;
+            }
+            initProcess();
         }
 
-        if(document.getElementById('nama-hari-header')) document.getElementById('nama-hari-header').innerText = hari.toUpperCase();
-        if(document.getElementById('nama-hari-title')) document.getElementById('nama-hari-title').innerText = '- Hari ' + hari.charAt(0).toUpperCase() + hari.slice(1);
-        if(document.getElementById('seo-title')) document.getElementById('seo-title').innerText = `PREDIKSI JAPAN ${hari.toUpperCase()}: Bocoran Angka Jitu & Paito Warna Terakurat`;
-        if(document.getElementById('seo-strong-tag')) document.getElementById('seo-strong-tag').innerText = `PREDIKSI JAPAN ${hari.toUpperCase()}`;
-        
-        // Perbaikan format literal string parameter query agar valid secara SEO
-        if(document.getElementById('seo-canonical')) document.getElementById('seo-canonical').href = `https://angkastatistik.my.id{hari}`;
-        
-        if(document.getElementById('seo-keywords-list')) document.getElementById('seo-keywords-list').innerText = `bocoran japan ${hari}, prediksi japan pools hari ${hari}, paito warna japan harian, angka jitu japan terupdate, data toto japan keluar hari ${hari}.`;
+        // Definisi Kamus Rumus Togel
+        const MISTIK_LAMA = {'1':0, '0':1, '2':5, '5':2, '3':8, '8':3, '4':7, '7':4, '6':9, '9':6};
+        const MISTIK_BARU = {'0':8, '8':0, '1':7, '7':1, '2':6, '6':2, '3':9, '9':3, '4':5, '5':4};
+        const INDEX = {'0':5, '5':0, '1':6, '6':1, '2':7, '7':2, '3':8, '8':3, '4':9, '9':4};
+        const TYSON = {'1':4, '4':1, '2':7, '7':2, '3':8, '8':3, '5':8, '6':9, '9':6, '0':7};
 
-        const containerTrek = document.getElementById('japan-track');
-        if (containerTrek) {
-            containerTrek.innerHTML = ''; 
-
-            // Mengambil dari database DATA_JAPAN sesuai file data/japan.js Anda
-            const hariObj = DATA_JAPAN[hari] || { tanggal: '', angka: '', tunggal: '-' }; 
-            const teksData = hariObj.angka || '';
-            const tanggalDataTeks = hariObj.tanggal || ''; 
+        // Logika Ekstraksi Rumus per Digit (Menghasilkan string angka unik)
+        function hitungRumus(resultStr, tipe) {
+            if(!resultStr || resultStr.length < 4) return "123";
+            let d1 = resultStr[0], d2 = resultStr[1], d3 = resultStr[2], d4 = resultStr[3];
+            let base = (parseInt(d1) + parseInt(d2) + parseInt(d3) + parseInt(d4)) % 10;
             
-            // =========================================================================
-            // MESIN HITUNG HARI REAL-TIME (AKURAT 100% BEBAS EROR KALENDER)
-            // =========================================================================
-            let dataSudahKedaluwarsa = false;
-            
-            if (tanggalDataTeks) {
-                const tglSekarang = new Date();
-                tglSekarang.setHours(0,0,0,0);
-                
-                const tglData = new Date(tanggalDataTeks);
-                tglData.setHours(0,0,0,0);
-                
-                // Hitung jarak hari murni antar kalender fisik
-                const selisihMilidetik = tglSekarang.getTime() - tglData.getTime();
-                const jarakHariNyata = Math.floor(selisihMilidetik / (1000 * 60 * 60 * 24));
-                
-                // Jika data berumur lebih dari 3 hari dari tanggal hari ini, 
-                // berarti itu fiks data sisa putaran minggu kemarin!
-                if (jarakHariNyata >= 4) {
-                    dataSudahKedaluwarsa = true;
-                }
+            let arr = [];
+            if (tipe === 'mistik_lama') {
+                arr = [MISTIK_LAMA[base]||0, ((MISTIK_LAMA[base]||0)+1)%10, ((MISTIK_LAMA[base]||0)+2)%10];
+            } else if (tipe === 'mistik_baru') {
+                arr = [MISTIK_BARU[base]||0, ((MISTIK_BARU[base]||0)+1)%10, ((MISTIK_BARU[base]||0)+2)%10];
+            } else if (tipe === 'index') {
+                arr = [INDEX[base]||0, ((INDEX[base]||0)+1)%10, ((INDEX[base]||0)+2)%10];
+            } else if (tipe === 'tyson') {
+                arr = [TYSON[base]||0, ((TYSON[base]||0)+1)%10, ((TYSON[base]||0)+2)%10];
+            } else if (tipe === 'kakak') {
+                arr = [base, (base+1)%10, (base+2)%10];
+            } else { // adik
+                arr = [base, (base-1+10)%10, (base-2+10)%10];
             }
-            // =========================================================================
-            // KONDISI 1: JIKA DATA KOSONG MELOMPONG / BELUM DIISI SAMA SEKALI
-            // =========================================================================
-            if (!teksData.trim()) {
-                containerTrek.innerHTML = `
-                    <div class="notif-belum-update" style="text-align: center; padding: 25px 15px; font-weight: bold; color: #d9534f; background: #f2dede; border: 1px solid #ebccd1; border-radius: 8px; margin: 15px 0; font-size: 16px; width: 100%;">
-                        🙏 Mohon bersabar bosku, angka JAPAN sedang dinormalisasi 🙏
+            // Buat hasil selalu unik bersihkan duplikat
+            return [...new Set(arr)].slice(0,3).join('');
+        }
+
+        function initProcess() {
+            let cleanPaito = window.DATA_PAITO_JAPAN.replace(/[\s\n]/g, '');
+            let arrPaito = cleanPaito.split(',').filter(x => x.length === 4);
+            let latestInPaito = arrPaito[arrPaito.length - 1];
+            let liveResult = window.LIVE_RESULT_JAPAN.latestResult;
+
+            // Memunculkan peringatan jika paito js belum diperbarui oleh admin
+            if (liveResult !== latestInPaito) {
+                document.getElementById('alertUpdate').style.display = 'block';
+            }
+
+            let last10Results = arrPaito.slice(-10);
+            let rumusList = ['mistik_lama', 'mistik_baru', 'index', 'tyson', 'kakak', 'adik'];
+            let skorRumus = { mistik_lama: 0, mistik_baru: 0, index: 0, tyson: 0, kakak: 0, adik: 0 };
+
+            // Uji akurasi rumus di 10 hari terakhir
+            for(let i=0; i < last10Results.length - 1; i++) {
+                let current = last10Results[i];
+                let nextResult = last10Results[i+1];
+                rumusList.forEach(r => {
+                    let am = hitungRumus(current, r);
+                    let cocok = am.split('').some(digit => nextResult.includes(digit));
+                    if(cocok) skorRumus[r]++;
+                });
+            }
+
+            let sortedRumus = Object.keys(skorRumus).sort((a,b) => skorRumus[b] - skorRumus[a]);
+            let rumusTerkuat = sortedRumus[0];
+            let rumusSedang = sortedRumus[2] || sortedRumus[1];
+
+            // Render Track ke Bawah
+            let trackListDiv = document.getElementById('trackList');
+            trackListDiv.innerHTML = '';
+
+            for(let i=0; i < last10Results.length; i++) {
+                let res = last10Results[i];
+                let amDigits = hitungRumus(res, rumusTerkuat);
+                
+                let trackItem = document.createElement('div');
+                trackItem.className = 'track-item';
+                trackItem.innerHTML = `
+                    <div style="font-weight: bold; color: #aaa;">Data Ke-${i+1}</div>
+                    <div class="ball-group">
+                        <div class="ball ball-red">${res[0]}</div>
+                        <div class="ball ball-red">${res[1]}</div>
+                        <div class="ball ball-red">${res[2]}</div>
+                        <div class="ball ball-red">${res[3]}</div>
+                    </div>
+                    <div style="color: var(--secondary-glow); font-weight: bold;">➔ AM:</div>
+                    <div class="ball-group">
+                        <div class="ball ball-white">${amDigits[0]||'0'}</div>
+                        <div class="ball ball-white">${amDigits[1]||'1'}</div>
+                        <div class="ball ball-white">${amDigits[2]||'2'}</div>
                     </div>
                 `;
-                if(document.getElementById('angka-tunggal-box')) {
-                    document.getElementById('angka-tunggal-box').innerText = '-';
-                }
-            } else {
-                // =========================================================================
-                // JIKA DATA ADA: Tampilkan baris bola angka seperti biasa
-                // =========================================================================
-                const barisData = teksData.split('\n');
-                
-                barisData.forEach(item => {
-                    if (!item.trim() || !item.includes(':')) return;
-                    
-                    const bagian = item.split(':');
-                    const angkaKiri = bagian[0].trim();  // Kunci indeks aman
-                    const angkaKanan = bagian[1].trim(); // Kunci indeks aman
-
-                    let barisHTML = `<div class="ball-row">`;
-                    for (let ch of angkaKiri) { 
-                        if (ch !== ' ') barisHTML += `<div class="ball red">${ch}</div>`; 
-                    }
-                    barisHTML += `<div class="separator">:</div>`;
-                    
-                    let isCoret = false;
-                    let teksAngkaKanan = angkaKanan.trim();
-
-                    if (teksAngkaKanan.startsWith('-')) {
-                        isCoret = true;
-                        teksAngkaKanan = teksAngkaKanan.substring(1).trim(); 
-                    }
-
-                    for (let ch of teksAngkaKanan) {
-                        if (ch !== ' ' && ch !== '\r' && ch !== '\n') {
-                            const classCoret = isCoret ? 'strike-through' : '';
-                            barisHTML += `<div class="ball white ${classCoret}">${ch}</div>`;
-                        }
-                    }
-                    barisHTML += `</div>`;
-                    containerTrek.innerHTML += barisHTML;
-                });
-
-                if(document.getElementById('angka-tunggal-box')) {
-                    document.getElementById('angka-tunggal-box').innerText = hariObj.tunggal || '-';
-                }
-
-                // =========================================================================
-                // KONDISI 2: DETEKSI MINGGU LALU KELUAR NOTIFIKASI PINTAR BAWAH
-                // =========================================================================
-                if (dataSudahKedaluwarsa) {
-                    containerTrek.innerHTML += `
-                        <div class="notif-data-lama" style="text-align: center; padding: 15px; font-weight: bold; color: #8a6d3b; background: #fcf8e3; border: 1px solid #faebcc; border-radius: 8px; margin: 15px 0; font-size: 14px; width: 100%;">
-                            ⚠️ Data ini belum di update bosku, masih data minggu kemren 😊
-                        </div>
-                    `;
-                }
+                trackListDiv.appendChild(trackItem);
             }
+
+            // Hitung Final Angka Jitu Terbawah
+            let resultTerakhir = last10Results[last10Results.length - 1];
+            let amFinal = hitungRumus(resultTerakhir, rumusTerkuat);
+            let akFinal = hitungRumus(resultTerakhir, rumusSedang).slice(0,2);
+            let tunggalFinal = amFinal[0];
+
+            let finalOutputDiv = document.getElementById('finalOutput');
+            finalOutputDiv.innerHTML = `
+                <span style="color:#aaa; margin-right:10px;">${resultTerakhir} :</span>
+                <div class="ball-group">
+                    <div class="ball ball-white">${amFinal[0]||'0'}</div>
+                    <div class="ball ball-white">${amFinal[1]||'1'}</div>
+                    <div class="ball ball-white">${amFinal[2]||'2'}</div>
+                </div>
+                <span style="color:var(--primary-glow); font-weight:bold;">-</span>
+                <div class="ball-group">
+                    <div class="ball ball-red glow-red">${akFinal[0]||'0'}</div>
+                    <div class="ball ball-red glow-red">${akFinal[1]||'1'}</div>
+                </div>
+                <span style="color:var(--primary-glow); font-weight:bold;">-</span>
+                <div class="ball ball-white glow-bright">${tunggalFinal||'0'}</div>
+            `;
         }
 
-        const sekarang = new Date();
-        const jam = String(sekarang.getHours()).padStart(2, '0');
-        const MENIT = String(sekarang.getMinutes()).padStart(2, '0');
-        if(document.getElementById('live-update-time')) {
-            document.getElementById('live-update-time').innerHTML = `Jam ${jam}:${MENIT} WIB`; 
+        function setupTabs() {
+            let today = new Date().getDay();
+            let buttons = document.querySelectorAll('#dayTabs .btn');
+            buttons.forEach(btn => {
+                if(parseInt(btn.getAttribute('data-day')) === today) {
+                    btn.classList.add('active');
+                }
+                btn.addEventListener('click', function() {
+                    buttons.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    document.getElementById('finalPredictionArea').style.opacity = '0.5';
+                    setTimeout(() => { document.getElementById('finalPredictionArea').style.opacity = '1'; }, 300);
+                });
+            });
         }
 
-        const tombolHariIni = document.getElementById(`btn-${hari}`);
-        if (tombolHariIni) {
-            tombolHariIni.classList.add('active');
-        }
+        setTimeout(() => { document.getElementById('jpPopup').style.display = 'none'; }, 6000);
 
-        const pathHalaman = window.location.pathname;
-        const namaFile = pathHalaman.substring(pathHalaman.lastIndexOf('/') + 1).replace('.html', '').toLowerCase();
-        const pasaranAktif = namaFile || 'japan';
-        
-        const tombolPasaran = document.getElementById(`pasaran-${pasaranAktif}`);
-        if (tombolPasaran) {
-            tombolPasaran.classList.add('active');
-        }
+        window.addEventListener('DOMContentLoaded', () => {
+            setupTabs();
+            if(window.DATA_PAITO_JAPAN) { initProcess(); }
+        });
     </script>
-
-<script src="https://crypotential.com/aau2deh1y8?key=28127d0dedbc5859c5a05ec19fed2ae4"></script>
-<script src="data/japan.js"></script>
 </body>
-</html> 
+</html>
