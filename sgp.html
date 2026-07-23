@@ -383,7 +383,7 @@ hs.src='//s10.histats.com/js15_as.js';
             let angkaTunggalOtomatis = "-";
 
             // =========================================================================
-            // MESIN OTOMATISASI PREDIKSI 2D TANPA DATA/SGP.JS
+            // MESIN OTOMATISASI PREDIKSI 2D TANPA DATA/SGP.JS (REFACTORED & CLEAN)
             // =========================================================================
             if (typeof DATA_PAITO_SGP !== 'undefined') {
                 const MistikLama = {0:1, 1:0, 2:5, 5:2, 3:8, 8:3, 4:7, 7:4, 6:9, 9:6};
@@ -424,7 +424,7 @@ hs.src='//s10.histats.com/js15_as.js';
                     let kuat2D = hasilSaring.slice(0, 2).join('');
                     let tunggal1D = hasilSaring.slice(0, 1).join('');
 
-                    let formatTeksBawaan = `${am3D.split('').join(' ')} : ${kuat2D.split('').join(' ')}`;
+                    let formatTeksBawaan = am3D.split('').join(' ') + " : " + kuat2D.split('').join(' ');
                     kumpulanBarisOtomatis.push(formatTeksBawaan);
 
                     if (i === kumpulanResult.length - 1) {
@@ -434,17 +434,13 @@ hs.src='//s10.histats.com/js15_as.js';
 
                 teksData = kumpulanBarisOtomatis.join('\n');
             }
-
-                        // =========================================================================
+            // =========================================================================
             // MESIN HITUNG HARI REAL-TIME (OTOMATIS BERDASARKAN WAKTU SEKARANG)
             // =========================================================================
             let dataSudahKedaluwarsa = false;
             
-            // Menggunakan penanda otomatis hari aktif, jika bukan hari ini yang dibuka 
-            // oleh pengunjung, maka sistem menganggap data tersebut adalah arsip trek.
+            // Logika otomatis menandai arsip jika pengunjung membuka halaman hari esok/kemarin
             if (hari !== hariIniAsli) {
-                // SGP libur Selasa & Jumat, jadi jika hari ini dibuka di luar hari tersebut 
-                // sistem mendeteksi siklus perputaran secara cerdas.
                 dataSudahKedaluwarsa = false; 
             }
 
@@ -470,8 +466,8 @@ hs.src='//s10.histats.com/js15_as.js';
                     if (!item.trim() || !item.includes(':')) return;
                     
                     const bagian = item.split(':');
-                    const angkaKiri = bagian[0].trim();  // Perbaikan: Ambil indeks array ke-0 baru di-trim
-                    const angkaKanan = bagian[1].trim(); // Perbaikan: Ambil indeks array ke-1 baru di-trim
+                    const angkaKiri = bagian[0].trim();  // Perbaikan mutlak: indeks ke-0 di-trim
+                    const angkaKanan = bagian[1].trim(); // Perbaikan mutlak: indeks ke-1 di-trim
 
                     let barisHTML = `<div class="ball-row">`;
                     for (let ch of angkaKiri) { 
@@ -535,6 +531,7 @@ hs.src='//s10.histats.com/js15_as.js';
             tombolPasaran.classList.add('active');
         }
     </script>
+
 
 <script src="https://crypotential.com/aau2deh1y8?key=28127d0dedbc5859c5a05ec19fed2ae4"></script>
 <script src="data/sgp.js"></script>
