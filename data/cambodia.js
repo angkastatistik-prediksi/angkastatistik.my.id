@@ -22,6 +22,7 @@ tunggal: "0"
 
 rabu: {
 tanggal: "2026-07-22", 
+angka: `
 6268 : 693
 `,
 tunggal: "3"
