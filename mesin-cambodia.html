@@ -196,18 +196,22 @@
 
         let barisData = [];
 
-        // 1. Hitung AM 4D Dasar Berantai
+        // 1. HITUNG AM 4D DASAR BERDASARKAN RUMUS KOREKSI ANDA
         for (let i = 0; i < cleanResults.length; i++) {
             let res = cleanResults[i];
-            let as = parseInt(res[0]);
-            let cop = parseInt(res[1]);
-            let kepala = parseInt(res[2]);
-            let ekor = parseInt(res[3]);
+            let asDigit = parseInt(res[0]);
+            let copDigit = parseInt(res[1]);
+            let kepDigit = parseInt(res[2]);
+            let ekoDigit = parseInt(res[3]);
 
-            let selisihAsKep = Math.abs(as - kepala);
-            let selisihCopEkor = Math.abs(cop - ekor);
-            let totalUtama = selisihAsKep + selisihCopEkor;
+            // Logika Baru: (As + Cop) vs (Kepala + Ekor)
+            let jumlahAsCop = asDigit + copDigit;
+            let jumlahKepEkor = kepDigit + ekoDigit;
+            
+            // Angka besar dikurangi angka kecil
+            let totalUtama = Math.abs(jumlahAsCop - jumlahKepEkor);
 
+            // Sederhanakan jika hasil pengurangan masih >= 10 (contoh jika selisihnya 11 -> 1+1=2)
             if (totalUtama >= 10) {
                 let str = totalUtama.toString();
                 totalUtama = parseInt(str[0]) + parseInt(str[1]);
@@ -224,8 +228,8 @@
 
             barisData.push({
                 result: res,
-                as: res[0],
-                kepala: res[2],
+                as: res[0],      // Menyimpan digit AS untuk tracking
+                kepala: res[2],  // Menyimpan digit KEPALA untuk tracking
                 am4: [n1, n2, n3, n4].map(String)
             });
         }
@@ -233,7 +237,7 @@
         let htmlTable = "";
         let htmlLogs = [];
 
-        // 2. Lacak Mundur & Terapkan Pewarnaan Sel
+        // 2. Lacak Mundur & Terapkan Pewarnaan Sel (Bawah ke Atas)
         for (let i = barisData.length - 1; i >= 0; i--) {
             let current = barisData[i];
             let am3 = [...current.am4];
@@ -281,13 +285,13 @@
             if (i > 0) {
                 let am4Atas = barisData[i - 1].am4;
                 let cocok = am2.filter(num => am4Atas.includes(num));
-                tunggal = cocok.length > 0 ? cocok[0] : am2[0];
+                tunggal = cocok.length > 0 ? cocok[0] : am2[0]; // Ambil 1 digit tunggal utama
                 htmlLogs.push(`[Res: ${current.result}] Angka Tunggal terpilih: ${tunggal}`);
             } else {
                 tunggal = "-";
             }
 
-            // Konstruksi tampilan string 4D dasar dengan tanda visual warna pangkas
+            // Tanda visual warna pangkas di kolom AM 4D
             let strAm4 = current.am4.map(n => {
                 if (n === angkaOff3D) return `<span class="bg-as-off" style="padding:1px 4px; border-radius:2px;">${n}</span>`;
                 if (n === angkaOff2D) return `<span class="bg-kepala-off" style="padding:1px 4px; border-radius:2px;">${n}</span>`;
@@ -306,10 +310,9 @@
             `;
         }
 
-        // Cetak hasil ke layar secara rapi memanjang ke bawah
         tbody.innerHTML = htmlTable;
         logContent.innerHTML = htmlLogs.map(text => `<div class="log-item">${text}</div>`).join('');
-        detailBox.style.display = "block"; // Tampilkan detail log di dasar layar setelah tombol ditekan
+        detailBox.style.display = "block"; 
     }
 </script>
 </body>
