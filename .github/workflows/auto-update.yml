@@ -2,10 +2,18 @@ name: Auto Update Data Togel
 
 on:
   schedule:
-    - cron: '15 5 * * *'  # Cambodia (12:15 WIB)
-    - cron: '15 7 * * *'  # Sydney (14:15 WIB)
-    - cron: '45 8 * * *'  # China (15:45 WIB)
-  workflow_dispatch:
+    # 1. Cambodia: Jam 11:55, 12:00, 12:05 WIB (04:55, 05:00, 05:05 UTC)
+    - cron: '55 4 * * *'
+    - cron: '0,5,10,15,20 5 * * *'
+    
+    # 2. Sydney: Jam 13:55, 14:00, 14:05, 14:10, 14:15, 14:20 WIB (06:55, 07:00, 07:05, 07:10, 07:15, 07:20 UTC)
+    - cron: '55 6 * * *'
+    - cron: '0,5,10,15,20 7 * * *'
+    
+    # 3. China: Jam 15:25, 15:30, 15:35, 15:40, 15:45, 15:50 WIB (08:25, 08:30, 08:35, 08:40, 08:45, 08:50 UTC)
+    - cron: '25,30,35,40,45,50 8 * * *'
+    
+  workflow_dispatch: # Tombol manual lewat HP
 
 jobs:
   build:
@@ -34,5 +42,5 @@ jobs:
         git config --global user.name "github-actions[bot]"
         git config --global user.email "github-actions[bot]@://github.com"
         git add result/*.html
-        git diff-index --quiet HEAD || git commit -m "Auto Update Data Pasaran Node24"
+        git diff-index --quiet HEAD || git commit -m "Realtime Hunting -5 Menit Sebelum Result"
         git push
