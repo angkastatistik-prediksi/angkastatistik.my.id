@@ -486,10 +486,10 @@ hs.src='//s10.histats.com/js15_as.js';
                 barisData.forEach(item => {
                     if (!item.trim() || !item.includes(':')) return;
                     
-                    // Memotong format "RESULT : AM3D - KUAT2D" dengan indeks array [0] dan [1] yang valid
+                    // Memotong format "RESULT : AM3D - KUAT2D" menggunakan cara aman indeks array
                     const bagianUtama = item.split(':');
-                    const angkaKiri = bagianUtama[0].trim();  // 4 Digit Result asli
-                    const sisaKanan = bagianUtama[1].trim();  // Teks "AM3D - KUAT2D"
+                    const angkaKiri = bagianUtama[0].trim();  // Menampilkan 4 Digit Result asli
+                    const sisaKanan = bagianUtama[1].trim();  // Menampilkan Teks "AM3D - KUAT2D"
                     
                     let angkaAM = sisaKanan;
                     let angkaKuat = "";
