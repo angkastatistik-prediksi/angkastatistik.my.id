@@ -435,7 +435,7 @@ hs.src='//s10.histats.com/js15_as.js';
                 teksData = kumpulanBarisOtomatis.join('\n');
             }
 
-            // =========================================================================
+                        // =========================================================================
             // MESIN HITUNG HARI REAL-TIME (OTOMATIS BERDASARKAN WAKTU SEKARANG)
             // =========================================================================
             let dataSudahKedaluwarsa = false;
@@ -470,8 +470,8 @@ hs.src='//s10.histats.com/js15_as.js';
                     if (!item.trim() || !item.includes(':')) return;
                     
                     const bagian = item.split(':');
-                    const angkaKiri = bagian[0].trim();  // Kunci indeks aman
-                    const angkaKanan = bagian[1].trim(); // Kunci indeks aman
+                    const angkaKiri = bagian[0].trim();  // Perbaikan: Ambil indeks array ke-0 baru di-trim
+                    const angkaKanan = bagian[1].trim(); // Perbaikan: Ambil indeks array ke-1 baru di-trim
 
                     let barisHTML = `<div class="ball-row">`;
                     for (let ch of angkaKiri) { 
