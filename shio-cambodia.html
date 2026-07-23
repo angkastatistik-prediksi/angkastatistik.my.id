@@ -240,10 +240,16 @@
     <!-- TOMBOL PROSES HITUNG -->
     <button id="btn-hitung" class="btn-main">Mulai Hitung Rumus Shio</button>
 
+    <!-- TOMBOL SHARE FB -->
     <div style="text-align: center; gap: 8px; display: flex; justify-content: center; margin: 15px 0;">
+    <!-- Tombol Bagikan FB Kecil -->
+    <button onclick="window.open('https://facebook.com', '_blank', 'width=600,height=400')" style="background-color: #1877f2; color: white; padding: 6px 12px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 0.85rem;">
+    ↪️ Masuk ke FB untuk Paste
+    </button>
+
     <!-- Tombol Salin Teks Kecil -->
-    <button onclick="var txt = 'Prediksi shio ini semoga membantu, selengkapnya silahkan klick ' + window.location.href; navigator.clipboard.writeText(txt); alert('Teks berhasil disalin!');" style="background-color: #28a745; color: white; padding: 6px 12px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 0.85rem;">
-        Salin Tautan & Prediksi
+    <button onclick="var txt = 'Prediksi shio ini semoga membantu, selengkapnya silahkan klick ' + window.location.href; navigator.clipboard.writeText(txt); alert('Teks prediksi berhasil disalin!');" style="background-color: #28a745; color: white; padding: 6px 12px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 0.85rem;">
+        📋 Salin Teks & Link
     </button>
     </div>
 
@@ -277,7 +283,8 @@
         <a href="shio-japan.html">Japan</a>
         <a href="shio-sgp.html">Singapore</a>
         <a href="shio-taiwan.html">Taiwan</a>
-        <a href="shio-hk.html">Hongkong</a>        
+        <a href="shio-hk.html">Hongkong</a>
+        <a href="shio-macau.html">Macau</a>
         <a href="shio.html" class="active">Tahun Shio</a>
     </div>
 
@@ -345,10 +352,12 @@ hs.src='//s10.histats.com/js15_as.js';
 document.addEventListener("DOMContentLoaded", function() {
     let arrayAngkaMentah = [];
 
-    // FIX: Format URL Share Facebook Resmi yang Benar & Lolos Blokir GitHub Pages
+    // Tanam URL share otomatis jika sudah di hosting online
     let urlWebsiteIni = window.location.href;
-    let linkShareFB = "https://facebook.com" + encodeURIComponent(urlWebsiteIni);
-    document.getElementById('btn-share-facebook').setAttribute('href', linkShareFB);
+    if(urlWebsiteIni.startsWith("http")) {
+        let linkShareFB = "https://facebook.com" + encodeURIComponent(urlWebsiteIni);
+        document.getElementById('btn-share-facebook').setAttribute('href', linkShareFB);
+    }
 
     // 1. EKSTRAKSI DATA STRING PAITO CAMBODIA
     if (typeof DATA_PAITO_CAMBODIA !== 'undefined' && DATA_PAITO_CAMBODIA.trim() !== '') {
@@ -417,21 +426,14 @@ function jalankanMesinShio(arrayAngkaMentah) {
     let shioUrutanHot = [...skorShio].sort((a, b) => b.skor - a.skor);
     let shioUrutanCold = [...skorShio].sort((a, b) => a.skor - b.skor);
 
-    // FIX LOGIKA: Menentukan Shio Bom dan Cadangan 1 murni dari indeks urutan statistik harian
     let shioBom = shioUrutanHot[0].nama;
     let shioCadangan1 = shioUrutanCold[0].nama;
-    if (shioCadangan1 === shioBom) { 
-        shioCadangan1 = shioUrutanCold[1].nama; 
-    }
+    if (shioCadangan1 === shioBom) { shioCadangan1 = shioUrutanCold[1].nama; }
 
-    // FIX LOGIKA: Shio cadangan 2 murni mengambil jalur mistik atau bergeser ke ranking statistik berikutnya jika duplikat (Tanpa Math.random agar 100% Paten Konsisten)
     let shioCadangan2 = tabelMistikShio[shioBom];
     if (shioCadangan2 === shioBom || shioCadangan2 === shioCadangan1) {
-        // Jika terjadi duplikat, ambil Shio terkuat urutan kedua dari hasil statistik harian
-        shioCadangan2 = shioUrutanHot[1].nama;
-        if (shioCadangan2 === shioBom || shioCadangan2 === shioCadangan1) {
-            shioCadangan2 = shioUrutanHot[2].nama;
-        }
+        let sisaShio = daftarShio.filter(s => s !== shioBom && s !== shioCadangan1);
+        shioCadangan2 = sisaShio[Math.floor(Math.random() * sisaShio.length)];
     }
 
     // Tampilkan Hasil Text + Gambar Emoji ke HTML
