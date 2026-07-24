@@ -347,30 +347,22 @@ hs.src='//s10.histats.com/js15_as.js';
 </div>
 <!-- JAVASCRIPT PEMROSES LOGIKA -->
 <script src="result/cambodia.js"></script>
-
 <script>
-// =============== CONFIGURASI UTAMA PASARAN ===============
-const PASARAN_AKTIF = 'DATA_PAITO_CAMBODIA'; 
-// =========================================================
-
 document.addEventListener("DOMContentLoaded", function() {
     let arrayAngkaMentah = [];
 
-    // Mengambil data secara dinamis berdasarkan konfigurasi PASARAN_AKTIF di atas
-    let databasePaito = window[PASARAN_AKTIF];
-
-    // 1. EKSTRAKSI DATA STRING PAITO SECARA DINAMIS
-    if (typeof databasePaito !== 'undefined' && databasePaito.trim() !== '') {
+    // 1. EKSTRAKSI DATA STRING PAITO
+    if (typeof DATA_PAITO_CAMBODIA !== 'undefined' && DATA_PAITO_CAMBODIA.trim() !== '') {
         let containerHistori = document.getElementById('wrapper-histori');
         containerHistori.innerHTML = '';
         
-        let semuaPotongan = databasePaito.split(',').map(item => item.trim()).filter(item => item !== "");
+        let semuaPotongan = DATA_PAITO_CAMBODIA.split(',').map(item => item.trim()).filter(item => item !== "");
         let semuaAngkaSah = semuaPotongan.filter(item => item.length === 4 && item !== "-");
         
-        // Mengambil 20 data terakhir dari pasaran terpilih untuk analisis akurat
+        // Mengambil 20 data terakhir agar analisis statistik Hot/Cold jauh lebih akurat
         arrayAngkaMentah = semuaAngkaSah.slice(-20); 
 
-        // Menampilkan 7 data teratas ke layar user
+        // Menampilkan 7 data teratas ke layar user agar tampilan tetap rapi
         let tampilanHistori = [...semuaAngkaSah].slice(-7).reverse();
         tampilanHistori.forEach((nomor, indeks) => {
             containerHistori.innerHTML += `
@@ -380,7 +372,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 </div>`;
         });
     } else {
-        document.getElementById('wrapper-histori').innerText = "Gagal memuat database pasaran aktif.";
+        document.getElementById('wrapper-histori').innerText = "Gagal memuat database pasaran.";
         return;
     }
 
@@ -394,9 +386,11 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-// FUNGSI UTK CEK ANGKA SHIO (STRUKTUR ANGKA RESMI LENGKAP - ANTI-KOSONG)
+// FUNGSI UTK CEK ANGKA SHIO (SUDAH DISESUAIKAN DENGAN STRUKTUR ANGKA RESMI)
 function dapatkanShioDariAngka(duaAngka) {
     const angka = parseInt(duaAngka);
+    
+    // Pemetaan kelompok angka untuk setiap Shio
     const kelompokShio = {
         "KUDA": [1, 13, 25, 37, 49, 61, 73, 85, 97],
         "ULAR": [2, 14, 26, 38, 50, 62, 74, 86, 98],
@@ -404,11 +398,11 @@ function dapatkanShioDariAngka(duaAngka) {
         "KELINCI": [4, 16, 28, 40, 52, 64, 76, 88, 0],
         "HARIMAU": [5, 17, 29, 41, 53, 65, 77, 89],
         "KERBAU": [6, 18, 30, 42, 54, 66, 78, 90],
-        "TIKUS": [7, 19, 31, 43, 55, 67, 79, 91],
-        "BABI": [8, 20, 32, 44, 56, 68, 80, 92],
+        "TIKUS": [7, 19, 31, 42, 55, 67, 79, 91],
+        "BABI": [8, 20, 32, 44, 56, 67, 80, 92],
         "ANJING": [9, 21, 33, 45, 57, 69, 81, 93],
         "AYAM": [10, 22, 34, 46, 58, 70, 82, 94],
-        "MONYET": [11, 23, 35, 47, 59, 71, 83, 95],
+        "MONYET": [11, 23, 35, 47, 59, 71, 82, 95],
         "KAMBING": [12, 24, 36, 48, 60, 72, 84, 96]
     };
 
@@ -417,7 +411,7 @@ function dapatkanShioDariAngka(duaAngka) {
             return shio;
         }
     }
-    return "KUDA"; 
+    return "KUDA"; // Cadangan pengaman jika ada angka tidak terdefinisi
 }
 
 function jalankanMesinShio(arrayAngkaMentah) {
@@ -428,6 +422,7 @@ function jalankanMesinShio(arrayAngkaMentah) {
     let hitungShio = {};
     daftarShio.forEach(nama => hitungShio[nama] = 0);
 
+    // Hitung frekuensi shio dari data paito secara akurat
     arrayAngkaMentah.forEach(angka => {
         if (angka.length === 4) {
             let duaAngkaBelakang = angka.substring(2, 4); 
@@ -440,7 +435,7 @@ function jalankanMesinShio(arrayAngkaMentah) {
     let shioUrutanHot = [...skorShio].sort((a, b) => b.skor - a.skor);
     let shioUrutanCold = [...skorShio].sort((a, b) => a.skor - b.skor);
 
-    // FIX INDEKS ARRAY AGAR AMAN DAN TIDAK FREEZE
+    // FIX MACET: Menggunakan indeks array [0] dan [1] yang benar agar tidak freeze
     let shioBom = shioUrutanHot[0].nama;
     let shioCadangan1 = shioUrutanCold[0].nama;
     
@@ -448,6 +443,7 @@ function jalankanMesinShio(arrayAngkaMentah) {
         shioCadangan1 = shioUrutanCold[1].nama; 
     }
 
+    // Penentuan Cadangan 2 berdasarkan rumus Mistik asli tanpa tabrakan nama aplikasi
     let shioCadangan2 = tabelMistikShio[shioBom];
     if (shioCadangan2 === shioBom || shioCadangan2 === shioCadangan1) {
         for(let i = 1; i < shioUrutanHot.length; i++) {
@@ -458,10 +454,12 @@ function jalankanMesinShio(arrayAngkaMentah) {
         }
     }
 
+    // Tampilkan Hasil ke Elemen HTML
     document.getElementById('res-shio-bom').innerHTML = shioBom + " " + (emojiShio[shioBom] || "");
     document.getElementById('res-shio-cadangan1').innerHTML = shioCadangan1 + " " + (emojiShio[shioCadangan1] || "");
     document.getElementById('res-shio-cadangan2').innerHTML = shioCadangan2 + " " + (emojiShio[shioCadangan2] || "");
 
+    // Munculkan Kotak Hasil
     document.getElementById('box-hasil').style.display = "block";
     document.getElementById('box-hasil').scrollIntoView({ behavior: 'smooth' });
 }
