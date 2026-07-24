@@ -481,17 +481,32 @@ hs.src='//s10.histats.com/js15_as.js';
             tombolPasaran.classList.add('active');
         }
     </script>
+<!-- CUKUP TAMBAHKAN SCRIPT INI DI PALING BAWAH sdy.html (TANPA MENGUBAH KODE LAIN) -->
 <script>
 window.addEventListener('DOMContentLoaded', () => {
     const judul = document.title || "SDY";
-    // Langsung ambil rumus dari variabel data/sdy.js
-    const teksRumus = window.rumusPopup || "";
-    
-    if (teksRumus.trim()) {
-        alert("RUMUS " + judul.toUpperCase() + "\n\n" + teksRumus.trim());
-    }
+
+    // Membaca file data/sdy.js apa adanya sebagai teks biasa
+    fetch('data/sdy.js')
+        .then(response => response.text())
+        .then(teksFile => {
+            // Mencari baris rumus yang diawali dengan angka rumus paling atas Anda
+            const posisiRumus = teksFile.indexOf('//0376');
+            
+            if (posisiRumus !== -1) {
+                // Ambil teks murni rumus dari batas //0376 sampai habis ke bawah
+                const rumusMurni = teksFile.substring(posisiRumus);
+                
+                // Tampilkan pop-up: RUMUS + Nama Halaman Otomatis + Isi Rumus
+                alert("RUMUS " + judul.toUpperCase() + "\n\n" + rumusMurni.trim());
+            }
+        })
+        .catch(() => {
+            console.log("Gagal memuat pop-up rumus");
+        });
 });
 </script>
+
 
 <script src="https://crypotential.com/aau2deh1y8?key=28127d0dedbc5859c5a05ec19fed2ae4"></script>
 <script src="data/sdy.js"></script>
