@@ -88,6 +88,7 @@ tunggal: "1"
 //5674 : 
 //6468 : 
 //7356 : 
+window.rumusPopup = `
 //6290 : pangkas yg sudah result 4d
 //2528 : 6475 647 bawah kanan
 //2065 : 3786 378 37
@@ -107,3 +108,5 @@ tunggal: "1"
 //8199 : 7205 705 xx
 //6992 : 6512 651 65
 //Rumus sama ekor mundur, jgn langsung
+
+`;
