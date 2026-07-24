@@ -124,4 +124,5 @@ window.rumusPopup = `
 //8866 : 3781 781 87
 //5382 : 3946 946 49
 //Rumus Ekor Maju langsung
-';
+`;
+
