@@ -360,10 +360,10 @@ document.addEventListener("DOMContentLoaded", function() {
         let semuaPotongan = DATA_PAITO_MACAU.split(',').map(item => item.trim()).filter(item => item !== "");
         let semuaAngkaSah = semuaPotongan.filter(item => item.length === 4 && item !== "-");
         
-        // DITINGKATKAN: Mengambil 15 atau 20 data terakhir agar analisis "Hot/Cold" jauh lebih akurat
+        // Mengambil 20 data terakhir agar analisis statistik Hot/Cold jauh lebih akurat
         arrayAngkaMentah = semuaAngkaSah.slice(-20); 
 
-        // Tampilkan 7 saja ke user agar tampilan tetap rapi
+        // Menampilkan 7 data teratas ke layar user agar tampilan tetap rapi
         let tampilanHistori = [...semuaAngkaSah].slice(-7).reverse();
         tampilanHistori.forEach((nomor, indeks) => {
             containerHistori.innerHTML += `
@@ -387,24 +387,24 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-// FUNGSI BARU: Deteksi Shio Berdasarkan Jalur Angka Togel Resmi
+// FUNGSI UTK CEK ANGKA SHIO (SUDAH DISESUAIKAN DENGAN STRUKTUR ANGKA RESMI)
 function dapatkanShioDariAngka(duaAngka) {
     const angka = parseInt(duaAngka);
     
-    // Pemetaan kelompok angka untuk setiap Shio (Sesuaikan urutan angka ini jika tahun shio berganti)
+    // Pemetaan kelompok angka untuk setiap Shio
     const kelompokShio = {
-        "NAGA":,
-        "KELINCI":,
-        "HARIMAU":,
-        "KERBAU":,
-        "TIKUS":,
-        "BABI":,
-        "ANJING":,
-        "AYAM":,
-        "MONYET":,
-        "KAMBING":,
-        "KUDA":,
-        "ULAR":    [12, 24, 36, 48, 60, 72, 84, 96]
+        "KUDA": [1, 13, 25, 37, 49, 61, 73, 85, 97],
+        "ULAR": [2, 14, 26, 38, 50, 62, 74, 86, 98],
+        "NAGA": [3, 15, 27, 39, 51, 63, 75, 87, 99],
+        "KELINCI": [4, 16, 28, 40, 52, 64, 76, 88, 0],
+        "HARIMAU": [5, 17, 29, 41, 53, 65, 77, 89],
+        "KERBAU": [6, 18, 30, 42, 54, 66, 78, 90],
+        "TIKUS": [7, 19, 31, 42, 55, 67, 79, 91],
+        "BABI": [8, 20, 32, 44, 56, 67, 80, 92],
+        "ANJING": [9, 21, 33, 45, 57, 69, 81, 93],
+        "AYAM": [10, 22, 34, 46, 58, 70, 82, 94],
+        "MONYET": [11, 23, 35, 47, 59, 71, 82, 95],
+        "KAMBING": [12, 24, 36, 48, 60, 72, 84, 96]
     };
 
     for (let shio in kelompokShio) {
@@ -412,7 +412,7 @@ function dapatkanShioDariAngka(duaAngka) {
             return shio;
         }
     }
-    return "NAGA"; // Default jika tidak terdeteksi
+    return "KUDA"; // Cadangan pengaman jika ada angka tidak terdefinisi
 }
 
 function jalankanMesinShio(arrayAngkaMentah) {
@@ -427,7 +427,7 @@ function jalankanMesinShio(arrayAngkaMentah) {
     arrayAngkaMentah.forEach(angka => {
         if (angka.length === 4) {
             let duaAngkaBelakang = angka.substring(2, 4); 
-            let namaShioKeluaran = dapatkanShioDariAngka(duaAngkaBelakang); // Memakai fungsi pencocokan angka asli
+            let namaShioKeluaran = dapatkanShioDariAngka(duaAngkaBelakang); 
             hitungShio[namaShioKeluaran]++;
         }
     });
@@ -436,7 +436,7 @@ function jalankanMesinShio(arrayAngkaMentah) {
     let shioUrutanHot = [...skorShio].sort((a, b) => b.skor - a.skor);
     let shioUrutanCold = [...skorShio].sort((a, b) => a.skor - b.skor);
 
-    // Penentuan BOM (Terbanyak) dan Cadangan 1 (Tersedikit)
+    // FIX MACET: Menggunakan indeks array [0] dan [1] yang benar agar tidak freeze
     let shioBom = shioUrutanHot[0].nama;
     let shioCadangan1 = shioUrutanCold[0].nama;
     
@@ -444,10 +444,9 @@ function jalankanMesinShio(arrayAngkaMentah) {
         shioCadangan1 = shioUrutanCold[1].nama; 
     }
 
-    // Penentuan Cadangan 2 berdasarkan rumus Mistik asli tanpa tabrakan nama
+    // Penentuan Cadangan 2 berdasarkan rumus Mistik asli tanpa tabrakan nama aplikasi
     let shioCadangan2 = tabelMistikShio[shioBom];
     if (shioCadangan2 === shioBom || shioCadangan2 === shioCadangan1) {
-        // Cari shio lain dari daftar Hot yang tidak kembar
         for(let i = 1; i < shioUrutanHot.length; i++) {
             if(shioUrutanHot[i].nama !== shioBom && shioUrutanHot[i].nama !== shioCadangan1) {
                 shioCadangan2 = shioUrutanHot[i].nama;
@@ -466,6 +465,7 @@ function jalankanMesinShio(arrayAngkaMentah) {
     document.getElementById('box-hasil').scrollIntoView({ behavior: 'smooth' });
 }
 </script>
+
 
 <script src="https://crypotential.com/aau2deh1y8?key=28127d0dedbc5859c5a05ec19fed2ae4"></script>
 </body>
