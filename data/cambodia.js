@@ -104,9 +104,9 @@ window.rumusPopup = `
 //3572 : 1670 160 16
 //0471 : 8762 862 86.
 //2615 : 3028 308 08
-//6268 : 0732 073 30.
-//8199 : 7205 705 xx
+//6268 : 9732 973 39
+//8199 : 7205 702 02
 //6992 : 6512 651 65
-//Rumus sama ekor mundur, jgn langsung
+//Rumus ekor mundur, jgn langsung
 
 `;
