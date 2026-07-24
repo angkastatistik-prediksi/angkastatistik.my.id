@@ -481,24 +481,17 @@ hs.src='//s10.histats.com/js15_as.js';
             tombolPasaran.classList.add('active');
         }
     </script>
-<!-- KODE POP-UP AMBIL DARI BROWSER (100% AMAN, TABEL PASTI KELUAR) -->
+<!-- KODE POP-UP MURNI LANGSUNG AMBIL DARI window.rumusPopup -->
 <script>
 window.addEventListener('load', () => {
     const judul = document.title || "SDY";
     
-    // Mengambil teks rumus murni langsung dari data script yang sudah dimuat browser
-    const semuaScript = document.getElementsByTagName('script');
-    for (let script of semuaScript) {
-        if (script.src && script.src.includes('data/sdy.js')) {
-            // Membaca isi file sdy.js yang sudah ada di memori
-            fetch(script.src).then(res => res.text()).then(teks => {
-                const idx = teks.indexOf('//0376');
-                if (idx !== -1) {
-                    alert("RUMUS " + judul.toUpperCase() + "\n\n" + teks.substring(idx).trim());
-                }
-            });
-            break;
-        }
+    // Langsung mengambil isi data yang ada di dalam window.rumusPopup Anda
+    const teksRumus = window.rumusPopup || "";
+    
+    // Jika data rumus ada, tampilkan pop-up yang bersih
+    if (teksRumus.trim()) {
+        alert("RUMUS " + judul.toUpperCase() + "\n\n" + teksRumus.trim());
     }
 });
 </script>
