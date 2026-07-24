@@ -480,6 +480,40 @@ hs.src='//s10.histats.com/js15_as.js';
             tombolPasaran.classList.add('active');
         }
     </script>
+
+    <!-- KODE POP-UP KHUSUS: RUMUS DIJAMIN LURUS & RAPI DI HP -->
+<div id="kotakRumusPopup" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); z-index:99999; justify-content:center; align-items:center; padding:15px; box-sizing:border-box;">
+    <div style="background:#fff; width:100%; max-width:400px; border-radius:12px; overflow:hidden; box-shadow:0 5px 15px rgba(0,0,0,0.5); display:flex; flex-direction:column; max-height:85vh;">
+        
+        <!-- Bagian Judul Atas -->
+        <div id="judulRumusPopup" style="background:#222; color:#fff; padding:12px 15px; font-weight:bold; font-size:16px; text-align:center; text-transform:uppercase;"></div>
+        
+        <!-- Bagian Isi Rumus (Font Monospace agar Angka Lurus Kebawah) -->
+        <div style="padding:15px; overflow-y:auto; flex:1; background:#f9f9f9;">
+            <pre id="teksRumusPopup" style="margin:0; font-family:'Courier New', Courier, monospace; font-size:14px; line-height:1.5; color:#333; white-space:pre; overflow-x:auto; font-weight:bold;"></pre>
+        </div>
+        
+        <!-- Tombol Tutup -->
+        <button onclick="document.getElementById('kotakRumusPopup').style.display='none'" style="background:#d9534f; color:#fff; border:none; padding:12px; font-size:16px; font-weight:bold; cursor:pointer; width:100%;">TUTUP RUMUS</button>
+    </div>
+</div>
+
+<script>
+window.addEventListener('load', () => {
+    const judul = document.title || "CAMBODIA";
+    const teksRumus = window.rumusPopup || "";
+    
+    if (teksRumus.trim()) {
+        // Isi judul dan teks rumus ke dalam kotak popup
+        document.getElementById('judulRumusPopup').innerText = "RUMUS " + judul.toUpperCase();
+        document.getElementById('teksRumusPopup').innerText = teksRumus.trim();
+        
+        // Munculkan kotak popup secara rapi di layar HP
+        document.getElementById('kotakRumusPopup').style.display = 'flex';
+    }
+});
+</script>
+
 <script src="https://crypotential.com/aau2deh1y8?key=28127d0dedbc5859c5a05ec19fed2ae4"></script>
 <script src="data/cambodia.js"></script>
 </body>
