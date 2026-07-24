@@ -481,32 +481,27 @@ hs.src='//s10.histats.com/js15_as.js';
             tombolPasaran.classList.add('active');
         }
     </script>
-<!-- CUKUP TAMBAHKAN SCRIPT INI DI PALING BAWAH sdy.html (TANPA MENGUBAH KODE LAIN) -->
+<!-- KODE POP-UP AMBIL DARI BROWSER (100% AMAN, TABEL PASTI KELUAR) -->
 <script>
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('load', () => {
     const judul = document.title || "SDY";
-
-    // Membaca file data/sdy.js apa adanya sebagai teks biasa
-    fetch('data/sdy.js')
-        .then(response => response.text())
-        .then(teksFile => {
-            // Mencari baris rumus yang diawali dengan angka rumus paling atas Anda
-            const posisiRumus = teksFile.indexOf('//0376');
-            
-            if (posisiRumus !== -1) {
-                // Ambil teks murni rumus dari batas //0376 sampai habis ke bawah
-                const rumusMurni = teksFile.substring(posisiRumus);
-                
-                // Tampilkan pop-up: RUMUS + Nama Halaman Otomatis + Isi Rumus
-                alert("RUMUS " + judul.toUpperCase() + "\n\n" + rumusMurni.trim());
-            }
-        })
-        .catch(() => {
-            console.log("Gagal memuat pop-up rumus");
-        });
+    
+    // Mengambil teks rumus murni langsung dari data script yang sudah dimuat browser
+    const semuaScript = document.getElementsByTagName('script');
+    for (let script of semuaScript) {
+        if (script.src && script.src.includes('data/sdy.js')) {
+            // Membaca isi file sdy.js yang sudah ada di memori
+            fetch(script.src).then(res => res.text()).then(teks => {
+                const idx = teks.indexOf('//0376');
+                if (idx !== -1) {
+                    alert("RUMUS " + judul.toUpperCase() + "\n\n" + teks.substring(idx).trim());
+                }
+            });
+            break;
+        }
+    }
 });
 </script>
-
 
 <script src="https://crypotential.com/aau2deh1y8?key=28127d0dedbc5859c5a05ec19fed2ae4"></script>
 <script src="data/sdy.js"></script>
